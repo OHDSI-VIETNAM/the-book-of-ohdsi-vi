@@ -1,350 +1,116 @@
----
-title: "Chương 3: Khoa học mở"
----
+# Chương 3: Khoa học mở
 
-# Khoa học mở
+*Chủ biên chương: Kees van Bochove*
 
-*Người dẫn chương: Kees van Bochove*
+Ngay từ khi thành lập cộng đồng OHDSI, mục tiêu xuyên suốt đã là xây dựng một mạng lưới hợp tác quốc tế dựa trên các giá trị của **khoa học mở** (*open science*), chẳng hạn như phát triển và sử dụng phần mềm mã nguồn mở, công khai toàn bộ kỷ yếu và tài liệu hội nghị, cũng như công bố minh bạch theo hình thức truy cập mở (*open access*) đối với các bằng chứng y khoa được tạo ra. Nhưng chính xác thì khoa học mở là gì? Làm thế nào OHDSI có thể xây dựng chiến lược khoa học mở và dữ liệu mở xoay quanh dữ liệu y tế — một loại dữ liệu vốn cực kỳ nhạy cảm về quyền riêng tư và thường không thể công khai vì những lý do hoàn toàn chính đáng? Tại sao khả năng tái lập (*reproducibility*) của các phân tích lại quan trọng đến vậy, và cộng đồng OHDSI làm cách nào để đạt được mục tiêu đó? Đây là những câu hỏi trọng tâm sẽ được giải đáp trong chương này.
 
-Ngay từ khi thành lập cộng đồng OHDSI, mục tiêu là thiết lập một sự
-hợp tác quốc tế bằng cách xây dựng dựa trên các giá trị khoa học mở,
-chẳng hạn như việc sử dụng phần mềm nguồn mở, sự sẵn có công khai của
-tất cả các biên bản và tài liệu hội nghị, và công bố bằng chứng y tế
-được tạo ra một cách minh bạch, truy cập mở. Nhưng chính xác khoa học
-mở là gì? Và làm thế nào OHDSI có thể xây dựng một chiến lược khoa học
-mở hoặc dữ liệu mở xung quanh dữ liệu y tế, vốn rất nhạy cảm về quyền
-riêng tư và thường không mở vì những lý do chính đáng? Tại sao khả
-năng tái tạo phân tích lại quan trọng đến vậy, và cộng đồng OHDSI đặt
-mục tiêu đạt được điều này như thế nào? Đây là một số câu hỏi mà chúng
-tôi đề cập trong chương này.
+## Khoa học mở là gì?
 
-## Khoa học mở
+Thuật ngữ "khoa học mở" (*open science*) đã xuất hiện từ thập niên 1990 nhưng thực sự lan tỏa mạnh mẽ vào thập niên 2010 — cùng thời điểm OHDSI ra đời. Wikipedia (Wikipedia, 2019a) định nghĩa khoa học mở là "phong trào làm cho nghiên cứu khoa học (bao gồm các ấn phẩm, dữ liệu, mẫu vật lý và phần mềm) cùng việc phổ biến chúng trở nên dễ tiếp cận đối với mọi tầng lớp trong một xã hội ham học hỏi, từ người tìm hiểu không chuyên đến giới khoa học chuyên nghiệp", đồng thời nhấn mạnh rằng khoa học mở thường được phát triển thông qua các mạng lưới hợp tác.
 
-Thuật ngữ 'khoa học mở' đã được sử dụng từ những năm chín mươi, nhưng
-nó thực sự thu hút sự chú ý vào những năm 2010, trong cùng thời kỳ
-OHDSI ra đời. Wikipedia (Wikipedia, 2019a) định nghĩa nó là "phong
-trào làm cho nghiên cứu khoa học (bao gồm các ấn phẩm, dữ liệu, mẫu
-vật lý và phần mềm) và sự phổ biến của nó trở nên dễ tiếp cận với mọi
-cấp độ của một xã hội ham học hỏi, nghiệp dư hoặc chuyên nghiệp," và
-tiếp tục tuyên bố rằng nó thường được phát triển thông qua các mạng
-lưới cộng tác. Mặc dù cộng đồng OHDSI chưa bao giờ định vị mình một
-cách rõ ràng là một tập thể hoặc mạng lưới 'khoa học mở', thuật ngữ
-này thường được sử dụng để giải thích các khái niệm và nguyên tắc thúc
-đẩy đằng sau OHDSI. Ví dụ, vào năm 2015, Jon Duke đã trình bày OHDSI
-là "Một cách tiếp cận khoa học mở để tạo bằng chứng y tế", và vào năm
-2019, hội thảo trực tuyến giới thiệu của liên danh EHDEN đã ca ngợi
-cách tiếp cận mạng lưới OHDSI là "Khoa học mở thế giới thực thế kỷ
-21". Thật vậy, như chúng ta sẽ thấy trong chương này, nhiều thực tiễn
-của khoa học mở có thể được tìm thấy trong cộng đồng OHDSI ngày nay.
-Người ta có thể lập luận rằng cộng đồng OHDSI là một tập thể khoa học
-mở cơ sở được thúc đẩy bởi mong muốn chung là cải thiện tính minh bạch
-và độ tin cậy của việc tạo bằng chứng y tế.
+Mặc dù cộng đồng OHDSI không tự gắn nhãn một cách hình thức là một tổ chức "khoa học mở", thuật ngữ này vẫn thường xuyên được dùng để lý giải các nguyên lý và động lực cốt lõi đằng sau OHDSI. Chẳng hạn, vào năm 2015, Jon Duke đã giới thiệu OHDSI với chủ đề *"Cách tiếp cận Khoa học mở trong Tạo lập Bằng chứng Y khoa"* (*An Open Science Approach to Medical Evidence Generation*)[^1], và đến năm 2019, hội thảo trực tuyến mở đầu của liên danh EHDEN tại Châu Âu đã ca ngợi phương pháp tiếp cận mạng lưới của OHDSI là *"Khoa học mở đời thực của thế kỷ 21"* (*21st Century Real World Open Science*)[^2]. Quả thực, như chúng ta sẽ thấy trong chương này, hầu hết các thực hành chuẩn mực của khoa học mở đều đang hiện diện sống động trong cộng đồng OHDSI ngày nay. Có thể khẳng định rằng cộng đồng OHDSI là một tập thể khoa học mở được thúc đẩy từ chính nhu cầu thực tiễn của các nhà khoa học nhằm nâng cao tính minh bạch và độ tin cậy của quá trình tạo lập bằng chứng y khoa.
 
-^1^<https://www.ohdsi.org/wp-content/uploads/2014/07/ARM-OHDSI_Duke.pdf>
-^2^<https://www.ehden.eu/webinars/>
+[^1]: <https://www.ohdsi.org/wp-content/uploads/2014/07/ARM-OHDSI_Duke.pdf>
+[^2]: <https://www.ehden.eu/webinars/>
 
-Các cách tiếp cận khoa học mở hoặc "Khoa học
-2.0" (Wikipedia, 2019b) có nghĩa là giải quyết một số vấn đề được nhận
-thức trong thực tiễn khoa học hiện tại. Công nghệ thông tin đã dẫn đến
-sự bùng nổ của các phương pháp tạo và phân tích dữ liệu, và đối với
-các nhà nghiên cứu cá nhân, rất khó để theo kịp tất cả các tài liệu
-được xuất bản trong lĩnh vực chuyên môn của họ. Điều này càng đúng hơn
-đối với các bác sĩ y khoa, những người có công việc thực hành hàng
-ngày nhưng vẫn cần cập nhật các bằng chứng y tế mới nhất. Ngoài ra,
-ngày càng có nhiều lo ngại rằng nhiều thí nghiệm có thể bị ảnh hưởng
-bởi các thiết kế thống kê kém, thiên kiến xuất bản, p-hacking và các
-vấn đề thống kê tương tự, và khó có thể tái tạo. Phương pháp truyền
-thống để khắc phục những mối quan ngại này, đánh giá ngang hàng của
-các bài báo đã xuất bản, thường không xác định và giải quyết được các
-vấn đề này. Ấn bản Nature đặc biệt năm 2018 về "Những thách thức trong
-nghiên cứu không thể tái tạo" bao gồm một số ví dụ về điều này. Một
-nhóm các tác giả cố gắng áp dụng đánh giá ngang hàng có hệ thống trên
-các bài báo trong lĩnh vực của họ nhận thấy rằng, vì nhiều lý do, rất
-khó để các lỗi họ xác định được khắc phục. Các thí nghiệm có thiết kế
-sai sót ngay từ đầu đặc biệt khó sửa chữa. Theo lời của Ronald Fisher:
-"Tham khảo ý kiến nhà thống kê sau khi một thí nghiệm đã kết thúc
-thường chỉ là yêu cầu anh ta tiến hành một cuộc khám nghiệm tử thi.
-Anh ta có thể nói thí nghiệm đó đã chết vì cái gì." (Wikiquote, 2019)
-Các tác giả đã gặp phải các vấn đề thống kê phổ biến như thiết kế ngẫu
-nhiên kém dẫn đến kết luận sai về ý nghĩa thống kê, tính toán sai
-trong phân tích tổng hợp và so sánh cơ sở không phù hợp. (Allison et
-al., 2016) Một bài báo khác từ cùng bộ sưu tập, lấy kinh nghiệm từ vật
-lý làm ví dụ, lập luận rằng điều quan trọng là không chỉ cung cấp
-quyền truy cập vào dữ liệu cơ bản, mà còn phải xuất bản và lập tài
-liệu đúng cách các tập lệnh xử lý và phân tích dữ liệu để đạt được khả
-năng tái tạo đầy đủ. (Chen et al., 2018)
+Các phương pháp tiếp cận khoa học mở hay "Khoa học 2.0" (*Science 2.0*) (Wikipedia, 2019b) ra đời nhằm giải quyết một số hạn chế cố hữu trong thực hành khoa học truyền thống. Sự bùng nổ của công nghệ thông tin đã kéo theo khối lượng khổng lồ các phương pháp tạo lập và phân tích dữ liệu, khiến từng nhà nghiên cứu đơn lẻ rất khó theo kịp toàn bộ y văn xuất bản trong lĩnh vực chuyên môn của mình. Điều này càng đúng hơn đối với các bác sĩ lâm sàng — những người vừa phải đảm đương công việc khám chữa bệnh hằng ngày vừa phải cập nhật các bằng chứng y học mới nhất.
 
-Cộng đồng OHDSI giải quyết những thách thức này theo cách riêng của
-mình, và nó nhấn mạnh đáng kể vào tầm quan trọng của việc tạo bằng
-chứng y tế ở quy mô lớn. Như đã nêu trong Schuemie et al. (2018b),
-trong khi mô hình hiện tại "tập trung vào việc tạo ra từng ước tính
-một bằng cách sử dụng một thiết kế nghiên cứu độc đáo với độ tin cậy
-không xác định và xuất bản (hoặc không) từng ước tính một", cộng đồng
-OHDSI "ủng hộ các nghiên cứu quan sát thông lượng cao sử dụng các
-phương pháp nhất quán và chuẩn hóa, cho phép đánh giá, hiệu chuẩn và
-phổ biến không thiên vị để tạo ra một cơ sở bằng chứng đáng tin cậy và
-đầy đủ hơn." Điều này đạt được bằng sự kết hợp của một mạng lưới các
-nguồn dữ liệu y tế ánh xạ dữ liệu của họ sang mô hình dữ liệu chung
-OMOP, mã phân tích nguồn mở có thể được sử dụng và xác minh bởi tất cả
-mọi người, và dữ liệu cơ sở quy mô lớn như các lần xuất hiện tình
-trạng được xuất bản tại howoften.org. Trong các đoạn sau, các ví dụ cụ
-thể được cung cấp và cách tiếp cận khoa học mở của OHDSI được trình
-bày chi tiết hơn bằng cách sử dụng bốn nguyên tắc Tiêu chuẩn mở, Nguồn
-mở, Dữ liệu mở và Diễn ngôn mở làm hướng dẫn. Chương này kết thúc với
-một tài liệu tham khảo ngắn gọn về các nguyên tắc FAIR và triển vọng
-cho OHDSI từ góc độ khoa học mở.
+Bên cạnh đó, giới khoa học ngày càng lo ngại rằng nhiều nghiên cứu thực nghiệm đang chịu ảnh hưởng bởi thiết kế thống kê yếu kém, thiên lệch xuất bản (*publication bias*), thao túng giá trị $p$ (*p-hacking*) cùng các vấn đề phương pháp luận tương tự, dẫn đến việc kết quả nghiên cứu rất khó tái lập. Cơ chế truyền thống để kiểm soát các vấn đề này — quy trình bình duyệt (*peer review*) các bài báo khoa học — thường không đủ khả năng phát hiện và khắc phục triệt để những sai sót trên. Ấn phẩm đặc biệt năm 2018 của tạp chí *Nature* về *"Những thách thức trong nghiên cứu không thể tái lập"* (*Challenges in irreproducible research*)[^3] đã chỉ ra nhiều ví dụ điển hình. Một nhóm tác giả khi tiến hành rà soát có hệ thống các bài báo trong chuyên ngành của mình đã nhận thấy rằng, vì nhiều lý do khác nhau, việc đính chính hay khắc phục các sai sót đã công bố là vô cùng khó khăn. Đặc biệt, những nghiên cứu có thiết kế sai lệch ngay từ đầu gần như không thể cứu vãn. Đúng như nhà thống kê học kiệt xuất Ronald Fisher từng nhận định: *"Tham khảo ý kiến nhà thống kê sau khi thí nghiệm đã kết thúc thường chẳng khác nào nhờ ông ta tiến hành một cuộc khám nghiệm tử thi. Cùng lắm ông ta chỉ có thể cho biết thí nghiệm đó đã chết vì nguyên nhân gì"* (Wikiquote, 2019). Các tác giả đã bắt gặp hàng loạt lỗi thống kê phổ biến như thiết kế phân bổ ngẫu nhiên kém dẫn đến kết luận sai lầm về ý nghĩa thống kê, tính toán sai trong phân tích gộp (*meta-analysis*) và so sánh đặc điểm nền không phù hợp (Allison et al., 2016). Một công trình khác trong cùng tuyển tập — lấy kinh nghiệm từ ngành vật lý hạt nhân làm ví dụ — lập luận rằng để đạt được khả năng tái lập hoàn toàn, việc chỉ cung cấp quyền truy cập vào dữ liệu thô là chưa đủ, mà bắt buộc phải công bố và lập tài liệu đầy đủ cho toàn bộ kịch bản mã lệnh xử lý và phân tích dữ liệu (Chen et al., 2018).
 
-^3^<https://www.nature.com/collections/prbfkwmwvz>
+[^3]: <https://www.nature.com/collections/prbfkwmwvz>
 
-*3.2. Khoa học mở trong hành động: Study-a-Thon 23*
+Cộng đồng OHDSI giải quyết những thách thức trên theo hướng đi đột phá của riêng mình, đặt trọng tâm vào việc **tạo lập bằng chứng y khoa có hệ thống trên quy mô lớn**. Như Schuemie và cộng sự (2018b) đã chỉ rõ: trong khi mô hình nghiên cứu truyền thống *"tập trung tạo ra từng ước lượng đơn lẻ bằng một thiết kế nghiên cứu tùy biến có độ tin cậy chưa được kiểm chứng rồi công bố (hoặc không công bố) từng ước lượng một"*, cộng đồng OHDSI *"chủ trương thực hiện các nghiên cứu quan sát thông lượng cao (high-throughput observational studies) sử dụng các phương pháp nhất quán và chuẩn hóa, cho phép đánh giá, hiệu chuẩn thực nghiệm và phổ biến kết quả không thiên lệch nhằm tạo dựng một nền tảng bằng chứng đầy đủ và đáng tin cậy hơn"*.
 
-## Khoa học mở trong hành động: Study-a-Thon
+Mục tiêu này đạt được nhờ sự kết hợp của ba yếu tố:
 
-Một sự phát triển gần đây trong cộng đồng là sự xuất hiện của các
-'study-a-thons': các cuộc tụ họp trực tiếp ngắn, tập trung của một
-nhóm các nhà khoa học đa ngành nhằm trả lời một câu hỏi nghiên cứu
-quan trọng, liên quan đến lâm sàng bằng cách sử dụng mô hình dữ liệu
-OMOP và các công cụ OHDSI. Một ví dụ điển hình là study-a-thon Oxford
-năm 2018, được giải thích trong một hội thảo trực tuyến EHDEN cung cấp
-hướng dẫn về quy trình và cũng làm nổi bật các kết quả có sẵn một cách
-công khai. Trong khoảng thời gian dẫn đến study-a-thon, những người
-tham gia đề xuất các câu hỏi nghiên cứu liên quan về mặt y tế để
-nghiên cứu, và một hoặc nhiều câu hỏi nghiên cứu được chọn để nghiên
-cứu trong chính study-a-thon. Dữ liệu được cung cấp thông qua những
-người tham gia có quyền truy cập vào dữ liệu cấp bệnh nhân ở định dạng
-OMOP và có khả năng chạy các truy vấn trên các nguồn dữ liệu này. Phần
-lớn thời gian thực tế của study-a-thon được dành để thảo luận về
-phương pháp thống kê (xem thêm chương 2), sự phù hợp của các nguồn dữ
-liệu, các kết quả được tạo ra một cách tương tác và các câu hỏi tiếp
-theo chắc chắn được đặt ra bởi các kết quả này. Trong trường hợp của
-study-a-thon Oxford, các câu hỏi tập trung vào việc nghiên cứu các tác
-dụng phụ sau phẫu thuật của các phương pháp thay khớp gối khác nhau,
-và các kết quả được xuất bản một cách tương tác trong study-a-thon
-bằng cách sử dụng các diễn đàn và công cụ OHDSI (xem chương 8). Các
-công cụ OHDSI như ATLAS tạo điều kiện thuận lợi cho việc tạo, trao
-đổi, thảo luận và kiểm tra các định nghĩa nhóm thuần tập một cách
-nhanh chóng, điều này tăng tốc đáng kể quy trình ban đầu để đạt được
-sự đồng thuận về định nghĩa vấn đề và lựa chọn phương pháp. Nhờ việc
-sử dụng Mô hình dữ liệu chung OMOP bởi các nguồn dữ liệu liên quan và
-sự sẵn có của các gói dự đoán cấp bệnh nhân nguồn mở OHDSI, có thể tạo
-ra một mô hình dự đoán cho tỷ lệ tử vong sau phẫu thuật 90 ngày trong
-một ngày, và xác nhận mô hình đó từ bên ngoài trong một số nguồn dữ
-liệu lớn vào ngày hôm sau. Study-a-thon cũng dẫn đến một bài báo học
-thuật truyền thống (Phát triển và xác nhận các mô hình dự đoán cấp
-bệnh nhân cho các kết quả bất lợi sau phẫu thuật thay khớp gối toàn
-phần, Ross Williams, Daniel Prieto-Alhambra et al., bản thảo đang
-chuẩn bị), mất hàng tháng để xử lý qua đánh giá ngang hàng. Nhưng thực
-tế là các tập lệnh phân tích và kết quả cho một số cơ sở dữ liệu chăm
-sóc sức khỏe bao gồm hàng trăm triệu hồ sơ bệnh nhân đã được hình
-thành, tạo ra và xuất bản từ đầu trong vòng một tuần minh họa những
-cải tiến cơ bản mà OHDSI có thể mang lại cho y học, giảm thời gian
-quay vòng để bằng chứng trở nên sẵn có từ hàng tháng xuống còn vài
-ngày.
+1. Một mạng lưới các nguồn dữ liệu y tế đã chuẩn hóa sang Mô hình Dữ liệu Chung OMOP;
+2. Mã nguồn phân tích mở mà bất kỳ ai cũng có thể kiểm tra, thẩm định và tái sử dụng;
+3. Dữ liệu tổng hợp nền tảng quy mô lớn được công bố công khai (chẳng hạn như tần suất xuất hiện bệnh lý tại `howoften.org`).
 
-## Tiêu chuẩn mở
+Trong các mục tiếp theo, chúng ta sẽ cùng xem xét các ví dụ thực tiễn và phân tích sâu hơn cách tiếp cận khoa học mở của OHDSI thông qua bốn nguyên tắc trụ cột: **Tiêu chuẩn mở** (*Open Standards*), **Mã nguồn mở** (*Open Source*), **Dữ liệu mở** (*Open Data*) và **Đối thoại mở** (*Open Discourse*). Chương sách khép lại với phần đối chiếu hệ sinh thái OHDSI theo bộ nguyên tắc **FAIR** từ góc nhìn khoa học mở.
 
-Một tài nguyên cộng đồng rất quan trọng được duy trì trong cộng đồng
-OHDSI là Mô hình dữ liệu chung OMOP (xem chương 4) và các Từ vựng
-chuẩn hóa liên quan (xem chương 5). Mô hình này được xác định phạm vi
-để nắm bắt dữ liệu chăm sóc sức khỏe quan sát, và ban đầu nó có nghĩa
-là để phân tích các mối liên quan giữa các yếu tố tiếp xúc như thuốc,
-thủ thuật, thiết bị, v.v., và các kết quả như các tình trạng và phép
-đo. Nó đã được mở rộng cho nhiều trường hợp sử dụng phân tích (xem
-thêm 7). Tuy nhiên, việc hài hòa dữ liệu chăm sóc sức khỏe trên toàn
-thế giới từ nhiều hệ thống mã hóa, mô hình chăm sóc sức khỏe và các
-loại nguồn chăm sóc sức khỏe khác nhau đòi hỏi một lượng lớn các 'ánh
-xạ' giữa các mã nguồn và
+## Khoa học mở trong hành động: Sự kiện Study-a-Thon
 
-^4^<https://youtu.be/X5yuoJoL6xs>
+Một bước phát triển nổi bật gần đây trong cộng đồng OHDSI là sự ra đời của mô hình **Study-a-thon**: các đợt làm việc trực tiếp ngắn ngày, tập trung cao độ của một nhóm các nhà khoa học đa ngành nhằm giải đáp một câu hỏi nghiên cứu quan trọng, có ý nghĩa lâm sàng thiết thực bằng cách sử dụng mô hình dữ liệu OMOP và bộ công cụ OHDSI.
 
-các đối tác chuẩn hóa gần nhất của chúng. Từ vựng chuẩn hóa OMOP được
-mô tả thêm trong chương 7 và bao gồm các ánh xạ từ hàng trăm hệ thống
-mã hóa y tế được sử dụng trên toàn thế giới, và có thể duyệt qua thông
-qua công cụ OHDSI Athena. Bằng cách cung cấp các từ vựng và ánh xạ này
-như một tài nguyên cộng đồng có sẵn miễn phí, OMOP và cộng đồng OHDSI
-đóng góp đáng kể vào phân tích dữ liệu chăm sóc sức khỏe và, theo một
-số đánh giá, là mô hình toàn diện nhất cho mục đích này, đại diện cho
-khoảng 1,2 tỷ hồ sơ chăm sóc sức khỏe trên toàn thế giới. (Garza et
-al., 2016)
+Một ví dụ tiêu biểu là sự kiện *Oxford Study-a-thon* năm 2018, được giới thiệu chi tiết trong hội thảo trực tuyến của dự án EHDEN[^4] cùng toàn bộ kết quả công bố mở. Trong giai đoạn chuẩn bị trước sự kiện, các thành viên tham gia đề xuất những câu hỏi nghiên cứu có ý nghĩa y khoa cấp thiết, từ đó lựa chọn một hoặc một số câu hỏi trọng tâm để giải quyết trong khuôn khổ Study-a-thon. Dữ liệu nghiên cứu được đóng góp thông qua các đối tác có quyền truy cập vào dữ liệu cấp độ bệnh nhân đã chuyển đổi sang định dạng OMOP và có khả năng chạy truy vấn phân tích ngay trên các nguồn dữ liệu đó. Phần lớn thời gian làm việc trực tiếp tại Study-a-thon được dành cho việc thảo luận phương pháp thống kê (xem thêm Chương 2), đánh giá mức độ phù hợp của các nguồn dữ liệu, kiểm tra các kết quả tạo ra theo thời gian thực và giải đáp các câu hỏi chuyên sâu phát sinh từ những kết quả đó.
 
-## Nguồn mở
+[^4]: <https://youtu.be/X5yuoJoL6xs>
 
-Một tài nguyên quan trọng khác mà cộng đồng OHDSI cung cấp là các
-chương trình nguồn mở. Chúng có thể được chia thành nhiều danh mục,
-chẳng hạn như các công cụ hỗ trợ để ánh xạ dữ liệu sang OMOP (xem
-chương 6), Thư viện Phương pháp OHDSI chứa một bộ công cụ mạnh mẽ các
-phương pháp thống kê thường được sử dụng, mã nguồn mở cho các nghiên
-cứu quan sát đã xuất bản, và ATLAS, Athena và các phần mềm liên quan
-đến cơ sở hạ tầng khác làm nền tảng cho hệ sinh thái OHDSI (xem chương
-8). Từ góc độ khoa học mở, một trong những tài nguyên quan trọng nhất
-là mã để thực hiện thực tế các nghiên cứu, chẳng hạn như các nghiên
-cứu từ Mạng lưới nghiên cứu OHDSI (xem chương 20). Đổi lại, các chương
-trình này tận dụng ngăn xếp OHDSI hoàn toàn nguồn mở, có thể được kiểm
-tra, đánh giá và đóng góp thông qua GitHub. Ví dụ, các nghiên cứu mạng
-lưới thường xây dựng dựa trên Thư viện Phương pháp, đảm bảo việc tái
-sử dụng nhất quán các phương pháp thống kê trên các trường hợp sử dụng
-phân tích. Xem chương 17 để biết tổng quan chi tiết hơn về cách việc
-sử dụng và cộng tác trên phần mềm nguồn mở trong OHDSI cuối cùng làm
-nền tảng cho chất lượng và độ tin cậy của bằng chứng được tạo ra.
+Tại *Oxford Study-a-thon*, các câu hỏi nghiên cứu tập trung vào việc đánh giá các biến cố bất lợi sau phẫu thuật của các phương pháp thay khớp gối khác nhau, và kết quả được công bố tương tác ngay trong thời gian diễn ra sự kiện thông qua diễn đàn và bộ công cụ OHDSI (xem Chương 8). Các công cụ như ATLAS giúp tạo lập, trao đổi, thảo luận và kiểm thử các định nghĩa đoàn hệ (*cohort definitions*) một cách nhanh chóng, rút ngắn đáng kể quá trình đạt được sự đồng thuận về định nghĩa biến số lâm sàng cũng như lựa chọn phương pháp phân tích. Nhờ việc các nguồn dữ liệu tham gia đều đã chuẩn hóa theo Mô hình Dữ liệu Chung OMOP và sự sẵn có của gói phần mềm dự báo ở cấp độ bệnh nhân mã nguồn mở (`PatientLevelPrediction`, xem Chương 13), nhóm nghiên cứu đã có thể xây dựng hoàn chỉnh một mô hình dự báo nguy cơ tử vong trong vòng 90 ngày sau phẫu thuật chỉ trong **một ngày**, và hoàn tất việc **thẩm định ngoại kiểm** (*external validation*) mô hình đó trên nhiều cơ sở dữ liệu lớn ở các quốc gia khác ngay vào **ngày hôm sau**!
 
-## Dữ liệu mở
+Sự kiện Study-a-thon này cũng mang lại một bài báo khoa học truyền thống (*Development and validation of patient-level prediction models for adverse outcomes following total knee arthroplasty* — Ross Williams, Daniel Prieto-Alhambra và cộng sự), vốn cần nhiều tháng để hoàn tất quy trình bình duyệt tạp chí. Tuy nhiên, việc toàn bộ kịch bản mã lệnh phân tích và kết quả thực nghiệm trên nhiều cơ sở dữ liệu y tế bao phủ hàng trăm triệu hồ sơ bệnh nhân được hình thành ý tưởng, thực thi và công bố hoàn chỉnh từ con số không chỉ trong vòng **một tuần lễ** đã minh chứng sống động cho cuộc cách mạng mà OHDSI mang lại cho y học: rút ngắn thời gian tạo lập bằng chứng từ hàng tháng hay hàng năm xuống chỉ còn vài ngày.
 
-Do tính chất nhạy cảm về quyền riêng tư của dữ liệu chăm sóc sức khỏe,
-các tập dữ liệu cấp bệnh nhân toàn diện, hoàn toàn mở thường không có
-sẵn. Tuy nhiên, có thể tận dụng các tập dữ liệu đã ánh xạ OMOP để xuất
-bản các dữ liệu tổng hợp quan trọng và các tập kết quả, chẳng hạn như
-http://howoften.org đã đề cập trước đó và các tập kết quả công khai
-khác được xuất bản tại http://data.ohdsi.org. Ngoài ra, cộng đồng
-OHDSI cung cấp các tập dữ liệu mô phỏng như SynPUF cho mục đích kiểm
-tra và phát triển, và Mạng lưới nghiên cứu OHDSI (xem 20) có thể được
-tận dụng để chạy các nghiên cứu trong một mạng lưới các nguồn dữ liệu
-có sẵn đã ánh xạ dữ liệu của họ sang OMOP. Để làm cho việc ánh xạ giữa
-dữ liệu nguồn và OMOP CDM trở nên minh bạch, các nguồn dữ liệu được
-khuyến khích tái sử dụng các công cụ ETL hoặc 'ánh xạ' của OHDSI và
-xuất bản mã ánh xạ của họ dưới dạng nguồn mở.
+## Tiêu chuẩn mở (Open Standards)
 
-## Diễn ngôn mở
+Một tài nguyên cộng đồng vô cùng quan trọng được duy trì trong hệ sinh thái OHDSI là **Mô hình Dữ liệu Chung OMOP** (xem Chương 4) và **Bộ Từ vựng Chuẩn hóa** đi kèm (xem Chương 5). Mô hình này được thiết kế chuyên biệt để biểu diễn dữ liệu chăm sóc sức khỏe quan sát; ban đầu, nó hướng tới việc phân tích mối liên quan giữa các yếu tố phơi nhiễm (như thuốc, thủ thuật, thiết bị y tế, v.v.) và các kết cục lâm sàng (như tình trạng bệnh lý và kết quả xét nghiệm/đo lường), rồi sau đó được mở rộng cho nhiều bài toán phân tích đa dạng (xem Chương 7).
 
-Các tiêu chuẩn mở, nguồn mở và dữ liệu mở là những tài sản tuyệt vời,
-nhưng nếu để tự thân chúng, chúng sẽ không tác động đến thực hành y
-tế. Chìa khóa cho thực tiễn khoa học mở và tác động của OHDSI là việc
-triển khai tạo bằng chứng y tế và chuyển đổi khoa học
+Tuy nhiên, việc hài hòa dữ liệu y tế trên phạm vi toàn cầu từ vô số hệ thống mã hóa, mô hình tổ chức y tế và nguồn dữ liệu khác nhau đòi hỏi một khối lượng khổng lồ các **ánh xạ** (*mappings*) giữa mã nguồn địa phương và các khái niệm chuẩn hóa tương ứng. Bộ Từ vựng Chuẩn hóa OMOP bao gồm ánh xạ từ hàng trăm hệ thống danh mục và mã hóa y tế đang sử dụng trên thế giới, cho phép tra cứu trực tuyến dễ dàng qua công cụ **Athena** của OHDSI. Bằng việc cung cấp miễn phí bộ từ vựng và bảng ánh xạ này như một tài nguyên chung cho toàn xã hội, OMOP và cộng đồng OHDSI đã đóng góp to lớn cho lĩnh vực phân tích dữ liệu y tế và được nhiều đánh giá độc lập ghi nhận là mô hình toàn diện nhất cho mục đích này, đại diện cho hơn 1,2 tỷ hồ sơ y tế trên toàn cầu[^5] (Garza et al., 2016).
 
-^5^<https://www.ema.europa.eu/en/events/common-data-model-europe-why-which-how>
+[^5]: <https://www.ema.europa.eu/en/events/common-data-model-europe-why-which-how>
 
-thành thực hành y tế. Cộng đồng OHDSI có một
-số Hội nghị chuyên đề OHDSI hàng năm, được tổ chức tại Hoa Kỳ, Châu Âu
-và Châu Á cũng như các cộng đồng thực hành chuyên biệt, trong đó có
-Trung Quốc và Hàn Quốc. Các hội nghị chuyên đề này thảo luận về những
-tiến bộ trong phương pháp thống kê, công cụ dữ liệu và phần mềm, các
-từ vựng chuẩn hóa và tất cả các khía cạnh khác của cộng đồng nguồn mở
-OHDSI. Các diễn đàn OHDSI và wiki tạo điều kiện cho hàng ngàn nhà
-nghiên cứu trên toàn thế giới thực hành nghiên cứu quan sát. Các cuộc
-gọi cộng đồng và mã, vấn đề và yêu cầu kéo (pull requests) trong
-Github liên tục phát triển các tài sản cộng đồng mở như mã và CDM, và
-trong các Nghiên cứu mạng lưới OHDSI, nghiên cứu quan sát toàn cầu
-được thực hành theo cách mở và minh bạch bằng cách sử dụng hàng trăm
-triệu hồ sơ bệnh nhân trên toàn thế giới. Sự cởi mở và diễn ngôn mở
-được khuyến khích trên toàn cộng đồng, và chính cuốn sách này được
-viết thông qua một quy trình mở được tạo điều kiện bởi wiki OHDSI, các
-cuộc gọi cộng đồng và một kho lưu trữ GitHub. Tuy nhiên, cần phải nhấn
-mạnh rằng nếu không có tất cả các cộng tác viên OHDSI, các quy trình
-và công cụ sẽ chỉ là những cái vỏ rỗng. Thật vậy, người ta có thể lập
-luận rằng giá trị thực sự của cộng đồng OHDSI nằm ở các thành viên của
-nó, những người chia sẻ tầm nhìn cải thiện sức khỏe thông qua khoa học
-cộng tác và mở, như đã thảo luận trong Chương 1.
+## Mã nguồn mở (Open Source)
 
-## OHDSI và các nguyên tắc hướng dẫn FAIR
+Tài nguyên trụ cột thứ hai mà cộng đồng OHDSI cung cấp là hệ thống **phần mềm mã nguồn mở**. Chúng có thể được chia thành nhiều nhóm chức năng:
+
+- Các công cụ hỗ trợ khảo sát và ánh xạ dữ liệu nguồn sang OMOP CDM (xem Chương 6);
+- **Thư viện Phương pháp OHDSI** (*OHDSI Methods Library*) chứa bộ gói R mạnh mẽ triển khai các phương pháp thống kê và dịch tễ học hiện đại;
+- Mã nguồn mở trọn gói của các nghiên cứu quan sát đã công bố;
+- Các phần mềm hạ tầng cốt lõi như **ATLAS**, **Athena**, **ACHILLES** tạo nên hệ sinh thái phân tích OHDSI (xem Chương 8).
+
+Từ góc nhìn khoa học mở, một trong những tài nguyên quý giá nhất chính là **mã nguồn thực thi nghiên cứu** (*study execution packages*) của các công trình thuộc Mạng lưới Nghiên cứu OHDSI (xem Chương 19). Các gói nghiên cứu này vận hành trên nền tảng phần mềm OHDSI hoàn toàn mở, cho phép bất kỳ nhà khoa học nào cũng có thể kiểm tra từng dòng lệnh, đánh giá độc lập và đóng góp cải tiến thông qua GitHub. Chẳng hạn, các nghiên cứu mạng lưới luôn kế thừa trực tiếp từ Thư viện Phương pháp, đảm bảo tính nhất quán tuyệt đối khi áp dụng các phương pháp thống kê qua nhiều bài toán khác nhau. Bạn có thể xem Chương 16 để tìm hiểu chi tiết cách thức quy trình phát triển và kiểm thử phần mềm mã nguồn mở trong OHDSI bảo đảm chất lượng và độ tin cậy của bằng chứng khoa học được tạo ra.
+
+## Dữ liệu mở (Open Data)
+
+Do tính chất nhạy cảm về quyền riêng tư của dữ liệu khám chữa bệnh, các tập dữ liệu thực tế ở cấp độ bệnh nhân thường không thể công khai tự do. Tuy nhiên, cộng đồng hoàn toàn có thể khai thác các cơ sở dữ liệu đã chuyển đổi sang OMOP CDM để công bố các tập **dữ liệu tổng hợp** (*aggregated data*) và bộ kết quả nghiên cứu mở quy mô lớn — tiêu biểu như trang `http://howoften.org` hoặc cổng kết quả nghiên cứu công khai tại `http://data.ohdsi.org`.
+
+Bên cạnh đó, cộng đồng OHDSI còn cung cấp các tập dữ liệu bệnh nhân mô phỏng hoặc ẩn danh công khai như **SynPUF** và **Eunomia** phục vụ mục đích đào tạo, kiểm thử và phát triển phần mềm; đồng thời, Mạng lưới Nghiên cứu OHDSI (xem Chương 19) cho phép thực thi nghiên cứu phân tán trên hàng chục nguồn dữ liệu thực tế đã chuẩn hóa sang OMOP. Để đảm bảo tính minh bạch của quá trình chuyển đổi từ dữ liệu nguồn sang OMOP CDM, các đơn vị quản lý dữ liệu cũng được khuyến khích sử dụng bộ công cụ thiết kế ETL của OHDSI và công bố mã nguồn chuyển đổi ETL của mình dưới dạng mã nguồn mở.
+
+## Đối thoại mở (Open Discourse)
+
+Tiêu chuẩn mở, mã nguồn mở và dữ liệu mở đều là những tài sản quý giá, nhưng nếu đứng tách biệt, chúng sẽ không thể tự mình tạo ra tác động tới thực hành y khoa. Chìa khóa làm nên sức sống của khoa học mở trong OHDSI chính là việc triển khai tạo lập bằng chứng y khoa qua hợp tác cộng đồng và chuyển giao tri thức khoa học đó vào thực hành lâm sàng.
+
+Cộng đồng OHDSI tổ chức thường niên các kỳ Hội nghị Chuyên đề OHDSI tại Hoa Kỳ, Châu Âu và Châu Á cũng như các cộng đồng thực hành sôi nổi tại nhiều quốc gia. [Diễn đàn OHDSI](https://forums.ohdsi.org/)[^6] và trang [OHDSI Wiki](https://www.ohdsi.org/web/wiki)[^7] hỗ trợ hàng nghìn nhà nghiên cứu trên khắp thế giới trao đổi chuyên môn hằng ngày. Các [cuộc họp cộng đồng và nhóm công tác](https://www.ohdsi.org/web/wiki/doku.php?id=projects:overview)[^8] cùng các vấn đề thảo luận (*issues*) và yêu cầu đóng góp mã (*pull requests*) trên [GitHub của OHDSI](https://github.com/ohdsi)[^9] giúp liên tục hoàn thiện các tài sản chung như mã nguồn và tiêu chuẩn CDM. Ngay chính cuốn sách bạn đang đọc cũng được biên soạn thông qua một quy trình mở hoàn toàn nhờ sự kết hợp giữa OHDSI Wiki, các cuộc họp cộng đồng và kho lưu trữ [GitHub của cuốn sách](https://github.com/OHDSI/TheBookOfOhdsi)[^10].
+
+[^6]: <https://forums.ohdsi.org/>
+[^7]: <https://www.ohdsi.org/web/wiki>
+[^8]: <https://www.ohdsi.org/web/wiki/doku.php?id=projects:overview>
+[^9]: <https://github.com/ohdsi>
+[^10]: <https://github.com/OHDSI/TheBookOfOhdsi>
+
+Tuy nhiên, cần nhấn mạnh rằng nếu thiếu đi đội ngũ cộng tác viên OHDSI tâm huyết, mọi quy trình và công cụ kỹ thuật sẽ chỉ là những chiếc vỏ rỗng. Giá trị đích thực của cộng đồng OHDSI nằm ở chính các thành viên — những con người cùng chia sẻ tầm nhìn cải thiện sức khỏe nhân loại thông qua khoa học hợp tác và khoa học mở như đã trình bày tại Chương 1.
+
+## OHDSI và Bộ nguyên tắc định hướng FAIR
 
 ### Giới thiệu
 
-Đoạn cuối cùng này của chương xem xét tình trạng hiện tại của cộng
-đồng và công cụ OHDSI, sử dụng các Nguyên tắc hướng dẫn dữ liệu FAIR
-được xuất bản trong Wilkinson et al. (2016).
+Phần cuối của chương này đánh giá hiện trạng của cộng đồng và hệ sinh thái công cụ OHDSI dưới lăng kính của **Bộ Nguyên tắc Định hướng Dữ liệu FAIR** (*FAIR Data Guiding Principles*: **F**indable — Dễ tìm kiếm, **A**ccessible — Dễ truy cập, **I**nteroperable — Có khả năng liên thông/tương tác, **R**eusable — Có khả năng tái sử dụng) được công bố bởi Wilkinson và cộng sự (2016).
 
-### Khả năng tìm kiếm
+### Khả năng tìm kiếm (Findability)
 
-Bất kỳ cơ sở dữ liệu chăm sóc sức khỏe nào được ánh xạ sang OMOP và
-được sử dụng để phân tích đều nên, từ góc độ khoa học, tồn tại để tham
-khảo và tái tạo trong tương lai. Việc sử dụng các định danh bền vững
-cho các cơ sở dữ liệu OMOP vẫn chưa phổ biến, một phần vì các cơ sở dữ
-liệu này thường nằm sau các tường lửa và trên các mạng nội bộ và không
-nhất thiết được kết nối với internet. Tuy nhiên, hoàn toàn có thể xuất
-bản các bản tóm tắt của các cơ sở dữ liệu dưới dạng bản ghi mô tả có
-thể được tham chiếu cho ví dụ mục đích trích dẫn. Phương pháp này được
-tuân theo trong ví dụ danh mục EMIF, cung cấp một bản ghi toàn diện về
-cơ sở dữ liệu về mục đích thu thập dữ liệu, nguồn, từ vựng và thuật
-ngữ, cơ chế kiểm soát truy cập, giấy phép, sự đồng ý, v.v. (Oliveira
-et al., 2019) Cách tiếp cận này được phát triển thêm trong dự án IMI
-EHDEN.
+Từ góc độ khoa học, bất kỳ cơ sở dữ liệu y tế nào đã được ánh xạ sang OMOP và sử dụng cho mục đích phân tích đều cần được định danh rõ ràng để phục vụ việc tham chiếu và tái lập nghiên cứu trong tương lai. Việc gắn các mã định danh bền vững (*persistent identifiers* như DOI) cho từng cơ sở dữ liệu OMOP hiện chưa thật sự phổ biến, một phần vì các cơ sở dữ liệu này thường đặt sau tường lửa bảo mật trong mạng nội bộ của bệnh viện/viện nghiên cứu và không kết nối trực tiếp ra Internet. Tuy nhiên, các đơn vị hoàn toàn có thể công bố hồ sơ tóm tắt siêu dữ liệu (*metadata descriptor record*) của cơ sở dữ liệu để phục vụ việc tìm kiếm và trích dẫn khoa học. Cách tiếp cận này đã được áp dụng thành công trong danh mục [EMIF Catalogue](https://emif-catalogue.eu/)[^11] — nơi cung cấp hồ sơ toàn diện về từng nguồn dữ liệu bao gồm mục đích thu thập, hệ thống nguồn, bộ từ vựng sử dụng, cơ chế kiểm soát truy cập, giấy phép và quy trình đồng thuận (Oliveira et al., 2019) — và tiếp tục được mở rộng trong dự án IMI EHDEN tại Châu Âu.
 
-^6^[https://forums.ohdsi.org](https://forums.ohdsi.org/)
-[^7^](https://forums.ohdsi.org7https//www.ohdsi.org/web/wiki)<https://www.ohdsi.org/web/wiki>
+[^11]: <https://emif-catalogue.eu/>
 
-^8^[https://www.ohdsi.org/web/wiki/doku.php?id=projects:overview](https://www.ohdsi.org/web/wiki/doku.php?id=projects%3Aoverview)
-[^9^](https://www.ohdsi.org/web/wiki/doku.php?id=projects%3Aoverview9https%3A//github.com/ohdsi10https%3A//github.com/OHDSI/TheBookOfOhdsi)<https://github.com/ohdsi>
-[^10^](https://www.ohdsi.org/web/wiki/doku.php?id=projects%3Aoverview9https%3A//github.com/ohdsi10https%3A//github.com/OHDSI/TheBookOfOhdsi)<https://github.com/OHDSI/TheBookOfOhdsi>
+### Khả năng truy cập (Accessibility)
 
-^11^[https://emif-catalogue.eu](https://emif-catalogue.eu/)
+Khả năng truy cập dữ liệu đã chuẩn hóa OMOP thông qua một giao thức chuẩn thường được thực hiện qua giao diện truy vấn SQL kết hợp với lược đồ OMOP CDM được tài liệu hóa đầy đủ. Mặc dù dữ liệu cấp độ bệnh nhân trong các cơ sở dữ liệu OMOP không mở trực tiếp qua Internet vì lý do bảo mật, kết quả phân tích tổng hợp từ nhiều cơ sở dữ liệu OMOP — điển hình như các sáng kiến **LEGEND** hay `http://howoften.org` — đều được công bố mở trên các cổng dữ liệu trực tuyến để mọi nhà nghiên cứu và bác sĩ lâm sàng có thể tự do truy cập.
 
-### Khả năng truy cập
+### Khả năng liên thông và tương tác (Interoperability)
 
-Khả năng truy cập dữ liệu đã ánh xạ OMOP thông qua một giao thức mở
-thường đạt được thông qua giao diện SQL, kết hợp với OMOP CDM cung cấp
-một phương pháp chuẩn hóa và được tài liệu hóa tốt để truy cập dữ liệu
-OMOP. Tuy nhiên, như đã thảo luận ở trên, các nguồn OMOP thường không
-có sẵn trực tiếp qua internet vì lý do bảo mật. Việc tạo ra một mạng
-lưới dữ liệu chăm sóc sức khỏe an toàn trên toàn thế giới có thể truy
-cập được cho các nhà nghiên cứu là một chủ đề nghiên cứu tích cực và
-mục tiêu hoạt động của các dự án như IMI EHDEN. Tuy nhiên, kết quả của
-các phân tích trong nhiều cơ sở dữ liệu OMOP, như được thể hiện qua
-các sáng kiến OHDSI như LEGEND và http://howoften.org, có thể được
-xuất bản một cách công khai.
+Khả năng liên thông (*interoperability*) chính là thế mạnh nổi bật nhất của mô hình dữ liệu OMOP và hệ sinh thái công cụ OHDSI. Để xây dựng một mạng lưới dữ liệu y tế toàn cầu phục vụ tạo lập bằng chứng, việc đạt được khả năng liên thông cả về cấu trúc lẫn ngữ nghĩa giữa các nguồn dữ liệu là yếu tố then chốt, và điều này được giải quyết triệt để thông qua OMOP CDM cùng Bộ Từ vựng Chuẩn hóa. Hơn thế nữa, bằng việc chia sẻ các định nghĩa đoàn hệ và quy trình phân tích thống kê chuẩn hóa, cộng đồng OHDSI còn tiến xa hơn việc ánh xạ mã đơn thuần để kiến tạo sự liên thông cả về phương pháp luận phân tích dữ liệu y tế.
 
-### Khả năng tương tác (Interoperability)
-
-Khả năng tương tác có thể được coi là điểm mạnh của mô hình dữ liệu
-OMOP và công cụ OHDSI. Để xây dựng một mạng lưới mạnh mẽ các nguồn dữ
-liệu y tế trên toàn thế giới có thể được tận dụng để tạo bằng chứng,
-việc đạt được khả năng tương tác giữa các nguồn dữ liệu chăm sóc sức
-khỏe là chìa khóa, và điều này đạt được thông qua mô hình OMOP và Từ
-vựng chuẩn hóa. Tuy nhiên, bằng cách chia sẻ các định nghĩa nhóm thuần
-tập và các phương pháp thống kê, cộng đồng OHDSI đi xa hơn việc ánh xạ
-mã và cũng cung cấp một nền tảng để xây dựng sự hiểu biết có thể tương
-tác về các phương pháp phân tích cho dữ liệu chăm sóc sức khỏe. Vì các
-hệ thống chăm sóc sức khỏe như bệnh viện thường là nguồn hồ sơ cho dữ
-liệu OMOP, khả năng tương tác của cách tiếp cận OHDSI có thể được tăng
-cường hơn nữa bằng cách liên kết với các tiêu chuẩn tương tác chăm sóc
-sức khỏe hoạt động như HL7 FHIR, HL7 CIMI và openEHR. Điều tương tự
-cũng đúng đối với việc liên kết với các tiêu chuẩn tương tác lâm sàng
-như CDISC và các bản thể học y sinh. Đặc biệt trong các lĩnh vực như
-ung thư học, đây là một chủ đề quan trọng, và Nhóm làm việc Ung thư
-học và Nhóm làm việc Thử nghiệm lâm sàng trong cộng đồng OHDSI cung
-cấp các ví dụ điển hình về các diễn đàn nơi các vấn đề này được thảo
-luận tích cực. Về các tham chiếu đến dữ liệu khác và cụ thể là các
-thuật ngữ bản thể học, ATLAS và OHDSI Athena là các công cụ quan
-trọng, vì chúng cho phép khám phá các Từ vựng chuẩn hóa OMOP trong bối
-cảnh các hệ thống mã hóa y tế có sẵn khác.
+Vì các hệ thống thông tin bệnh viện (HIS/EHR) thường là nguồn tạo lập dữ liệu ban đầu cho OMOP, khả năng liên thông của hệ sinh thái OHDSI đang tiếp tục được tăng cường thông qua việc kết nối với các tiêu chuẩn trao đổi dữ liệu y tế vận hành như **HL7 FHIR**, **HL7 CIMI** và **openEHR**, cũng như các tiêu chuẩn dữ liệu thử nghiệm lâm sàng như **CDISC** và các bản thể học y sinh (*biomedical ontologies*). Nhóm công tác Ung thư học (*Oncology Working Group*) và Nhóm công tác Thử nghiệm lâm sàng (*Clinical Trials Working Group*) trong OHDSI là những diễn đàn tiêu biểu đang thúc đẩy mạnh mẽ quá trình tích hợp này.
 
 ### Khả năng tái sử dụng (Reusability)
 
-Các nguyên tắc FAIR xung quanh khả năng tái sử dụng tập trung vào các
-vấn đề quan trọng như giấy phép dữ liệu, nguồn gốc (làm rõ dữ liệu ra
-đời như thế nào) và liên kết với các tiêu chuẩn cộng đồng liên quan.
-Cấp phép dữ liệu là một chủ đề phức tạp, đặc biệt là trên các khu vực
-pháp lý, và việc bao quát nó một cách rộng rãi nằm ngoài phạm vi của
-cuốn sách này. Tuy nhiên, điều quan trọng cần khẳng định là nếu bạn dự
-định để dữ liệu của mình (ví dụ: kết quả phân tích) được người khác sử
-dụng tự do, thì việc cấp các quyền này một cách rõ ràng thông qua giấy
-phép dữ liệu là một thực tiễn tốt. Đây vẫn chưa phải là một thực tiễn
-phổ biến đối với hầu hết dữ liệu có thể tìm thấy trên internet, và
-cộng đồng OHDSI không may không phải là một ngoại lệ ở đây. Liên quan
-đến nguồn gốc dữ liệu của các cơ sở dữ liệu OMOP, có những cải tiến
-tiềm năng để làm cho siêu dữ liệu có sẵn theo cách tự động, bao gồm,
-ví dụ, phiên bản CDM, bản phát hành Từ vựng chuẩn hóa, danh sách mã
-tùy chỉnh, v.v. Các công cụ ETL OHDSI hiện không tạo ra thông tin này
-một cách tự động, nhưng các nhóm làm việc như Nhóm làm việc Chất lượng
-Dữ liệu
+Các nguyên tắc FAIR xoay quanh khả năng tái sử dụng nhấn mạnh vào những yếu tố thiết yếu như giấy phép dữ liệu (*data license*), nguồn gốc dữ liệu (*provenance* — làm rõ dữ liệu được hình thành và biến đổi như thế nào) và việc tuân thủ các tiêu chuẩn cộng đồng. Nếu bạn dự định chia sẻ dữ liệu tổng hợp hoặc kết quả phân tích của mình để người khác tự do khai thác, một thực hành tốt là hãy cấp quyền rõ ràng thông qua một giấy phép mở (chẳng hạn như CC-BY hoặc CC0).
 
-và Nhóm làm việc Siêu dữ liệu tích cực làm
-việc về các vấn đề này. Một khía cạnh quan trọng khác là nguồn gốc của
-chính các cơ sở dữ liệu cơ bản; điều quan trọng là phải biết liệu một
-hệ thống thông tin bệnh viện hoặc bác sĩ gia đình có bị thay thế hoặc
-thay đổi hay không, và khi nào các thiếu sót dữ liệu đã biết hoặc các
-vấn đề dữ liệu khác xảy ra trong lịch sử. Khám phá các cách để đính
-kèm siêu dữ liệu này một cách hệ thống trong OMOP CDM là lĩnh vực của
-Nhóm làm việc Siêu dữ liệu.
+Liên quan đến nguồn gốc dữ liệu của các cơ sở dữ liệu OMOP, cộng đồng đang tích cực phát triển các cơ chế tự động ghi nhận siêu dữ liệu (*metadata*) — chẳng hạn như phiên bản CDM, phiên bản phát hành của Bộ Từ vựng Chuẩn hóa, danh mục ánh xạ tùy chỉnh và lịch sử thay đổi của hệ thống thông tin nguồn. Nhóm công tác Chất lượng Dữ liệu (*Data Quality Working Group*) và Nhóm công tác Siêu dữ liệu (*Metadata Working Group*) đang dẫn dắt việc chuẩn hóa các thông tin này ngay bên trong lược đồ OMOP CDM.
 
-![](media/image4.png){width="0.4455205599300088in"
-height="0.4644783464566929in" .book-icon}
+## Tóm tắt
 
-- The OHDSI community can be seen as an open-science community that is
-actively pursuing the interoperability and reproducibility of medical
-evidence generation.
-
-- It also advocates a paradigm shift from single study and single
-estimate med-ical research to large-scale systematic evidence
-generation, where facts such as baseline occurrence are known and the
-evidence focuses on statistically es-timating the effects of
-interventions and treatments from real world healthcare sources.
-
+::: {.callout-tip title="Tóm tắt chương"}
+- Cộng đồng OHDSI là một cộng đồng **khoa học mở** tích cực thúc đẩy khả năng liên thông (*interoperability*) và khả năng tái lập (*reproducibility*) trong quá trình tạo lập bằng chứng y khoa.
+- OHDSI cổ vũ cho một sự chuyển dịch mô hình (*paradigm shift*) từ phương thức nghiên cứu y học đơn lẻ — mỗi nghiên cứu chỉ tạo ra một ước lượng rời rạc — sang việc **tạo lập bằng chứng có hệ thống trên quy mô lớn**, nơi các thông tin nền tảng được chuẩn hóa và bằng chứng khoa học tập trung vào việc ước lượng một cách nghiêm ngặt bằng thống kê tác động của các can thiệp và phương pháp điều trị từ các nguồn dữ liệu y tế đời thực.
+:::

@@ -1,984 +1,381 @@
----
-title: "Chương 14: Chất lượng dữ liệu"
----
+# Chương 14: Chất lượng dữ liệu
 
-# Chất lượng bằng chứng
-
-*Người dẫn dắt chương: Patrick Ryan & Jon
-Duke*
+*Chủ biên chương: Patrick Ryan, Jon Duke, Martijn Schuemie, Vojtech Huser & Clair Blacketer*
 
 ## Các thuộc tính của bằng chứng đáng tin cậy
 
-Trước khi bắt đầu bất kỳ hành trình nào, việc hình dung điểm đến lý
-tưởng có thể trông như thế nào sẽ rất hữu ích. Để hỗ trợ hành trình
-của chúng ta từ dữ liệu đến bằng chứng, chúng tôi làm nổi bật các
-thuộc tính mong muốn có thể làm cơ sở cho những gì tạo nên chất lượng
-bằng chứng đáng tin cậy.
+Trước khi bắt đầu bất kỳ hành trình nào, việc hình dung điểm đến lý tưởng trông như thế nào sẽ rất hữu ích. Để hỗ trợ hành trình từ dữ liệu đến bằng chứng, chúng tôi làm nổi bật các thuộc tính mong muốn làm nền tảng cho chất lượng bằng chứng đáng tin cậy (Hình 14.1).
 
-![](media/image153.jpeg){width="5.134479440069991in"
-height="1.7359372265966755in"}
+![](media/image153.jpeg){width="5.134479440069991in" height="1.7359372265966755in"}
 
-Hình 14.1: Các thuộc tính mong muốn của bằng chứng đáng tin cậy
+Hình 14.1: Các thuộc tính mong muốn của bằng chứng đáng tin cậy.
 
-Bằng chứng đáng tin cậy phải có khả năng lặp lại (repeatable), nghĩa
-là các nhà nghiên cứu nên kỳ vọng tạo ra kết quả giống hệt nhau khi áp
-dụng cùng một phân tích cho cùng một dữ liệu cho bất kỳ câu hỏi nào.
-Ngụ ý trong yêu cầu tối thiểu này là quan điểm rằng bằng chứng là kết
-quả của việc thực hiện một quy trình đã xác định với đầu vào cụ thể,
-và nên không có sự can thiệp thủ công hay ra quyết định hậu kiểm
-(post-hoc) trong suốt quá trình. Lý tưởng hơn, bằng chứng đáng tin cậy
-phải có khả năng tái lập (reproducible) sao cho một nhà nghiên cứu
-khác có thể thực hiện cùng một nhiệm vụ thực thi một phân tích nhất
-định trên một cơ sở dữ liệu nhất định và kỳ vọng tạo ra kết quả giống
-hệt như nhà nghiên cứu đầu tiên. Khả năng tái lập yêu cầu quy trình
-phải được xác định đầy đủ, thường là ở cả dạng con người có thể đọc
-được và máy tính có thể thực thi được sao cho không
+Bằng chứng đáng tin cậy phải có **tính lặp lại (repeatable)**, nghĩa là các nhà nghiên cứu có thể kỳ vọng tạo ra kết quả giống hệt nhau khi áp dụng cùng một phân tích trên cùng một dữ liệu cho bất kỳ câu hỏi nào. Ngụ ý trong yêu cầu tối thiểu này là quan niệm rằng bằng chứng là kết quả của việc thực thi một quy trình đã xác định với đầu vào cụ thể, và không có sự can thiệp thủ công hay việc ra quyết định hậu kiểm (post-hoc) trong suốt quá trình. Lý tưởng hơn, bằng chứng đáng tin cậy phải có **tính tái lập (reproducible)** sao cho một nhà nghiên cứu khác có thể thực hiện cùng một nhiệm vụ chạy một phân tích nhất định trên một cơ sở dữ liệu nhất định và kỳ vọng tạo ra kết quả giống hệt như nhà nghiên cứu đầu tiên. Tính tái lập đòi hỏi quy trình phải được đặc tả đầy đủ, thường ở cả dạng con người có thể đọc hiểu và dạng máy tính có thể thực thi, sao cho không có quyết định nghiên cứu nào bị phó mặc cho sự tùy ý của nghiên cứu viên. Giải pháp hiệu quả nhất để đạt được tính lặp lại và tính tái lập là sử dụng các quy trình phân tích chuẩn hóa có đầu vào và đầu ra được xác định rõ ràng, đồng thời áp dụng các quy trình này trên các cơ sở dữ liệu được kiểm soát phiên bản.
 
-có quyết định nghiên cứu nào được để lại cho sự tùy ý của điều tra
-viên. Giải pháp hiệu quả nhất để đạt được khả năng lặp lại và khả năng
-tái lập là sử dụng các quy trình phân tích chuẩn hóa đã xác định đầu
-vào và đầu ra, và áp dụng các quy trình này đối với các cơ sở dữ liệu
-được kiểm soát phiên bản.
+Chúng ta sẽ tự tin hơn rằng bằng chứng của mình là đáng tin cậy nếu nó được chứng minh là có **tính sao chép (replicable)**, nghĩa là cùng một câu hỏi được giải quyết bằng cùng một phân tích trên dữ liệu tương tự sẽ mang lại kết quả tương tự. Ví dụ, bằng chứng được tạo ra từ một phân tích trên cơ sở dữ liệu yêu cầu thanh toán bảo hiểm hành chính của một công ty bảo hiểm tư nhân lớn có thể được củng cố nếu được sao chép trên dữ liệu yêu cầu thanh toán từ một công ty bảo hiểm khác. Trong bối cảnh ước tính hiệu quả ở cấp độ quần thể, thuộc tính này phù hợp chặt chẽ với quan điểm nhân quả của Sir Austin Bradford Hill về tính nhất quán: "Hiện tượng đó đã được quan sát lặp đi lặp lại bởi những người khác nhau, ở những địa điểm, hoàn cảnh và thời điểm khác nhau hay chưa?... liệu yếu tố ngẫu nhiên có phải là lời giải thích hay một nguy cơ thực sự đã được bộc lộ đôi khi chỉ có thể được trả lời bằng việc lặp lại các hoàn cảnh và các quan sát" (Hill, 1965). Trong bối cảnh dự đoán ở cấp độ bệnh nhân, tính sao chép làm nổi bật giá trị của thẩm định ngoại kiểm (external validation) và khả năng đánh giá hiệu năng của một mô hình được huấn luyện trên một cơ sở dữ liệu bằng cách quan sát độ chính xác phân biệt và độ hiệu chuẩn của nó khi áp dụng trên một cơ sở dữ liệu khác. Trong trường hợp các phân tích giống hệt nhau được thực hiện trên các cơ sở dữ liệu khác nhau mà vẫn cho thấy kết quả tương đồng một cách nhất quán, chúng ta càng củng cố niềm tin rằng bằng chứng của mình có **tính khái quát hóa (generalizable)**. Một giá trị cốt lõi của mạng lưới nghiên cứu OHDSI là sự đa dạng về quần thể, vùng địa lý và quy trình thu thập dữ liệu. Madigan và cộng sự (2013b) đã chỉ ra rằng các ước tính hiệu quả có thể nhạy cảm với việc lựa chọn nguồn dữ liệu. Nhận thức được rằng mỗi nguồn dữ liệu đều mang những hạn chế vốn có và những sai lệch đặc thù làm giới hạn niềm tin của chúng ta vào các phát hiện đơn lẻ, việc quan sát thấy các mô hình tương tự trên các tập dữ liệu không đồng nhất mang lại sức mạnh to lớn vì nó làm giảm đáng kể khả năng các sai lệch đặc thù của từng nguồn dữ liệu có thể tự giải thích cho các phát hiện đó. Khi các nghiên cứu mạng lưới cho thấy các ước tính hiệu quả ở cấp độ quần thể nhất quán trên nhiều cơ sở dữ liệu yêu cầu thanh toán bảo hiểm và hồ sơ bệnh án điện tử (EHR) tại Hoa Kỳ, châu Âu và châu Á, chúng xứng đáng được công nhận là bằng chứng mạnh mẽ hơn về can thiệp y tế và có phạm vi tác động rộng lớn hơn đối với việc ra quyết định y khoa.
 
-Chúng ta có nhiều khả năng tin tưởng rằng bằng chứng của mình là đáng
-tin cậy nếu nó có thể được chứng minh là có khả năng sao chép
-(replicable), sao cho cùng một câu hỏi được giải quyết bằng cách sử
-dụng phân tích giống hệt nhau đối với dữ liệu tương tự mang lại kết
-quả tương tự. Ví dụ, bằng chứng được tạo ra từ một phân tích đối với
-cơ sở dữ liệu yêu cầu thanh toán hành chính từ một công ty bảo hiểm tư
-nhân lớn có thể được củng cố nếu được sao chép trên dữ liệu yêu cầu
-thanh toán từ một công ty bảo hiểm khác. Trong bối cảnh ước tính hiệu
-quả cấp độ quần thể, thuộc tính này phù hợp với quan điểm nhân quả của
-Sir Austin Bradford Hill về tính nhất quán, "Nó đã được quan sát nhiều
-lần bởi những người khác nhau, ở những nơi, hoàn cảnh và thời gian
-khác nhau chưa?... liệu cơ hội có phải là lời giải thích hay liệu một
-mối nguy hiểm thực sự đã được tiết lộ đôi khi chỉ có thể được trả lời
-bằng cách lặp lại các hoàn cảnh và các quan sát." (Hill, 1965) Trong
-bối cảnh dự đoán cấp độ bệnh nhân, khả năng sao chép làm nổi bật giá
-trị của kiểm định ngoại bộ và khả năng đánh giá hiệu suất của một mô
-hình đã được huấn luyện trên một cơ sở dữ liệu bằng cách quan sát độ
-chính xác phân biệt và sự hiệu chỉnh của nó khi áp dụng cho một cơ sở
-dữ liệu khác. Trong các trường hợp mà các phân tích giống hệt nhau
-được thực hiện đối với các cơ sở dữ liệu khác nhau và vẫn cho thấy các
-kết quả tương tự một cách nhất quán, chúng ta có thêm sự tin tưởng
-rằng bằng chứng của mình có khả năng tổng quát hóa. Một giá trị chính
-của mạng lưới nghiên cứu OHDSI là sự đa dạng được đại diện bởi các
-quần thể, địa lý và quy trình thu thập dữ liệu khác nhau. Madigan và
-cộng sự (2013b) cho thấy rằng các ước tính hiệu quả có thể nhạy cảm
-với lựa chọn dữ liệu. Nhận thức được rằng mỗi nguồn dữ liệu mang theo
-những hạn chế vốn có và những sai lệch độc đáo làm hạn chế sự tin
-tưởng của chúng ta vào các phát hiện đơn lẻ, có một sức mạnh to lớn
-trong việc quan sát các mô hình tương tự trên các tập dữ liệu không
-đồng nhất vì nó làm giảm đáng kể khả năng các sai lệch đặc thù của
-nguồn dữ liệu chỉ có thể giải thích các phát hiện. Khi các nghiên cứu
-mạng lưới cho thấy các ước tính hiệu quả cấp độ quần thể nhất quán
-trên nhiều cơ sở dữ liệu yêu cầu thanh toán và EHR trên khắp Hoa Kỳ,
-Châu Âu và Châu Á, chúng nên được công nhận là bằng chứng mạnh mẽ hơn
-về can thiệp y tế có thể có phạm vi rộng hơn để tác động đến việc ra
-quyết định y tế.
+Bằng chứng đáng tin cậy phải có **tính vững (robust)**, nghĩa là các phát hiện không được quá nhạy cảm với các lựa chọn chủ quan trong một phân tích. Nếu có các phương pháp thống kê thay thế được xem là hợp lý cho một nghiên cứu nhất định, việc thấy các phương pháp khác nhau mang lại kết quả tương tự sẽ mang lại sự an tâm, hoặc ngược lại sẽ cảnh báo sự thận trọng nếu phát hiện các kết quả bất đồng (Madigan và cộng sự, 2013a). Đối với ước tính hiệu quả ở cấp độ quần thể, các phân tích độ nhạy có thể bao gồm lựa chọn thiết kế nghiên cứu ở cấp độ cao, chẳng hạn như áp dụng thiết kế thuần tập so sánh (comparative cohort) hay chuỗi ca bệnh tự đối chứng (self-controlled case series), hoặc tập trung vào các cân nhắc phân tích bên trong một thiết kế, chẳng hạn như thực hiện ghép cặp điểm xu hướng (propensity score matching), phân tầng (stratification) hay gán trọng số (weighting) làm chiến lược hiệu chỉnh nhiễu trong khung thuần tập so sánh.
 
-Bằng chứng đáng tin cậy phải mạnh mẽ (robust), nghĩa là các phát hiện
-không nên quá nhạy cảm với các lựa chọn chủ quan có thể được thực hiện
-trong một phân tích. Nếu có các phương pháp thống kê thay thế có thể
-được coi là hợp lý cho một nghiên cứu nhất định, thì việc thấy rằng
-các phương pháp khác nhau mang lại kết quả tương tự có thể cung cấp sự
-trấn an, hoặc ngược lại có thể gây thận trọng nếu các kết quả không
-nhất quán được phát hiện. (Madigan và cộng sự, 2013a) Đối với ước tính
-hiệu quả cấp độ quần thể, các phân tích độ nhạy có thể bao gồm lựa
-chọn thiết kế nghiên cứu cấp cao, chẳng hạn như liệu có áp dụng thiết
-kế nhóm thuần tập so sánh hay chuỗi ca bệnh tự kiểm soát, hoặc có thể
-tập trung vào các cân nhắc phân tích được nhúng trong một thiết kế,
-chẳng hạn như liệu có thực hiện khớp điểm xu hướng, phân tầng hoặc
-trọng số như một chiến lược điều chỉnh nhiễu trong khung nhóm thuần
-tập so sánh hay không.
-
-Cuối cùng, nhưng có khả năng quan trọng nhất, bằng chứng nên được hiệu
-chỉnh. Không đủ để có một hệ thống tạo bằng chứng tạo ra câu trả lời
-cho các câu hỏi chưa biết nếu hiệu suất của hệ thống đó không thể được
-xác minh. Một hệ thống đóng nên được kỳ vọng có các đặc tính vận hành
-đã biết, mà nên có thể đo lường và truyền
-
-2.  *Hiểu về chất lượng bằng chứng 289*
-
-đạt như bối cảnh để diễn giải bất kỳ kết quả nào mà hệ thống tạo ra.
-Các tạo tác thống kê nên có thể được chứng minh theo kinh nghiệm là có
-các đặc tính được xác định rõ ràng, chẳng hạn như khoảng tin cậy 95%
-có xác suất bao phủ 95% hoặc một nhóm thuần tập có xác suất dự đoán là
-10% có tỷ lệ sự kiện quan sát được là 10% trong quần thể. Một nghiên
-cứu quan sát luôn phải đi kèm với các chẩn đoán nghiên cứu kiểm tra
-các giả định xung quanh thiết kế, phương pháp và dữ liệu. Các chẩn
-đoán này nên tập trung vào việc đánh giá các mối đe dọa chính đối với
-tính hợp lệ của nghiên cứu: sai lệch chọn mẫu, nhiễu và sai số đo
-lường. Các đối chứng âm tính đã được chứng minh là một công cụ mạnh mẽ
-để xác định và giảm thiểu sai số hệ thống trong các nghiên cứu quan
-sát. (Schuemie và cộng sự, 2016, 2018a,b)
+Cuối cùng, nhưng có thể là quan trọng nhất, bằng chứng phải được **hiệu chuẩn (calibrated)**. Việc chỉ có một hệ thống tạo bằng chứng đưa ra câu trả lời cho các câu hỏi chưa biết là chưa đủ nếu hiệu năng của hệ thống đó không thể được kiểm chứng. Một hệ thống khép kín cần có các đặc tính vận hành đã biết, có thể đo lường và truyền đạt làm bối cảnh để diễn giải bất kỳ kết quả nào mà hệ thống tạo ra. Các đại lượng thống kê cần được chứng minh bằng thực nghiệm là có các đặc tính xác định rõ ràng, chẳng hạn như khoảng tin cậy 95% có xác suất bao phủ đúng 95%, hoặc một đoàn hệ có xác suất dự đoán 10% thì có tỷ lệ biến cố quan sát được thực tế là 10% trong quần thể. Một nghiên cứu quan sát luôn phải đi kèm với các chẩn đoán nghiên cứu (study diagnostics) nhằm kiểm tra các giả định xoay quanh thiết kế, phương pháp và dữ liệu. Các chẩn đoán này cần tập trung vào việc đánh giá những mối đe dọa chính đối với giá trị hợp lệ của nghiên cứu: sai lệch chọn mẫu (selection bias), nhiễu (confounding) và sai số đo lường (measurement error). Đối chứng âm (negative controls) đã được chứng minh là một công cụ mạnh mẽ để nhận diện và giảm thiểu sai số hệ thống trong các nghiên cứu quan sát (Schuemie và cộng sự, 2016, 2018a,b).
 
 ## Hiểu về chất lượng bằng chứng
 
-Nhưng làm thế nào chúng ta biết kết quả của một nghiên cứu có đủ tin
-cậy hay không? Chúng có thể được tin tưởng để sử dụng trong các cơ sở
-lâm sàng không? Còn trong việc ra quyết định quy định thì sao? Chúng
-có thể đóng vai trò là nền tảng cho nghiên cứu trong tương lai không?
-Mỗi khi một nghiên cứu mới được công bố hoặc phổ biến, độc giả phải
-cân nhắc những câu hỏi này, bất kể công trình đó là một thử nghiệm
-ngẫu nhiên có đối chứng, một nghiên cứu quan sát hay một loại phân
-tích khác.
+Nhưng làm thế nào để chúng ta biết liệu kết quả của một nghiên cứu có đủ đáng tin cậy hay không? Liệu chúng có thể được tin cậy để áp dụng trong môi trường lâm sàng không? Còn trong việc ra quyết định quản lý dược phẩm và y tế thì sao? Chúng có thể làm nền tảng cho các nghiên cứu tương lai không? Mỗi khi một nghiên cứu mới được công bố hoặc phổ biến, người đọc đều phải cân nhắc những câu hỏi này, bất kể công trình đó là một thử nghiệm lâm sàng ngẫu nhiên có đối chứng, một nghiên cứu quan sát hay một loại hình phân tích nào khác.
 
-Một trong những mối quan tâm thường được nêu ra xung quanh các nghiên
-cứu quan sát và việc sử dụng "dữ liệu thế giới thực" là chủ đề về chất
-lượng dữ liệu. (Botsis và cộng sự, 2010; Hersh và cộng sự, 2013;
-Sherman và cộng sự, 2016) Thường được lưu ý là dữ liệu được sử dụng
-trong nghiên cứu quan sát ban đầu không được thu thập cho mục đích
-nghiên cứu và do đó có thể bị ảnh hưởng bởi việc thu thập dữ liệu
-không đầy đủ hoặc không chính xác cũng như các sai lệch vốn có. Những
-mối quan tâm này đã làm nảy sinh một khối lượng nghiên cứu ngày càng
-tăng xung quanh cách đo lường, đặc điểm hóa và lý tưởng nhất là cải
-thiện chất lượng dữ liệu. (Kahn và cộng sự, 2012; Liaw và cộng sự,
-2013; Weiskopf và Weng, 2013) Cộng đồng OHDSI là một người ủng hộ mạnh
-mẽ cho nghiên cứu như vậy và các thành viên cộng đồng đã dẫn dắt và
-tham gia vào nhiều nghiên cứu xem xét chất lượng dữ liệu trong OMOP
-CDM và mạng lưới OHDSI. (Huser và cộng sự, 2016; Kahn và cộng sự,
-2015; Callahan và cộng sự, 2017; Yoon và cộng sự, 2016)
+Một trong những mối quan ngại thường được đặt ra xoay quanh các nghiên cứu quan sát và việc sử dụng "dữ liệu đời thực (real-world data)" là chủ đề về chất lượng dữ liệu (data quality) (Botsis và cộng sự, 2010; Hersh và cộng sự, 2013; Sherman và cộng sự, 2016). Người ta thường lưu ý rằng dữ liệu dùng trong nghiên cứu quan sát ban đầu không được thu thập cho mục đích nghiên cứu, và do đó có thể gặp phải tình trạng ghi nhận dữ liệu không đầy đủ hoặc không chính xác cũng như các sai lệch vốn có. Những mối quan ngại này đã thúc đẩy một khối lượng nghiên cứu ngày càng lớn về cách đo lường, mô tả đặc điểm và lý tưởng nhất là cải thiện chất lượng dữ liệu (Kahn và cộng sự, 2012; Liaw và cộng sự, 2013; Weiskopf và Weng, 2013). Cộng đồng OHDSI là lực lượng ủng hộ mạnh mẽ cho hướng nghiên cứu này; các thành viên trong cộng đồng đã chủ trì và tham gia nhiều nghiên cứu khảo sát chất lượng dữ liệu trong OMOP CDM và mạng lưới OHDSI (Huser và cộng sự, 2016; Kahn và cộng sự, 2015; Callahan và cộng sự, 2017; Yoon và cộng sự, 2016).
 
-Với những phát hiện trong thập kỷ qua trong lĩnh vực này, rõ ràng là
-chất lượng dữ liệu không hoàn hảo và sẽ không bao giờ như vậy. Khái
-niệm này được phản ánh một cách tốt đẹp trong câu trích dẫn này từ
-Tiến sĩ Clem McDonald, một người tiên phong trong lĩnh vực tin học y
-tế:
+Từ những phát hiện trong thập kỷ qua ở lĩnh vực này, một điều đã trở nên rõ ràng là chất lượng dữ liệu không hoàn hảo và sẽ không bao giờ hoàn hảo. Quan niệm này được phản ánh rất sâu sắc qua câu nói của Tiến sĩ Clem McDonald, một nhà tiên phong trong lĩnh vực tin học y tế:
 
-Sự mất độ trung thực bắt đầu với sự di chuyển của dữ liệu từ não của
-bác sĩ vào hồ sơ y tế.
+> Sự suy giảm độ trung thực của dữ liệu bắt đầu ngay từ khi thông tin di chuyển từ bộ não của người bác sĩ vào hồ sơ bệnh án.
 
-Vì vậy, với tư cách là một cộng đồng, chúng ta phải đặt câu hỏi -- với
-dữ liệu không hoàn hảo, làm thế nào chúng ta có thể đạt được bằng
-chứng đáng tin cậy?
+Vì vậy, với tư cách là một cộng đồng nghiên cứu, chúng ta phải đặt câu hỏi — *với dữ liệu không hoàn hảo, làm thế nào chúng ta có thể tạo ra bằng chứng đáng tin cậy?*
 
-Câu trả lời nằm ở việc nhìn nhận một cách toàn diện về "chất lượng
-bằng chứng": xem xét toàn bộ hành trình từ dữ liệu đến bằng chứng, xác
-định từng thành phần tạo nên quy trình tạo bằng chứng, xác định cách
-xây dựng niềm tin vào chất lượng của từng thành phần và truyền đạt một
-cách minh bạch những gì đã học được qua từng bước. Chất lượng bằng
-chứng không chỉ xem xét chất lượng của dữ liệu quan sát mà còn cả tính
-hợp lệ của các phương pháp, phần mềm và định nghĩa lâm sàng được sử
-dụng trong các phân tích quan sát của chúng ta.
+Câu trả lời nằm ở việc nhìn nhận một cách toàn diện về "chất lượng bằng chứng (evidence quality)": xem xét toàn bộ hành trình từ dữ liệu đến bằng chứng, xác định từng thành phần cấu thành quy trình tạo bằng chứng, tìm cách xây dựng niềm tin vào chất lượng của từng thành phần, và truyền đạt một cách minh bạch những gì đã rút ra được qua từng bước trên hành trình đó. Chất lượng bằng chứng không chỉ xem xét chất lượng của dữ liệu quan sát mà còn đánh giá giá trị hợp lệ của các phương pháp, phần mềm và các định nghĩa lâm sàng được sử dụng trong các phân tích quan sát của chúng ta.
 
-Trong các chương tiếp theo, chúng ta sẽ khám phá bốn thành phần của
-chất lượng bằng chứng được liệt kê trong
-
-Bảng 14.1.
+Trong chương này và các chương tiếp theo, chúng ta sẽ khám phá bốn thành phần của chất lượng bằng chứng được liệt kê trong Bảng 14.1.
 
 Bảng 14.1: Bốn thành phần của chất lượng bằng chứng.
 
-Thành phần của
-
-Chất lượng bằng chứng Nó đo lường điều gì
-
-Chất lượng dữ liệu Dữ liệu có được thu thập đầy đủ với các giá trị hợp
-lý theo cách phù hợp với cấu trúc và quy ước đã thỏa thuận không?
-
-Tính hợp lệ lâm sàng Phân tích được thực hiện có phù hợp với ý định
-lâm sàng đến mức độ nào?
-
-Tính hợp lệ phần mềm Chúng ta có thể tin tưởng rằng quy trình chuyển
-đổi và phân tích dữ liệu thực hiện những gì nó được cho là phải làm
-không?
-
-Tính hợp lệ phương pháp Phương pháp luận có phù hợp với câu hỏi không,
-xét đến những điểm mạnh và điểm yếu của dữ liệu?
+| Thành phần của Chất lượng Bằng chứng | Nội dung đo lường |
+|:---|:---|
+| Chất lượng dữ liệu (Data Quality) | Dữ liệu có được thu thập đầy đủ với các giá trị hợp lý theo cách tuân thủ cấu trúc và quy ước đã thống nhất hay không? |
+| Giá trị hợp lệ lâm sàng (Clinical Validity) | Phân tích được thực hiện phản ánh đúng ý định lâm sàng ở mức độ nào? |
+| Giá trị hợp lệ của phần mềm (Software Validity) | Chúng ta có thể tin tưởng rằng quy trình chuyển đổi và phân tích dữ liệu thực hiện đúng những gì nó được thiết kế để làm hay không? |
+| Giá trị hợp lệ của phương pháp (Method Validity) | Phương pháp luận có phù hợp với câu hỏi nghiên cứu hay không, xét đến những điểm mạnh và điểm yếu của dữ liệu? |
 
 ## Truyền đạt chất lượng bằng chứng
 
-Một khía cạnh quan trọng của chất lượng bằng chứng là khả năng thể
-hiện sự không chắc chắn nảy sinh dọc theo hành trình từ dữ liệu đến
-bằng chứng. Mục tiêu bao trùm của công việc của OHDSI xung quanh chất
-lượng bằng chứng là tạo ra niềm tin ở những người ra quyết định chăm
-sóc sức khỏe rằng bằng chứng do OHDSI tạo ra -- mặc dù chắc chắn không
-hoàn hảo theo nhiều cách -- đã được đo lường một cách nhất quán về
-điểm yếu và điểm mạnh của nó và thông tin này đã được truyền đạt một
-cách nghiêm ngặt và cởi mở.
+Một khía cạnh quan trọng của chất lượng bằng chứng là khả năng biểu đạt sự không chắc chắn nảy sinh dọc theo hành trình từ dữ liệu đến bằng chứng. Mục tiêu bao trùm trong công việc của OHDSI về chất lượng bằng chứng là tạo dựng niềm tin cho những người ra quyết định trong lĩnh vực chăm sóc sức khỏe rằng bằng chứng do OHDSI tạo ra — dù chắc chắn vẫn còn những khiếm khuyết ở nhiều khía cạnh — đã được đo lường một cách nhất quán cả về điểm mạnh lẫn điểm yếu, và thông tin này được truyền đạt một cách nghiêm ngặt và minh bạch.
 
-## Tóm tắt
+## Tóm tắt phần Chất lượng Bằng chứng
 
-![](media/image4.png){width="0.4455205599300088in"
-height="0.4644783464566929in" .book-icon}
+::: {.callout-tip title="Tóm tắt chương"}
+- Bằng chứng mà chúng ta tạo ra cần đảm bảo **tính lặp lại (repeatable)**, **tính tái lập (reproducible)**, **tính sao chép (replicable)**, **tính khái quát hóa (generalizable)**, **tính vững (robust)** và **được hiệu chuẩn (calibrated)**.
+- Chất lượng bằng chứng xem xét nhiều yếu tố hơn là chỉ chất lượng dữ liệu khi trả lời câu hỏi liệu bằng chứng có đáng tin cậy hay không:
+  - Chất lượng dữ liệu (Data Quality)
+  - Giá trị hợp lệ lâm sàng (Clinical Validity)
+  - Giá trị hợp lệ của phần mềm (Software Validity)
+  - Giá trị hợp lệ của phương pháp (Method Validity)
+- Khi truyền đạt bằng chứng, chúng ta cần thể hiện rõ mức độ không chắc chắn phát sinh từ các thách thức khác nhau đối với chất lượng bằng chứng.
+:::
 
-- The evidence we generate should be **repeatable**, **reproducible**,
-**replicable**, **generalizable**, **robust**, and **calibrated**.
+## Chất lượng dữ liệu
 
-- Evidence quality considers more than just data quality when answering
-whether evidence is reliable&#58;
+*Chủ biên phần Chất lượng dữ liệu: Martijn Schuemie, Vojtech Huser & Clair Blacketer*
 
-- Data Quality
+Hầu hết dữ liệu được sử dụng cho nghiên cứu chăm sóc sức khỏe quan sát đều không được thu thập vì mục đích nghiên cứu. Ví dụ, hồ sơ bệnh án điện tử (EHR) nhằm mục đích ghi nhận thông tin cần thiết để hỗ trợ chăm sóc bệnh nhân, còn dữ liệu yêu cầu thanh toán bảo hiểm hành chính (administrative claims) được thu thập để làm cơ sở phân bổ chi phí cho các bên chi trả. Nhiều người đã đặt câu hỏi liệu việc sử dụng những dữ liệu như vậy cho nghiên cứu lâm sàng có phù hợp hay không; thậm chí van der Lei (1991) từng phát biểu rằng "Dữ liệu chỉ nên được sử dụng cho đúng mục đích mà vì đó chúng được thu thập." Mối lo ngại ở đây là vì dữ liệu không được thu thập cho nghiên cứu mà chúng ta muốn thực hiện, nên không có gì đảm bảo rằng chúng đạt chất lượng đủ tốt. Nếu chất lượng dữ liệu đầu vào kém (garbage in), thì chất lượng kết quả nghiên cứu sử dụng dữ liệu đó tất yếu cũng sẽ kém (garbage out). Do đó, một khía cạnh quan trọng của nghiên cứu chăm sóc sức khỏe quan sát là đánh giá chất lượng dữ liệu (data quality — DQ), nhằm trả lời câu hỏi:
 
-- Clinical Validity
-
-- Software Validity
-
-- Method Validity
-
-- When communicating evidence, we should express the uncertainty arising
-from the various challenges to evidence quality.
-
-# Chất lượng dữ liệu
-
-*Người dẫn dắt chương: Martijn Schuemie, Vojtech Huser & Clair
-Blacketer*
-
-Hầu hết các dữ liệu được sử dụng cho nghiên cứu chăm sóc sức khỏe quan
-sát không được thu thập cho mục đích nghiên cứu. Ví dụ, hồ sơ sức khỏe
-điện tử (EHR) nhằm mục đích thu thập thông tin cần thiết để hỗ trợ
-chăm sóc bệnh nhân, và các yêu cầu thanh toán hành chính được thu thập
-để cung cấp cơ sở cho việc phân bổ chi phí cho người trả tiền. Nhiều
-người đã đặt câu hỏi liệu có phù hợp để sử dụng dữ liệu như vậy cho
-nghiên cứu lâm sàng hay không, với van der Lei (1991) thậm chí còn
-tuyên bố rằng "Dữ liệu chỉ được sử dụng cho mục đích mà chúng được thu
-thập." Mối quan tâm là vì dữ liệu không được thu thập cho nghiên cứu
-mà chúng ta muốn thực hiện, nên nó không được đảm bảo có đủ chất
-lượng. Nếu chất lượng dữ liệu kém (rác vào), thì chất lượng kết quả
-của nghiên cứu sử dụng dữ liệu đó cũng phải kém (rác ra). Do đó, một
-khía cạnh quan trọng của nghiên cứu chăm sóc sức khỏe quan sát liên
-quan đến việc đánh giá chất lượng dữ liệu, nhằm mục đích trả lời câu
-hỏi:
-
-Dữ liệu có đủ chất lượng cho mục đích nghiên cứu của chúng ta không?
+> Dữ liệu có đạt chất lượng đủ tốt cho mục đích nghiên cứu của chúng ta hay không?
 
 Chúng ta có thể định nghĩa chất lượng dữ liệu (DQ) là (Roebuck, 2012):
 
-Trạng thái của tính đầy đủ, tính hợp lệ, tính nhất quán, tính kịp thời
-và tính chính xác làm cho dữ liệu phù hợp với một mục đích sử dụng cụ
-thể.
-
-Lưu ý rằng không chắc là dữ liệu của chúng ta hoàn hảo, nhưng chúng có
-thể đủ tốt cho mục đích của chúng ta.
-
-DQ không thể được quan sát trực tiếp, nhưng phương pháp luận đã được
-phát triển để đánh giá nó. Hai loại đánh giá DQ có thể được phân biệt
-(Weiskopf và Weng, 2013): các đánh giá để đánh giá DQ nói chung, và
-các đánh giá để đánh giá DQ trong bối cảnh của một nghiên cứu cụ thể.
-
-Trong chương này, trước tiên chúng ta sẽ xem xét các nguồn có thể gây
-ra vấn đề DQ, sau đó chúng ta sẽ thảo luận về lý thuyết của các đánh
-giá DQ chung và cụ thể theo nghiên cứu, theo sau là mô tả từng bước về
-cách các đánh giá này có thể được thực hiện bằng cách sử dụng các công
-cụ OHDSI.
-
-## Các nguồn gây ra vấn đề chất lượng dữ liệu
-
-Có nhiều mối đe dọa đối với chất lượng dữ liệu, bắt đầu như đã lưu ý
-trong Chương 14 khi bác sĩ ghi lại suy nghĩ của cô ấy hoặc anh ấy.
-Dasu và Johnson (2003) phân biệt các bước sau trong vòng đời của dữ
-liệu, khuyến nghị DQ được tích hợp trong từng bước. Họ gọi đây là liên
-tục DQ (DQ continuum):
-
-1.  **Thu thập và tích hợp dữ liệu. Các vấn đề có thể xảy ra bao gồm
-nhập thủ công sai sót, sai lệch (ví dụ: upcoding trong yêu cầu thanh
-toán), kết nối bảng sai trong EHR và thay thế các giá trị bị thiếu
-bằng các giá trị mặc định.**
-
-2.  **Lưu trữ dữ liệu và chia sẻ kiến thức. Các vấn đề tiềm ẩn là thiếu
-tài liệu về mô hình dữ liệu và thiếu siêu dữ liệu.**
-
-3.  **Phân tích dữ liệu. Các vấn đề có thể bao gồm chuyển đổi dữ liệu
-không chính xác, diễn giải dữ liệu không chính xác và sử dụng phương
-pháp luận không phù hợp.**
-
-4.  **Xuất bản dữ liệu. Khi xuất bản dữ liệu để sử dụng ở hạ nguồn.**
-
-Thông thường dữ liệu chúng ta sử dụng đã được thu thập và tích hợp, vì
-vậy chúng ta ít có khả năng cải thiện bước 1. Chúng ta có các cách để
-kiểm tra DQ do bước này tạo ra như sẽ được thảo luận trong các phần
-tiếp theo của chương này.
-
-Tương tự, chúng ta thường nhận dữ liệu ở một dạng cụ thể, vì vậy chúng
-ta có rất ít ảnh hưởng đến một phần của bước 2. Tuy nhiên, trong
-OHDSI, chúng ta chuyển đổi tất cả dữ liệu quan sát của mình sang Mô
-hình dữ liệu chung (CDM), và chúng ta có quyền sở hữu đối với quy
-trình này. Một số người đã bày tỏ lo ngại rằng bước cụ thể này có thể
-làm giảm DQ. Nhưng vì chúng ta kiểm soát quy trình này, chúng ta có
-thể xây dựng các biện pháp bảo vệ nghiêm ngặt để bảo tồn DQ như được
-thảo luận sau trong Mục 15.2.2. Một số cuộc điều tra (Defalco và cộng
-sự, 2013; Makadia và Ryan, 2014; Matcho và cộng sự, 2014; Voss và cộng
-sự, 2015a,b; Hripcsak và cộng sự, 2018) đã chỉ ra rằng khi được thực
-hiện đúng cách, rất ít hoặc không có sai sót nào được đưa vào khi
-chuyển đổi sang CDM. Trên thực tế, việc có một mô hình dữ liệu được
-ghi chép đầy đủ và được chia sẻ bởi một cộng đồng lớn tạo điều kiện
-lưu trữ dữ liệu theo cách rõ ràng và không mơ hồ.
-
-Bước 3 (phân tích dữ liệu) cũng thuộc quyền kiểm soát của chúng ta.
-Trong OHDSI, chúng ta có xu hướng không sử dụng thuật ngữ DQ cho các
-vấn đề chất lượng trong bước này, mà thay vào đó là các thuật ngữ tính
-hợp lệ lâm sàng, tính hợp lệ phần mềm và tính hợp lệ phương pháp, được
-thảo luận chi tiết trong các Chương 16, 17 và 18.[]{#_bookmark451
-.anchor}
-
-## Chất lượng dữ liệu nói chung
-
-Chúng ta có thể đặt câu hỏi liệu dữ liệu của chúng ta có phù hợp với
-mục đích chung của nghiên cứu quan sát hay không. Kahn và cộng sự
-(2016) định nghĩa DQ chung như vậy bao gồm ba thành phần:
-
-1.  **Tính tuân thủ (Conformance): Các giá trị dữ liệu có tuân thủ các
-tiêu chuẩn và định dạng được chỉ định không? Ba loại phụ được xác
-định:**
-
-- **Giá trị: Các phần tử dữ liệu được ghi lại có phù hợp với các
-định dạng được chỉ định không? Ví dụ, tất cả các chuyên khoa y tế
-của nhà cung cấp có phải là chuyên khoa hợp lệ không?**
-
-- **Quan hệ: Dữ liệu được ghi lại có phù hợp với các ràng buộc quan
-hệ được chỉ định không? Ví dụ, PROVIDER_ID trong một
-DRUG_EXPOSURE**
-
-dữ liệu có bản ghi tương ứng trong bảng
-PROVIDER không?
-
-- **Tính toán&#58; Các tính toán trên dữ liệu có mang lại kết quả dự định
-không? Ví dụ, BMI được tính từ chiều cao và cân nặng có bằng với BMI
-nguyên văn được ghi trong dữ liệu không?**
-
-2.  **Tính đầy đủ: Đề cập đến việc liệu một biến cụ thể có hiện diện hay
-không (ví dụ: cân nặng đo tại phòng khám bác sĩ có được ghi lại
-không?) cũng như liệu các biến có chứa tất cả các giá trị được ghi
-lại hay không (ví dụ: tất cả mọi người có biết giới tính không?)**
-
-3.  **Tính hợp lý (Plausibility): Các giá trị dữ liệu có đáng tin không?
-Ba loại phụ được xác định:**
-
-- **Tính duy nhất&#58; Ví dụ, mỗi PERSON_ID có xuất hiện chỉ một lần
-trong bảng PERSON không?**
-
-- **Phi thời gian (Atemporal): Các giá trị, phân phối hoặc mật độ có
-đồng ý với các giá trị kỳ vọng không? Ví dụ, tỷ lệ hiện mắc bệnh
-tiểu đường được ngụ ý bởi dữ liệu có phù hợp với tỷ lệ hiện mắc đã
-biết không?**
-
-- **Thời gian (Temporal): Các thay đổi về giá trị có phù hợp với kỳ
-vọng không? Ví dụ, các chuỗi tiêm chủng có phù hợp với các khuyến
-nghị không?**
-
-Mỗi thành phần có thể được đánh giá theo hai cách:
-
-- **Xác minh (Verification) tập trung vào các ràng buộc dữ liệu mô hình
-và siêu dữ liệu, các giả định hệ thống và kiến thức địa phương. Nó
-không dựa vào tham chiếu bên ngoài. Đặc điểm chính của xác minh là khả
-năng xác định các giá trị và phân phối kỳ vọng bằng cách sử dụng các
-tài nguyên trong môi trường cục bộ.**
-
-- **Kiểm định (Validation) tập trung vào sự căn chỉnh của các giá trị dữ
-liệu liên quan đến các chuẩn đối chiếu bên ngoài phù hợp. Một nguồn
-chuẩn đối chiếu bên ngoài có thể là kết hợp các kết quả trên nhiều địa
-điểm dữ liệu.**
-
-### Kiểm tra chất lượng dữ liệu
-
-Kahn giới thiệu thuật ngữ kiểm tra chất lượng dữ liệu (đôi khi được
-gọi là quy tắc chất lượng dữ liệu) kiểm tra xem dữ liệu có tuân thủ
-một yêu cầu nhất định hay không (ví dụ: gắn cờ một độ tuổi không hợp
-lý là 141 của một bệnh nhân, có khả năng do năm sinh không chính xác
-hoặc thiếu sự kiện tử vong). Chúng ta có thể thực hiện các kiểm tra
-như vậy trong phần mềm bằng cách tạo các công cụ DQ tự động. Một công
-cụ như vậy là ACHILLES (Automated Characterization of Health
-Information at Large-scale Longitudinal Evidence Systems). (Huser và
-cộng sự, 2018) ACHILLES là một công cụ phần mềm cung cấp đặc điểm hóa
-và trực quan hóa cơ sở dữ liệu tuân thủ CDM. Do đó, nó có thể được sử
-dụng để đánh giá DQ trong một mạng lưới các cơ sở dữ liệu. (Huser và
-cộng sự, 2016) ACHILLES có sẵn dưới dạng một công cụ độc lập, và nó
-cũng được tích hợp vào ATLAS dưới dạng hàm "Data Sources".
-
-ACHILLES tính toán trước hơn 170 phân tích đặc điểm hóa dữ liệu, với
-mỗi phân tích có một ID phân tích và một mô tả ngắn về phân tích đó;
-hai ví dụ như vậy là "715: Phân phối DAYS_SUPPLY theo DRUG_CONCEPT_ID"
-và "506: Phân phối tuổi khi chết theo giới tính." Kết quả của các phân
-tích này được lưu trữ trong cơ sở dữ liệu và có thể được truy cập bằng
-trình xem web hoặc bởi ATLAS.
-
-Một công cụ khác do cộng đồng tạo ra để đánh giá DQ là Bảng điều khiển
-chất lượng dữ liệu (Data Quality Dashboard - DQD). Trong khi ACHILLES
-chạy các phân tích đặc điểm hóa để cung cấp một cái nhìn trực quan
-tổng thể
-
-về một phiên bản CDM, DQD đi từng bảng và từng trường để định lượng số
-lượng bản ghi trong CDM không tuân thủ các thông số kỹ thuật đã cho.
-Tổng cộng, hơn 1.500 kiểm tra được thực hiện, mỗi kiểm tra được tổ
-chức vào khung Kahn. Đối với mỗi kiểm tra, kết quả được so sánh với
-một ngưỡng mà tại đó FAIL được coi là bất kỳ tỷ lệ phần trăm nào của
-các hàng vi phạm nằm trên giá trị đó. Bảng 15.1 hiển thị một số kiểm
-tra ví dụ.
-
-+------+---------------------------------------------+-------+
-|      | Bảng 15.1&#58; Ví dụ về các quy tắc chất lượng  |       |
-|      | dữ liệu trong Bảng điều khiển Chất lượng Dữ |       |
-|      | liệu.                                       |       |
-+======+=============================================+=======+
-| Tỷ   |                                             |       |
-| lệ   |                                             |       |
-+------+---------------------------------------------+-------+
-| vi   |                                             |       |
-| phạm |                                             |       |
-+------+---------------------------------------------+-------+
-| hàng | > Kiểm tra mô tả Ngưỡng                     | Trạng |
-|      |                                             | thái  |
-+------+---------------------------------------------+-------+
-| 0.34 | > Giá trị có hoặc không cho biết liệu       | THẤT  |
-|      | > provider_id trong 0,05                    | BẠI   |
-+------+---------------------------------------------+-------+
-|      | > bảng VISIT_OCCURRENCE có phải là dữ liệu  |       |
-|      | > mong đợi                                  |       |
-+------+---------------------------------------------+-------+
-|      | > hay không dựa trên đặc tả kỹ thuật.       |       |
-+------+---------------------------------------------+-------+
-| 0.99 | > Số lượng và tỷ lệ phần trăm các giá trị   | THẤT  |
-|      | > nguồn riêng biệt 0,30                     | BẠI   |
-+------+---------------------------------------------+-------+
-|      | > trong trường measurement_source_value của |       |
-+------+---------------------------------------------+-------+
-|      | > bảng MEASUREMENT được ánh xạ về 0.        |       |
-+------+---------------------------------------------+-------+
-| 0.09 | > Số lượng và tỷ lệ phần trăm các bản ghi   | ĐẠT   |
-|      | > có một 0,10                               |       |
-+------+---------------------------------------------+-------+
-|      | > giá trị trong trường drug_concept_id của  |       |
-+------+---------------------------------------------+-------+
-|      | > bảng DRUG_ERA không tuân thủ theo         |       |
-+------+---------------------------------------------+-------+
-|      | > nhóm thành phần.                          |       |
-+------+---------------------------------------------+-------+
-| 0.02 | > Số lượng và tỷ lệ phần trăm các bản ghi   | ĐẠT   |
-|      | > có giá trị 0,05                           |       |
-+------+---------------------------------------------+-------+
-|      | > trong trường verbatim_end_date của        |       |
-+------+---------------------------------------------+-------+
-|      | > bảng DRUG_EXPOSURE xảy ra trước ngày      |       |
-+------+---------------------------------------------+-------+
-|      | > trong trường DRUG_EXPOSURE_START_DATE     |       |
-+------+---------------------------------------------+-------+
-|      | > của bảng DRUG_EXPOSURE.                   |       |
-+------+---------------------------------------------+-------+
-| 0.00 | > Số lượng và tỷ lệ phần trăm các bản ghi   | ĐẠT   |
-|      | > có một 0,00                               |       |
-+------+---------------------------------------------+-------+
-|      | > giá trị trùng lặp trong trường            |       |
-|      | > procedure_occurrence_id                   |       |
-+------+---------------------------------------------+-------+
-|      | > trường của PROCEDURE_OCCURRENCE.          |       |
-+------+---------------------------------------------+-------+
-
-Trong công cụ, các kiểm tra được tổ chức theo nhiều cách, một cách là
-thành các kiểm tra cấp bảng, trường và khái niệm. Các kiểm tra bảng là
-những kiểm tra được thực hiện ở cấp độ cao trong CDM, ví dụ như xác
-định xem tất cả các bảng bắt buộc có hiện diện hay không. Các kiểm tra
-cấp trường được thực hiện theo cách đánh giá mọi trường trong mọi bảng
-để tuân thủ các thông số kỹ thuật CDM. Các kiểm tra này bao gồm đảm
-bảo tất cả các khóa chính thực sự là duy nhất và tất cả các trường
-khái niệm chuẩn chứa các id khái niệm trong miền phù hợp, cùng nhiều
-kiểm tra khác. Các kiểm tra cấp khái niệm đi sâu hơn một chút để kiểm
-tra các id khái niệm cá nhân. Nhiều kiểm tra trong số này thuộc loại
-tính hợp lý của khung Kahn như đảm bảo rằng các khái niệm dành riêng
-cho giới tính không được gán cho những người có giới tính không chính
-xác (ví dụ: ung thư tuyến tiền liệt ở một bệnh nhân nữ).
-
-![](media/image6.png){width="0.45499890638670165in"
-height="0.45499890638670165in" .book-icon}
-
-ACHILLES and DQD are executed against the data in the CDM. DQ issues
-iden-tified this way may be due to the conversion to the CDM, but may
-also reflect DQ issues already present in the source data. If the
-conversion is at fault, it is usually within our control to remedy the
-problem, but if the underlying data are at fault the only course of
-action may be to delete the offending records.
-
-### Kiểm tra đơn vị ETL
-
-Ngoài các kiểm tra chất lượng dữ liệu cấp cao, các kiểm tra dữ liệu
-cấp cá nhân cũng nên được thực hiện. Quy trình ETL (Trích xuất -
-Chuyển đổi - Nạp) mà theo đó dữ liệu được chuyển đổi sang CDM thường
-khá phức tạp, và cùng với sự phức tạp đó là nguy cơ mắc sai lầm có thể
-không được chú ý. Hơn nữa, theo thời gian, mô hình dữ liệu nguồn có
-thể thay đổi, hoặc CDM có thể được cập nhật, khiến việc sửa đổi quy
-trình ETL trở nên cần thiết. Các thay đổi đối với một quy trình phức
-tạp như ETL có thể dẫn đến những hậu quả không mong muốn, đòi hỏi tất
-cả các khía cạnh của ETL phải được xem xét lại và đánh giá.
-
-Để đảm bảo ETL thực hiện những gì nó được cho là phải làm, và tiếp tục
-làm như vậy, chúng tôi đặc biệt khuyến nghị xây dựng một tập hợp các
-kiểm tra đơn vị (unit tests). Một kiểm tra đơn vị là một đoạn mã nhỏ
-tự động kiểm tra một khía cạnh duy nhất. Công cụ Rabbit-in-a-Hat được
-mô tả trong Chương 6 có thể tạo ra một khung kiểm tra đơn vị giúp việc
-viết các kiểm tra đơn vị như vậy trở nên dễ dàng hơn. Khung này là một
-tập hợp các hàm R được tạo đặc biệt cho cơ sở dữ liệu nguồn và phiên
-bản CDM mục tiêu của ETL. Một số hàm trong số này là để tạo các mục dữ
-liệu giả tuân thủ lược đồ dữ liệu nguồn, trong khi các hàm khác có thể
-được sử dụng để chỉ định các kỳ vọng trên dữ liệu ở định dạng CDM. Đây
-là một ví dụ về kiểm tra đơn vị:
-
-**source**(\"Framework.R\")
-
-**declareTest**(101, \"Person gender mappings\")
-
-**add_enrollment**(member_id = \"M000000102\", gender_of_member =
-\"male\") **add_enrollment**(member_id = \"M000000103\",
-gender_of_member = \"female\") **expect_person**(PERSON_ID = 102,
-GENDER_CONCEPT_ID = 8507
-
-**expect_person**(PERSON_ID = 103, GENDER_CONCEPT_ID = 8532)
-
-Trong ví dụ này, khung được tạo bởi Rabbit-in-a-Hat được gọi, tải các
-hàm được sử dụng trong phần còn lại của mã. Sau đó, chúng ta tuyên bố
-sẽ bắt đầu kiểm tra các ánh xạ giới tính người. Lược đồ nguồn có bảng
-ENROLLMENT, và chúng ta sử dụng hàm add_enrollment được tạo bởi
-Rabbit-in-a-Hat để tạo hai mục với các giá trị khác nhau cho các
-trường MEMBER_ID và GENDER_OF_MEMBER. Cuối cùng, chúng ta chỉ định kỳ
-vọng rằng sau khi ETL, hai mục sẽ tồn tại trong bảng PERSON với các
-giá trị kỳ vọng khác nhau.
-
-Lưu ý rằng bảng ENROLLMENT có nhiều trường khác, nhưng chúng ta không
-quan tâm nhiều đến giá trị của các trường khác này trong bối cảnh của
-kiểm tra này. Tuy nhiên, để trống các giá trị đó (ví dụ: ngày sinh) có
-thể khiến ETL loại bỏ bản ghi hoặc đưa ra lỗi. Để vượt qua vấn đề này
-trong khi vẫn giữ cho mã kiểm tra dễ đọc, hàm add_enrollment
-
-sẽ gán các giá trị mặc định (các giá trị phổ biến nhất như được quan
-sát trong báo cáo quét White Rabbit) cho các giá trị trường không được
-người dùng chỉ định rõ ràng.
-
-Các kiểm tra đơn vị tương tự có thể được tạo cho tất cả các logic khác
-trong ETL, thường dẫn đến hàng trăm kiểm tra. Khi chúng ta hoàn thành
-việc xác định kiểm tra, chúng ta có thể sử dụng khung để tạo hai tập
-hợp các câu lệnh SQL, một để tạo dữ liệu nguồn giả và một để tạo các
-kiểm tra trên dữ liệu đã ETL:
-
-insertSql \<- **generateInsertSql**(databaseSchema =
-\"source_schema\") testSql \<- **generateTestSql**(databaseSchema =
-\"cdm_test_schema\")
-
-Quy trình tổng thể được mô tả trong Hình 15.1.
-
-![](media/image154.jpeg){width="4.772083333333334in"
-height="2.543124453193351in"}
-
-Hình 15.1: Kiểm tra đơn vị một quy trình ETL (Trích xuất - Chuyển
-đổi - Nạp) sử dụng khung kiểm tra Rabbit-in-a-Hat.
-
-SQL kiểm tra trả về một bảng trông giống như Bảng 15.2. Trong bảng
-này, chúng ta thấy rằng chúng ta đã vượt qua hai kiểm tra mà chúng ta
-đã xác định trước đó.
-
-Bảng 15.2: Kết quả kiểm tra đơn vị ETL ví dụ.
-
-***
-ID    Mô tả               Trạng
-thái
------ ------------------ -------
-101   Ánh xạ giới tính     ĐẠT
-người bệnh
-
-101   Ánh xạ giới tính     ĐẠT
-người bệnh
-***
-
-Sức mạnh của các kiểm tra đơn vị này là chúng ta có thể dễ dàng chạy
-lại chúng bất cứ khi nào quy trình ETL bị thay đổi.[]{#_bookmark459
-.anchor}
-
-3.  *Các kiểm tra cụ thể theo nghiên cứu 297*
-
-## Các kiểm tra cụ thể theo nghiên cứu
-
-Chương này cho đến nay đã tập trung vào các kiểm tra DQ chung. Các
-kiểm tra như vậy nên được thực hiện trước khi sử dụng dữ liệu cho
-nghiên cứu. Vì các kiểm tra này được thực hiện bất kể các câu hỏi
-nghiên cứu, chúng tôi khuyến nghị thực hiện các đánh giá DQ cụ thể
-theo nghiên cứu.
-
-Một số đánh giá này có thể ở dạng các quy tắc DQ đặc biệt liên quan
-đến nghiên cứu. Ví dụ, chúng ta có thể muốn áp đặt một quy tắc rằng ít
-nhất 90% các bản ghi cho phơi nhiễm mà chúng ta quan tâm phải chỉ định
-thời lượng phơi nhiễm.
-
-Một đánh giá tiêu chuẩn là xem xét các khái niệm liên quan nhất đến
-nghiên cứu trong ACHILLES, ví dụ như những khái niệm được chỉ định
-trong các định nghĩa nhóm thuần tập nghiên cứu. Những thay đổi đột
-ngột theo thời gian trong tỷ lệ quan sát được một mã có thể gợi ý các
-vấn đề DQ. Một số ví dụ sẽ được thảo luận sau trong chương này.
-
-Một đánh giá khác là xem xét tỷ lệ hiện mắc và những thay đổi về tỷ lệ
-hiện mắc theo thời gian của các nhóm thuần tập kết quả được tạo ra
-bằng cách sử dụng các định nghĩa nhóm thuần tập được phát triển cho
-nghiên cứu, và xem liệu chúng có đồng ý với kỳ vọng dựa trên kiến thức
-lâm sàng bên ngoài hay không. Ví dụ, phơi nhiễm với một loại thuốc mới
-nên vắng mặt trước khi giới thiệu ra thị trường, và có khả năng sẽ
-tăng theo thời gian sau khi giới thiệu. Tương tự, tỷ lệ hiện mắc của
-các kết cục nên phù hợp với những gì đã biết về tỷ lệ hiện mắc của
-tình trạng bệnh trong quần thể. Nếu một nghiên cứu được thực hiện trên
-một mạng lưới các cơ sở dữ liệu, chúng ta có thể so sánh tỷ lệ hiện
-mắc của các nhóm thuần tập trên các cơ sở dữ liệu. Nếu một nhóm thuần
-tập có tỷ lệ hiện mắc cao ở một cơ sở dữ liệu, nhưng lại thiếu ở cơ sở
-dữ liệu khác, có thể có vấn đề về DQ. Lưu ý rằng đánh giá như vậy
-chồng lấp với khái niệm về tính hợp lệ lâm sàng, như được thảo luận
-trong Chương 16; chúng ta có thể tìm thấy tỷ lệ hiện mắc không mong
-đợi ở một số cơ sở dữ liệu không phải vì các vấn đề DQ, mà vì định
-nghĩa nhóm thuần tập của chúng ta không thực sự nắm bắt được các trạng
-thái sức khỏe mà chúng ta quan tâm, hoặc vì các trạng thái sức khỏe
-này thay đổi một cách chính đáng trên các cơ sở dữ liệu thu thập các
-quần thể bệnh nhân khác nhau.
-
-### Kiểm tra ánh xạ
-
-Một nguồn lỗi có thể xảy ra nằm chắc chắn dưới sự kiểm soát của chúng
-ta là việc ánh xạ các mã nguồn sang các Khái niệm chuẩn (Standard
-Concepts). Các ánh xạ trong Từ vựng được chế tạo một cách tỉ mỉ, và
-các lỗi trong ánh xạ được các thành viên cộng đồng lưu ý sẽ được báo
-cáo trong trình theo dõi vấn đề Từ vựng1 và được sửa trong các bản
-phát hành tương lai. Tuy nhiên, việc kiểm tra thủ công tất cả các ánh
-xạ là không thể, và các lỗi có khả năng vẫn tồn tại. Do đó, khi thực
-hiện một nghiên cứu, chúng tôi khuyến nghị xem xét các ánh xạ cho
-những khái niệm liên quan nhất đến nghiên cứu. May mắn thay, điều này
-có thể đạt được khá dễ dàng vì trong CDM, chúng ta lưu trữ không chỉ
-các Khái niệm chuẩn mà còn cả các mã nguồn. Chúng ta có thể xem xét cả
-các mã nguồn ánh xạ đến các khái niệm được sử dụng trong nghiên cứu,
-cũng như những mã không ánh xạ.
-
-Một cách để xem xét các mã nguồn ánh xạ là sử dụng hàm
-checkCohortSourceCodes trong gói R MethodEvaluation. Hàm này sử dụng
-một định nghĩa nhóm thuần tập do ATLAS tạo ra làm đầu vào, và đối với
-mỗi tập khái niệm được sử dụng trong định nghĩa nhóm thuần tập, nó
-kiểm tra mã nguồn nào ánh xạ đến các khái niệm trong tập đó. Nó cũng
-tính toán tỷ lệ hiện mắc của
-
-^1^<https://github.com/OHDSI/Vocabulary-v5.0/issues>
-
-các mã này theo thời gian để giúp xác định các vấn đề về thời gian
-liên quan đến các mã nguồn cụ thể. Kết quả đầu ra ví dụ trong Hình
-15.2 cho thấy một sự phân tích (một phần) của một tập khái niệm gọi là
-"Rối loạn trầm cảm." Khái niệm phổ biến nhất trong tập khái niệm này
-trong cơ sở dữ liệu quan tâm là khái niệm 440383 ("Rối loạn trầm
-cảm"). Chúng ta thấy rằng ba mã nguồn trong cơ sở dữ liệu ánh xạ đến
-khái niệm này: mã ICD-9 3.11, và các mã ICD-10 F32.8 và F32.89. Ở bên
-trái, chúng ta thấy rằng khái niệm này nói chung ban đầu cho thấy sự
-gia tăng dần dần theo thời gian, nhưng sau đó cho thấy một sự sụt giảm
-mạnh. Nếu chúng ta nhìn vào các mã cá nhân, chúng ta thấy rằng sự sụt
-giảm này có thể được giải thích bởi thực tế là mã ICD-9 ngừng được sử
-dụng vào thời điểm sụt giảm. Mặc dù đây cũng là thời điểm các mã
-ICD-10 bắt đầu được sử dụng, tỷ lệ hiện mắc kết hợp của các mã ICD-10
-nhỏ hơn nhiều so với mã ICD-9. Ví dụ cụ thể này là do thực tế là mã
-ICD-10 F32.9 ("Rối loạn trầm cảm chủ yếu, đơn cực, không xác định")
-đáng lẽ cũng phải ánh xạ đến khái niệm này. Vấn đề này kể từ đó đã
-được giải quyết trong Từ vựng.
-
-![](media/image155.jpeg){width="5.298333333333333in"
-height="2.6079166666666667in"}
-
-Hình 15.2: Ví dụ đầu ra của hàm checkCohortSourceCodes.
-
-Mặc dù ví dụ trước minh họa việc tình cờ tìm thấy một mã nguồn chưa
-được ánh xạ, nhưng nhìn chung, việc xác định các ánh xạ bị thiếu khó
-hơn so với việc kiểm tra các ánh xạ hiện có. Điều này đòi hỏi phải
-biết mã nguồn nào cần được ánh xạ nhưng chưa được thực hiện. Một
-phương pháp bán tự động để thực hiện đánh giá này là sử dụng hàm
-findOrphanSourceCodes trong gói R MethodEvaluation. Hàm này cho phép
-tìm kiếm từ vựng để tìm các mã nguồn bằng cách tìm kiếm văn bản đơn
-giản và kiểm tra xem các mã nguồn này có ánh xạ tới một khái niệm cụ
-thể hay một trong các khái niệm con của khái niệm đó hay không. Tập
-hợp các mã nguồn thu được sau đó được giới hạn chỉ trong những mã xuất
-hiện trong cơ sở dữ liệu CDM đang xét. Ví dụ, trong một nghiên cứu,
-khái niệm "Rối loạn hoại tử" (439928) và tất cả các khái niệm con của
-nó đã được sử dụng để tìm tất cả các trường hợp hoại tử. Để đánh giá
-liệu điều này có thực sự bao gồm tất cả các mã nguồn chỉ ra tình trạng
-hoại tử hay không, một số thuật ngữ (ví dụ: "hoại tử") đã được sử dụng
-để tìm kiếm các mô tả trong bảng CONCEPT và SOURCE_TO_CONCEPT_MAP nhằm
-xác định các mã nguồn. Một tìm kiếm tự động sau đó được sử dụng để
-đánh giá xem liệu mỗi mã nguồn hoại tử xuất hiện trong
-
-4.  *ACHILLES trong thực tiễn 299*
-
-dữ liệu có thực sự ánh xạ trực tiếp hoặc gián tiếp (thông qua tổ tiên)
-tới khái niệm "Rối loạn hoại tử" hay không. Kết quả của đánh giá này
-được hiển thị trong Hình 15.3, cho thấy rằng mã ICD-10 J85.0 ("Hoại tử
-và chết mô phổi") chỉ được ánh xạ tới khái niệm 4324261 ("Hoại tử
-phổi"), không phải là một khái niệm con của "Rối loạn hoại tử".
-
-![](media/image156.jpeg){width="3.7274989063867014in"
-height="1.5808333333333333in"}
-
-Hình 15.3: Ví dụ về mã nguồn mồ côi.
-
-## ACHILLES trong thực tiễn
-
-Tại đây chúng tôi sẽ minh họa cách chạy ACHILLES trên một cơ sở dữ
-liệu ở định dạng CDM.
-
-Trước hết, chúng ta cần hướng dẫn R cách kết nối với máy chủ. ACHILLES
-sử dụng gói DatabaseConnector, gói này cung cấp một hàm gọi là
-createConnectionDetails. Hãy nhập
-
-?createConnectionDetails để biết các cài đặt cụ thể cần thiết cho các
-hệ thống
-
-quản trị cơ sở dữ liệu (DBMS) khác nhau. Ví dụ, người dùng có thể kết
-nối với cơ sở dữ liệu PostgreSQL bằng đoạn mã này:
-
-**library**(Achilles)
-
-connDetails \<- **createConnectionDetails**(dbms = \"postgresql\",
-
-server = \"localhost/ohdsi\", user = \"joe\",
-
-password = \"supersecret\")
-
-cdmDbSchema \<- \"my_cdm_data\" cdmVersion \<- \"5.3.0\"
-
-Hai dòng cuối cùng xác định biến cdmDbSchema, cũng như phiên bản CDM.
-Chúng ta sẽ sử dụng các biến này sau đó để chỉ cho R biết dữ liệu ở
-định dạng CDM nằm ở đâu và phiên bản CDM nào đang được sử dụng. Lưu ý
-rằng đối với Microsoft SQL Server, các lược đồ cơ sở dữ liệu cần chỉ
-định cả cơ sở dữ liệu và lược đồ, ví dụ như cdmDbSchema \<-
-\"my_cdm_data.dbo\".
-
-Tiếp theo, chúng ta chạy ACHILLES:
-
-result \<- **achilles**(connectionDetails,
-
-cdmDatabaseSchema = cdmDbSchema,
-
-resultsDatabaseSchema = cdmDbSchema, sourceName = \"My database\",
-cdmVersion = cdmVersion)
-
-Hàm này sẽ tạo một số bảng trong resultsDatabaseSchema, mà ở đây chúng
-ta đã đặt cùng một lược đồ cơ sở dữ liệu với dữ liệu CDM.
-
-Chúng ta có thể xem đặc điểm cơ sở dữ liệu của ACHILLES. Việc này có
-thể được thực hiện bằng cách trỏ ATLAS tới các cơ sở dữ liệu kết quả
-của ACHILLES, hoặc bằng cách xuất kết quả ACHILLES ra một tập hợp các
-tệp JSON:
-
-**exportToJson**(connectionDetails,
-
-cdmDatabaseSchema = cdmDatabaseSchema, resultsDatabaseSchema =
-cdmDatabaseSchema, outputPath = \"achillesOut\")
-
-Các tệp JSON sẽ được ghi vào thư mục con achillesOut và có thể được sử
-dụng cùng với ứng dụng web AchillesWeb để khám phá kết quả. Ví dụ,
-Hình 15.4 hiển thị biểu đồ mật độ dữ liệu của ACHILLES. Biểu đồ này
-cho thấy phần lớn dữ liệu bắt đầu từ năm 2005. Tuy nhiên, cũng xuất
-hiện một vài bản ghi từ khoảng năm 1961, đây có khả năng là một lỗi
-trong dữ liệu.
-
-![](media/image157.jpeg){width="5.4in"
-height="2.1656244531933506in"}
-
-Hình 15.4: Biểu đồ mật độ dữ liệu trong trình xem web ACHILLES.
-
-Một ví dụ khác được hiển thị trong Hình 15.5, cho thấy sự thay đổi đột
-ngột về tỷ lệ phổ biến của mã chẩn đoán bệnh tiểu đường. Sự thay đổi
-này trùng với những thay đổi trong quy định hoàn trả tại quốc gia cụ
-thể này, dẫn đến nhiều chẩn đoán hơn nhưng có lẽ không phải là sự gia
-tăng thực sự về tỷ lệ phổ biến trong quần thể cơ bản.[]{#_bookmark466
-.anchor}
-
-5.  *Bảng điều khiển chất lượng dữ liệu trong thực tiễn 301*
-
-![](media/image158.jpeg){width="5.3161461067366576in"
-height="1.8621872265966755in"}
-
-Hình 15.5: Tỷ lệ bệnh tiểu đường hàng tháng được mã hóa trong trình
-xem web ACHILLES.
-
-## Bảng điều khiển chất lượng dữ liệu trong thực tiễn
-
-Tại đây chúng tôi sẽ minh họa cách chạy Bảng điều khiển chất lượng dữ
-liệu (Data Quality Dashboard) trên một cơ sở dữ liệu ở định dạng CDM.
-Chúng tôi thực hiện việc này bằng cách chạy một tập hợp lớn các kiểm
-tra trên kết nối CDM được mô tả trong Mục 15.4. Hiện tại, DQD chỉ hỗ
-trợ CDM v5.3.1, vì vậy trước khi kết nối, hãy đảm bảo cơ sở dữ liệu
-của bạn ở đúng phiên bản. Giống như với ACHILLES, chúng ta cần tạo
-biến cdmDbSchema để hướng dẫn R tìm kiếm dữ liệu ở đâu.
-
-cdmDbSchema \<- \"my_cdm_data.dbo\"
-
-Tiếp theo, chúng ta chạy Bảng điều khiển...
-
-Hàm trên sẽ thực hiện tất cả các kiểm tra chất lượng dữ liệu khả dụng
-trên lược đồ được chỉ định. Sau đó, nó sẽ ghi một bảng vào
-resultsDatabaseSchema mà ở đây chúng ta đã đặt cùng lược đồ với CDM.
-Bảng này sẽ bao gồm tất cả thông tin về mỗi lần kiểm tra đã chạy, bao
-gồm bảng CDM, trường CDM, tên kiểm tra, mô tả kiểm tra, danh mục và
-tiểu danh mục Kahn, số lượng hàng vi phạm, mức ngưỡng và liệu kiểm tra
-đó đạt hay không đạt, cùng các thông tin khác. Ngoài một bảng, hàm này
-còn ghi một tệp JSON vào vị trí được chỉ định là outputFolder. Sử dụng
-tệp JSON này, chúng ta có thể khởi chạy trình xem web để kiểm tra kết
-quả.
-
-**viewDqDashboard**(jsonPath)
-
-Biến jsonPath phải là đường dẫn đến tệp JSON chứa kết quả của
-
-Bảng điều khiển, nằm trong outputFolder được chỉ định khi gọi hàm
-executeDqChecks
-
-ở trên.
-
-Khi bạn mở Bảng điều khiển lần đầu, bạn sẽ thấy bảng tổng quan như
-trong Hình 15.6. Bảng này sẽ hiển thị tổng số các kiểm tra đã chạy
-trong mỗi danh mục Kahn được chia theo ngữ cảnh, số lượng và phần trăm
-đạt trong mỗi danh mục, cũng như tỷ lệ đạt tổng thể.
-
-![](media/image159.jpeg){width="5.16in"
-height="2.94375in"}
-
-Hình 15.6: Tổng quan về các kiểm tra chất lượng dữ liệu trong Bảng
-điều khiển chất lượng dữ liệu.
-
-Nhấp vào Kết quả (Results) trong menu bên trái sẽ đưa bạn đến các kết
-quả chi tiết cho từng kiểm tra đã chạy (Hình 15.7). Trong ví dụ này,
-bảng hiển thị một kiểm tra được chạy để xác định tính đầy đủ của các
-bảng CDM riêng lẻ, hoặc số lượng và phần trăm người trong CDM có ít
-nhất một bản ghi trong bảng được chỉ định. Trong trường hợp này, năm
-bảng được liệt kê đều trống, điều mà Bảng điều khiển tính là không
-đạt. Nhấp vào biểu tượng sẽ mở một cửa sổ hiển thị truy vấn chính xác
-đã được chạy trên dữ liệu của bạn để tạo ra các kết quả được liệt kê.
-Điều này cho phép dễ dàng xác định các hàng được Bảng điều khiển coi
-là không
-đạt.![](media/image160.png){width="0.1666447944006999in"
-height="0.1666447944006999in" .book-icon}
-
-## Các kiểm tra cụ thể cho nghiên cứu trong thực tiễn
-
-Tiếp theo, chúng ta sẽ thực hiện một số kiểm tra cụ thể cho định nghĩa
-nhóm thuần tập phù mạch (angioedema) được cung cấp trong Phụ lục B.4.
-Chúng tôi giả định rằng các chi tiết kết nối đã được thiết lập như mô
-tả trong Mục 15.4 và tệp JSON cũng như SQL của định nghĩa nhóm thuần
-tập đã được lưu lần lượt trong các tệp "cohort.json" và "cohort.sql".
-Tệp JSON và SQL có thể được lấy từ tab Xuất (Export) trong chức năng
-định nghĩa nhóm thuần tập ATLAS.
-
-6.  *Các kiểm tra cụ thể cho nghiên cứu trong thực tiễn 303*
-
-![](media/image161.jpeg){width="5.29in"
-height="3.473957786526684in"}
-
-Hình 15.7: Chi tiết về các kiểm tra chất lượng dữ liệu trong Bảng điều
-khiển chất lượng dữ liệu.
-
-**library**(MethodEvaluation)
-
-json \<- **readChar**(\"cohort.json\",
-**file.info**(\"cohort.json\")**\$**size) sql \<-
-**readChar**(\"cohort.sql\", **file.info**(\"cohort.sql\")**\$**size)
-**checkCohortSourceCodes**(connectionDetails,
-
-cdmDatabaseSchema = cdmDbSchema, cohortJson = json,
-
-cohortSql = sql,
-
-outputFile = \"output.html\")
-
-Chúng ta có thể mở tệp đầu ra trong trình duyệt web như trong Hình
-15.8. Tại đây, chúng ta thấy định nghĩa nhóm thuần tập phù mạch có hai
-tập hợp khái niệm: "Inpatient or ER visit" (Khám nội trú hoặc cấp cứu)
-và "Angioedema" (Phù mạch). Trong cơ sở dữ liệu ví dụ này, các lần
-khám được tìm thấy thông qua các mã nguồn cụ thể của cơ sở dữ liệu là
-"ER" và "IP", vốn không có trong Từ vựng, mặc dù chúng đã được ánh xạ
-trong quá trình ETL tới các khái niệm chuẩn. Chúng ta cũng thấy rằng
-phù mạch được tìm thấy thông qua một mã ICD-9 và hai mã ICD-10. Chúng
-ta thấy rõ thời điểm chuyển đổi giữa hai hệ thống mã hóa khi nhìn vào
-các biểu đồ đường nhỏ (spark-lines) cho từng mã riêng lẻ, nhưng đối
-với tập hợp khái niệm nói chung thì không có sự gián đoạn nào tại thời
-điểm đó.
-
-Tiếp theo, chúng ta có thể tìm kiếm các mã nguồn mồ côi, là các mã
-nguồn không ánh xạ tới các mã khái niệm chuẩn. Tại đây, chúng ta tìm
-kiếm Khái niệm chuẩn "Phù mạch" (Angioedema), sau đó tìm kiếm bất kỳ
-mã và khái niệm nào có "Phù mạch" hoặc bất kỳ từ đồng nghĩa nào chúng
-ta cung cấp trong tên của chúng:
-
-![](media/image162.jpeg){width="5.3220833333333335in"
-height="3.0530205599300086in"}
-
-Hình 15.8: Các mã nguồn được sử dụng trong định nghĩa nhóm thuần tập
-phù mạch.
-
-orphans \<- **findOrphanSourceCodes**(connectionDetails,
-
-cdmDatabaseSchema = cdmDbSchema, conceptName = \"Angioedema\",
-conceptSynonyms = **c**(\"Angioneurotic edema\",
-
-\"Giant hives\", \"Giant urticaria\", \"Periodic edema\"))
-
-**View**(orphans)
-
-***
-mã          mô tả                            vocabularyId     tổng số
-lượng
------------ -------------------------------- -------------- ---------
-T78.3XXS    Phù mạch thần kinh, di chứng     ICD10CM              508
-
-10002425    Phù mạch                         MedDRA                 0
-
-148774      Phù mạch thần kinh thanh quản    CIEL                   0
-
-402383003   Mày đay và/hoặc phù mạch vô căn  SNOMED                 0
-
-232437009   Phù mạch thần kinh thanh quản    SNOMED                 0
-
-10002472    Phù mạch thần kinh, không phân   MedDRA                 0
-loại nơi khác
-***
-
-Mã nguồn mồ côi tiềm năng duy nhất được tìm thấy thực sự được sử dụng
-trong dữ liệu là "Angioneurotic edema, sequela" (Phù mạch thần kinh,
-di chứng), mã này không nên được ánh xạ tới phù mạch. Do đó, phân tích
-này không phát hiện bất kỳ mã nào bị thiếu.
-
-7.  *Tóm tắt 305*
+> Trạng thái của tính đầy đủ, tính hợp lệ, tính nhất quán, tính kịp thời và độ chính xác giúp dữ liệu trở nên phù hợp cho một mục đích sử dụng cụ thể.
+
+Lưu ý rằng dữ liệu của chúng ta khó có thể hoàn hảo tuyệt đối, nhưng chúng có thể đủ tốt cho mục đích nghiên cứu cụ thể.
+
+Chất lượng dữ liệu không thể quan sát trực tiếp, nhưng các phương pháp luận đã được phát triển để đánh giá nó. Có thể phân biệt hai loại đánh giá chất lượng dữ liệu (Weiskopf và Weng, 2013): đánh giá chất lượng dữ liệu tổng quát (general DQ assessments) và đánh giá chất lượng dữ liệu trong bối cảnh của một nghiên cứu cụ thể (study-specific DQ assessments).
+
+Trong phần này, trước tiên chúng ta sẽ điểm qua các nguồn có thể gây ra vấn đề về chất lượng dữ liệu, sau đó thảo luận về cơ sở lý thuyết của việc đánh giá chất lượng dữ liệu tổng quát và đặc thù theo nghiên cứu, tiếp nối bằng hướng dẫn từng bước về cách thực hiện các đánh giá này bằng bộ công cụ của OHDSI.
+
+### Các nguồn gây ra vấn đề về chất lượng dữ liệu
+
+Có nhiều mối đe dọa đối với chất lượng dữ liệu, bắt đầu ngay từ khi người bác sĩ ghi chép lại suy nghĩ của mình vào hồ sơ như đã đề cập ở phần trên. Dasu và Johnson (2003) phân biệt các bước sau trong vòng đời của dữ liệu và khuyến nghị tích hợp việc kiểm soát chất lượng dữ liệu vào từng bước. Họ gọi đây là dải liên tục chất lượng dữ liệu (DQ continuum):
+
+1. **Thu thập và tích hợp dữ liệu (Data gathering and integration)**. Các vấn đề có thể xảy ra bao gồm sai sót khi nhập liệu thủ công, các sai lệch hệ thống (ví dụ: nâng mức mã bệnh [upcoding] trong yêu cầu thanh toán bảo hiểm), kết nối (join) sai giữa các bảng trong EHR, và thay thế các giá trị bị khuyết bằng các giá trị mặc định.
+2. **Lưu trữ dữ liệu và chia sẻ tri thức (Data storage and knowledge sharing)**. Các vấn đề tiềm ẩn là thiếu tài liệu mô tả mô hình dữ liệu và thiếu siêu dữ liệu (metadata).
+3. **Phân tích dữ liệu (Data analysis)**. Các vấn đề có thể bao gồm biến đổi dữ liệu sai, diễn giải dữ liệu không chính xác và sử dụng phương pháp luận không phù hợp.
+4. **Công bố dữ liệu (Data publishing)**. Xảy ra khi xuất bản dữ liệu cho các mục đích sử dụng kế tiếp ở hạ nguồn.
+
+Thông thường, dữ liệu mà chúng ta sử dụng đã được thu thập và tích hợp sẵn, nên chúng ta hầu như không thể can thiệp để cải thiện Bước 1. Tuy nhiên, chúng ta có những phương pháp để kiểm tra chất lượng dữ liệu đầu ra của bước này như sẽ thảo luận trong các mục tiếp theo.
+
+Tương tự, chúng ta thường nhận dữ liệu ở một định dạng cố định nên ít có khả năng tác động đến một phần của Bước 2. Tuy nhiên, trong OHDSI, chúng ta chuyển đổi toàn bộ dữ liệu quan sát sang Mô hình Dữ liệu Chung (Common Data Model — CDM), và chúng ta hoàn toàn làm chủ quy trình này. Một số ý kiến từng bày tỏ lo ngại rằng bước chuyển đổi này có thể làm suy giảm chất lượng dữ liệu. Nhưng chính vì kiểm soát được quy trình này, chúng ta có thể xây dựng các biện pháp bảo vệ nghiêm ngặt để bảo toàn chất lượng dữ liệu như sẽ thảo luận ở mục Kiểm thử đơn vị ETL bên dưới. Nhiều công trình nghiên cứu (Defalco và cộng sự, 2013; Makadia và Ryan, 2014; Matcho và cộng sự, 2014; Voss và cộng sự, 2015a,b; Hripcsak và cộng sự, 2018) đã chứng minh rằng khi được thực hiện đúng cách, quá trình chuyển đổi sang CDM hầu như không tạo ra thêm sai số nào. Trên thực tế, việc sở hữu một mô hình dữ liệu được tài liệu hóa đầy đủ và được chia sẻ bởi một cộng đồng rộng lớn giúp việc lưu trữ dữ liệu trở nên rõ ràng và nhất quán.
+
+Bước 3 (phân tích dữ liệu) cũng nằm trong tầm kiểm soát của chúng ta. Trong OHDSI, chúng tôi thường không dùng thuật ngữ chất lượng dữ liệu (DQ) cho các vấn đề chất lượng phát sinh ở bước này, mà sử dụng các thuật ngữ *giá trị hợp lệ lâm sàng (clinical validity)*, *giá trị hợp lệ của phần mềm (software validity)* và *giá trị hợp lệ của phương pháp (method validity)*, sẽ được thảo luận chi tiết lần lượt trong các Chương 15, 16 và 17.
+
+### Chất lượng dữ liệu tổng quát
+
+Chúng ta có thể đặt câu hỏi liệu dữ liệu của mình có phù hợp cho mục đích chung của nghiên cứu quan sát hay không. Kahn và cộng sự (2016) định nghĩa chất lượng dữ liệu tổng quát bao gồm ba thành phần:
+
+1. **Tính tuân thủ (Conformance)**: Các giá trị dữ liệu có tuân thủ các tiêu chuẩn và định dạng được quy định hay không? Có ba phân nhóm:
+   - **Giá trị (Value)**: Các phần tử dữ liệu được ghi nhận có thống nhất với định dạng quy định không? Ví dụ: tất cả chuyên khoa y tế của nhân viên y tế có phải là các chuyên khoa hợp lệ không?
+   - **Quan hệ (Relational)**: Dữ liệu được ghi nhận có tuân thủ các ràng buộc quan hệ được quy định không? Ví dụ: mỗi `PROVIDER_ID` trong bảng `DRUG_EXPOSURE` có bản ghi tương ứng trong bảng `PROVIDER` không?
+   - **Tính toán (Computation)**: Các phép tính toán trên dữ liệu có cho ra kết quả như dự định không? Ví dụ: chỉ số BMI tính từ chiều cao và cân nặng có bằng với chỉ số BMI nguyên gốc được ghi nhận trực tiếp trong dữ liệu không?
+2. **Tính đầy đủ (Completeness)**: Đề cập đến việc liệu một biến số cụ thể có hiện diện hay không (ví dụ: cân nặng đo tại phòng khám bác sĩ có được ghi nhận không?) cũng như liệu các biến số có chứa đầy đủ tất cả các giá trị được ghi nhận hay không (ví dụ: tất cả cá nhân có đều được ghi nhận giới tính xác định không?).
+3. **Tính hợp lý (Plausibility)**: Các giá trị dữ liệu có đáng tin cậy về mặt thực tế không? Có ba phân nhóm:
+   - **Tính duy nhất (Uniqueness)**: Ví dụ: mỗi `PERSON_ID` có xuất hiện duy nhất một lần trong bảng `PERSON` không?
+   - **Phi thời gian (Atemporal)**: Các giá trị, phân phối hoặc mật độ có phù hợp với các giá trị kỳ vọng không? Ví dụ: tỷ lệ hiện mắc bệnh đái tháo đường suy ra từ dữ liệu có phù hợp với tỷ lệ hiện mắc đã biết trong quần thể không?
+   - **Theo thời gian (Temporal)**: Sự thay đổi của các giá trị theo thời gian có phù hợp với kỳ vọng không? Ví dụ: trình tự tiêm chủng có tuân theo đúng phác đồ khuyến cáo không?
+
+Mỗi thành phần trên có thể được đánh giá theo hai phương thức:
+
+- **Xác minh (Verification)** tập trung vào các ràng buộc của mô hình dữ liệu và siêu dữ liệu, các giả định hệ thống và tri thức nội bộ tại cơ sở. Phương thức này không dựa vào nguồn tham chiếu bên ngoài. Đặc trưng cốt lõi của xác minh là khả năng xác định các giá trị và phân phối kỳ vọng bằng chính các nguồn lực trong môi trường dữ liệu nội bộ.
+- **Thẩm định (Validation)** tập trung vào mức độ tương thích của các giá trị dữ liệu so với các chuẩn đối chiếu (benchmarks) bên ngoài có liên quan. Một cách xây dựng chuẩn đối chiếu bên ngoài là tổng hợp kết quả từ nhiều cơ sở dữ liệu trong mạng lưới.
+
+#### Các phép kiểm tra chất lượng dữ liệu
+
+Kahn đưa ra thuật ngữ *kiểm tra chất lượng dữ liệu (data quality check)* (đôi khi còn gọi là *quy tắc chất lượng dữ liệu [data quality rule]*) nhằm kiểm tra xem dữ liệu có tuân thủ một yêu cầu nhất định hay không (ví dụ: gắn cờ cảnh báo một bệnh nhân có độ tuổi phi lý là 141 tuổi, có thể do sai năm sinh hoặc thiếu bản ghi tử vong). Chúng ta có thể triển khai các phép kiểm tra như vậy bằng phần mềm thông qua các công cụ đánh giá chất lượng dữ liệu tự động. Một công cụ tiêu biểu là [ACHILLES](https://github.com/OHDSI/Achilles) (Automated Characterization of Health Information at Large-scale Longitudinal Evidence Systems) (Huser và cộng sự, 2018). ACHILLES là công cụ phần mềm giúp mô tả đặc điểm và trực quan hóa một cơ sở dữ liệu tuân thủ chuẩn CDM. Nhờ đó, nó có thể được dùng để đánh giá chất lượng dữ liệu trong một mạng lưới các cơ sở dữ liệu (Huser và cộng sự, 2016). ACHILLES có thể chạy như một công cụ độc lập hoặc được tích hợp trong ATLAS dưới chức năng "Data Sources".
+
+ACHILLES tính toán sẵn hơn 170 phân tích mô tả đặc điểm dữ liệu; mỗi phân tích có một mã định danh (analysis ID) và phần mô tả ngắn gọn, chẳng hạn như "715: Phân phối `DAYS_SUPPLY` theo `DRUG_CONCEPT_ID`" và "506: Phân phối tuổi tử vong theo giới tính". Kết quả của các phân tích này được lưu trữ trong cơ sở dữ liệu và có thể truy cập qua trình duyệt web hoặc qua ATLAS.
+
+Một công cụ khác do cộng đồng OHDSI phát triển để đánh giá chất lượng dữ liệu là [Bảng điều khiển Đánh giá Chất lượng Dữ liệu (Data Quality Dashboard — DQD)](https://github.com/OHDSI/DataQualityDashboard). Trong khi ACHILLES chạy các phân tích mô tả đặc điểm để cung cấp cái nhìn trực quan tổng thể về một cơ sở dữ liệu CDM, thì DQD đi sâu vào từng bảng và từng trường dữ liệu để định lượng số bản ghi trong CDM không tuân thủ các đặc tả kỹ thuật đã đề ra. Tổng cộng có hơn 1.500 phép kiểm tra được thực hiện, mỗi phép kiểm tra đều được phân loại theo khung lý thuyết của Kahn. Ở mỗi phép kiểm tra, kết quả được đối chiếu với một ngưỡng quy định (threshold), trong đó trạng thái KHÔNG ĐẠT (FAIL) được ghi nhận khi tỷ lệ phần trăm số dòng vi phạm vượt quá ngưỡng đó. Bảng 14.2 trình bày một số ví dụ về các phép kiểm tra trong DQD.
+
+Bảng 14.2: Ví dụ về các quy tắc chất lượng dữ liệu trong Bảng điều khiển Đánh giá Chất lượng Dữ liệu (DQD).
+
+| Tỷ lệ dòng vi phạm | Mô tả phép kiểm tra | Ngưỡng | Trạng thái |
+|:---|:---|:---|:---|
+| 0.34 | Giá trị có/không cho biết liệu trường `provider_id` trong bảng `VISIT_OCCURRENCE` có đúng kiểu dữ liệu kỳ vọng theo đặc tả kỹ thuật hay không. | 0.05 | FAIL |
+| 0.99 | Số lượng và tỷ lệ phần trăm các giá trị nguồn phân biệt trong trường `measurement_source_value` của bảng `MEASUREMENT` bị ánh xạ về 0. | 0.30 | FAIL |
+| 0.09 | Số lượng và tỷ lệ phần trăm các bản ghi có giá trị trong trường `drug_concept_id` của bảng `DRUG_ERA` không thuộc phân lớp hoạt chất (ingredient class). | 0.10 | PASS |
+| 0.02 | Số lượng và tỷ lệ phần trăm các bản ghi có giá trị trong trường `verbatim_end_date` của bảng `DRUG_EXPOSURE` xảy ra trước ngày trong trường `DRUG_EXPOSURE_START_DATE` của bảng `DRUG_EXPOSURE`. | 0.05 | PASS |
+| 0.00 | Số lượng và tỷ lệ phần trăm các bản ghi có giá trị trùng lặp trong trường `procedure_occurrence_id` của bảng `PROCEDURE_OCCURRENCE`. | 0.00 | PASS |
+
+Bên trong công cụ DQD, các phép kiểm tra được tổ chức theo nhiều chiều, một trong số đó là phân chia thành kiểm tra ở cấp độ bảng (table), cấp độ trường (field) và cấp độ khái niệm (concept). Kiểm tra cấp độ bảng được thực hiện ở mức tổng quát trong CDM, ví dụ như xác định xem tất cả các bảng bắt buộc có hiện diện hay không. Kiểm tra cấp độ trường đánh giá từng trường trong từng bảng về tính tuân thủ đặc tả kỹ thuật CDM, bao gồm việc đảm bảo tất cả các khóa chính (primary keys) thực sự là duy nhất và tất cả các trường khái niệm chuẩn đều chứa mã định danh khái niệm (concept ID) thuộc đúng miền (domain) quy định. Kiểm tra cấp độ khái niệm đi sâu hơn để rà soát từng mã định danh khái niệm cụ thể. Nhiều phép kiểm tra ở cấp độ này thuộc nhóm *tính hợp lý (plausibility)* trong khung Kahn, chẳng hạn như đảm bảo các khái niệm đặc thù theo giới tính không bị gán nhầm cho người có giới tính không phù hợp (ví dụ: chẩn đoán ung thư tuyến tiền liệt ở bệnh nhân nữ).
+
+::: {.callout-important title="Điểm quan trọng"}
+ACHILLES và DQD được thực thi trực tiếp trên dữ liệu trong CDM. Các vấn đề chất lượng dữ liệu được phát hiện theo cách này có thể bắt nguồn từ quá trình chuyển đổi sang CDM, nhưng cũng có thể phản ánh những vấn đề chất lượng dữ liệu đã tồn tại sẵn trong dữ liệu nguồn. Nếu lỗi nằm ở quá trình chuyển đổi, chúng ta thường có thể chủ động khắc phục được; nhưng nếu lỗi nằm ở chính dữ liệu nguồn ban đầu, giải pháp duy nhất có thể là loại bỏ các bản ghi vi phạm đó.
+:::
+
+#### Kiểm thử đơn vị ETL
+
+Bên cạnh các phép kiểm tra chất lượng dữ liệu ở cấp độ tổng quát, cần thực hiện cả các phép kiểm tra dữ liệu ở cấp độ bản ghi cá thể. Quy trình ETL (Trích xuất – Biến đổi – Nạp; Extract-Transform-Load) dùng để chuyển đổi dữ liệu sang CDM thường khá phức tạp, và đi kèm với sự phức tạp đó là nguy cơ xảy ra những sai sót khó nhận biết. Hơn nữa, theo thời gian, mô hình dữ liệu nguồn có thể thay đổi hoặc CDM có thể được nâng cấp, đòi hỏi phải chỉnh sửa quy trình ETL. Những thay đổi đối với một quy trình phức tạp như ETL có thể dẫn đến các hệ quả ngoài ý muốn, đòi hỏi toàn bộ các khía cạnh của quy trình ETL phải được rà soát và đánh giá lại.
+
+Để đảm bảo quy trình ETL vận hành đúng như thiết kế và tiếp tục duy trì sự chính xác đó qua các lần cập nhật, chúng tôi đặc biệt khuyến nghị xây dựng một bộ kiểm thử đơn vị (unit tests). Một kiểm thử đơn vị là một đoạn mã ngắn tự động kiểm tra một khía cạnh logic đơn lẻ. Công cụ Rabbit-in-a-Hat được mô tả trong Chương 6 có thể khởi tạo một khung kiểm thử đơn vị (unit test framework) giúp việc viết các bài kiểm thử này trở nên dễ dàng hơn. Khung kiểm thử này là tập hợp các hàm R được sinh ra dành riêng cho cơ sở dữ liệu nguồn và phiên bản CDM đích của quy trình ETL. Một số hàm dùng để tạo các bản ghi dữ liệu giả lập tuân thủ lược đồ dữ liệu nguồn, trong khi các hàm khác dùng để khai báo các kết quả kỳ vọng trên dữ liệu ở định dạng CDM. Dưới đây là một ví dụ về kiểm thử đơn vị:
+
+```r
+source("Framework.R")
+declareTest(101, "Person gender mappings")
+add_enrollment(member_id = "M000000102", gender_of_member = "male")
+add_enrollment(member_id = "M000000103", gender_of_member = "female")
+expect_person(PERSON_ID = 102, GENDER_CONCEPT_ID = 8507)
+expect_person(PERSON_ID = 103, GENDER_CONCEPT_ID = 8532)
+```
+
+Trong ví dụ này, tệp khung kiểm thử do Rabbit-in-a-Hat tạo ra (`Framework.R`) được nạp vào R để cung cấp các hàm sử dụng trong phần mã tiếp theo. Sau đó, chúng ta khai báo bắt đầu bài kiểm thử ánh xạ giới tính của người bệnh. Lược đồ nguồn có bảng `ENROLLMENT`, và chúng ta sử dụng hàm `add_enrollment` do Rabbit-in-a-Hat tạo ra để thêm hai bản ghi với các giá trị khác nhau cho hai trường `MEMBER_ID` và `GENDER_OF_MEMBER`. Cuối cùng, chúng ta khai báo kỳ vọng rằng sau khi chạy ETL, sẽ có hai bản ghi tồn tại trong bảng `PERSON` với các mã khái niệm giới tính chuẩn tương ứng.
+
+Lưu ý rằng bảng `ENROLLMENT` còn có nhiều trường dữ liệu khác, nhưng chúng ta không cần quan tâm đến giá trị của các trường đó trong bối cảnh của bài kiểm thử này. Tuy nhiên, nếu để trống các trường đó (ví dụ: ngày sinh), quy trình ETL có thể loại bỏ bản ghi hoặc báo lỗi. Để giải quyết vấn đề này mà vẫn giữ cho mã kiểm thử ngắn gọn và dễ đọc, hàm `add_enrollment` sẽ tự động gán các giá trị mặc định (là các giá trị phổ biến nhất được ghi nhận trong báo cáo quét dữ liệu của White Rabbit) cho những trường không được người dùng chỉ định tường minh.
+
+Các kiểm thử đơn vị tương tự có thể được viết cho toàn bộ các quy tắc logic khác trong quy trình ETL, thường tạo thành hàng trăm bài kiểm thử. Sau khi định nghĩa xong các bài kiểm thử, chúng ta có thể dùng khung kiểm thử để sinh ra hai tập câu lệnh SQL: một tập lệnh dùng để tạo dữ liệu nguồn giả lập, và một tập lệnh dùng để thực thi các phép kiểm tra trên dữ liệu sau khi đã chạy ETL:
+
+```r
+insertSql <- generateInsertSql(databaseSchema = "source_schema")
+testSql <- generateTestSql(databaseSchema = "cdm_test_schema")
+```
+
+Quy trình tổng thể được minh họa trong Hình 14.2.
+
+![](media/image154.jpeg){width="4.772083333333334in" height="2.543124453193351in"}
+
+Hình 14.2: Kiểm thử đơn vị một quy trình ETL (Trích xuất – Biến đổi – Nạp) bằng khung kiểm thử Rabbit-in-a-Hat.
+
+Đoạn mã SQL kiểm thử sẽ trả về một bảng kết quả tương tự như Bảng 14.3. Trong bảng này, chúng ta thấy cả hai phép kiểm thử đã định nghĩa ở trên đều đạt yêu cầu (PASS).
+
+Bảng 14.3: Ví dụ về kết quả kiểm thử đơn vị ETL.
+
+| ID | Mô tả | Trạng thái |
+|:---:|:---|:---:|
+| 101 | Person gender mappings (Ánh xạ giới tính người bệnh) | PASS |
+| 101 | Person gender mappings (Ánh xạ giới tính người bệnh) | PASS |
+
+Sức mạnh của các kiểm thử đơn vị này nằm ở chỗ chúng ta có thể dễ dàng chạy lại chúng bất cứ khi nào quy trình ETL có sự thay đổi.
+
+### Các phép kiểm tra đặc thù theo nghiên cứu
+
+Từ đầu phần này đến nay, chúng ta đã tập trung vào các phép kiểm tra chất lượng dữ liệu tổng quát. Các phép kiểm tra như vậy cần được thực hiện trước khi đưa dữ liệu vào phục vụ nghiên cứu. Vì các phép kiểm tra tổng quát được thực hiện độc lập với câu hỏi nghiên cứu, chúng tôi khuyến nghị thực hiện thêm các đánh giá chất lượng dữ liệu đặc thù cho từng nghiên cứu (study-specific DQ assessments).
+
+Một số đánh giá này có thể mang hình thức là các quy tắc chất lượng dữ liệu có ý nghĩa thiết yếu đối với nghiên cứu đang thực hiện. Ví dụ, chúng ta có thể đặt ra quy tắc rằng ít nhất 90% số bản ghi của phơi nhiễm quan tâm phải có thông tin xác định thời lượng phơi nhiễm.
+
+Một đánh giá tiêu chuẩn là rà soát trong ACHILLES các khái niệm liên quan mật thiết nhất đến nghiên cứu, chẳng hạn như các khái niệm được sử dụng trong định nghĩa đoàn hệ (cohort definitions) của nghiên cứu. Những biến động đột ngột theo thời gian về tần suất xuất hiện của một mã khái niệm có thể là dấu hiệu gợi ý vấn đề về chất lượng dữ liệu. Một số ví dụ cụ thể sẽ được thảo luận ở phần sau của chương này.
+
+Một đánh giá khác là xem xét tỷ lệ hiện mắc (prevalence) và xu hướng thay đổi tỷ lệ hiện mắc theo thời gian của các đoàn hệ được tạo ra từ các định nghĩa đoàn hệ của nghiên cứu, rồi đối chiếu xem chúng có phù hợp với kỳ vọng dựa trên tri thức lâm sàng bên ngoài hay không. Ví dụ, phơi nhiễm với một thuốc mới phải bằng không trước thời điểm thuốc đó được cấp phép lưu hành trên thị trường, và thường sẽ tăng dần theo thời gian sau khi ra mắt. Tương tự, tỷ lệ hiện mắc của các kết cục phải tương thích với những gì đã biết về tỷ lệ hiện mắc của bệnh lý đó trong quần thể. Nếu nghiên cứu được thực hiện trên một mạng lưới gồm nhiều cơ sở dữ liệu, chúng ta có thể so sánh tỷ lệ hiện mắc của các đoàn hệ giữa các cơ sở dữ liệu với nhau. Nếu một đoàn hệ có tỷ lệ hiện mắc cao ở cơ sở dữ liệu này nhưng lại hoàn toàn vắng bóng ở một cơ sở dữ liệu khác, đó có thể là dấu hiệu của vấn đề chất lượng dữ liệu. Lưu ý rằng phép đánh giá như vậy có sự giao thoa với khái niệm *giá trị hợp lệ lâm sàng (clinical validity)* sẽ được thảo luận ở Chương 15; đôi khi chúng ta bắt gặp tỷ lệ hiện mắc bất thường ở một số cơ sở dữ liệu không phải vì lỗi chất lượng dữ liệu, mà vì định nghĩa đoàn hệ của chúng ta chưa thực sự nắm bắt đúng trạng thái bệnh lý quan tâm, hoặc vì trạng thái bệnh lý đó thực sự khác biệt một cách tự nhiên giữa các cơ sở dữ liệu đại diện cho các quần thể bệnh nhân khác nhau.
+
+#### Kiểm tra ánh xạ mã
+
+Một nguồn sai số tiềm tàng hoàn toàn nằm trong tầm kiểm soát của chúng ta là việc ánh xạ từ các mã nguồn (source codes) sang các Khái niệm Chuẩn (Standard Concepts). Các ánh xạ trong Bộ từ vựng Chuẩn (Vocabulary) được xây dựng rất tỉ mỉ, và những lỗi ánh xạ do các thành viên cộng đồng phát hiện đều được báo cáo trên trình theo dõi lỗi của Bộ từ vựng[^1] và được khắc phục trong các phiên bản phát hành tiếp theo. Tuy nhiên, không thể kiểm tra thủ công toàn bộ mọi ánh xạ, nên chắc chắn vẫn còn tồn tại những sai sót nhất định. Do đó, khi thực hiện một nghiên cứu, chúng tôi khuyến nghị rà soát kỹ các ánh xạ của những khái niệm quan trọng nhất đối với nghiên cứu đó. May mắn là việc này có thể thực hiện khá dễ dàng vì trong CDM, chúng ta lưu trữ không chỉ các Khái niệm Chuẩn mà cả các mã nguồn ban đầu. Chúng ta có thể kiểm tra cả những mã nguồn được ánh xạ tới các khái niệm dùng trong nghiên cứu lẫn những mã nguồn bị bỏ sót chưa được ánh xạ.
+
+[^1]: <https://github.com/OHDSI/Vocabulary-v5.0/issues>
+
+Một cách để rà soát các mã nguồn đã được ánh xạ là sử dụng hàm `checkCohortSourceCodes` trong gói R [MethodEvaluation](https://ohdsi.github.io/MethodEvaluation/). Hàm này nhận đầu vào là một định nghĩa đoàn hệ do ATLAS tạo ra, và với mỗi tập khái niệm (concept set) sử dụng trong định nghĩa đoàn hệ đó, hàm sẽ kiểm tra xem những mã nguồn nào trong cơ sở dữ liệu được ánh xạ tới các khái niệm trong tập khái niệm. Hàm cũng tính toán tỷ lệ hiện mắc của các mã này theo thời gian nhằm giúp phát hiện các bất thường về mặt thời gian gắn liền với từng mã nguồn cụ thể. Kết quả đầu ra minh họa trong Hình 14.3 cho thấy bảng phân rã (một phần) của tập khái niệm có tên "Depressive disorder" (Rối loạn trầm cảm). Khái niệm phổ biến nhất trong tập khái niệm này tại cơ sở dữ liệu đang xét là khái niệm [440383](http://athena.ohdsi.org/search-terms/terms/440383) ("Depressive disorder"). Chúng ta thấy có ba mã nguồn trong cơ sở dữ liệu được ánh xạ tới khái niệm này: mã ICD-9 `311`, cùng hai mã ICD-10 là `F32.8` và `F32.89`. Ở phía bên trái, biểu đồ cho thấy tần suất của khái niệm này nhìn chung tăng dần theo thời gian nhưng sau đó lại sụt giảm đột ngột. Khi nhìn vào từng mã nguồn riêng lẻ, chúng ta thấy sự sụt giảm này được giải thích bởi việc mã ICD-9 ngừng được sử dụng đúng vào thời điểm sụt giảm đó. Mặc dù đó cũng là lúc các mã ICD-10 bắt đầu được đưa vào sử dụng, nhưng tổng tỷ lệ hiện mắc của hai mã ICD-10 này thấp hơn rất nhiều so với mã ICD-9 trước đó. Nguyên nhân của trường hợp cụ thể này là do mã ICD-10 `F32.9` ("Major depressive disorder, single episode, unspecified" — Rối loạn trầm cảm chủ yếu, giai đoạn đơn độc, không đặc hiệu) lẽ ra cũng phải được ánh xạ tới khái niệm này. Vấn đề này sau đó đã được khắc phục trong Bộ từ vựng.
+
+![](media/image155.jpeg){width="5.298333333333333in" height="2.6079166666666667in"}
+
+Hình 14.3: Ví dụ kết quả đầu ra của hàm `checkCohortSourceCodes`.
+
+Mặc dù ví dụ trên minh họa việc tình cờ phát hiện ra một mã nguồn bị thiếu ánh xạ, nhưng nhìn chung việc tìm kiếm các ánh xạ bị thiếu khó hơn nhiều so với việc kiểm tra các ánh xạ đã có sẵn. Việc này đòi hỏi phải biết những mã nguồn nào lẽ ra phải được ánh xạ nhưng thực tế lại chưa được ánh xạ. Một phương pháp bán tự động để thực hiện đánh giá này là sử dụng hàm `findOrphanSourceCodes` trong gói R [MethodEvaluation](https://ohdsi.github.io/MethodEvaluation/). Hàm này cho phép tìm kiếm các mã nguồn trong bộ từ vựng bằng truy vấn văn bản đơn giản, rồi kiểm tra xem các mã nguồn đó có được ánh xạ tới một khái niệm cụ thể hoặc bất kỳ khái niệm hậu duệ (descendant) nào của khái niệm đó hay không. Tập hợp các mã nguồn tìm được sau đó được thu hẹp lại chỉ giữ những mã thực sự xuất hiện trong cơ sở dữ liệu CDM đang xét. Ví dụ, trong một nghiên cứu, khái niệm "Gangrenous disorder" (Rối loạn hoại thư, mã [439928](http://athena.ohdsi.org/search-terms/terms/439928)) cùng tất cả các khái niệm hậu duệ của nó được sử dụng để tìm mọi trường hợp hoại thư. Để đánh giá xem tập khái niệm này đã thực sự bao quát hết mọi mã nguồn chỉ điểm hoại thư hay chưa, một số thuật ngữ (ví dụ: "gangrene") đã được dùng để tìm kiếm trong phần mô tả của hai bảng `CONCEPT` và `SOURCE_TO_CONCEPT_MAP` nhằm nhận diện các mã nguồn liên quan. Tiếp theo, một quy trình tìm kiếm tự động sẽ đánh giá xem mỗi mã nguồn hoại thư xuất hiện trong dữ liệu có thực sự được ánh xạ trực tiếp hoặc gián tiếp (thông qua quan hệ phân cấp tổ tiên – hậu duệ) tới khái niệm "Gangrenous disorder" hay không. Kết quả đánh giá được hiển thị trong Hình 14.4, cho thấy mã ICD-10 `J85.0` ("Gangrene and necrosis of lung" — Hoại thư và hoại tử phổi) chỉ được ánh xạ tới khái niệm [4324261](http://athena.ohdsi.org/search-terms/terms/4324261) ("Pulmonary necrosis" — Hoại tử phổi), vốn không phải là khái niệm hậu duệ của "Gangrenous disorder".
+
+![](media/image156.jpeg){width="3.7274989063867014in" height="1.5808333333333333in"}
+
+Hình 14.4: Ví dụ về mã nguồn mồ côi (orphan source code).
+
+### ACHILLES trong thực tiễn
+
+Tại đây, chúng tôi sẽ minh họa cách chạy ACHILLES trên một cơ sở dữ liệu ở định dạng CDM.
+
+Trước hết, chúng ta cần cung cấp thông tin để R kết nối tới máy chủ cơ sở dữ liệu. ACHILLES sử dụng gói [DatabaseConnector](https://ohdsi.github.io/DatabaseConnector/), trong đó cung cấp hàm `createConnectionDetails`. Hãy gõ `?createConnectionDetails` trong R để xem các thiết lập cụ thể cần thiết cho từng hệ quản trị cơ sở dữ liệu (DBMS) khác nhau. Ví dụ, chúng ta có thể kết nối tới cơ sở dữ liệu PostgreSQL bằng đoạn mã sau:
+
+```r
+library(Achilles)
+connDetails <- createConnectionDetails(dbms = "postgresql",
+                                       server = "localhost/ohdsi",
+                                       user = "joe",
+                                       password = "supersecret")
+
+cdmDbSchema <- "my_cdm_data"
+cdmVersion <- "5.3.0"
+```
+
+Hai dòng cuối định nghĩa biến `cdmDbSchema` và phiên bản CDM (`cdmVersion`). Chúng ta sẽ sử dụng các biến này ở bước sau để cho R biết dữ liệu định dạng CDM nằm ở đâu và đang sử dụng phiên bản CDM nào. Lưu ý rằng đối với Microsoft SQL Server, tên lược đồ cơ sở dữ liệu (database schema) cần chỉ định cả tên cơ sở dữ liệu và tên lược đồ, ví dụ: `cdmDbSchema <- "my_cdm_data.dbo"`.
+
+Tiếp theo, chúng ta thực thi ACHILLES:
+
+```r
+result <- achilles(connectionDetails,
+                   cdmDatabaseSchema = cdmDbSchema,
+                   resultsDatabaseSchema = cdmDbSchema,
+                   sourceName = "My database",
+                   cdmVersion = cdmVersion)
+```
+
+Hàm này sẽ tạo ra một số bảng kết quả trong `resultsDatabaseSchema` (ở đây chúng ta đặt trùng với lược đồ chứa dữ liệu CDM).
+
+Sau đó, chúng ta có thể xem kết quả mô tả đặc điểm cơ sở dữ liệu của ACHILLES bằng cách trỏ ATLAS tới lược đồ kết quả ACHILLES, hoặc xuất kết quả ACHILLES ra một tập hợp các tệp JSON:
+
+```r
+exportToJson(connectionDetails,
+             cdmDatabaseSchema = cdmDatabaseSchema,
+             resultsDatabaseSchema = cdmDatabaseSchema,
+             outputPath = "achillesOut")
+```
+
+Các tệp JSON sẽ được ghi vào thư mục con `achillesOut` và có thể dùng kết hợp với ứng dụng web AchillesWeb để khám phá kết quả. Ví dụ, Hình 14.5 hiển thị biểu đồ mật độ dữ liệu (data density plot) của ACHILLES. Biểu đồ này cho thấy phần lớn dữ liệu bắt đầu từ năm 2005. Tuy nhiên, có xuất hiện một vài bản ghi từ khoảng năm 1961, nhiều khả năng là lỗi dữ liệu.
+
+![](media/image157.jpeg){width="5.4in" height="2.1656244531933506in"}
+
+Hình 14.5: Biểu đồ mật độ dữ liệu trong trình xem web ACHILLES.
+
+Một ví dụ khác được trình bày trong Hình 14.6, cho thấy sự thay đổi đột ngột về tỷ lệ hiện mắc của mã chẩn đoán bệnh đái tháo đường. Sự thay đổi này trùng khớp với thời điểm thay đổi quy định chi trả bảo hiểm tại quốc gia đó, dẫn đến số lượt chẩn đoán được ghi nhận tăng lên nhưng có lẽ không phản ánh sự gia tăng thực sự về tỷ lệ hiện mắc bệnh trong quần thể.
+
+![](media/image158.jpeg){width="5.3161461067366576in" height="1.8621872265966755in"}
+
+Hình 14.6: Tỷ lệ mã hóa bệnh đái tháo đường hằng tháng trong trình xem web ACHILLES.
+
+### Bảng điều khiển Đánh giá Chất lượng Dữ liệu (DQD) trong thực tiễn
+
+Tại đây, chúng tôi sẽ minh họa cách chạy Bảng điều khiển Đánh giá Chất lượng Dữ liệu (Data Quality Dashboard — DQD) trên một cơ sở dữ liệu ở định dạng CDM. Chúng ta thực hiện việc này bằng cách chạy một tập hợp lớn các phép kiểm tra trên kết nối CDM đã thiết lập ở mục ACHILLES trong thực tiễn. Hiện tại DQD hỗ trợ CDM v5.3.1, vì vậy trước khi kết nối, hãy đảm bảo cơ sở dữ liệu của bạn đang ở đúng phiên bản. Tương tự như với ACHILLES, chúng ta cần tạo biến `cdmDbSchema` để cho R biết nơi lưu trữ dữ liệu:
+
+```r
+cdmDbSchema <- "my_cdm_data.dbo"
+```
+
+Tiếp theo, chúng ta khởi chạy DQD:
+
+```r
+DataQualityDashboard::executeDqChecks(connectionDetails = connectionDetails,
+                                      cdmDatabaseSchema = cdmDbSchema,
+                                      resultsDatabaseSchema = cdmDbSchema,
+                                      cdmSourceName = "My database",
+                                      outputFolder = "My output")
+```
+
+Hàm trên sẽ thực thi toàn bộ các phép kiểm tra chất lượng dữ liệu hiện có trên lược đồ được chỉ định. Sau đó, hàm sẽ ghi một bảng kết quả vào `resultsDatabaseSchema` (ở đây được đặt trùng với lược đồ CDM). Bảng này bao gồm đầy đủ thông tin về từng phép kiểm tra đã chạy, bao gồm bảng CDM, trường CDM, tên phép kiểm tra, mô tả phép kiểm tra, danh mục và phân nhóm theo khung Kahn, số dòng vi phạm, ngưỡng quy định, và kết quả đạt (PASS) hay không đạt (FAIL), cùng nhiều thông tin khác. Ngoài bảng dữ liệu trong cơ sở dữ liệu, hàm còn xuất một tệp JSON vào thư mục được chỉ định trong `outputFolder`. Sử dụng tệp JSON này, chúng ta có thể khởi chạy trình xem web tương tác để kiểm tra kết quả:
+
+```r
+viewDqDashboard(jsonPath)
+```
+
+Biến `jsonPath` là đường dẫn trỏ tới tệp JSON chứa kết quả của DQD nằm trong thư mục `outputFolder` đã chỉ định khi gọi hàm `executeDqChecks` ở trên.
+
+Khi mở Bảng điều khiển lần đầu tiên, bạn sẽ thấy bảng tổng quan như trong Hình 14.7. Bảng này hiển thị tổng số phép kiểm tra đã chạy trong từng danh mục Kahn được phân tách theo ngữ cảnh (Verification / Validation), số lượng và tỷ lệ phần trăm phép kiểm tra đạt yêu cầu trong từng mục, cũng như tỷ lệ đạt tổng thể.
+
+![](media/image159.jpeg){width="5.16in" height="2.94375in"}
+
+Hình 14.7: Tổng quan các phép kiểm tra chất lượng dữ liệu trong Bảng điều khiển Đánh giá Chất lượng Dữ liệu (DQD).
+
+Nhấp vào mục *Results* ở trình đơn bên trái sẽ đưa bạn tới kết quả chi tiết (drilldown) cho từng phép kiểm tra đã chạy (Hình 14.8). Trong ví dụ này, bảng kết quả hiển thị các phép kiểm tra nhằm xác định tính đầy đủ (completeness) của từng bảng CDM riêng lẻ, tức là số lượng và tỷ lệ phần trăm người bệnh trong CDM có ít nhất một bản ghi trong bảng được chỉ định. Trong trường hợp này, cả năm bảng được liệt kê đều hoàn toàn trống, nên DQD đánh giá là không đạt (FAIL). Nhấp vào biểu tượng ![](media/image160.png){width="0.1666447944006999in" height="0.1666447944006999in" .book-icon} sẽ mở ra một cửa sổ hiển thị chính xác câu lệnh truy vấn SQL đã được thực thi trên dữ liệu của bạn để tạo ra kết quả đó, giúp dễ dàng truy vết các bản ghi bị DQD đánh giá là không đạt.
+
+![](media/image161.jpeg){width="5.29in" height="3.473957786526684in"}
+
+Hình 14.8: Chi tiết các phép kiểm tra chất lượng dữ liệu trong Bảng điều khiển Đánh giá Chất lượng Dữ liệu (DQD).
+
+### Các phép kiểm tra đặc thù theo nghiên cứu trong thực tiễn
+
+Tiếp theo, chúng ta sẽ thực thi một số phép kiểm tra dành riêng cho định nghĩa đoàn hệ phù mạch (angioedema) được cung cấp trong Phụ lục. Chúng ta giả định rằng thông tin kết nối đã được thiết lập như mô tả ở phần trên, và mã JSON cùng mã SQL của định nghĩa đoàn hệ đã được lưu lần lượt trong hai tệp `"cohort.json"` và `"cohort.sql"`. Cả JSON và SQL đều có thể lấy từ thẻ *Export* trong chức năng định nghĩa đoàn hệ của ATLAS.
+
+```r
+library(MethodEvaluation)
+json <- readChar("cohort.json", file.info("cohort.json")$size)
+sql <- readChar("cohort.sql", file.info("cohort.sql")$size)
+checkCohortSourceCodes(connectionDetails,
+                       cdmDatabaseSchema = cdmDbSchema,
+                       cohortJson = json,
+                       cohortSql = sql,
+                       outputFile = "output.html")
+```
+
+Chúng ta có thể mở tệp đầu ra `output.html` trong trình duyệt web như minh họa ở Hình 14.9. Tại đây, chúng ta thấy định nghĩa đoàn hệ phù mạch có hai tập khái niệm: `"Inpatient or ER visit"` (Khám nội trú hoặc cấp cứu) và `"Angioedema"` (Phù mạch). Trong cơ sở dữ liệu ví dụ này, các lượt khám được tìm thấy thông qua các mã nguồn đặc thù của cơ sở dữ liệu là `"ER"` và `"IP"` (vốn không nằm trong Bộ từ vựng chuẩn nhưng đã được ánh xạ sang các khái niệm chuẩn trong quá trình ETL). Chúng ta cũng thấy phù mạch được nhận diện thông qua một mã ICD-9 và hai mã ICD-10. Khi quan sát các biểu đồ đường thu nhỏ (sparklines) của từng mã riêng lẻ, có thể thấy rõ thời điểm chuyển giao giữa hai hệ thống mã hóa ICD-9 và ICD-10, nhưng xét trên toàn bộ tập khái niệm thì không hề có sự đứt gãy nào tại thời điểm chuyển giao đó.
+
+![](media/image162.jpeg){width="5.3220833333333335in" height="3.0530205599300086in"}
+
+Hình 14.9: Các mã nguồn được sử dụng trong định nghĩa đoàn hệ phù mạch.
+
+Tiếp theo, chúng ta có thể tìm kiếm các mã nguồn mồ côi (orphan source codes), tức là những mã nguồn không được ánh xạ sang mã khái niệm chuẩn. Ở đây, chúng ta tra cứu Khái niệm Chuẩn `"Angioedema"`, sau đó tìm tất cả các mã và khái niệm có chứa từ `"Angioedema"` hoặc bất kỳ từ đồng nghĩa nào được cung cấp trong tên của chúng:
+
+```r
+orphans <- findOrphanSourceCodes(connectionDetails,
+                                 cdmDatabaseSchema = cdmDbSchema,
+                                 conceptName = "Angioedema",
+                                 conceptSynonyms = c("Angioneurotic edema",
+                                                     "Giant hives",
+                                                     "Giant urticaria",
+                                                     "Periodic edema"))
+View(orphans)
+```
+
+| code | description | vocabularyId | overallCount |
+|:---|:---|:---|---:|
+| T78.3XXS | Angioneurotic edema, sequela (Phù mạch thần kinh, di chứng) | ICD10CM | 508 |
+| 10002425 | Angioedemas (Phù mạch) | MedDRA | 0 |
+| 148774 | Angioneurotic Edema of Larynx (Phù mạch thần kinh thanh quản) | CIEL | 0 |
+| 402383003 | Idiopathic urticaria and/or angioedema (Mày đay và/hoặc phù mạch vô căn) | SNOMED | 0 |
+| 232437009 | Angioneurotic edema of larynx (Phù mạch thần kinh thanh quản) | SNOMED | 0 |
+| 10002472 | Angioneurotic edema, not elsewhere classified (Phù mạch thần kinh, không phân loại nơi khác) | MedDRA | 0 |
+
+Mã nguồn mồ côi tiềm năng duy nhất thực sự xuất hiện trong dữ liệu là `"Angioneurotic edema, sequela"` (Di chứng phù mạch thần kinh, mã `T78.3XXS`), vốn là mã di chứng nên việc không ánh xạ vào tình trạng phù mạch cấp tính là hoàn toàn chính xác. Do đó, phân tích này cho thấy không có mã nguồn phù hợp nào bị bỏ sót.
 
 ## Tóm tắt
 
-![](media/image4.png){width="0.4455205599300088in"
-height="0.4644783464566929in" .book-icon}
-
-- Most observational healthcare data were not collected for research.
-
-- Data quality checks are an integral part of research. Data quality
-must be assessed to determine whether the data are of sufficient
-quality for research purposes.
-
-- We should assess data quality for the purpose of research in general,
-and crit-ically in the context of a specific study.
-
-- Some aspects of data quality can be assessed automatically through
-large sets of predefined rules, for example those in the Data Quality
-Dashboard.
-
-- Other tools exist to evaluate the mapping of codes relevant for a
-particular study.
+::: {.callout-tip title="Tóm tắt chương"}
+- Hầu hết dữ liệu chăm sóc sức khỏe quan sát không được thu thập cho mục đích nghiên cứu.
+- Kiểm tra chất lượng dữ liệu là một phần không thể tách rời của nghiên cứu. Chất lượng dữ liệu phải được đánh giá để xác định xem dữ liệu có đạt chất lượng đủ tốt cho mục đích nghiên cứu hay không.
+- Chúng ta cần đánh giá chất lượng dữ liệu cho mục đích nghiên cứu nói chung, và đặc biệt quan trọng là đánh giá trong bối cảnh của từng nghiên cứu cụ thể.
+- Một số khía cạnh của chất lượng dữ liệu có thể được đánh giá tự động thông qua các tập hợp lớn gồm những quy tắc định sẵn, chẳng hạn như các quy tắc trong Bảng điều khiển Đánh giá Chất lượng Dữ liệu (Data Quality Dashboard — DQD).
+- Có các công cụ chuyên biệt khác để đánh giá độ chính xác và tính đầy đủ của việc ánh xạ các mã nguồn liên quan đến một nghiên cứu cụ thể.
+:::
 
 ## Bài tập
 
 #### Điều kiện tiên quyết
 
-Đối với các bài tập này, chúng tôi giả định rằng R, R-Studio và Java
-đã được cài đặt như mô tả trong Mục 8.4.5. Ngoài ra, các gói
-SqlRender, DatabaseConnector, ACHILLES và Eunomia cũng được yêu cầu và
-có thể cài đặt bằng cách:
+Đối với các bài tập này, chúng tôi giả định rằng R, RStudio và Java đã được cài đặt như mô tả trong Chương 8. Ngoài ra, cần cài đặt các gói [SqlRender](https://ohdsi.github.io/SqlRender/), [DatabaseConnector](https://ohdsi.github.io/DatabaseConnector/), [ACHILLES](https://github.com/OHDSI/Achilles), [DataQualityDashboard](https://github.com/OHDSI/DataQualityDashboard) và [Eunomia](https://ohdsi.github.io/Eunomia/) bằng các câu lệnh sau:
 
-**install.packages**(**c**(\"SqlRender\", \"DatabaseConnector\",
-\"remotes\")) remotes**::install_github**(\"ohdsi/Achilles\")
-remotes**::install_github**(\"ohdsi/DataQualityDashboard\")
-remotes**::install_github**(\"ohdsi/Eunomia\", ref = \"v1.0.0\")
+```r
+install.packages(c("SqlRender", "DatabaseConnector", "remotes"))
+remotes::install_github("ohdsi/Achilles")
+remotes::install_github("ohdsi/DataQualityDashboard")
+remotes::install_github("ohdsi/Eunomia", ref = "v1.0.0")
+```
 
-Gói Eunomia cung cấp một tập dữ liệu mô phỏng trong CDM sẽ chạy bên
-trong phiên R cục bộ của bạn. Chi tiết kết nối có thể được lấy bằng
-cách:
+Gói Eunomia cung cấp một tập dữ liệu mô phỏng theo chuẩn CDM chạy ngay trong phiên làm việc R cục bộ của bạn. Thông tin kết nối có thể lấy bằng câu lệnh:
 
-connectionDetails \<- Eunomia**::getEunomiaConnectionDetails**()
+```r
+connectionDetails <- Eunomia::getEunomiaConnectionDetails()
+```
 
-Lược đồ cơ sở dữ liệu CDM là "main".
+Lược đồ cơ sở dữ liệu CDM (`cdmDatabaseSchema`) là `"main"`.
 
-**Bài tập 15.1. Chạy ACHILLES trên cơ sở dữ liệu Eunomia.**
+**Bài tập 14.1.** Thực thi ACHILLES trên cơ sở dữ liệu Eunomia.
 
-**Bài tập 15.2. Chạy DataQualityDashboard trên cơ sở dữ liệu
-Eunomia.**
+**Bài tập 14.2.** Thực thi DataQualityDashboard trên cơ sở dữ liệu Eunomia.
 
-**Bài tập 15.3. Trích xuất danh sách các kiểm tra của DQD. Các câu trả
-lời gợi ý có thể được tìm thấy trong Phụ lục E.10.**
+**Bài tập 14.3.** Trích xuất danh sách các phép kiểm tra của DQD.
 
+Câu trả lời gợi ý có thể được tìm thấy trong Phụ lục.

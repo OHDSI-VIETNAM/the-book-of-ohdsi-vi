@@ -1,146 +1,81 @@
----
-title: "Lời tựa & Giới thiệu"
----
-
 # Lời tựa & Giới thiệu {.unnumbered}
 
-> Sách OHDSI: Khoa học Dữ liệu Y tế Quan sát và Tin học
-
-::: {.callout-warning}
-## 🚧 Đang trong quá trình phát triển
-
-Bản dịch tiếng Việt này đang được xây dựng và hiệu đính. Nội dung có thể còn thiếu sót hoặc thay đổi trước khi hoàn thiện.
-:::
+> **Cẩm nang OHDSI: Khoa học Dữ liệu và Tin học Y tế Quan sát** (*The Book of OHDSI: Observational Health Data Sciences and Informatics*)
 
 ## Lời tựa
 
-Đây là cuốn sách về cộng đồng hợp tác Observational Health Data
-Sciences and Informatics (OHDSI). Cộng đồng OHDSI đã viết cuốn sách
-này để phục vụ như một kho lưu trữ tri thức trung tâm cho mọi vấn đề
-liên quan đến OHDSI. Cuốn sách là một tài liệu sống, được cộng đồng
-duy trì thông qua các công cụ phát triển mã nguồn mở và liên tục phát
-triển. Phiên bản trực tuyến, có sẵn miễn phí tại
-http://book.ohdsi.org, luôn đại diện cho phiên bản mới nhất. Bản in
-vật lý của cuốn sách có sẵn trên Amazon với giá gốc.
+Đây là cuốn sách viết về cộng đồng hợp tác **Khoa học Dữ liệu và Tin học Y tế Quan sát** (*Observational Health Data Sciences and Informatics* — **OHDSI**). Cộng đồng OHDSI biên soạn cuốn sách này nhằm xây dựng một kho lưu trữ tri thức trung tâm cho mọi chủ đề liên quan đến OHDSI. Cuốn sách là một tài liệu sống (*living document*), được cộng đồng duy trì thông qua các công cụ phát triển mã nguồn mở và liên tục được cập nhật. Phiên bản trực tuyến tiếng Anh được cung cấp miễn phí tại [http://book.ohdsi.org](http://book.ohdsi.org) và luôn phản ánh phiên bản mới nhất. Bản in vật lý của cuốn sách hiện có trên [Amazon](https://www.amazon.com/OHDSI-Observational-Health-Sciences-Informatics/dp/1088855199) với mức giá gốc.
 
-## Mục tiêu của cuốn sách này
+## Mục tiêu của cuốn sách
 
-Cuốn sách này hướng tới việc trở thành một kho lưu trữ tri thức trung
-tâm cho OHDSI, tập trung vào việc mô tả cộng đồng OHDSI, các tiêu
-chuẩn dữ liệu OHDSI và các công cụ OHDSI. Cuốn sách dành cho cả những
-người mới bắt đầu và những người đã có kinh nghiệm với OHDSI, với mục
-tiêu mang tính thực tiễn, cung cấp lý thuyết cần thiết và các hướng
-dẫn tiếp theo về cách thực hiện công việc. Sau khi đọc cuốn sách này,
-bạn sẽ hiểu OHDSI là gì và làm thế nào để tham gia vào hành trình này.
-Bạn sẽ tìm hiểu về mô hình dữ liệu chung và các từ vựng chuẩn hóa,
-cũng như cách sử dụng chúng để chuẩn hóa một cơ sở dữ liệu chăm sóc
-sức khỏe quan sát. Bạn sẽ học về ba trường hợp sử dụng chính cho các
-dữ liệu này: đặc điểm lâm sàng, ước tính cấp độ quần thể và dự đoán
-cấp độ bệnh nhân. Bạn sẽ đọc về các công cụ mã nguồn mở của OHDSI hỗ
-trợ cả ba hoạt động này và cách sử dụng chúng. Các chương về chất
-lượng dữ liệu, tính hợp lệ lâm sàng, tính hợp lệ của phần mềm và tính
-hợp lệ của phương pháp sẽ giải thích cách thiết lập chất lượng của
-bằng chứng được tạo ra. Cuối cùng, bạn sẽ học cách sử dụng các công cụ
-OHDSI để thực hiện các nghiên cứu này trong một mạng lưới nghiên cứu
-phân tán.
+Cuốn sách này hướng tới vai trò là kho lưu trữ tri thức trung tâm của OHDSI, tập trung giới thiệu về cộng đồng OHDSI, các tiêu chuẩn dữ liệu OHDSI và hệ sinh thái công cụ OHDSI. Sách được biên soạn cho cả những người mới bắt đầu lẫn các chuyên gia đã có kinh nghiệm với OHDSI theo định hướng thực hành: cung cấp nền tảng lý thuyết thiết yếu kèm theo hướng dẫn từng bước để triển khai trong thực tế.
+
+Sau khi đọc cuốn sách này, bạn sẽ hiểu rõ OHDSI là gì và làm thế nào để tham gia vào hành trình chung của cộng đồng. Bạn sẽ nắm vững Mô hình Dữ liệu Chung (*Common Data Model* — CDM) và Bộ Từ vựng Chuẩn hóa (*Standardized Vocabularies*), cũng như cách vận dụng chúng để chuẩn hóa một cơ sở dữ liệu y tế quan sát. Bạn sẽ tìm hiểu ba bài toán ứng dụng (*use cases*) cốt lõi trên nguồn dữ liệu này:
+
+1. **Mô tả đặc trưng lâm sàng** (*Clinical Characterization*)
+2. **Ước lượng hiệu quả ở cấp độ quần thể** (*Population-Level Effect Estimation*)
+3. **Dự báo ở cấp độ bệnh nhân** (*Patient-Level Prediction*)
+
+Bạn cũng sẽ được giới thiệu về các công cụ mã nguồn mở của OHDSI hỗ trợ cả ba nhóm phân tích trên cùng hướng dẫn sử dụng chi tiết. Các chương viết về chất lượng dữ liệu (*data quality*), tính giá trị lâm sàng (*clinical validity*), tính hợp lệ của phần mềm (*software validity*) và tính giá trị của phương pháp (*method validity*) sẽ giải thích cách thức thẩm định và đảm bảo chất lượng của bằng chứng khoa học được tạo ra. Cuối cùng, bạn sẽ học cách sử dụng bộ công cụ OHDSI để điều phối và thực thi các nghiên cứu này trên một mạng lưới nghiên cứu phân tán (*distributed research network*).
 
 ## Cấu trúc của cuốn sách
 
-Cuốn sách này được tổ chức thành năm phần chính:
+Cuốn sách được tổ chức thành năm phần chính cùng phần Phụ lục:
 
-I)  Cộng đồng OHDSI
+- **Phần I: Cộng đồng OHDSI** (*The OHDSI Community*)
+- **Phần II: Biểu diễn dữ liệu thống nhất** (*Uniform Data Representation*)
+- **Phần III: Phân tích dữ liệu** (*Data Analytics*)
+- **Phần IV: Chất lượng bằng chứng** (*Evidence Quality*)
+- **Phần V: Các nghiên cứu OHDSI** (*OHDSI Studies*)
 
-II) Biểu diễn dữ liệu thống nhất
-
-III) Phân tích dữ liệu
-
-IV) Chất lượng bằng chứng
-
-V)  Các nghiên cứu OHDSI
-
-Mỗi phần có nhiều chương, và tùy trường hợp, mỗi chương đều tuân theo
-trình tự: Giới thiệu, Lý thuyết, Thực hành, Tóm tắt và Bài tập.
+Mỗi phần bao gồm nhiều chương; tùy theo nội dung cụ thể, mỗi chương thường tuân theo cấu trúc thống nhất: *Giới thiệu*, *Lý thuyết*, *Thực hành*, *Tóm tắt* và *Bài tập*.
 
 ## Những người đóng góp
 
-Mỗi chương liệt kê một hoặc nhiều trưởng chương. Đây là những người
-dẫn dắt việc biên soạn chương đó. Tuy nhiên, có rất nhiều người khác
-đã đóng góp cho cuốn sách mà chúng tôi muốn ghi nhận tại đây:
+Mỗi chương đều ghi nhận một hoặc nhiều chủ biên chương (*chapter leads*) — những người trực tiếp dẫn dắt việc biên soạn chương đó. Bên cạnh đó, rất nhiều thành viên khác trong cộng đồng đã đóng góp quý báu cho cuốn sách mà chúng tôi trân trọng ghi nhận tại đây:
 
-Hamed Abedtash, Mustafa Ascha, Mark Beno, Clair Blacketer, David Blatt,
-Brian Christian, Gino Cloft, Frank DeFalco, Sara Dempster, Jon Duke,
-Sergio Eslava, Clark Evans, Thomas Falconer, George Hripcsak, Vojtech
-Huser, Mark Khayter, Greg Klebanov, Kristin Kostka, Bob Lanese, Wanda
-Lattimore, Chun Li, David Madigan, Sindhoosha Malay, Harry Menegay,
-Akihiko Nishimura, Ellen Palmer, Nirav Patil, Jose Posada, Nicole Pratt,
-Dani Prieto-Alhambra, Christian Reich, Jenna Reps, Peter Rijnbeek,
-Patrick Ryan, Craig Sachson, Izzy Saridakis, Paola Saroufim, Martijn
-Schuemie, Sarah Seager, Anthony Sena, Sunah Song, Matt Spotnitz, Marc
-Suchard, Joel Swerdel, Devin Tian, Don Torok, Kees van Bochove, Mui Van
-Zandt, Erica Voss, Kristin Waite, Mike Warfe, Jamie Weaver, James
-Wiggins, Andrew Williams, Seng Chan You
+Hamed Abedtash, Mustafa Ascha, Mark Beno, Clair Blacketer, David Blatt, Brian Christian, Gino Cloft, Frank DeFalco, Sara Dempster, Jon Duke, Sergio Eslava, Clark Evans, Thomas Falconer, George Hripcsak, Vojtech Huser, Mark Khayter, Greg Klebanov, Kristin Kostka, Bob Lanese, Wanda Lattimore, Chun Li, David Madigan, Sindhoosha Malay, Harry Menegay, Akihiko Nishimura, Ellen Palmer, Nirav Patil, Jose Posada, Nicole Pratt, Dani Prieto-Alhambra, Christian Reich, Jenna Reps, Peter Rijnbeek, Patrick Ryan, Craig Sachson, Izzy Saridakis, Paola Saroufim, Martijn Schuemie, Sarah Seager, Anthony Sena, Sunah Song, Matt Spotnitz, Marc Suchard, Joel Swerdel, Devin Tian, Don Torok, Kees van Bochove, Mui Van Zandt, Erica Voss, Kristin Waite, Mike Warfe, Jamie Weaver, James Wiggins, Andrew Williams, Seng Chan You.
 
-## Người phụ trách bản dịch tiếng Việt
+## Phụ trách phiên bản tiếng Việt
 
-**Phan Thanh-Phuc, PhD**
-University Medical Center Ho Chi Minh City, Viet Nam
-Email: phanthahphuc@ohdsi.org
+**TS. Phan Thanh Phúc (Phan Thanh-Phuc, PhD)**  
+Bệnh viện Đại học Y Dược Thành phố Hồ Chí Minh (University Medical Center Ho Chi Minh City, Viet Nam)  
+Email: [phanthahphuc@ohdsi.org](mailto:phanthahphuc@ohdsi.org)
 
-## Các phiên bản phần mềm
+## Phiên bản phần mềm
 
-Một phần lớn của cuốn sách này nói về phần mềm mã nguồn mở của OHDSI,
-và phần mềm này sẽ phát triển theo thời gian. Mặc dù các nhà phát
-triển cố gắng hết sức để cung cấp trải nghiệm ổn định và nhất quán cho
-người dùng, nhưng không thể tránh khỏi việc theo thời gian, các cải
-tiến phần mềm sẽ khiến một số hướng dẫn trong cuốn sách này trở nên
-lỗi thời. Cộng đồng sẽ cập nhật phiên bản trực tuyến của cuốn sách để
-phản ánh những thay đổi đó và các ấn bản mới của bản in sẽ được phát
-hành theo thời gian. Để tham khảo, đây là các số phiên bản của phần
-mềm được sử dụng trong phiên bản này của cuốn sách:
+Một phần lớn nội dung của cuốn sách này đề cập đến các phần mềm mã nguồn mở của OHDSI — những công cụ vốn liên tục phát triển theo thời gian. Mặc dù đội ngũ phát triển luôn nỗ lực mang lại trải nghiệm ổn định và nhất quán cho người dùng, những cải tiến phần mềm theo thời gian chắc chắn sẽ khiến một số hướng dẫn chi tiết trong sách thay đổi. Cộng đồng sẽ tiếp tục cập nhật phiên bản trực tuyến để phản ánh những thay đổi đó, đồng thời phát hành các ấn bản in mới định kỳ. Để tiện đối chiếu, dưới đây là phiên bản của các phần mềm được sử dụng trong ấn bản này:
 
-- ACHILLES: phiên bản 1.6.6
+- **ACHILLES**: phiên bản `1.6.6`
+- **ATLAS**: phiên bản `2.7.3`
+- **EUNOMIA**: phiên bản `1.0.0`
+- **Các gói R trong Thư viện Phương pháp** (*Methods Library*): xem Bảng 1.
 
-- ATLAS: phiên bản 2.7.3
+Bảng 1: Phiên bản các gói R thuộc Thư viện Phương pháp OHDSI (*Methods Library*) được sử dụng trong cuốn sách này.
 
-- EUNOMIA: phiên bản 1.0.0
-
-- Các gói thư viện phương pháp: xem Bảng 1
-
-
-Bảng 1: Các phiên bản của các gói trong Thư viện phương pháp được sử
-dụng trong cuốn sách này.
-
-| Gói (Package)                 | Phiên bản |
-|--------------------------------|-----------|
-| CaseControl                    | 1.6.0     |
-| CaseCrossover                  | 1.1.0     |
-| CohortMethod                   | 3.1.0     |
-| Cyclops                        | 2.0.2     |
-| DatabaseConnector (Trình kết nối cơ sở dữ liệu) | 2.4.1 |
-| EmpiricalCalibration (Hiệu chuẩn theo kinh nghiệm) | 2.0.0 |
-| EvidenceSynthesis (Bằng chứng Tổng hợp) | 0.0.4 |
-| FeatureExtraction (Tính năng Trích xuất) | 2.2.4 |
-| MethodEvaluation (Phương pháp Đánh giá) | 1.1.0 |
-| ParallelLogger                 | 1.1.0     |
-| PatientLevelPrediction (Dự đoán cấp độ bệnh nhân) | 3.0.6 |
-| SelfControlledCaseSeries (Loạt trường hợp tự kiểm soát) | 1.4.0 |
-| SelfControlledCohort (Nhóm tự kiểm soát) | 1.5.0 |
-| SqlRender                      | 1.6.2     |
+| Gói phần mềm (R Package) | Chức năng chính | Phiên bản |
+|---|---|---|
+| `CaseControl` | Thiết kế nghiên cứu bệnh – chứng (*Case-Control*) | 1.6.0 |
+| `CaseCrossover` | Thiết kế nghiên cứu bắt chéo trường hợp (*Case-Crossover*) | 1.1.0 |
+| `CohortMethod` | Phương pháp nghiên cứu đoàn hệ so sánh (*New-user Cohort Method*) | 3.1.0 |
+| `Cyclops` | Tối ưu hóa quy mô lớn cho các mô hình hồi quy có điều chuẩn | 2.0.2 |
+| `DatabaseConnector` | Kết nối trực tiếp từ R tới các hệ quản trị cơ sở dữ liệu | 2.4.1 |
+| `EmpiricalCalibration` | Hiệu chuẩn thực nghiệm giá trị $p$ và khoảng tin cậy | 2.0.0 |
+| `EvidenceSynthesis` | Tổng hợp bằng chứng và phân tích gộp (*Meta-analysis*) | 0.0.4 |
+| `FeatureExtraction` | Trích xuất đặc trưng (biến đồng thời) chuẩn hóa từ OMOP CDM | 2.2.4 |
+| `MethodEvaluation` | Đánh giá hiệu năng của các phương pháp phân tích | 1.1.0 |
+| `ParallelLogger` | Tính toán song song và ghi nhật ký thực thi | 1.1.0 |
+| `PatientLevelPrediction` | Xây dựng và thẩm định mô hình dự báo ở cấp độ bệnh nhân | 3.0.6 |
+| `SelfControlledCaseSeries` | Thiết kế chuỗi ca bệnh tự đối chứng (*SCCS*) | 1.4.0 |
+| `SelfControlledCohort` | Thiết kế đoàn hệ tự đối chứng (*Self-Controlled Cohort*) | 1.5.0 |
+| `SqlRender` | Biên dịch phương ngữ OHDSI SQL sang các hệ quản trị cơ sở dữ liệu đích | 1.6.2 |
 
 ## Giấy phép
 
-Cuốn sách này được cấp phép theo giấy phép Creative Commons Zero v1.0
-Universal.
+Cuốn sách này được phát hành theo giấy phép [Creative Commons Zero v1.0 Universal (CC0 1.0)](http://creativecommons.org/publicdomain/zero/1.0/).
 
-![](media/image1.png){width="1.2191655730533684in"
-height="0.4294783464566929in" .book-icon}
+![](media/image1.png){width="1.22in" height="0.43in" .book-icon}
 
-## Cách cuốn sách được phát triển
+## Quy trình biên soạn và xuất bản
 
-Cuốn sách được viết bằng RMarkdown sử dụng gói bookdown. Phiên bản
-trực tuyến được tự động xây dựng lại từ kho lưu trữ nguồn tại
-https://github.com/OHDSI/TheBookOfOhdsi thông qua hệ thống tích hợp
-liên tục "travis". Định kỳ, một ảnh chụp nhanh trạng thái của cuốn
-sách sẽ được thực hiện và đánh dấu là một "ấn bản". Những ấn bản này
-sẽ có sẵn dưới dạng bản in từ Amazon.
-
+Phiên bản gốc của cuốn sách được biên soạn bằng [RMarkdown](https://rmarkdown.rstudio.com) thông qua gói [bookdown](https://bookdown.org) từ kho mã nguồn tại [https://github.com/OHDSI/TheBookOfOhdsi](https://github.com/OHDSI/TheBookOfOhdsi). Phiên bản tiếng Việt này được xây dựng và xuất bản bằng [Quarto](https://quarto.org) tại kho lưu trữ [https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi](https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi).

@@ -1,113 +1,86 @@
----
-title: "Phụ lục B: Các đối chứng âm tính"
----
+# Phụ lục B: Danh mục kết cục chứng âm (Negative Controls)
 
-# Các đối chứng âm tính
+Phụ lục này liệt kê danh mục các kết cục chứng âm (*negative control outcomes*) được sử dụng trong các ví dụ thực hành xuyên suốt nhiều chương của cuốn sách.
 
-Phụ lục này chứa các đối chứng âm tính được
-sử dụng trong nhiều chương của cuốn sách.
+## Thuốc ức chế men chuyển (ACEi) và Thuốc lợi tiểu nhóm Thiazide (THZ)
 
-## ACEi và THZ
+Bảng B.1: Danh sách 76 kết cục chứng âm (*negative control outcomes*) được sử dụng khi so sánh nhóm thuốc ức chế men chuyển angiotensin (ACEi) với nhóm thuốc lợi tiểu thiazide và tương tự thiazide (THZ).
 
-Bảng C.1: Các kết cục đối chứng âm tính khi so sánh các thuốc ức chế
-men chuyển (ACEi) với thuốc lợi tiểu thiazide và các thuốc tương tự
-thiazide (THZ).
-
-ID khái niệm Tên khái niệm
-
-434165 Phết cổ tử cung bất thường 436409 Đồng tử bất thường
-
-199192 Trầy xước và/hoặc bỏng do ma sát ở thân mình không kèm nhiễm
-trùng 4088290 Thiếu vú
-
-4092879 Thiếu thận
-
-44783954 Trào ngược axit
-
-75911 Vẹo ngón cái mắc phải 137951 Dày sừng mắc phải 77965 Ngón tay lò
-xo mắc phải 376707 Viêm kết mạc cấp tính
-
-4103640 Cụt bàn chân 73241 Polyp hậu môn và trực tràng 133655 Bỏng
-cẳng tay 73560 Gai xương gót
-
-434327 Lạm dụng cần sa
-
-4213540 Rối loạn chức năng thân cổ 140842 Thay đổi cấu trúc da 81378
-Nhuyễn sụn bánh chè 432303 Lạm dụng cocaine
-
-4201390 Hiện diện lỗ mở thông đại tràng
-
-ID khái niệm Tên khái niệm
-
-46269889 Biến chứng do bệnh Crohn 134438 Viêm da tiếp xúc
-
-78619 Dập nát đầu gối 201606 Bệnh Crohn 76786 Trật khớp gối
-
-4115402 Khó ngủ
-
-45757370 Mất cân đối vú sau tái tạo 433111 Ảnh hưởng của việc đói
-
-433527 Lạc nội mạc tử cung
-
-4170770 Nang thượng bì 4092896 Phân bất thường 259995 Dị vật trong lỗ
-tự nhiên 40481632 Nang hoạt dịch
-
-4166231 Tiền sử di truyền
-
-433577 Ngón chân hình búa
-
-4231770 Huyết khối di truyền
-
-440329 Zona không biến chứng 4012570 Hành vi tình dục nguy cơ cao
-
-4012934 Đồng niệu cystine
-
-441788 Nhiễm virus u nhú ở người (HPV) 4201717 Hiện diện lỗ mở thông
-hồi tràng
-
-374375 Nút ráy tai
-
-4344500 Hội chứng chèn ép vùng vai 139099 Móng chọc thịt
-
-444132 Chấn thương đầu gối 196168 Kinh nguyệt không đều
-
-432593 Kwashiorkor (suy dinh dưỡng thể phù)
-
-434203 Di chứng của dập nát
-
-438329 Di chứng của tai nạn xe cơ giới 195873 Khí hư
-
-4083487 Drusen võng mạc
-
-4103703 Đi ngoài phân đen
-
-4209423 Lệ thuộc nicotine 377572 Ảnh hưởng của tiếng ồn đến tai trong
-
-40480893 Phản ứng xét nghiệm tuberculin không đặc hiệu 136368 Bướu
-giáp đa nhân không độc 140648 Nấm móng do nấm da 438130 Lạm dụng thuốc
-phiện
-
-4091513 Trung tiện
-
-4202045 Hội chứng mệt mỏi sau virus 373478 Viễn thị
-
-46286594 Vấn đề liên quan đến lối sống 439790 Đau tâm lý
-
-1.  *ACEi và THZ 405*
-
-ID khái niệm Tên khái niệm 81634 Vú sa trễ
-
-380706 Loạn thị đều
-
-141932 Dày sừng tuổi già
-
-36713918 Rối loạn chức năng cơ thể vùng thắt lưng 443172 Dị vật ở mặt,
-không có vết thương hở lớn 81151 Bong gân cổ chân
-
-72748 Căng cơ bao chóp xoay 378427 Thiếu hụt màng phim nước mắt
-
-437264 Hội chứng lệ thuộc thuốc lá 194083 Viêm âm đạo và viêm âm hộ
-140641 Mụn cóc thông thường
-
-440193 Bàn tay rủ 4115367 Đau khớp cổ tay
-
+| Mã khái niệm (`Concept ID`) | Tên khái niệm (Tiếng Việt) | Tên khái niệm gốc (`Concept Name`) |
+|---:|---|---|
+| 434165 | Phết tế bào cổ tử cung bất thường | Abnormal cervical smear |
+| 436409 | Đồng tử bất thường | Abnormal pupil |
+| 199192 | Trầy xước và/hoặc bỏng do ma sát ở vùng thân mình không kèm nhiễm trùng | Abrasion and/or friction burn of trunk without infection |
+| 4088290 | Khuyết vú (không có tuyến vú) | Absence of breast |
+| 4092879 | Khuyết thận (không có thận) | Absent kidney |
+| 44783954 | Trào ngược axit dạ dày | Acid reflux |
+| 75911 | Biến dạng vẹo ngón chân cái mắc phải (*Hallux valgus*) | Acquired hallux valgus |
+| 137951 | Dày sừng mắc phải | Acquired keratoderma |
+| 77965 | Ngón tay cò súng (ngón tay lò xo) mắc phải | Acquired trigger finger |
+| 376707 | Viêm kết mạc cấp tính | Acute conjunctivitis |
+| 4103640 | Cụt bàn chân | Amputated foot |
+| 73241 | Polyp ống hậu môn và trực tràng | Anal and rectal polyp |
+| 133655 | Bỏng vùng cẳng tay | Burn of forearm |
+| 73560 | Gai xương gót | Calcaneal spur |
+| 434327 | Lạm dụng cần sa | Cannabis abuse |
+| 4213540 | Rối loạn chức năng cơ – xương vùng cổ | Cervical somatic dysfunction |
+| 140842 | Thay đổi cấu trúc bề mặt da | Changes in skin texture |
+| 81378 | Nhuyễn sụn xương bánh chè | Chondromalacia of patella |
+| 432303 | Lạm dụng cocaine | Cocaine abuse |
+| 4201390 | Có hậu môn nhân tạo đại tràng (*Colostomy*) | Colostomy present |
+| 46269889 | Biến chứng do bệnh Crohn | Complication due to Crohn's disease |
+| 134438 | Viêm da tiếp xúc | Contact dermatitis |
+| 78619 | Đụng dập vùng khớp gối | Contusion of knee |
+| 201606 | Bệnh Crohn | Crohn's disease |
+| 76786 | Tổn thương cấu trúc bên trong khớp gối | Derangement of knee |
+| 4115402 | Khó ngủ | Difficulty sleeping |
+| 45757370 | Mất cân đối tuyến vú sau phẫu thuật tái tạo | Disproportion of reconstructed breast |
+| 433111 | Tác động của tình trạng đói | Effects of hunger |
+| 433527 | Lạc nội mạc tử cung | Endometriosis |
+| 4170770 | Nang thượng bì (*Epidermoid cyst*) | Epidermoid cyst |
+| 4092896 | Thành phần phân bất thường | Feces contents abnormal |
+| 259995 | Dị vật trong hốc tự nhiên của cơ thể | Foreign body in orifice |
+| 40481632 | Nang hoạt dịch (*Ganglion cyst*) | Ganglion cyst |
+| 4166231 | Khuynh hướng di truyền | Genetic predisposition |
+| 433577 | Biến dạng ngón chân hình búa (*Hammer toe*) | Hammer toe |
+| 4231770 | Tăng đông máu di truyền (*Hereditary thrombophilia*) | Hereditary thrombophilia |
+| 440329 | Bệnh Zona (*Herpes zoster*) không biến chứng | Herpes zoster without complication |
+| 4012570 | Hành vi tình dục nguy cơ cao | High risk sexual behavior |
+| 4012934 | Homocystin niệu | Homocystinuria |
+| 441788 | Nhiễm vi-rút u nhú ở người (*HPV*) | Human papilloma virus infection |
+| 4201717 | Có lỗ mở thông hồi tràng (*Ileostomy*) | Ileostomy present |
+| 374375 | Nút ráy tai | Impacted cerumen |
+| 4344500 | Hội chứng chèn ép dưới mỏm cùng vai | Impingement syndrome of shoulder region |
+| 139099 | Móng quặp (móng chọc thịt) | Ingrowing nail |
+| 444132 | Chấn thương vùng đầu gối | Injury of knee |
+| 196168 | Kinh nguyệt không đều | Irregular periods |
+| 432593 | Suy dinh dưỡng thể phù (*Kwashiorkor*) | Kwashiorkor |
+| 434203 | Di chứng của chấn thương đụng dập | Late effect of contusion |
+| 438329 | Di chứng của tai nạn giao thông cơ giới | Late effect of motor vehicle accident |
+| 195873 | Huyết trắng / Khí hư (*Leukorrhea*) | Leukorrhea |
+| 4083487 | Thoái hóa điểm vàng thể Drusen (*Macular drusen*) | Macular drusen |
+| 4103703 | Đi ngoài phân đen (*Melena*) | Melena |
+| 4209423 | Lệ thuộc nicotine | Nicotine dependence |
+| 377572 | Tổn thương tai trong do tiếng ồn | Noise effects on inner ear |
+| 40480893 | Phản ứng xét nghiệm Tuberculin không đặc hiệu | Nonspecific tuberculin test reaction |
+| 136368 | Bướu giáp đa nhân không nhiễm độc | Non-toxic multinodular goiter |
+| 140648 | Nấm móng do vi nấm sợi (*Dermatophyte*) | Onychomycosis due to dermatophyte |
+| 438130 | Lạm dụng chất dạng thuốc phiện (*Opioid*) | Opioid abuse |
+| 4091513 | Trung tiện | Passing flatus |
+| 4202045 | Hội chứng mệt mỏi sau nhiễm vi-rút | Postviral fatigue syndrome |
+| 373478 | Lão thị (*Presbyopia*) | Presbyopia |
+| 46286594 | Vấn đề liên quan đến lối sống | Problem related to lifestyle |
+| 439790 | Đau có nguồn gốc tâm lý (*Psychalgia*) | Psychalgia |
+| 81634 | Sa trễ tuyến vú | Ptotic breast |
+| 380706 | Loạn thị đều | Regular astigmatism |
+| 141932 | Dày sừng tuổi già | Senile hyperkeratosis |
+| 36713918 | Rối loạn chức năng cơ – xương vùng thắt lưng | Somatic dysfunction of lumbar region |
+| 443172 | Dằm/dị vật nông vùng mặt không kèm vết thương hở lớn | Splinter of face, without major open wound |
+| 81151 | Bong gân khớp cổ chân | Sprain of ankle |
+| 72748 | Căng giãn bao khớp chóp xoay vai | Strain of rotator cuff capsule |
+| 378427 | Thiếu hụt màng phim nước mắt (khô mắt) | Tear film insufficiency |
+| 437264 | Hội chứng lệ thuộc thuốc lá | Tobacco dependence syndrome |
+| 194083 | Viêm âm đạo và viêm âm hộ – âm đạo | Vaginitis and vulvovaginitis |
+| 140641 | Mụn cóc thông thường (*Verruca vulgaris*) | Verruca vulgaris |
+| 440193 | Liệt rủ cổ tay (*Wristdrop*) | Wristdrop |
+| 4115367 | Đau khớp cổ tay | Wrist joint pain |

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.554">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Sách OHDSI (The Book of OHDSI) - Phụ lục C: Mẫu giao thức</title>
+<title>Sách OHDSI (The Book of OHDSI) - Phụ lục C: Mẫu đề cương nghiên cứu (Protocol Template)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -91,17 +57,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-no-results-text": "Không tìm thấy kết quả",
+    "search-matching-documents-text": "kết quả phù hợp",
+    "search-copy-link-title": "Sao chép liên kết tìm kiếm",
+    "search-hide-matches-text": "Ẩn các kết quả khác",
+    "search-more-match-text": "kết quả khác trong chương này",
+    "search-more-matches-text": "kết quả khác trong chương này",
+    "search-clear-button-title": "Xóa",
+    "search-text-placeholder": "Tìm kiếm trong sách...",
+    "search-detached-cancel-button-title": "Hủy",
+    "search-submit-button-title": "Tìm",
+    "search-label": "Tìm kiếm"
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
@@ -116,11 +82,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Ẩn / hiện thanh điều hướng" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./20_glossary.html">Phần VI — Phụ lục &amp; Tài liệu tham khảo</a></li><li class="breadcrumb-item"><a href="./23_protocol_template.html"><span class="chapter-title">Phụ lục C: Mẫu giao thức</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./20_glossary.html">Phần VI — Phụ lục &amp; Tài liệu tham khảo</a></li><li class="breadcrumb-item"><a href="./23_protocol_template.html"><span class="chapter-title">Phụ lục C: Mẫu đề cương nghiên cứu (Protocol Template)</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Ẩn / hiện thanh điều hướng" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -136,21 +102,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Sách OHDSI (The Book of OHDSI)</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+    <a href="https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Chuyển chế độ Sáng / Tối"><i class="bi"></i></a>
 </div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Tìm kiếm"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lời tựa &amp; Giới thiệu</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lời tựa &amp; Giới thiệu</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -169,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_where_to_begin.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 2: Nơi bắt đầu</span></a>
+  <a href="./02_where_to_begin.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 2: Bắt đầu từ đâu</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -182,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
- <span class="menu-text">Phần II — Chuẩn hóa Dữ liệu</span></a>
+ <span class="menu-text">Phần II — Biểu diễn Dữ liệu Thống nhất</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -195,12 +162,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_vocabularies.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 5: Từ vựng Chuẩn hóa</span></a>
+  <a href="./05_vocabularies.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 5: Bộ Từ vựng Chuẩn hóa</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_etl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 6: Trích xuất - Chuyển đổi - Nạp (ETL)</span></a>
+  <a href="./06_etl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 6: Trích xuất – Chuyển đổi – Nạp dữ liệu (ETL)</span></a>
   </div>
 </li>
       </ul>
@@ -216,12 +183,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07_use_cases.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 7: Các trường hợp sử dụng phân tích</span></a>
+  <a href="./07_use_cases.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 7: Các bài toán ứng dụng phân tích dữ liệu</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08_tools.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 8: Công cụ phân tích OHDSI</span></a>
+  <a href="./08_tools.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 8: Hệ sinh thái công cụ phân tích OHDSI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -231,22 +198,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./10_cohort_definitions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 10: Định nghĩa nhóm thuần tập</span></a>
+  <a href="./10_cohort_definitions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 10: Định nghĩa đoàn hệ (Cohort)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./11_characterization.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 11: Đặc điểm hóa</span></a>
+  <a href="./11_characterization.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 11: Mô tả đặc trưng lâm sàng (Characterization)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./12_population_level_estimation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 12: Ước tính cấp độ quần thể</span></a>
+  <a href="./12_population_level_estimation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 12: Ước lượng hiệu quả ở cấp độ quần thể</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./13_patient_level_prediction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 13: Dự đoán cấp độ bệnh nhân</span></a>
+  <a href="./13_patient_level_prediction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 13: Dự báo ở cấp độ bệnh nhân</span></a>
   </div>
 </li>
       </ul>
@@ -267,17 +234,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./15_clinical_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 15: Tính hợp lệ lâm sàng</span></a>
+  <a href="./15_clinical_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 15: Giá trị hợp lệ lâm sàng</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./16_software_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 16: Tính hợp lệ của phần mềm</span></a>
+  <a href="./16_software_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 16: Giá trị hợp lệ của phần mềm</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./17_method_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 17: Tính hợp lệ của phương pháp</span></a>
+  <a href="./17_method_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 17: Giá trị hợp lệ của phương pháp</span></a>
   </div>
 </li>
       </ul>
@@ -285,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
- <span class="menu-text">Phần V — Các nghiên cứu OHDSI</span></a>
+ <span class="menu-text">Phần V — Nghiên cứu trong Mạng lưới OHDSI</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -293,12 +260,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./18_study_steps.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 18: Các bước nghiên cứu</span></a>
+  <a href="./18_study_steps.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 18: Quy trình thực hiện một nghiên cứu</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./19_network_studies.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 19: Nghiên cứu mạng lưới OHDSI</span></a>
+  <a href="./19_network_studies.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 19: Nghiên cứu mạng lưới đa trung tâm OHDSI</span></a>
   </div>
 </li>
       </ul>
@@ -314,32 +281,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./20_glossary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bảng thuật ngữ</span></a>
+  <a href="./20_glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bảng thuật ngữ chuẩn hóa (Glossary)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./21_cohort_definitions_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục A: Định nghĩa nhóm thuần tập</span></a>
+  <a href="./21_cohort_definitions_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục A: Chi tiết định nghĩa đoàn hệ</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./22_negative_controls.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục B: Các đối chứng âm tính</span></a>
+  <a href="./22_negative_controls.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục B: Danh mục kết cục chứng âm (Negative Controls)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./23_protocol_template.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Phụ lục C: Mẫu giao thức</span></a>
+  <a href="./23_protocol_template.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Phụ lục C: Mẫu đề cương nghiên cứu (Protocol Template)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./24_hints.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục D: Gợi ý trả lời</span></a>
+  <a href="./24_hints.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục D: Đáp án và gợi ý bài tập</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./25_references_and_index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Thư mục tài liệu tham khảo &amp; Chỉ mục</span></a>
+  <a href="./25_references_and_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tài liệu tham khảo &amp; Chỉ mục</span></a>
   </div>
 </li>
       </ul>
@@ -350,20 +319,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
-    <h2 id="toc-title">Nội dung chính</h2>
-   
-  <ul>
-  <li><a href="#mẫu-giao-thức" id="toc-mẫu-giao-thức" class="nav-link active" data-scroll-target="#mẫu-giao-thức">Mẫu giao thức</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi/edit/main/23_protocol_template.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./20_glossary.html">Phần VI — Phụ lục &amp; Tài liệu tham khảo</a></li><li class="breadcrumb-item"><a href="./23_protocol_template.html"><span class="chapter-title">Phụ lục C: Mẫu giao thức</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./20_glossary.html">Phần VI — Phụ lục &amp; Tài liệu tham khảo</a></li><li class="breadcrumb-item"><a href="./23_protocol_template.html"><span class="chapter-title">Phụ lục C: Mẫu đề cương nghiên cứu (Protocol Template)</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">Phụ lục C: Mẫu giao thức</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title"><span class="chapter-title">Phụ lục C: Mẫu đề cương nghiên cứu (Protocol Template)</span></h1>
 </div>
 
 
@@ -380,66 +343,54 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="mẫu-giao-thức" class="level1">
-<h1>Mẫu giao thức</h1>
+<p>Dưới đây là cấu trúc chuẩn của một Đề cương nghiên cứu (<em>Study Protocol</em>) trong mạng lưới OHDSI:</p>
 <ol type="1">
-<li><p>Mục lục</p></li>
-<li><p>Danh mục từ viết tắt</p></li>
-<li><p>Tóm tắt</p></li>
-<li><p>Các sửa đổi và cập nhật</p></li>
-<li><p>Các cột mốc quan trọng</p></li>
-<li><p>Cơ sở lý luận và bối cảnh</p></li>
-<li><p>Mục tiêu nghiên cứu</p></li>
-</ol>
+<li><strong>Mục lục</strong> (<em>Table of contents</em>)</li>
+<li><strong>Danh mục chữ viết tắt</strong> (<em>List of abbreviations</em>)</li>
+<li><strong>Tóm tắt nghiên cứu</strong> (<em>Abstract</em>)</li>
+<li><strong>Lịch sử sửa đổi và cập nhật</strong> (<em>Amendments and Updates</em>)</li>
+<li><strong>Các cột mốc thực hiện</strong> (<em>Milestones</em>)</li>
+<li><strong>Cơ sở lý luận và bối cảnh nghiên cứu</strong> (<em>Rationale and Background</em>)</li>
+<li><strong>Mục tiêu và giả thuyết nghiên cứu</strong> (<em>Study Objectives</em>)
 <ul>
-<li><p>Giả thuyết chính</p></li>
-<li><p>Giả thuyết phụ</p></li>
-<li><p>Mục tiêu chính</p></li>
-<li><p>Mục tiêu phụ</p></li>
-</ul>
-<ol start="8" type="1">
-<li>Phương pháp nghiên cứu</li>
-</ol>
+<li>Giả thuyết nghiên cứu chính (<em>Primary Hypotheses</em>)</li>
+<li>Giả thuyết nghiên cứu phụ (<em>Secondary Hypotheses</em>)</li>
+<li>Mục tiêu chính (<em>Primary Objectives</em>)</li>
+<li>Mục tiêu phụ (<em>Secondary Objectives</em>)</li>
+</ul></li>
+<li><strong>Phương pháp nghiên cứu</strong> (<em>Research Methods</em>)
 <ul>
-<li><p>Thiết kế nghiên cứu</p></li>
-<li><p>(Các) nguồn dữ liệu</p></li>
-<li><p>Đối tượng nghiên cứu</p></li>
-<li><p>Các yếu tố phơi nhiễm</p></li>
-<li><p>Các kết cục</p></li>
-<li><p>Các biến đồng thời</p></li>
-</ul>
-<ol start="9" type="1">
-<li>Kế hoạch phân tích dữ liệu</li>
-</ol>
+<li>Thiết kế nghiên cứu (<em>Study Design</em>)</li>
+<li>Các nguồn dữ liệu (<em>Data Source(s)</em>)</li>
+<li>Quần thể nghiên cứu (<em>Study Population</em>)</li>
+<li>Các yếu tố phơi nhiễm / Đoàn hệ mục tiêu và đối chứng (<em>Exposures</em>)</li>
+<li>Các kết cục lâm sàng (<em>Outcomes</em>)</li>
+<li>Các biến đồng thời / Hiệp biến (<em>Covariates</em>)</li>
+</ul></li>
+<li><strong>Kế hoạch phân tích dữ liệu</strong> (<em>Data Analysis Plan</em>)
 <ul>
-<li><p>Tính toán thời gian có nguy cơ</p></li>
-<li><p>Đặc tả mô hình</p></li>
-<li><p>Gộp các ước tính hiệu quả giữa các cơ sở dữ liệu</p></li>
-<li><p>Các phân tích cần thực hiện</p></li>
-<li><p>Đầu ra</p></li>
-<li><p>Đánh giá bằng chứng</p></li>
-</ul>
-<ol start="10" type="1">
-<li>Chẩn đoán nghiên cứu</li>
-</ol>
+<li>Xác định khoảng thời gian có nguy cơ (<em>Calculation of time-at-risk</em>)</li>
+<li>Đặc tả mô hình thống kê (<em>Model Specification</em>)</li>
+<li>Gộp các ước lượng hiệu quả giữa các cơ sở dữ liệu (<em>Pooling effect estimates across databases</em>)</li>
+<li>Danh mục các phân tích thực hiện (<em>Analyses to perform</em>)</li>
+<li>Đầu ra dự kiến (<em>Output</em>)</li>
+<li>Quy trình đánh giá bằng chứng (<em>Evidence Evaluation</em>)</li>
+</ul></li>
+<li><strong>Chẩn đoán nghiên cứu</strong> (<em>Study Diagnostics</em>)
 <ul>
-<li><p>Cỡ mẫu và sức mạnh nghiên cứu</p></li>
-<li><p>Tính so sánh của nhóm thuần tập</p></li>
-<li><p>Đánh giá sai số hệ thống</p></li>
-</ul>
-<ol start="11" type="1">
-<li><p>Điểm mạnh và hạn chế của các phương pháp nghiên cứu</p></li>
-<li><p>Bảo vệ đối tượng con người</p></li>
-<li><p>Quản lý và báo cáo các biến cố bất lợi và phản ứng bất lợi</p></li>
-<li><p>Kế hoạch phổ biến và truyền thông kết quả nghiên cứu</p></li>
-<li><p>Phụ lục: Các đối chứng âm tính</p></li>
-<li><p>Tài liệu tham khảo</p></li>
+<li>Cỡ mẫu và lực thống kê của nghiên cứu (<em>Sample Size and Study Power</em>)</li>
+<li>Tính tương đồng và khả năng so sánh giữa các đoàn hệ (<em>Cohort Comparability</em>)</li>
+<li>Đánh giá sai số hệ thống và hiệu chuẩn thực nghiệm (<em>Systematic Error Assessment</em>)</li>
+</ul></li>
+<li><strong>Điểm mạnh và hạn chế của phương pháp nghiên cứu</strong> (<em>Strengths and Limitations of the Research Methods</em>)</li>
+<li><strong>Bảo vệ đối tượng nghiên cứu là con người</strong> (<em>Protection of Human Subjects</em>)</li>
+<li><strong>Quản lý và báo cáo các biến cố bất lợi và phản ứng có hại</strong> (<em>Management and Reporting of Adverse Events and Adverse Reactions</em>)</li>
+<li><strong>Kế hoạch công bố và truyền thông kết quả nghiên cứu</strong> (<em>Plans for Disseminating and Communicating Study Results</em>)</li>
+<li><strong>Phụ lục: Danh mục chứng âm</strong> (<em>Appendix: Negative controls</em>)</li>
+<li><strong>Tài liệu tham khảo</strong> (<em>References</em>)</li>
 </ol>
 
 
-<!-- -->
-
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -640,12 +591,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Đã sao chép!");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Đã sao chép!");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
@@ -665,57 +616,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1055,103 +955,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./22_negative_controls.html" class="pagination-link" aria-label="Phụ lục B: Các đối chứng âm tính">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Phụ lục B: Các đối chứng âm tính</span></span>
+      <a href="./22_negative_controls.html" class="pagination-link" aria-label="Phụ lục B: Danh mục kết cục chứng âm (Negative Controls)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Phụ lục B: Danh mục kết cục chứng âm (Negative Controls)</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./24_hints.html" class="pagination-link" aria-label="Phụ lục D: Gợi ý trả lời">
-        <span class="nav-page-text"><span class="chapter-title">Phụ lục D: Gợi ý trả lời</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./24_hints.html" class="pagination-link" aria-label="Phụ lục D: Đáp án và gợi ý bài tập">
+        <span class="nav-page-text"><span class="chapter-title">Phụ lục D: Đáp án và gợi ý bài tập</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Phụ lục C: Mẫu giao thức"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu"># Mẫu giao thức</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Mục lục</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Danh mục từ viết tắt</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Tóm tắt</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Các sửa đổi và cập nhật</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Các cột mốc quan trọng</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Cơ sở lý luận và bối cảnh</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ss">7.  </span>Mục tiêu nghiên cứu</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Giả thuyết chính</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Giả thuyết phụ</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Mục tiêu chính</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Mục tiêu phụ</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">8.  </span>Phương pháp nghiên cứu</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Thiết kế nghiên cứu</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>(Các) nguồn dữ liệu</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Đối tượng nghiên cứu</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Các yếu tố phơi nhiễm</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Các kết cục</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Các biến đồng thời</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">9.  </span>Kế hoạch phân tích dữ liệu</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tính toán thời gian có nguy cơ</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Đặc tả mô hình</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Gộp các ước tính hiệu quả giữa các cơ sở dữ liệu</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Các phân tích cần thực hiện</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Đầu ra</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Đánh giá bằng chứng</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="ss">10. </span>Chẩn đoán nghiên cứu</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cỡ mẫu và sức mạnh nghiên cứu</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tính so sánh của nhóm thuần tập</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Đánh giá sai số hệ thống</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="ss">11. </span>Điểm mạnh và hạn chế của các phương pháp nghiên cứu</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="ss">12. </span>Bảo vệ đối tượng con người</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="ss">13. </span>Quản lý và báo cáo các biến cố bất lợi và phản ứng bất lợi</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="ss">14. </span>Kế hoạch phổ biến và truyền thông kết quả nghiên cứu</span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="ss">15. </span>Phụ lục<span class="dv">&amp;#58;</span> Các đối chứng âm tính</span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="ss">16. </span>Tài liệu tham khảo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Sách OHDSI (The Book of OHDSI - Bản tiếng Việt)</p>
+<p>Sách OHDSI — Ấn bản Tiếng Việt (The Book of OHDSI)</p>
 </div>   
     <div class="nav-footer-center">
-<p>🚧 Đang trong quá trình phát triển — OHDSI Vietnam Chapter</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi/edit/main/23_protocol_template.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<p>Cộng đồng OHDSI Việt Nam (OHDSI Vietnam Chapter) · Giấy phép CC0 1.0</p>
+<div class="toc-actions"><ul><li><a href="https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi/edit/main/23_protocol_template.qmd" class="toc-action"><i class="bi bi-github"></i>Chỉnh sửa trang này</a></li><li><a href="https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi/issues/new" class="toc-action"><i class="bi empty"></i>Báo lỗi nội dung / dịch thuật</a></li></ul></div></div>
     <div class="nav-footer-right">
-<p>Quarto Book</p>
+<p>Xây dựng với Quarto</p>
 </div>
   </div>
 </footer>

@@ -4,15 +4,14 @@ project:
 
 book:
   title: "Sách OHDSI (The Book of OHDSI)"
-  subtitle: "Khoa học Dữ liệu Y tế Quan sát và Tin học Mạng lưới"
+  subtitle: "Khoa học Dữ liệu Y tế Quan sát và Tin học Y sinh Mạng lưới"
   author:
     - name: "Cộng đồng OHDSI Việt Nam & OHDSI Global"
-      affiliation: "Observational Health Data Sciences and Informatics"
-    - name: "Phan Thanh-Phuc, PhD"
-      affiliation: "University Medical Center Ho Chi Minh City, Viet Nam"
+      affiliation: "Observational Health Data Sciences and Informatics (OHDSI)"
+    - name: "Phan Thanh-Phuc, PhD (Chủ biên bản dịch tiếng Việt)"
+      affiliation: "Bệnh viện Đại học Y Dược TP. Hồ Chí Minh (UMC HCMC), Việt Nam"
       email: "phanthahphuc@ohdsi.org"
-      role: "translator"
-  repo-url: https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi
+  repo-url: https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi
   repo-branch: main
   repo-actions: [edit, issue]
   page-navigation: true
@@ -23,92 +22,94 @@ book:
     search: true
     collapse-level: 1
   page-footer:
-    left: "Sách OHDSI (The Book of OHDSI - Bản tiếng Việt)"
-    center: "🚧 Đang trong quá trình phát triển — OHDSI Vietnam Chapter"
-    right: "Quarto Book"
+    left: "Sách OHDSI — Ấn bản Tiếng Việt (The Book of OHDSI)"
+    center: "Cộng đồng OHDSI Việt Nam (OHDSI Vietnam Chapter) · Giấy phép CC0 1.0"
+    right: "Xây dựng với Quarto"
 
   chapters:
-    - text: "Lời tựa & Giới thiệu"
-      file: index.qmd
+    - index.qmd
     - part: "Phần I — Cộng đồng OHDSI"
       chapters:
-        - text: "Chương 1: Cộng đồng OHDSI"
-          file: 01_community.qmd
-        - text: "Chương 2: Nơi bắt đầu"
-          file: 02_where_to_begin.qmd
-        - text: "Chương 3: Khoa học mở"
-          file: 03_open_science.qmd
-    - part: "Phần II — Chuẩn hóa Dữ liệu"
+        - 01_community.qmd
+        - 02_where_to_begin.qmd
+        - 03_open_science.qmd
+    - part: "Phần II — Biểu diễn Dữ liệu Thống nhất"
       chapters:
-        - text: "Chương 4: Mô hình Dữ liệu Chung (CDM)"
-          file: 04_cdm.qmd
-        - text: "Chương 5: Từ vựng Chuẩn hóa"
-          file: 05_vocabularies.qmd
-        - text: "Chương 6: Trích xuất - Chuyển đổi - Nạp (ETL)"
-          file: 06_etl.qmd
+        - 04_cdm.qmd
+        - 05_vocabularies.qmd
+        - 06_etl.qmd
     - part: "Phần III — Phân tích Dữ liệu"
       chapters:
-        - text: "Chương 7: Các trường hợp sử dụng phân tích"
-          file: 07_use_cases.qmd
-        - text: "Chương 8: Công cụ phân tích OHDSI"
-          file: 08_tools.qmd
-        - text: "Chương 9: SQL và R"
-          file: 09_sql_and_r.qmd
-        - text: "Chương 10: Định nghĩa nhóm thuần tập"
-          file: 10_cohort_definitions.qmd
-        - text: "Chương 11: Đặc điểm hóa"
-          file: 11_characterization.qmd
-        - text: "Chương 12: Ước tính cấp độ quần thể"
-          file: 12_population_level_estimation.qmd
-        - text: "Chương 13: Dự đoán cấp độ bệnh nhân"
-          file: 13_patient_level_prediction.qmd
+        - 07_use_cases.qmd
+        - 08_tools.qmd
+        - 09_sql_and_r.qmd
+        - 10_cohort_definitions.qmd
+        - 11_characterization.qmd
+        - 12_population_level_estimation.qmd
+        - 13_patient_level_prediction.qmd
     - part: "Phần IV — Chất lượng Bằng chứng"
       chapters:
-        - text: "Chương 14: Chất lượng dữ liệu"
-          file: 14_data_quality.qmd
-        - text: "Chương 15: Tính hợp lệ lâm sàng"
-          file: 15_clinical_validity.qmd
-        - text: "Chương 16: Tính hợp lệ của phần mềm"
-          file: 16_software_validity.qmd
-        - text: "Chương 17: Tính hợp lệ của phương pháp"
-          file: 17_method_validity.qmd
-    - part: "Phần V — Các nghiên cứu OHDSI"
+        - 14_data_quality.qmd
+        - 15_clinical_validity.qmd
+        - 16_software_validity.qmd
+        - 17_method_validity.qmd
+    - part: "Phần V — Nghiên cứu trong Mạng lưới OHDSI"
       chapters:
-        - text: "Chương 18: Các bước nghiên cứu"
-          file: 18_study_steps.qmd
-        - text: "Chương 19: Nghiên cứu mạng lưới OHDSI"
-          file: 19_network_studies.qmd
+        - 18_study_steps.qmd
+        - 19_network_studies.qmd
     - part: "Phần VI — Phụ lục & Tài liệu tham khảo"
       chapters:
-        - text: "Bảng thuật ngữ"
-          file: 20_glossary.qmd
-        - text: "Phụ lục A: Định nghĩa nhóm thuần tập"
-          file: 21_cohort_definitions_appendix.qmd
-        - text: "Phụ lục B: Các đối chứng âm tính"
-          file: 22_negative_controls.qmd
-        - text: "Phụ lục C: Mẫu giao thức"
-          file: 23_protocol_template.qmd
-        - text: "Phụ lục D: Gợi ý trả lời"
-          file: 24_hints.qmd
-        - text: "Thư mục tài liệu tham khảo & Chỉ mục"
-          file: 25_references_and_index.qmd
+        - 20_glossary.qmd
+        - 21_cohort_definitions_appendix.qmd
+        - 22_negative_controls.qmd
+        - 23_protocol_template.qmd
+        - 24_hints.qmd
+        - 25_references_and_index.qmd
+
+language:
+  toc-title-document: "Nội dung trong chương"
+  toc-title-website: "Nội dung trong chương"
+  search-no-results-text: "Không tìm thấy kết quả"
+  search-matching-documents-text: "kết quả phù hợp"
+  search-copy-link-title: "Sao chép liên kết tìm kiếm"
+  search-hide-matches-text: "Ẩn các kết quả khác"
+  search-more-match-text: "kết quả khác trong chương này"
+  search-more-matches-text: "kết quả khác trong chương này"
+  search-clear-button-title: "Xóa"
+  search-text-placeholder: "Tìm kiếm trong sách..."
+  search-detached-cancel-button-title: "Hủy"
+  search-submit-button-title: "Tìm"
+  search-label: "Tìm kiếm"
+  toggle-dark-mode: "Chuyển chế độ Sáng / Tối"
+  toggle-sidebar: "Ẩn / hiện thanh điều hướng"
+  copy-button-tooltip: "Sao chép mã"
+  copy-button-tooltip-success: "Đã sao chép!"
+  repo-action-links-edit: "Chỉnh sửa trang này"
+  repo-action-links-issue: "Báo lỗi nội dung / dịch thuật"
+  callout-note-title: "Ghi chú"
+  callout-tip-title: "Tóm tắt"
+  callout-warning-title: "Lưu ý"
+  callout-important-title: "Điểm quan trọng"
+  callout-caution-title: "Thận trọng"
+  section-title-footnotes: "Chú thích"
 
 format:
   html:
+    lang: vi
     theme:
       light: cosmo
       dark: darkly
     css: custom.css
     toc: true
-    toc-depth: 4
+    toc-depth: 3
     toc-location: right
-    toc-title: "Nội dung chính"
-    toc-expand: true
+    toc-title: "Nội dung trong chương"
+    toc-expand: 2
     smooth-scroll: true
     number-sections: false
     html-math-method: katex
     code-copy: true
     code-overflow: wrap
-    code-tools: true
+    code-tools: false
     link-external-icon: true
     link-external-newwindow: true

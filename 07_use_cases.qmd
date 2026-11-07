@@ -1,356 +1,179 @@
----
-title: "Chương 7: Các trường hợp sử dụng phân tích dữ liệu"
----
-
-# Các trường hợp sử dụng phân tích dữ liệu
+# Chương 7: Các bài toán ứng dụng phân tích dữ liệu
 
 *Chủ biên chương: David Madigan*
 
-Sự hợp tác OHDSI tập trung vào việc tạo ra bằng chứng đáng tin cậy từ
-dữ liệu chăm sóc sức khỏe thực tế, thường ở dạng cơ sở dữ liệu yêu cầu
-thanh toán hoặc cơ sở dữ liệu hồ sơ sức khỏe điện tử. Các trường hợp
-sử dụng mà OHDSI tập trung vào thuộc ba danh mục chính:
+Mạng lưới hợp tác OHDSI tập trung vào việc tạo ra bằng chứng đáng tin cậy từ dữ liệu chăm sóc sức khỏe đời thực (real-world healthcare data), thường ở dạng cơ sở dữ liệu yêu cầu thanh toán bảo hiểm (claims databases) hoặc cơ sở dữ liệu hồ sơ bệnh án điện tử (EHR). Các bài toán ứng dụng (use cases) mà OHDSI tập trung giải quyết thuộc ba nhóm chính:
 
-- Đặc điểm hóa
+- Mô tả đặc trưng lâm sàng (Characterization)
+- Ước lượng hiệu quả ở cấp độ quần thể (Population-level estimation)
+- Dự báo ở cấp độ bệnh nhân (Patient-level prediction)
 
-- Ước tính cấp độ quần thể
+Chúng tôi sẽ trình bày chi tiết từng nhóm bài toán dưới đây. Lưu ý rằng đối với tất cả các bài toán ứng dụng, bằng chứng được tạo ra đều kế thừa những hạn chế cố hữu của dữ liệu nguồn; chúng tôi thảo luận sâu về những hạn chế này trong phần sách về Chất lượng bằng chứng (Chương 14 – 18).
 
-- Dự đoán cấp độ bệnh nhân
+## Mô tả đặc trưng lâm sàng
 
-Chúng tôi mô tả chi tiết những điều này dưới đây. Lưu ý, đối với tất
-cả các trường hợp sử dụng, bằng chứng chúng tôi tạo ra kế thừa các hạn
-chế của dữ liệu; chúng tôi thảo luận chi tiết về những hạn chế này
-trong phần sách về Chất lượng bằng chứng (Chương 14 -
-18)
+Mô tả đặc trưng lâm sàng (characterization) hướng tới việc trả lời câu hỏi:
 
-## Đặc điểm hóa
+> Điều gì đã xảy ra với họ?
 
-Đặc điểm hóa cố gắng trả lời câu hỏi Điều gì đã xảy ra với họ?
+Chúng ta có thể sử dụng dữ liệu để trả lời các câu hỏi về đặc điểm của những cá thể trong một đoàn hệ (nhóm thuần tập – cohort) hoặc trong toàn bộ cơ sở dữ liệu, về thực hành chăm sóc sức khỏe, cũng như nghiên cứu cách thức những yếu tố này thay đổi theo thời gian.
 
-Chúng tôi có thể sử dụng dữ liệu để cung cấp câu trả lời cho các câu
-hỏi về đặc điểm của những người trong một nhóm thuần tập hoặc toàn bộ
-cơ sở dữ liệu, thực hành chăm sóc sức khỏe và nghiên cứu cách những
-điều này thay đổi theo thời gian.
+Dữ liệu có thể cung cấp câu trả lời cho những câu hỏi như:
 
-Dữ liệu có thể cung cấp câu trả lời cho các câu hỏi như:
+- Đối với những bệnh nhân mới được chẩn đoán rung nhĩ, có bao nhiêu người được kê đơn thuốc warfarin?
+- Độ tuổi trung bình của những bệnh nhân trải qua phẫu thuật thay khớp háng là bao nhiêu?
+- Tỷ suất mới mắc (incidence rate) bệnh viêm phổi ở những bệnh nhân trên 65 tuổi là bao nhiêu?
 
-- Đối với bệnh nhân mới được chẩn đoán rung nhĩ, có bao nhiêu người nhận
-được đơn thuốc warfarin?
-
-- Độ tuổi trung bình của bệnh nhân trải qua phẫu thuật thay khớp háng là
-bao nhiêu?
-
-- Tỷ lệ mắc bệnh viêm phổi ở bệnh nhân trên 65 tuổi là bao nhiêu? Các
-câu hỏi đặc điểm hóa điển hình được xây dựng như sau&#58;
+Các câu hỏi mô tả đặc trưng lâm sàng điển hình thường được diễn đạt dưới dạng:
 
 - Có bao nhiêu bệnh nhân...?
-
-- Bao lâu thì...?
-
+- Tần suất xảy ra của... là bao nhiêu?
 - Tỷ lệ bệnh nhân... là bao nhiêu?
+- Phân phối các giá trị xét nghiệm của... như thế nào?
+- Nồng độ HbA1c ở những bệnh nhân mắc... là bao nhiêu?
+- Các giá trị xét nghiệm của những bệnh nhân... là gì?
+- Thời gian phơi nhiễm trung vị của những bệnh nhân sử dụng... là bao lâu?
+- Xu hướng biến đổi theo thời gian của... diễn ra như thế nào?
+- Những loại thuốc nào khác mà các bệnh nhân này đang sử dụng?
+- Các liệu pháp điều trị đi kèm (concomitant therapies) là gì?
+- Chúng ta có đủ số lượng ca bệnh... hay không?
+- Việc nghiên cứu vấn đề X có khả thi hay không...?
+- Đặc điểm nhân khẩu học của... là gì?
+- Các yếu tố nguy cơ của... là gì? (nếu nhằm xác định tác động của một yếu tố nguy cơ cụ thể thì có thể thuộc bài toán ước lượng, chứ không phải dự báo)
+- Các yếu tố dự báo (predictors) của... là gì?
 
-- Sự phân bố các giá trị xét nghiệm... là gì?
+Và kết quả đầu ra mong muốn thường là:
 
-- Mức HbA1c cho bệnh nhân với... là bao nhiêu?
-
-- Các giá trị xét nghiệm cho bệnh nhân... là gì?
-
-- Thời gian phơi nhiễm trung vị cho bệnh nhân dùng.... là bao nhiêu?
-
-- Các xu hướng theo thời gian trong... là gì?
-
-- Những loại thuốc khác mà những bệnh nhân này đang sử dụng là gì?
-
-- Các liệu pháp đi kèm là gì?
-
-- Chúng ta có đủ các trường hợp... không?
-
-- Liệu có khả thi để nghiên cứu X không...?
-
-- Nhân khẩu học của... là gì?
-
-- Các yếu tố nguy cơ của... là gì? (nếu xác định một yếu tố nguy cơ cụ
-thể, có thể là ước tính, không phải dự đoán)
-
-- Các yếu tố dự báo của... là gì? Và đầu ra mong muốn là&#58;
-
-- Số lượng hoặc tỷ lệ phần trăm
-
-- Các mức trung bình
-
+- Số đếm hoặc tỷ lệ phần trăm
+- Các giá trị trung bình
 - Thống kê mô tả
+- Tỷ suất mới mắc (Incidence rate)
+- Tỷ lệ hiện mắc (Prevalence)
+- Đoàn hệ / nhóm thuần tập (Cohort)
+- Kiểu hình dựa trên quy tắc (Rule-based phenotype)
+- Tình hình sử dụng thuốc (Drug utilization)
+- Diễn tiến tự nhiên của bệnh (Disease natural history)
+- Mức độ tuân thủ điều trị (Adherence)
+- Hồ sơ bệnh đồng mắc (Co-morbidity profile)
+- Lộ trình điều trị (Treatment pathways)
+- Phác đồ / bước điều trị (Line of therapy)
 
-- Tỷ lệ mắc bệnh
+## Ước lượng hiệu quả ở cấp độ quần thể
 
-- Tỷ lệ hiện mắc
+Ở một mức độ nhất định, dữ liệu quan sát có thể hỗ trợ suy luận nhân quả về tác động của các can thiệp y tế, nhằm trả lời câu hỏi:
 
-- Nhóm thuần tập
+> Các tác động nhân quả là gì?
 
-- Kiểu hình dựa trên quy tắc
+Chúng ta muốn tìm hiểu các tác động nhân quả để nắm được hệ quả của các hành động can thiệp. Ví dụ, nếu chúng ta quyết định áp dụng một phương pháp điều trị nào đó, quyết định ấy sẽ làm thay đổi những gì xảy ra với bệnh nhân trong tương lai như thế nào?
 
-- Sử dụng thuốc
+Dữ liệu có thể cung cấp câu trả lời cho những câu hỏi như:
 
-- Lịch sử tự nhiên của bệnh
+- Đối với bệnh nhân mới được chẩn đoán rung nhĩ, trong năm đầu tiên sau khi khởi trị, liệu warfarin có gây ra nhiều biến cố xuất huyết nghiêm trọng hơn so với dabigatran hay không?
+- Tác động nhân quả của metformin lên biến cố tiêu chảy có thay đổi theo độ tuổi hay không?
 
-- Sự tuân thủ
-
-- Hồ sơ bệnh đồng mắc
-
-- Các con đường điều trị
-
-- Dòng điều trị
-
-## Ước tính cấp độ quần thể
-
-Ở một mức độ hạn chế, dữ liệu có thể hỗ trợ các suy luận nhân quả về
-tác động của các can thiệp chăm sóc sức khỏe, trả lời câu hỏi
-
-Các tác động nhân quả là gì?
-
-Chúng tôi muốn hiểu các tác động nhân quả để hiểu hậu quả của các hành
-động. Ví dụ, nếu chúng tôi quyết định thực hiện một phương pháp điều
-trị nào đó, điều đó thay đổi những gì xảy ra với chúng tôi trong tương
-lai như thế nào?
-
-Dữ liệu có thể cung cấp câu trả lời cho các câu hỏi như:
-
-- Đối với bệnh nhân mới được chẩn đoán rung nhĩ, trong năm đầu tiên sau
-khi bắt đầu
-
-3.  *Dự đoán cấp độ bệnh nhân 103*
-
-điều trị, warfarin có gây ra nhiều biến cố chảy máu nghiêm trọng hơn
-dabigatran không?
-
-- Tác động nhân quả của metformin đối với tiêu chảy có thay đổi theo độ
-tuổi không? Các câu hỏi ước tính tác động cấp độ quần thể điển hình
-được xây dựng như sau&#58;
+Các câu hỏi ước lượng hiệu quả ở cấp độ quần thể điển hình thường được đặt ra như sau:
 
 - Tác động của... là gì?
-
-- Điều gì sẽ xảy ra nếu tôi thực hiện can thiệp...?
-
-- Phương pháp điều trị nào hiệu quả hơn?
-
+- Điều gì sẽ xảy ra nếu thực hiện can thiệp...?
+- Phương pháp điều trị nào mang lại hiệu quả tốt hơn?
 - Nguy cơ của X đối với Y là bao nhiêu?
+- Thời gian đến khi xảy ra biến cố (time-to-event) của... là bao lâu?
 
-- Thời gian đến khi xảy ra biến cố của... là bao nhiêu? Và đầu ra mong
-muốn là&#58;
+Và kết quả đầu ra mong muốn là:
 
-- Nguy cơ tương đối
+- Nguy cơ tương đối (Relative risk)
+- Tỷ số nguy cơ (Hazard ratio)
+- Tỷ số chênh (Odds ratio)
+- Hiệu quả điều trị trung bình (Average treatment effect)
+- Tác động nhân quả (Causal effect)
+- Mối liên hệ (Association)
+- Mối tương quan (Correlation)
+- Giám sát an toàn thuốc (Safety surveillance)
+- Hiệu quả so sánh (Comparative effectiveness)
 
-- Tỷ lệ nguy hiểm
+## Dự báo ở cấp độ bệnh nhân
 
-- Tỷ lệ chênh lệch
+Dựa trên lịch sử sức khỏe của bệnh nhân được thu thập trong cơ sở dữ liệu, chúng ta có thể đưa ra các dự báo ở cấp độ từng bệnh nhân về những biến cố sức khỏe trong tương lai, nhằm trả lời câu hỏi:
 
-- Tác động điều trị trung bình
+> Điều gì sẽ xảy ra với tôi?
 
-- Tác động nhân quả
+Dữ liệu có thể cung cấp câu trả lời cho những câu hỏi như:
 
-- Sự liên quan
+- Đối với một bệnh nhân cụ thể mới được chẩn đoán mắc rối loạn trầm cảm chủ yếu, xác suất bệnh nhân đó có hành vi tự sát trong năm đầu tiên sau chẩn đoán là bao nhiêu?
+- Đối với một bệnh nhân cụ thể mới được chẩn đoán rung nhĩ, trong năm đầu tiên sau khi khởi trị bằng warfarin, xác suất bệnh nhân đó bị đột quỵ thiếu máu cục bộ là bao nhiêu?
 
-- Sự tương quan
+Các câu hỏi dự báo ở cấp độ bệnh nhân điển hình thường được diễn đạt như sau:
 
-- Giám sát an toàn
+- Khả năng bệnh nhân này sẽ... là bao nhiêu?
+- Những ai là đối tượng phù hợp cho...?
 
-- Hiệu quả so sánh
+Và kết quả đầu ra mong muốn là:
 
-## Dự đoán cấp độ bệnh nhân
+- Xác suất xảy ra biến cố cho một cá nhân cụ thể
+- Mô hình dự báo (Prediction model)
+- Phân tầng các nhóm nguy cơ cao / thấp
+- Kiểu hình xác suất (Probabilistic phenotype)
 
-Dựa trên lịch sử sức khỏe bệnh nhân được thu thập trong cơ sở dữ liệu,
-chúng tôi có thể đưa ra các dự đoán cấp độ bệnh nhân về các biến cố
-sức khỏe trong tương lai, trả lời câu hỏi
+Ước lượng hiệu quả ở cấp độ quần thể và dự báo ở cấp độ bệnh nhân có sự giao thoa ở một mức độ nhất định. Ví dụ, một bài toán ứng dụng quan trọng của dự báo là dự báo kết cục cho một bệnh nhân cụ thể nếu được kê đơn thuốc A, đồng thời dự báo cùng kết cục đó nếu bệnh nhân được kê đơn thuốc B. Giả sử trong thực tế chỉ có một trong hai loại thuốc này được kê đơn (chẳng hạn thuốc A), nhờ đó chúng ta quan sát được liệu kết cục sau khi điều trị bằng thuốc A có thực sự xảy ra hay không. Vì thuốc B không được kê đơn, kết cục sau khi điều trị bằng thuốc B — dù vẫn có thể dự báo được — mang tính "phản thực tế" (counterfactual) vì nó không bao giờ được quan sát trên thực tế. Mỗi tác vụ dự báo riêng lẻ này thuộc về bài toán dự báo ở cấp độ bệnh nhân. Tuy nhiên, sự khác biệt (hoặc tỷ số) giữa hai kết cục lại là một tác động *nhân quả* ở cấp độ cá thể, và cần được ước lượng bằng các phương pháp ước lượng tác động nhân quả.
 
-Điều gì sẽ xảy ra với tôi?
+::: {.callout-important title="Điểm quan trọng"}
+Con người có xu hướng tự nhiên diễn giải sai các mô hình dự báo như thể chúng là các mô hình nhân quả. Tuy nhiên, một mô hình dự báo chỉ có thể cho thấy mối tương quan (correlation), chứ không bao giờ chứng minh được quan hệ nhân quả (causation). Ví dụ, việc sử dụng thuốc điều trị đái tháo đường có thể là một yếu tố dự báo mạnh cho nhồi máu cơ tim (MI) vì bản thân bệnh đái tháo đường là một yếu tố nguy cơ mạnh dẫn đến MI. Tuy nhiên, điều đó hoàn toàn không có nghĩa là việc ngừng thuốc đái tháo đường sẽ giúp ngăn ngừa MI!
+:::
 
-Dữ liệu có thể cung cấp câu trả lời cho các câu hỏi như:
+## Ví dụ các bài toán ứng dụng trong bệnh tăng huyết áp
 
-- Đối với một bệnh nhân cụ thể mới được chẩn đoán mắc chứng rối loạn
-trầm cảm nặng, xác suất bệnh nhân sẽ tự tử trong năm đầu tiên sau khi
-chẩn đoán là bao nhiêu?
+Giả sử bạn là một nhà nghiên cứu quan tâm đến việc tìm hiểu tác động của đơn trị liệu bằng thuốc ức chế men chuyển (ACE inhibitor) so với đơn trị liệu bằng thuốc lợi tiểu thiazide đối với hai kết cục là nhồi máu cơ tim cấp (AMI) và phù mạch (angioedema) khi dùng làm phác đồ điều trị đầu tay cho bệnh tăng huyết áp. Dựa trên tài liệu của OHDSI, bạn hiểu rằng mình đang đặt ra một câu hỏi ước lượng hiệu quả ở cấp độ quần thể, nhưng trước hết, bạn cần thực hiện các bước chuẩn bị để mô tả đặc trưng lâm sàng của các phương pháp điều trị đang quan tâm.
 
-- Đối với một bệnh nhân cụ thể mới được chẩn đoán rung nhĩ, trong năm
-đầu tiên sau khi bắt đầu điều trị bằng warfarin, xác suất bệnh nhân bị
-đột quỵ do thiếu máu cục bộ là bao nhiêu?
+### Các câu hỏi mô tả đặc trưng lâm sàng
 
-Các câu hỏi dự đoán cấp độ bệnh nhân điển hình được xây dựng như sau:
+Nhồi máu cơ tim cấp là một biến chứng tim mạch có thể xảy ra ở bệnh nhân tăng huyết áp, do đó một phác đồ điều trị tăng huyết áp hiệu quả cần làm giảm nguy cơ này. Phù mạch là một tác dụng không mong muốn đã biết của thuốc ức chế men chuyển — tuy hiếm gặp nhưng có khả năng diễn tiến nghiêm trọng. Bạn bắt đầu bằng việc thiết lập các đoàn hệ (nhóm thuần tập, xem Chương 10) cho các phơi nhiễm đang quan tâm (những người mới bắt đầu sử dụng thuốc ức chế men chuyển và những người mới bắt đầu sử dụng thuốc lợi tiểu thiazide). Tiếp theo, bạn thực hiện một phân tích mô tả đặc trưng lâm sàng (xem Chương 11) nhằm tóm tắt các đặc điểm nền (baseline characteristics) của các quần thể phơi nhiễm này, bao gồm đặc điểm nhân khẩu học, các bệnh lý đồng mắc và các thuốc sử dụng kèm. Bạn thực hiện thêm một phân tích mô tả đặc trưng lâm sàng khác để ước tính tỷ suất mới mắc của các kết cục được chọn trong những quần thể phơi nhiễm này. Tại đây, bạn đặt câu hỏi: "Tần suất xuất hiện của 1) nhồi máu cơ tim cấp và 2) phù mạch trong giai đoạn phơi nhiễm với thuốc ức chế men chuyển và thuốc lợi tiểu thiazide là bao nhiêu?". Những phân tích mô tả đặc trưng này cho phép chúng ta đánh giá tính khả thi của việc tiến hành một nghiên cứu ước lượng hiệu quả ở cấp độ quần thể, xem xét liệu hai nhóm điều trị có thể so sánh được với nhau hay không, và xác định các "yếu tố nguy cơ" có thể dự báo lựa chọn điều trị của bệnh nhân.
 
-- Cơ hội để bệnh nhân này... là bao nhiêu?
+### Câu hỏi ước lượng hiệu quả ở cấp độ quần thể
 
-- Ai là ứng viên cho...?
+Nghiên cứu ước lượng hiệu quả ở cấp độ quần thể (xem Chương 12) ước tính nguy cơ tương đối của việc sử dụng thuốc ức chế men chuyển so với thuốc lợi tiểu thiazide đối với hai kết cục là nhồi máu cơ tim cấp (AMI) và phù mạch. Tại bước này, bạn đánh giá sâu hơn thông qua các chẩn đoán thẩm định thiết kế nghiên cứu (study diagnostics) và các nhóm chứng âm (negative controls) để xác định liệu chúng ta có thể đưa ra một ước lượng đáng tin cậy về hiệu quả điều trị trung bình hay không.
 
-- Xác suất cho một cá nhân
+### Câu hỏi dự báo ở cấp độ bệnh nhân
 
-- Mô hình dự đoán
-
-- Các nhóm nguy cơ cao/thấp
-
-- Kiểu hình xác suất
-
-Ước tính cấp độ quần thể và dự đoán cấp độ bệnh nhân chồng chéo ở một
-mức độ nhất định. Ví dụ, một trường hợp sử dụng quan trọng của dự đoán
-là dự đoán kết quả cho một bệnh nhân cụ thể nếu thuốc A được kê đơn và
-cũng dự đoán cùng kết quả đó nếu thuốc B được kê đơn. Hãy giả sử rằng
-trong thực tế, chỉ một trong những loại thuốc này được kê đơn (giả sử
-là thuốc A) nên chúng ta có thể thấy liệu kết quả sau khi điều trị
-bằng A có thực sự xảy ra hay không. Vì thuốc B không được kê đơn, kết
-quả sau khi điều trị bằng B, mặc dù có thể dự đoán được, là "phản thực
-tế" vì nó không bao giờ được quan sát thấy. Mỗi nhiệm vụ dự đoán này
-thuộc về dự đoán cấp độ bệnh nhân. Tuy nhiên, sự khác biệt giữa (hoặc
-tỷ lệ của) hai kết quả là một tác động nhân quả cấp đơn vị, và nên
-được ước tính bằng cách sử dụng các phương pháp ước tính tác động nhân
-quả thay thế.
-
-![People have a natural tendency to erroneously interpret predictive
-models as if they are causal models. But a predictive model can only
-show correlation, never cau-sation. For example, diabetic drug use might
-be a strong predictor for myocardial infarction (MI) because diabetes is
-a strong risk factor for MI. However, that does not mean that stopping
-the diabetic drugs will prevent
-MI!](media/image6.png){width="0.45499890638670165in"
-height="0.45499890638670165in"}
-
-## Các trường hợp sử dụng ví dụ trong tăng huyết áp
-
-Bạn là một nhà nghiên cứu quan tâm đến việc nghiên cứu tác động của
-liệu pháp đơn trị liệu bằng thuốc ức chế ACE so với liệu pháp đơn trị
-liệu bằng thuốc lợi tiểu thiazide đối với các kết quả là nhồi máu cơ
-tim cấp và phù mạch như là phương pháp điều trị đầu tay cho bệnh tăng
-huyết áp. Bạn hiểu rằng dựa trên tài liệu OHDSI, bạn đang đặt một câu
-hỏi ước tính tác động cấp độ quần thể nhưng trước hết, bạn cần làm bài
-tập về nhà về cách đặc điểm hóa phương pháp điều trị cụ thể mà bạn
-quan tâm này.
-
-### Các câu hỏi đặc điểm hóa
-
-Nhồi máu cơ tim cấp là một biến chứng tim mạch có thể xảy ra ở bệnh
-nhân bị huyết áp cao, vì vậy phương pháp điều trị hiệu quả cho tăng
-huyết áp sẽ làm giảm nguy cơ này. Phù mạch là một tác dụng phụ đã biết
-của thuốc ức chế ACE, hiếm gặp nhưng có khả năng nghiêm trọng. Bạn bắt
-đầu bằng cách tạo các nhóm thuần tập (xem Chương 10) cho các phơi
-nhiễm mà bạn quan tâm (những người mới dùng thuốc ức chế ACE và những
-người mới dùng thuốc lợi tiểu thiazide). Bạn thực hiện một phân tích
-đặc điểm hóa (xem Chương 11) để tóm tắt các đặc điểm cơ bản của các
-quần thể phơi nhiễm này, bao gồm nhân khẩu học, các tình trạng bệnh
-đồng mắc và các thuốc dùng kèm. Bạn thực hiện một phân tích đặc điểm
-hóa khác để ước tính tỷ lệ mắc các kết quả được chọn trong các quần
-thể phơi nhiễm này. Ở đây, bạn hỏi 'bao lâu thì 1) nhồi máu cơ tim cấp
-và 2) phù mạch xảy ra trong thời gian phơi nhiễm với thuốc ức chế ACE
-và thuốc lợi tiểu thiazide?' Những đặc điểm hóa này cho phép chúng ta
-đánh giá tính khả thi của việc thực hiện một nghiên cứu ước tính cấp
-độ quần thể, đánh giá xem hai nhóm điều trị có thể so sánh được hay
-không và xác định các 'yếu tố nguy cơ' có thể dự đoán lựa chọn điều
-trị mà bệnh nhân đã thực hiện.
-
-*7.5. Các hạn chế của nghiên cứu quan sát 105*
-
-### Câu hỏi ước tính cấp độ quần thể
-
-Nghiên cứu ước tính tác động cấp độ quần thể (xem Chương 12) ước tính
-nguy cơ tương đối của việc sử dụng thuốc ức chế ACE so với thuốc lợi
-tiểu thiazide đối với các kết quả là AMI và phù mạch. Ở đây, bạn đánh
-giá thêm thông qua các chẩn đoán nghiên cứu và các đối chứng âm tính
-xem liệu chúng ta có thể tạo ra một ước tính đáng tin cậy về tác động
-điều trị trung bình hay không.
-
-### Câu hỏi dự đoán cấp độ bệnh nhân
-
-Độc lập với việc liệu có tác động nhân quả của các phơi nhiễm hay
-không, bạn cũng quan tâm đến việc cố gắng xác định bệnh nhân nào có
-nguy cơ cao nhất đối với các kết quả. Đây là một vấn đề dự đoán cấp độ
-bệnh nhân (xem Chương 13). Ở đây, bạn phát triển một mô hình dự đoán
-đánh giá: trong số các bệnh nhân mới sử dụng thuốc ức chế ACE, bệnh
-nhân nào có nguy cơ cao nhất phát triển nhồi máu cơ tim cấp trong 1
-năm sau khi bắt đầu điều trị. Mô hình cho phép chúng ta dự đoán, đối
-với một bệnh nhân vừa được kê đơn ACE lần đầu tiên, dựa trên các biến
-cố quan sát được từ lịch sử y tế của họ, cơ hội họ trải qua AMI trong
-1 năm tới là bao nhiêu.
+Độc lập với việc liệu các phơi nhiễm có tác động nhân quả hay không, bạn cũng quan tâm đến việc xác định những bệnh nhân nào có nguy cơ gặp kết cục cao nhất. Đây là bài toán dự báo ở cấp độ bệnh nhân (xem Chương 13). Tại đây, bạn xây dựng một mô hình dự báo nhằm đánh giá: trong số những bệnh nhân mới bắt đầu sử dụng thuốc ức chế men chuyển, những bệnh nhân nào có nguy cơ cao nhất bị nhồi máu cơ tim cấp trong vòng 1 năm sau khi khởi trị. Mô hình này cho phép chúng ta dự báo đối với một bệnh nhân vừa được kê đơn thuốc ức chế men chuyển lần đầu tiên, dựa trên các biến cố quan sát được từ tiền sử y khoa của họ, xác suất họ gặp biến cố nhồi máu cơ tim cấp trong 1 năm tới là bao nhiêu.
 
 ## Các hạn chế của nghiên cứu quan sát
 
-Có nhiều câu hỏi quan trọng về chăm sóc sức khỏe mà các cơ sở dữ liệu
-OHDSI không thể cung cấp câu trả lời. Những câu hỏi này bao gồm:
+Có nhiều câu hỏi quan trọng trong chăm sóc sức khỏe mà các cơ sở dữ liệu OHDSI không thể cung cấp câu trả lời. Những câu hỏi này bao gồm:
 
-- Các tác động nhân quả của các can thiệp so với giả dược. Đôi khi, có
-thể xem xét tác động nhân quả của một phương pháp điều trị so với việc
-không điều trị, nhưng không phải so với điều trị bằng giả dược.
-
-- Bất cứ điều gì liên quan đến thuốc không kê đơn.
-
-- Nhiều kết quả và các biến số khác được ghi lại một cách thưa thớt hoặc
-thậm chí không có. Những yếu tố này bao gồm tỷ lệ tử vong, kết quả
-hành vi, lối sống và tình trạng kinh tế xã hội.
-
-- Vì bệnh nhân thường chỉ tiếp cận hệ thống chăm sóc sức khỏe khi họ
-không khỏe, nên việc đo lường lợi ích của các phương pháp điều trị có
-thể trở nên khó nắm bắt.
+- Tác động nhân quả của các can thiệp khi so sánh với giả dược (placebo). Đôi khi chúng ta có thể xem xét tác động nhân quả của một phương pháp điều trị so với việc không điều trị, nhưng không thể so sánh với việc điều trị bằng giả dược.
+- Bất kỳ vấn đề nào liên quan đến các thuốc không kê đơn (over-the-counter medications).
+- Nhiều kết cục và biến số khác được ghi nhận rất thưa thớt hoặc thậm chí không được ghi nhận, bao gồm tử vong, các kết cục hành vi, lối sống và tình trạng kinh tế – xã hội.
+- Vì bệnh nhân thường chỉ tiếp xúc với hệ thống y tế khi họ gặp vấn đề sức khỏe, việc đo lường lợi ích thực sự của các phương pháp điều trị có thể trở nên rất khó khăn.
 
 ### Dữ liệu sai lệch
 
-Dữ liệu lâm sàng được ghi lại trong các cơ sở dữ liệu OHDSI có thể sai
-lệch so với thực tế lâm sàng. Ví dụ, hồ sơ của một bệnh nhân có thể
-bao gồm mã nhồi máu cơ tim mặc dù bệnh nhân đó chưa bao giờ bị nhồi
-máu cơ tim. Tương tự, một giá trị xét nghiệm có thể bị sai hoặc một mã
-thủ thuật không chính xác có thể xuất hiện trong cơ sở dữ liệu. Chương
-15 và 16 thảo luận về một số vấn đề này và các phương pháp thực hành
-tốt nhằm xác định và điều chỉnh càng nhiều vấn đề loại này càng tốt.
-Tuy nhiên, dữ liệu sai lệch vẫn tồn tại ở một mức độ nào đó và có thể
-làm suy yếu tính hợp lệ của các phân tích tiếp theo. Một lượng lớn tài
-liệu tập trung vào việc điều chỉnh các suy luận thống kê để giải quyết
-các sai sót trong dữ liệu - xem ví dụ: Fuller (2009).
+Dữ liệu lâm sàng được ghi nhận trong các cơ sở dữ liệu OHDSI có thể sai lệch so với thực tế lâm sàng. Ví dụ, hồ sơ của một bệnh nhân có thể chứa mã chẩn đoán nhồi máu cơ tim mặc dù bệnh nhân đó chưa từng bị nhồi máu cơ tim. Tương tự, một kết quả xét nghiệm có thể bị sai sót hoặc một mã thủ thuật không chính xác có thể xuất hiện trong cơ sở dữ liệu. Chương 15 và Chương 16 thảo luận về một số vấn đề này cùng các thực hành tốt nhằm phát hiện và hiệu chỉnh nhiều nhất có thể những sai sót thuộc loại này. Tuy nhiên, dữ liệu sai lệch vẫn không tránh khỏi việc tồn tại ở một mức độ nhất định và có thể làm suy giảm giá trị hợp lệ (validity) của các phân tích tiếp theo. Nhiều công trình y văn đã tập trung vào việc hiệu chỉnh các suy luận thống kê để xử lý sai số trong dữ liệu — xem ví dụ: Fuller (2009).
 
-### Dữ liệu bị thiếu
+### Dữ liệu bị khuyết thiếu
 
-Sự thiếu hụt dữ liệu trong các cơ sở dữ liệu OHDSI đặt ra những thách
-thức tinh vi. Một sự kiện sức khỏe (ví dụ: đơn thuốc, giá trị xét
-nghiệm, v.v.) lẽ ra phải được ghi lại trong cơ sở dữ liệu nhưng lại
-không có, thì được coi là "bị thiếu". Tài liệu thống kê phân biệt giữa
-các loại thiếu hụt như "thiếu hoàn toàn ngẫu nhiên", "thiếu ngẫu
-nhiên" và "thiếu không ngẫu nhiên", và các phương pháp có độ phức tạp
-ngày càng tăng đang cố gắng giải quyết các loại này. Perkins và cộng
-sự (2017) cung cấp một phần giới thiệu hữu ích về chủ đề
-này.
+Tình trạng khuyết thiếu dữ liệu (missing data) trong các cơ sở dữ liệu OHDSI đặt ra những thách thức tinh vi. Một sự kiện y tế (ví dụ: đơn thuốc, kết quả xét nghiệm, v.v.) lẽ ra phải được ghi nhận vào cơ sở dữ liệu nhưng lại không xuất hiện thì được coi là "bị khuyết thiếu". Y văn thống kê phân biệt giữa các cơ chế khuyết thiếu dữ liệu như "khuyết thiếu hoàn toàn ngẫu nhiên" (missing completely at random – MCAR), "khuyết thiếu ngẫu nhiên" (missing at random – MAR) và "khuyết thiếu không ngẫu nhiên" (missing not at random – MNAR), cùng với các phương pháp có độ phức tạp ngày càng cao nhằm giải quyết từng loại khuyết thiếu này. Perkins và cộng sự (2017) đã cung cấp một tài liệu giới thiệu rất hữu ích về chủ đề này.
 
 ## Tóm tắt
 
-![](media/image4.png){width="0.4455205599300088in"
-height="0.4644783464566929in" .book-icon}
-
-- In observational research we distinguish three large categories of
-uses cases.
-
-- **Characterization** aims to answer the questions "What happened to
-them?"
-
-- **Population-level estimation** attempts to answer the question "What
-are the causal effects?"
-
-- **Patient-level prediction** tries to answer "What will happen to me?"
-
-- Prediction models are not causal models; There is no reason to believe
-that intervening on a strong predictor will impact the outcome.
-
-- There are questions that cannot be answered using observational
-healthcare data.
+::: {.callout-tip title="Tóm tắt chương"}
+- Trong nghiên cứu quan sát, chúng ta phân biệt ba nhóm bài toán ứng dụng lớn:
+- **Mô tả đặc trưng lâm sàng (Characterization)** hướng tới việc trả lời câu hỏi *"Điều gì đã xảy ra với họ?"*.
+- **Ước lượng hiệu quả ở cấp độ quần thể (Population-level estimation)** tìm cách trả lời câu hỏi *"Các tác động nhân quả là gì?"*.
+- **Dự báo ở cấp độ bệnh nhân (Patient-level prediction)** cố gắng trả lời câu hỏi *"Điều gì sẽ xảy ra với tôi?"*.
+- Mô hình dự báo không phải là mô hình nhân quả; không có cơ sở nào để tin rằng việc can thiệp vào một yếu tố dự báo mạnh sẽ làm thay đổi kết cục.
+- Có những câu hỏi nghiên cứu không thể trả lời được bằng dữ liệu chăm sóc sức khỏe quan sát.
+:::
 
 ## Bài tập
 
-**Bài tập 7.1. Những câu hỏi này thuộc các danh mục trường hợp sử dụng
-nào?**
+**Bài tập 7.1. Những câu hỏi dưới đây thuộc nhóm bài toán ứng dụng nào?**
 
-1.  Tính tỷ lệ xuất huyết tiêu hóa (GI) ở những bệnh nhân mới tiếp xúc
-với NSAID.
+1. Tính tỷ suất xuất huyết tiêu hóa (GI bleeding) ở những bệnh nhân mới phơi nhiễm với thuốc kháng viêm không steroid (NSAID).
 
-2.  Tính xác suất một bệnh nhân cụ thể bị xuất huyết tiêu hóa trong năm
-tới, dựa trên các đặc điểm cơ bản của họ.
+2. Tính xác suất một bệnh nhân cụ thể bị xuất huyết tiêu hóa trong năm tới, dựa trên các đặc điểm nền của bệnh nhân đó.
 
-3.  Ước tính nguy cơ gia tăng xuất huyết tiêu hóa do diclofenac so với
-celecoxib.
+3. Ước lượng mức tăng nguy cơ xuất huyết tiêu hóa do diclofenac gây ra khi so sánh với celecoxib.
 
-**Bài tập 7.2. Bạn muốn ước tính nguy cơ gia tăng xuất huyết tiêu hóa
-do diclofenac so với không tiếp xúc (giả dược). Điều này có thể thực
-hiện được bằng cách sử dụng dữ liệu chăm sóc sức khỏe quan sát
-không?**
+**Bài tập 7.2. Bạn muốn ước lượng mức tăng nguy cơ xuất huyết tiêu hóa do diclofenac so với không phơi nhiễm (giả dược). Nghiên cứu này có thể thực hiện được bằng dữ liệu chăm sóc sức khỏe quan sát hay không?**
 
-Các câu trả lời gợi ý có thể được tìm thấy trong Phụ lục E.4.
-
+Câu trả lời gợi ý có thể được tìm thấy trong Phụ lục E.4.

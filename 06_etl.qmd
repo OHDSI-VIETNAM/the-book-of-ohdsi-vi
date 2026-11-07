@@ -1,1081 +1,424 @@
----
-title: "Chương 6: Trích xuất - Chuyển đổi - Nạp (ETL)"
----
+# Chương 6: Trích xuất – Chuyển đổi – Nạp dữ liệu (ETL) {#ExtractTransformLoad}
 
-# Trích xuất - Chuyển đổi - Nạp (ETL)
-
-*Chủ nhiệm chương&#58; Clair Blacketer & Erica
-Voss*
+*Chủ biên chương: Clair Blacketer & Erica Voss*
 
 ## Giới thiệu
 
-Để đi từ dữ liệu gốc/thô đến Mô hình dữ liệu chung (CDM) OMOP, chúng
-ta phải tạo một quy trình trích xuất, chuyển đổi và nạp (ETL). Quy
-trình này sẽ tái cấu trúc dữ liệu sang CDM, và thêm các ánh xạ tới Từ
-vựng chuẩn hóa, và thường được triển khai dưới dạng một tập hợp các
-tập lệnh tự động, ví dụ như các tập lệnh SQL. Điều quan trọng là quy
-trình ETL này phải có khả năng lặp lại để có thể chạy lại bất cứ khi
-nào dữ liệu nguồn được làm mới.
+Để chuyển đổi từ dữ liệu gốc/dữ liệu thô (*native/raw data*) sang Mô hình Dữ liệu Chung OMOP (OMOP CDM), chúng ta cần xây dựng một quy trình Trích xuất, Chuyển đổi và Nạp dữ liệu (*Extract, Transform, and Load - ETL*). Quy trình này sẽ tái cấu trúc dữ liệu nguồn sang định dạng bảng của CDM, đồng thời tích hợp các ánh xạ thuật ngữ sang Bộ Từ vựng Chuẩn hóa, và thường được triển khai dưới dạng một tập hợp các kịch bản thực thi tự động (chẳng hạn như các tập lệnh SQL). Điều cốt yếu là quy trình ETL này phải có khả năng tái thực thi lặp lại (*repeatable*) để có thể chạy lại bất cứ khi nào dữ liệu nguồn được cập nhật làm mới.
 
-Việc tạo một ETL thường là một công việc lớn. Qua nhiều năm, chúng tôi
-đã phát triển các phương pháp thực hành tốt nhất, bao gồm bốn bước
-chính:
+Việc xây dựng một quy trình ETL thường là một dự án quy mô lớn. Qua nhiều năm kinh nghiệm thực tiễn, cộng đồng OHDSI đã đúc kết được bộ quy trình thực hành tốt nhất (*best practices*) gồm bốn bước chính:
 
-1.  Các chuyên gia dữ liệu và chuyên gia CDM cùng nhau thiết kế ETL.
+1. Các chuyên gia dữ liệu nguồn và chuyên gia CDM cùng phối hợp thiết kế đặc tả ETL.
+2. Các chuyên gia có kiến thức y khoa thực hiện việc ánh xạ mã thuật ngữ (*code mappings*).
+3. Nhân sự kỹ thuật (kỹ sư dữ liệu/lập trình viên) triển khai lập trình quy trình ETL.
+4. Tất cả các bên cùng tham gia vào quá trình kiểm soát chất lượng (*quality control*).
 
-2.  Những người có kiến thức y tế tạo ra các ánh xạ mã.
+Trong chương này, chúng tôi sẽ thảo luận chi tiết về từng bước nêu trên. Một số công cụ phần mềm mã nguồn mở đã được cộng đồng OHDSI phát triển nhằm hỗ trợ trực tiếp cho các bước này cũng sẽ được giới thiệu. Chúng tôi khép lại chương bằng phần thảo luận về công tác duy trì, bảo dưỡng cơ sở dữ liệu CDM và quy trình ETL theo thời gian.
 
-3.  Một nhân viên kỹ thuật triển khai ETL.
+## Bước 1: Thiết kế quy trình ETL
 
-4.  Tất cả đều tham gia vào việc kiểm soát chất lượng.
+Điều quan trọng hàng đầu là phải tách biệt rõ ràng giữa khâu *thiết kế* ETL và khâu *triển khai kỹ thuật* ETL. Thiết kế ETL đòi hỏi sự am hiểu sâu sắc về cả cấu trúc, ngữ nghĩa của dữ liệu nguồn lẫn tiêu chuẩn OMOP CDM. Ngược lại, việc triển khai ETL chủ yếu dựa vào chuyên môn kỹ thuật phần mềm và cơ sở dữ liệu nhằm đảm bảo quy trình chạy hiệu quả về mặt tính toán. Nếu cố gắng gộp cả hai việc này cùng một lúc, chúng ta rất dễ bị sa lầy vào những chi tiết lập trình vụn vặt trong khi lẽ ra cần tập trung vào bức tranh kiến trúc tổng thể.
 
-Trong chương này, chúng tôi sẽ thảo luận chi tiết từng bước này. Một
-số công cụ đã được cộng đồng OHDSI phát triển để hỗ trợ một số bước
-này, và những công cụ này cũng sẽ được thảo luận. Chúng tôi kết thúc
-chương này bằng một cuộc thảo luận về việc bảo trì CDM và
-ETL.
-
-## Bước 1: Thiết kế ETL
-
-Điều quan trọng là phải tách biệt rõ ràng việc thiết kế ETL khỏi việc
-triển khai ETL. Thiết kế ETL đòi hỏi kiến thức sâu rộng về cả dữ liệu
-nguồn cũng như CDM. Ngược lại, việc triển khai ETL thường dựa nhiều
-vào chuyên môn kỹ thuật về cách làm cho ETL hiệu quả về mặt tính toán.
-Nếu chúng ta cố gắng thực hiện cả hai cùng một lúc,
-
-chúng ta có khả năng bị mắc kẹt trong những
-chi tiết vụn vặt, trong khi chúng ta nên tập trung vào bức tranh tổng
-thể.
-
-Hai công cụ tích hợp chặt chẽ đã được phát triển để hỗ trợ quy trình
-thiết kế ETL: White Rabbit và Rabbit-in-a-Hat.
+Hai công cụ phần mềm tích hợp chặt chẽ với nhau đã được phát triển để hỗ trợ quá trình thiết kế ETL: **White Rabbit** và **Rabbit-in-a-Hat**.
 
 ### White Rabbit
 
-Để bắt đầu quy trình ETL trên cơ sở dữ liệu, bạn cần hiểu dữ liệu của
-mình, bao gồm các bảng, các trường và nội dung. Đây là lúc công cụ
-White Rabbit phát huy tác dụng. White Rabbit là một công cụ phần mềm
-giúp chuẩn bị cho các ETL của các cơ sở dữ liệu chăm sóc sức khỏe theo
-chiều dọc sang OMOP CDM. White Rabbit quét dữ liệu của bạn và tạo ra
-một báo cáo chứa tất cả thông tin cần thiết để bắt đầu thiết kế ETL.
-Tất cả mã nguồn và hướng dẫn cài đặt, cũng như liên kết đến hướng dẫn
-sử dụng, đều có sẵn trên GitHub.1
+Để bắt đầu quy trình ETL trên một cơ sở dữ liệu, trước hết bạn cần hiểu rõ dữ liệu nguồn của mình — bao gồm danh sách các bảng, các trường dữ liệu và nội dung thực tế bên trong. Đây chính là lúc công cụ [White Rabbit](https://github.com/OHDSI/WhiteRabbit) phát huy vai trò. White Rabbit là một công cụ phần mềm giúp chuẩn bị cho việc xây dựng ETL chuyển đổi các cơ sở dữ liệu y tế theo chiều dọc thời gian sang [OMOP CDM](https://github.com/OHDSI/CommonDataModel). White Rabbit thực hiện quét (*scan*) dữ liệu nguồn của bạn và tạo ra một báo cáo chi tiết chứa đầy đủ thông tin cần thiết để bắt đầu thiết kế ETL. Toàn bộ mã nguồn, hướng dẫn cài đặt cũng như liên kết đến tài liệu hướng dẫn sử dụng đều có sẵn trên GitHub.[^whiteRabbitGithubUrl]
 
-#### Phạm vi và Mục đích
+[^whiteRabbitGithubUrl]: <https://github.com/OHDSI/WhiteRabbit>
 
-Chức năng chính của White Rabbit là thực hiện quét dữ liệu nguồn, cung
-cấp thông tin chi tiết về các bảng, các trường và các giá trị xuất
-hiện trong một trường. Dữ liệu nguồn có thể ở dạng tệp văn bản phân
-tách bằng dấu phẩy, hoặc trong cơ sở dữ liệu (MySQL, SQL Server,
-Oracle, Post-greSQL, Microsoft APS, Microsoft Access, Amazon
-Redshift). Quá trình quét sẽ tạo ra một báo cáo có thể được sử dụng
-làm tài liệu tham khảo khi thiết kế ETL, ví dụ bằng cách sử dụng nó
-kết hợp với công cụ Rabbit-In-a-Hat. White Rabbit khác với các công cụ
-lập hồ sơ dữ liệu tiêu chuẩn ở chỗ nó cố gắng ngăn chặn việc hiển thị
-các giá trị dữ liệu thông tin nhận dạng cá nhân (PII) trong tệp dữ
-liệu đầu ra được tạo.
-
-#### Tổng quan quy trình
-
-Trình tự điển hình để sử dụng phần mềm quét dữ liệu nguồn:
-
-1.  Đặt thư mục làm việc, vị trí trên máy tính để bàn cục bộ nơi kết quả
-sẽ được xuất ra.
-
-2.  Kết nối với cơ sở dữ liệu nguồn hoặc tệp văn bản CSV và kiểm tra kết
-nối.
-
-3.  Chọn các bảng quan tâm để quét và quét các bảng đó.
-
-4.  White Rabbit tạo ra một tệp xuất thông tin về dữ liệu nguồn.
-
-#### Thiết lập thư mục làm việc
-
-Sau khi tải xuống và cài đặt ứng dụng White Rabbit, việc đầu tiên bạn
-cần làm là đặt thư mục làm việc. Bất kỳ tệp nào mà White Rabbit tạo ra
-sẽ được xuất sang thư mục cục bộ này. Sử dụng nút "Pick Folder" (Chọn
-thư mục) hiển thị trong Hình 6.1 để điều hướng trong môi trường cục bộ
-của bạn đến nơi bạn muốn tài liệu quét được lưu.
-
-^1^<https://github.com/OHDSI/WhiteRabbit>.
-
-![](media/image17.png){width="5.340937226596675in"
-height="3.805311679790026in"}
-
-Hình 6.1: Nút "Pick Folder" (Chọn thư mục) cho phép chỉ định thư mục
-làm việc cho ứng dụng White Rabbit.
-
-#### Kết nối với cơ sở dữ liệu
-
-White Rabbit hỗ trợ các tệp văn bản có dấu phân cách và nhiều nền tảng
-cơ sở dữ liệu khác nhau. Di chuột qua các trường khác nhau để nhận mô
-tả về những gì được yêu cầu. Thông tin chi tiết hơn có thể được tìm
-thấy trong hướng dẫn sử dụng.
-
-#### Quét các bảng trong cơ sở dữ liệu
-
-Sau khi kết nối với cơ sở dữ liệu, bạn có thể quét các bảng có trong
-đó. Quá trình quét tạo ra một báo cáo chứa thông tin về dữ liệu nguồn
-có thể được sử dụng để hỗ trợ thiết kế ETL. Sử dụng tab Scan (Quét)
-hiển thị trong Hình 6.2, bạn có thể chọn từng bảng riêng lẻ trong cơ
-sở dữ liệu nguồn đã chọn bằng cách nhấp vào "Add" (Thêm) (Ctrl + nhấp
-chuột), hoặc tự động chọn tất cả các bảng trong cơ sở dữ liệu bằng
-cách nhấp vào "Add all in DB" (Thêm tất cả trong DB).
-
-![](media/image18.png){width="5.357811679790026in"
-height="3.7884372265966753in"}
-
-Hình 6.2: Tab Quét (Scan) của White Rabbit.
-
-Ngoài ra còn có một vài tùy chọn cài đặt với quá trình quét:
-
-- Việc đánh dấu vào "Scan field values" (Quét giá trị trường) cho
-WhiteRabbit biết rằng bạn muốn điều tra những giá trị nào xuất hiện
-trong các cột.
-
-- "Min cell count" (Số lượng ô tối thiểu) là một tùy chọn khi quét các
-giá trị trường. Theo mặc định, tùy chọn này được đặt là 5, nghĩa là
-các giá trị trong dữ liệu nguồn xuất hiện ít hơn 5 lần sẽ không xuất
-hiện trong báo cáo. Các tập dữ liệu riêng lẻ có thể có các quy tắc
-riêng về số lượng ô tối thiểu này là bao nhiêu.
-
-- "Rows per table" (Số hàng mỗi bảng) là một tùy chọn khi quét các giá
-trị trường. Theo mặc định, White Rabbit sẽ quét 100.000 hàng được chọn
-ngẫu nhiên trong bảng.
-
-Sau khi tất cả các cài đặt hoàn tất, nhấn nút "Scan tables" (Quét
-bảng). Sau khi quá trình quét hoàn tất, báo cáo sẽ được ghi vào thư
-mục làm việc.
-
-#### Giải thích báo cáo quét
-
-Khi quá trình quét hoàn tất, một tệp Excel sẽ được tạo trong thư mục
-đã chọn với một tab hiện diện cho mỗi bảng được quét cũng như một tab
-tổng quan. Tab tổng quan liệt kê tất cả các bảng được quét, từng
-trường trong mỗi bảng, loại dữ liệu của mỗi trường, độ dài tối đa của
-trường, số hàng trong bảng, số hàng được quét và tần suất mỗi trường
-được tìm thấy là trống. Hình 6.3 hiển thị một tab tổng quan ví dụ.
-
-![](media/image19.png){width="5.376770559930009in"
-height="3.0544783464566927in"}
-
-Hình 6.3: Tab tổng quan ví dụ từ một báo cáo quét.
-
-Các tab cho mỗi bảng hiển thị từng trường, các giá trị trong mỗi
-trường và tần suất của từng giá trị. Mỗi cột bảng nguồn sẽ tạo ra hai
-cột trong Excel. Một cột sẽ liệt kê tất cả các giá trị riêng biệt có
-"Min cell count" lớn hơn giá trị đã đặt tại thời điểm quét. Nếu danh
-sách các giá trị duy nhất bị cắt bớt, giá trị cuối cùng trong danh
-sách sẽ là "List truncated" (Danh sách bị cắt bớt); điều này cho thấy
-rằng có một hoặc nhiều giá trị nguồn duy nhất bổ sung xuất hiện ít hơn
-số lượng được nhập trong "Min cell count". Bên cạnh mỗi giá trị riêng
-biệt sẽ là cột thứ hai chứa tần suất (số lần giá trị đó xuất hiện
-trong mẫu). Hai cột này (giá trị riêng biệt và tần suất) sẽ lặp lại
-cho tất cả các cột nguồn trong bảng được lập hồ sơ trong sổ làm việc.
-
-Báo cáo này rất mạnh mẽ trong việc hiểu dữ liệu nguồn của bạn bằng
-cách làm nổi bật những gì tồn tại. Ví dụ, nếu kết quả hiển thị trong
-Hình 6.4 được trả về trên cột "Sex" (Giới tính) trong một trong các
-bảng được quét, chúng ta có thể thấy rằng có hai giá trị phổ biến (1
-và 2) mà
-
-![](media/image20.png){width="1.600624453193351in"
-height="0.8368744531933509in"}
-
-Hình 6.4: Các giá trị ví dụ cho một cột đơn
-lẻ.
-
-xuất hiện lần lượt 61.491 và 35.401 lần. White Rabbit sẽ không định
-nghĩa 1 là nam và 2 là nữ; chủ sở hữu dữ liệu thường sẽ cần định nghĩa
-các mã nguồn duy nhất cho hệ thống nguồn. Tuy nhiên, hai giá trị này
-(1 & 2) không phải là những giá trị duy nhất hiện diện trong dữ liệu
-vì chúng ta thấy danh sách này đã bị cắt bớt. Những giá trị khác này
-xuất hiện với tần suất rất thấp (được định nghĩa bởi "Min cell count")
-và thường đại diện cho các giá trị không chính xác hoặc rất đáng ngờ.
-Khi tạo ETL, chúng ta không chỉ nên lập kế hoạch xử lý các khái niệm
-giới tính tần suất cao 1 và 2 mà còn cả các giá trị tần suất thấp khác
-tồn tại trong cột này. Ví dụ, nếu những giới tính tần suất thấp đó là
-"NULL", chúng ta muốn đảm bảo ETL có thể xử lý dữ liệu đó và biết phải
-làm gì trong tình huống đó.
-
-### Rabbit-In-a-Hat
-
-Với báo cáo quét White Rabbit trong tay, chúng ta có một bức tranh rõ
-ràng về dữ liệu nguồn. Chúng ta cũng biết thông số kỹ thuật đầy đủ của
-CDM. Bây giờ chúng ta cần định nghĩa logic để đi từ cái này sang cái
-kia. Hoạt động thiết kế này đòi hỏi kiến thức sâu rộng về cả dữ liệu
-nguồn và CDM. Công cụ Rabbit-in-a-Hat đi kèm với phần mềm White Rabbit
-được thiết kế đặc biệt để hỗ trợ một nhóm các chuyên gia trong các
-lĩnh vực này. Trong một bối cảnh điển hình, nhóm thiết kế ETL ngồi
-cùng nhau trong một phòng, trong khi Rabbit-in-a-Hat được chiếu trên
-màn hình. Trong vòng đầu tiên, các ánh xạ bảng-đến-bảng có thể được
-quyết định một cách hợp tác, sau đó các ánh xạ trường-đến-trường có
-thể được thiết kế, trong khi định nghĩa logic mà theo đó các giá trị
-sẽ được chuyển đổi.
-
-#### Phạm vi và Mục đích
-
-Rabbit-In-a-Hat được thiết kế để đọc và hiển thị tài liệu quét White
-Rabbit. White Rabbit tạo thông tin về dữ liệu nguồn trong khi
-Rabbit-In-a-Hat sử dụng thông tin đó và thông qua giao diện người dùng
-đồ họa để cho phép người dùng kết nối dữ liệu nguồn với các bảng và
-cột trong CDM. Rabbit-In-a-Hat tạo tài liệu cho quy trình ETL, nó
-không tạo mã để tạo ETL.
-
-#### Tổng quan quy trình
-
-Trình tự điển hình để sử dụng phần mềm này nhằm tạo tài liệu về một
-ETL:
-
-1.  Kết quả quét từ WhiteRabbit đã hoàn tất.
-
-2.  Mở kết quả quét; giao diện hiển thị các bảng nguồn và các bảng CDM.
-
-3.  Kết nối các bảng nguồn với các bảng CDM nơi bảng nguồn cung cấp
-thông tin cho bảng CDM tương ứng đó.
-
-4.  Đối với mỗi kết nối bảng nguồn với bảng CDM, định nghĩa thêm kết nối
-với chi tiết cột nguồn đến cột CDM.
-
-5.  Lưu công việc Rabbit-In-a-Hat và xuất sang tài liệu MS Word.
-
-#### Viết logic ETL
-
-Khi bạn đã mở báo cáo quét White Rabbit của mình trong
-Rabbit-In-a-Hat, bạn đã sẵn sàng để bắt đầu thiết kế và viết logic về
-cách chuyển đổi dữ liệu nguồn sang OMOP CDM. Như một ví dụ, vài phần
-tiếp theo sẽ mô tả cách một số bảng trong cơ sở dữ liệu Synthea2 có
-thể trông như thế nào trong quá trình chuyển đổi.
-
-#### Luồng chung của một ETL
-
-Vì CDM là một mô hình lấy con người làm trung tâm, nên luôn là một ý
-tưởng hay khi bắt đầu ánh xạ bảng PERSON trước. Mọi bảng sự kiện lâm
-sàng (CONDITION_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, v.v.)
-đều tham chiếu đến bảng PERSON
-
-thông qua person_id, vì vậy việc thực hiện logic cho bảng PERSON trước
-sẽ giúp ích sau này. Sau bảng PERSON, một quy tắc chung tốt là chuyển
-đổi bảng OBSERVATION_PERIOD tiếp theo. Mỗi người trong cơ sở dữ liệu
-CDM nên có ít nhất một OBSERVATION_PERIOD và nhìn chung, hầu hết các
-sự kiện đối với một người đều nằm trong khung thời gian này. Khi các
-bảng PERSON và OBSERVATION_PERIOD đã hoàn tất, các bảng chiều như
-PROVIDER, CARE_SITE và LOCATION thường là bước tiếp theo. Logic bảng
-cuối cùng cần được thực hiện trước các bảng lâm sàng là
-VISIT_OCCURRENCE. Thông thường, đây là logic phức tạp nhất trong toàn
-bộ ETL và là một trong những phần quan trọng nhất vì hầu hết các sự
-kiện xảy ra trong hành trình bệnh nhân của một người sẽ xảy ra trong
-các lượt thăm khám. Khi các bảng đó đã hoàn tất, quyền lựa chọn là của
-bạn về việc ánh xạ các bảng CDM nào và theo thứ tự nào.
+#### Phạm vi và Mục đích {-}
 
-Thông thường, trong quá trình chuyển đổi CDM, bạn sẽ cần phải chuẩn bị
-cho các bảng trung gian. Điều này có thể là để gán các
-VISIT_OCCURRENCE_ID chính xác cho các sự kiện, hoặc để ánh xạ các mã
-nguồn sang các khái niệm chuẩn (thực hiện bước này ngay lập tức thường
-rất chậm). Các bảng trung gian được cho phép và khuyến khích 100%.
-Điều không được khuyến khích là sự tồn tại lâu dài và sự phụ thuộc vào
-các bảng trung gian này sau khi quá trình chuyển đổi hoàn tất.
+Chức năng chính của White Rabbit là thực hiện quét khảo sát dữ liệu nguồn (*data profiling*), cung cấp thông tin chi tiết về các bảng, các trường và tần suất các giá trị xuất hiện trong từng trường dữ liệu. Dữ liệu nguồn có thể ở dạng các tệp văn bản phân tách bằng dấu phẩy (CSV) hoặc nằm trong các hệ quản trị cơ sở dữ liệu quan hệ (MySQL, SQL Server, Oracle, PostgreSQL, Microsoft APS, Microsoft Access, Amazon Redshift). Quá trình quét sẽ xuất ra một báo cáo tổng hợp dùng làm tài liệu tham chiếu khi thiết kế ETL — đặc biệt khi kết hợp sử dụng với công cụ Rabbit-in-a-Hat. Điểm khác biệt quan trọng của White Rabbit so với các công cụ khảo sát dữ liệu thông thường là công cụ này chủ động lọc bỏ các giá trị có tần suất thấp nhằm ngăn ngừa nguy cơ làm lộ thông tin định danh cá nhân (*Personally Identifiable Information - PII*) của bệnh nhân trong tệp báo cáo đầu ra.
 
-#### Ví dụ ánh xạ: Bảng Person
+#### Tổng quan quy trình {-}
 
-Cấu trúc dữ liệu Synthea chứa 20 cột trong bảng patients nhưng không
-phải tất cả đều cần thiết để điền vào bảng PERSON, như thấy trong Hình
-6.6. Điều này rất phổ biến và không nên là nguyên nhân gây báo động.
-Trong ví dụ này, nhiều điểm dữ liệu trong bảng patients của Synthea
-không được sử dụng trong bảng PERSON của CDM là các định danh bổ sung
-như tên bệnh nhân, số bằng lái xe và số hộ chiếu.
+Trình tự điển hình khi sử dụng phần mềm White Rabbit để quét dữ liệu nguồn gồm các bước:
 
-^2SyntheaTM\ là\ một\ trình\ tạo\ bệnh\ nhân\ nhằm\ mục\ đích\ mô\ hình\ hóa\ các\ bệnh\ nhân\ thực\ tế.\ Dữ\ liệu\ được\ tạo\ dựa\ trên\ các\ tham\ số\ được\ truyền\ cho\ ứng\ dụng.\ Cấu\ trúc\ của\ dữ\ liệu\ có\ thể\ được\ tìm\ thấy\ tại\ đây:\ https://github.com/synthetichealth/\ synthea/wiki.^
+1. Thiết lập thư mục làm việc (*working folder*) — vị trí trên máy tính cục bộ nơi các tệp kết quả sẽ được xuất ra.
+2. Kết nối tới cơ sở dữ liệu nguồn hoặc thư mục chứa tệp CSV và kiểm tra kết nối.
+3. Chọn các bảng dữ liệu cần khảo sát và thực hiện quét các bảng đó.
+4. White Rabbit tạo ra tệp báo cáo thống kê chi tiết về dữ liệu nguồn.
 
-![](media/image21.png){width="5.330207786526684in"
-height="2.8874989063867016in"}
+#### Thiết lập thư mục làm việc {-}
 
-Hình 6.5&#58; Luồng chung của một ETL và các bảng nào cần ánh xạ trước.
+Sau khi tải xuống và cài đặt ứng dụng White Rabbit, việc đầu tiên bạn cần làm là chỉ định thư mục làm việc. Mọi tệp đầu ra do White Rabbit tạo ra sẽ được lưu vào thư mục cục bộ này. Sử dụng nút `"Pick Folder"` (Chọn thư mục) như hiển thị trong Hình 6.1 để điều hướng tới thư mục trên máy tính nơi bạn muốn lưu tài liệu báo cáo quét.
 
-![](media/image22.png){width="5.213333333333333in"
-height="4.473332239720035in"}
+![](media/image17.png){width="5.340937226596675in" height="3.805311679790026in"}
 
-Hình 6.6&#58; Ánh xạ bảng Synthea Patients sang bảng CDM PERSON.
+*Hình 6.1: Nút `"Pick Folder"` cho phép chỉ định thư mục làm việc cho ứng dụng White Rabbit.*
 
-Bảng 6.1 dưới đây cho thấy logic đã được áp dụng trên bảng Synthea
-patients để chuyển đổi nó sang bảng CDM PERSON. 'Destination Field'
-(Trường đích) thảo luận về nơi dữ liệu trong CDM đang được ánh xạ tới.
-'Source field' (Trường nguồn) làm nổi bật cột từ bảng nguồn (trong
-trường hợp này là patients) sẽ được sử dụng để điền vào cột CDM. Cuối
-cùng, cột 'Logic & comments' (Logic & nhận xét) đưa ra các giải thích
-cho logic.
+#### Kết nối với cơ sở dữ liệu {-}
 
-Bảng 6.1: Logic ETL để chuyển đổi bảng Synthea Patients sang bảng CDM
-PERSON.
+White Rabbit hỗ trợ các tệp văn bản có dấu phân cách và nhiều nền tảng hệ quản trị cơ sở dữ liệu khác nhau. Hãy di chuột qua từng ô nhập liệu trên giao diện để xem chú giải chi tiết về thông tin cấu hình cần cung cấp. Thông tin hướng dẫn cụ thể cho từng hệ cơ sở dữ liệu có thể được tra cứu trong tài liệu hướng dẫn sử dụng.
 
-Trường đích
+#### Quét các bảng trong cơ sở dữ liệu {-}
 
-Nguồn
+Sau khi thiết lập kết nối thành công với cơ sở dữ liệu, bạn có thể tiến hành quét các bảng dữ liệu bên trong. Quá trình quét sẽ tạo ra một báo cáo cấu trúc dữ liệu nguồn để hỗ trợ thiết kế ETL. Tại thẻ `Scan` (Quét) như hiển thị trong Hình 6.2, bạn có thể chọn từng bảng riêng lẻ trong cơ sở dữ liệu nguồn bằng cách nhấp vào nút `"Add"` (giữ phím Ctrl + nhấp chuột để chọn nhiều bảng), hoặc chọn tự động toàn bộ các bảng trong cơ sở dữ liệu bằng cách nhấp vào nút `"Add all in DB"`.
 
-trường Logic & ghi chú
+![](media/image18.png){width="5.357811679790026in" height="3.7884372265966753in"}
 
-PERSON_ID Tự động tạo. PERSON_ID sẽ được tạo tại thời điểm triển khai.
-Điều này là do giá trị id từ nguồn là một giá trị varchar trong khi
-PERSON_ID là một số nguyên. Trường id từ nguồn được đặt làm
-PERSON_SOURCE_VALUE để bảo toàn giá trị đó và cho phép
+*Hình 6.2: Giao diện thẻ Quét (`Scan`) của White Rabbit.*
 
-kiểm tra lỗi nếu cần. GENDER_CONCEPT_ID gender Khi gender = 'M' thì
-đặt
+Ngoài ra còn có một số tùy chọn cấu hình cho quá trình quét:
 
-Giới_CONCEPT_ID gửi tới 8507, khi
+- Đánh dấu chọn `"Scan field values"` (Quét giá trị trường) để yêu cầu White Rabbit thống kê cụ thể những giá trị nào đang xuất hiện trong từng cột dữ liệu.
+- `"Min cell count"` (Số lượng ô tối thiểu) là ngưỡng lọc khi quét giá trị trường. Theo mặc định, tùy chọn này được đặt bằng `5`, nghĩa là bất kỳ giá trị nào trong dữ liệu nguồn xuất hiện ít hơn 5 lần sẽ bị lược bỏ và không đưa vào báo cáo. Mỗi đơn vị quản lý dữ liệu có thể có quy định bảo mật riêng về ngưỡng số lượng tối thiểu này.
+- `"Rows per table"` (Số dòng tối đa mỗi bảng) giới hạn quy mô mẫu quét. Theo mặc định, White Rabbit sẽ chọn ngẫu nhiên 100.000 dòng trong mỗi bảng để quét giá trị.
 
-gender = 'F' thì đặt thành 8532. Loại bỏ bất kỳ hàng nào có giới tính
-bị thiếu/không xác định. Hai khái niệm này đã được chọn vì chúng là
-hai khái niệm chuẩn duy nhất trong miền giới tính. Việc lựa chọn loại
-bỏ bệnh nhân có giới tính không xác định thường dựa trên cơ sở, mặc dù
-chúng tôi khuyến nghị nên loại bỏ chúng vì những người không có giới
-tính sẽ bị loại khỏi các phân tích.
+Sau khi hoàn tất các thiết lập, hãy nhấn nút `"Scan tables"` (Quét bảng). Khi quá trình quét kết thúc, tệp báo cáo sẽ được ghi vào thư mục làm việc đã chọn.
 
-YEAR_OF_BIRTH birthdate Lấy năm từ birthdate MONTH_OF_BIRTH birthdate
-Lấy tháng từ birthdate DAY_OF_BIRTH birthdate Lấy ngày từ birthdate
-BIRTH_DATETIME birthdate Với nửa đêm là thời gian 00:00:00. Ở đây,
+#### Đọc hiểu báo cáo quét dữ liệu {-}
 
-nguồn không cung cấp thời gian sinh nên lựa chọn được đưa ra là đặt nó
-vào lúc nửa đêm.
+Khi quá trình quét hoàn tất, một tệp bảng tính Excel (`ScanReport.xlsx`) sẽ được tạo ra trong thư mục làm việc, bao gồm một trang tính tổng quan (`Overview`) và các trang tính chi tiết cho từng bảng được quét. Trang tổng quan liệt kê toàn bộ các bảng đã quét, từng trường dữ liệu trong mỗi bảng, kiểu dữ liệu, độ dài ký tự tối đa, tổng số dòng của bảng, số dòng thực tế được quét và tỷ lệ phần trăm số dòng bị rỗng (*empty/NULL*) của mỗi trường. Hình 6.3 minh họa một trang tổng quan mẫu từ báo cáo quét.
 
-RACE_CONCEPT_ID race Khi race = 'WHITE' thì đặt là 8527,
+![](media/image19.png){width="5.376770559930009in" height="3.0544783464566927in"}
 
-khi race = 'BLACK' thì đặt là 8516, khi race = 'ASIAN' thì đặt là
-8515, nếu không thì đặt là 0. Những khái niệm này đã được chọn vì
-chúng là các khái niệm chuẩn thuộc về miền chủng tộc phù hợp nhất với
-các danh mục chủng tộc trong nguồn.
+*Hình 6.3: Ví dụ trang tính tổng quan (`Overview`) từ một báo cáo quét của White Rabbit.*
 
-Trường đích
+Các trang tính riêng của từng bảng hiển thị từng trường dữ liệu, danh sách các giá trị xuất hiện trong trường đó cùng tần suất xuất hiện tương ứng. Mỗi cột của bảng nguồn sẽ sinh ra hai cột liền kề trong trang tính Excel: cột thứ nhất liệt kê tất cả các giá trị phân biệt (*distinct values*) có số lần xuất hiện lớn hơn hoặc bằng ngưỡng `"Min cell count"` đã cài đặt; cột thứ hai ghi nhận tần suất (số lần giá trị đó xuất hiện trong mẫu quét). Nếu danh sách các giá trị phân biệt bị cắt bớt do vượt ngưỡng hoặc có các giá trị hiếm, dòng cuối cùng của danh sách sẽ hiển thị `"List truncated"` (Danh sách đã được cắt gọn) — cho biết vẫn còn một hoặc nhiều giá trị nguồn khác nhưng có tần suất xuất hiện thấp hơn ngưỡng `"Min cell count"`. Cặp hai cột (giá trị phân biệt và tần suất) này được lặp lại lần lượt cho toàn bộ các cột của bảng nguồn.
 
-Nguồn
+![](media/image20.png){width="1.600624453193351in" height="0.8368744531933509in"}
 
-trường Logic & ghi chú
+*Hình 6.4: Ví dụ thống kê giá trị và tần suất cho một cột dữ liệu đơn lẻ (`Sex`).*
 
-DÂN TỘC\_ CONCEPT_ID
+Báo cáo này là công cụ vô cùng đắc lực giúp bạn nắm bắt thực trạng dữ liệu nguồn. Ví dụ, nếu kết quả trong Hình 6.4 được trả về cho cột `"Sex"` (Giới tính) của một bảng nguồn, chúng ta thấy ngay có hai giá trị phổ biến là `1` và `2` xuất hiện lần lượt `61.491` và `35.401` lần. Bản thân White Rabbit sẽ không tự biết `1` là nam hay `2` là nữ; đơn vị quản lý dữ liệu nguồn cần cung cấp tài liệu giải nghĩa các mã nội bộ này. Tuy nhiên, `1` và `2` không phải là những giá trị duy nhất xuất hiện trong cột này vì ở dòng cuối có thông báo `"List truncated"`. Những giá trị bị ẩn đi đó xuất hiện với tần suất rất thấp (nhỏ hơn `"Min cell count"`) và thường là dữ liệu nhập sai hoặc các mã ngoại lệ đáng ngờ. Khi thiết kế ETL, chúng ta không chỉ lập kế hoạch ánh xạ các mã giới tính phổ biến `1` và `2`, mà còn phải quy định rõ quy tắc xử lý đối với các giá trị tần suất thấp hoặc giá trị khuyết thiếu (`"NULL"`) để đảm bảo quy trình ETL vận hành trơn tru trong mọi tình huống.
 
-LOCATION_ID PROVIDER_ID CARE_SITE_ID PERSON_SOURCE\_ VALUE GIỚI
-TÍNH_SOURCE\_ VALUE GIỚI TÍNH_SOURCE\_ CONCEPT_ID RACE_SOURCE\_ VALUE
-RACE_SOURCE\_ CONCEPT_ID
+### Rabbit-in-a-Hat
 
-chủng tộc dân tộc
+Khi đã có trong tay báo cáo quét từ White Rabbit, chúng ta đã có một bức tranh rõ ràng về dữ liệu nguồn; mặt khác, chúng ta cũng đã nắm vững đặc tả kỹ thuật của OMOP CDM. Bước tiếp theo là định nghĩa các quy tắc logic để chuyển đổi từ cấu trúc nguồn sang cấu trúc đích. Hoạt động thiết kế này đòi hỏi sự kết hợp kiến thức sâu rộng về cả dữ liệu nguồn lẫn CDM. Công cụ **Rabbit-in-a-Hat** (đi kèm trong bộ cài đặt White Rabbit) được thiết kế chuyên biệt để hỗ trợ nhóm chuyên gia thực hiện công việc này. Trong một phiên làm việc điển hình, nhóm thiết kế ETL (gồm chuyên gia dữ liệu nguồn và chuyên gia CDM) sẽ ngồi cùng nhau trong phòng họp và chiếu giao diện Rabbit-in-a-Hat lên màn hình lớn. Ở vòng đầu tiên, nhóm cùng thảo luận và nối các mũi tên ánh xạ ở cấp độ *bảng nguồn sang bảng CDM*; tiếp đó, đi sâu vào từng cặp bảng để nối ánh xạ ở cấp độ *trường nguồn sang trường CDM*, đồng thời ghi chú trực tiếp các quy tắc logic chuyển đổi giá trị.
 
-ID giới tính
+#### Phạm vi và Mục đích {-}
 
-chủng tộc
+Rabbit-in-a-Hat được thiết kế để đọc và hiển thị trực quan tệp báo cáo quét của White Rabbit. Trong khi White Rabbit thu thập thông tin thống kê về dữ liệu nguồn, thì Rabbit-in-a-Hat sử dụng thông tin đó thông qua giao diện đồ họa tương tác (GUI) để giúp người dùng kết nối các bảng và cột của dữ liệu nguồn tới các bảng và cột tương ứng trong CDM. Lưu ý rằng Rabbit-in-a-Hat là công cụ sinh **tài liệu đặc tả thiết kế ETL** (dưới dạng tệp Word hoặc Markdown), chứ không tự động sinh mã nguồn thực thi ETL.
 
-Khi chủng tộc = \'HISPANIC\' hoặc khi dân tộc ở (\'CENTRAL_AMERICAN\',
-\'DOMINICAN\', \'MEXICAN\', \'PUERTO_RICAN\',
+#### Tổng quan quy trình {-}
 
-'SOUTH_AMERICAN') thì đặt là 38003563, nếu không thì đặt là 0. Đây là
-một ví dụ điển hình về cách nhiều cột nguồn có thể đóng góp vào một
-cột CDM. Trong CDM, dân tộc được thể hiện là gốc Tây Ban Nha hoặc
-không phải gốc Tây Ban Nha, vì vậy các giá trị từ cả cột nguồn race và
-cột nguồn ethnicity sẽ xác định giá trị này.
+Trình tự điển hình khi sử dụng phần mềm Rabbit-in-a-Hat để xây dựng tài liệu đặc tả ETL gồm:
 
-DÂN TỘC\_ SOURCE_VALUE
+1. Hoàn tất việc quét dữ liệu nguồn bằng White Rabbit để có tệp `ScanReport.xlsx`.
+2. Mở tệp báo cáo quét trong Rabbit-in-a-Hat; giao diện sẽ hiển thị danh sách các bảng nguồn ở cột bên trái và các bảng chuẩn CDM ở cột bên phải.
+3. Kéo các mũi tên kết nối từ bảng nguồn sang bảng CDM tương ứng nơi bảng nguồn cung cấp dữ liệu đầu vào.
+4. Nhấp đúp vào từng mũi tên kết nối bảng để mở giao diện chi tiết và tiếp tục kéo mũi tên kết nối từ các cột nguồn sang các cột CDM, kèm theo ghi chú quy tắc chuyển đổi.
+5. Lưu tệp dự án Rabbit-in-a-Hat và xuất tài liệu đặc tả thiết kế ETL ra định dạng Microsoft Word (`.docx`).
 
-DÂN TỘC\_ SOURCE_CONCEPT_ID
+#### Viết quy tắc logic ETL {-}
 
-ethnicity Trong trường hợp này,
+Sau khi mở báo cáo quét White Rabbit trong Rabbit-in-a-Hat, bạn đã sẵn sàng bắt tay vào thiết kế và viết quy tắc logic chuyển đổi dữ liệu nguồn sang OMOP CDM. Để minh họa, một vài mục tiếp theo sẽ trình bày ví dụ cách chuyển đổi một số bảng từ cơ sở dữ liệu giả lập Synthea[^syntheaWiki] sang CDM.
 
-ETHNICITY_SOURCE_VALUE sẽ có độ chi tiết hơn ETHNICITY_CONCEPT_ID.
+[^syntheaWiki]: Synthea^TM^ là bộ công cụ mô phỏng tạo dữ liệu bệnh nhân nhân tạo nhằm mô hình hóa lịch sử khám chữa bệnh của bệnh nhân thực tế. Dữ liệu được sinh ra dựa trên các tham số dịch tễ học truyền vào ứng dụng. Cấu trúc dữ liệu của Synthea có thể xem tại: <https://github.com/synthetichealth/synthea/wiki>.
 
-Để biết thêm các ví dụ về cách tập dữ liệu Synthea được ánh xạ sang
-CDM, vui lòng xem tài liệu thông số kỹ thuật đầy đủ.3[]{#_bookmark142
-.anchor}
+#### Luồng thực hiện chung của một quy trình ETL {-}
 
-## Bước 2: Tạo các ánh xạ mã
+Vì CDM là một mô hình lấy người bệnh làm trung tâm (*person-centric model*), nguyên tắc thực hành tốt nhất là luôn bắt đầu bằng việc ánh xạ bảng `PERSON` đầu tiên. Mọi bảng sự kiện lâm sàng (`CONDITION_OCCURRENCE`, `DRUG_EXPOSURE`, `PROCEDURE_OCCURRENCE`, v.v.) đều tham chiếu tới bảng `PERSON` thông qua khóa ngoại `person_id`; do đó, việc chốt xong quy tắc tạo bảng `PERSON` ngay từ đầu sẽ làm nền tảng cho toàn bộ các bước về sau.
 
-Ngày càng có nhiều mã nguồn được thêm vào Từ vựng OMOP mọi lúc. Điều
-này có nghĩa là các hệ thống mã hóa trong dữ liệu đang được chuyển đổi
-sang CDM có thể đã
+Sau bảng `PERSON`, nguyên tắc tiếp theo là chuyển đổi bảng `OBSERVATION_PERIOD` (Giai đoạn quan sát). Mỗi cá nhân trong cơ sở dữ liệu CDM cần có ít nhất một bản ghi `OBSERVATION_PERIOD`, và nhìn chung hầu hết các sự kiện lâm sàng của người đó sẽ nằm trong khung thời gian quan sát này. Khi hai bảng `PERSON` và `OBSERVATION_PERIOD` đã hoàn tất, bước tiếp theo thường là xây dựng các bảng danh mục chiều (*dimensional tables*) như `PROVIDER` (Nhân viên y tế), `CARE_SITE` (Cơ sở y tế) và `LOCATION` (Địa điểm).
 
-^3^<https://ohdsi.github.io/ETL-Synthea/>
+Bảng cuối cùng cần được hoàn thiện logic trước khi đi vào các bảng sự kiện lâm sàng là `VISIT_OCCURRENCE` (Lượt khám). Thông thường, đây là phần có logic phức tạp nhất trong toàn bộ quy trình ETL và cũng là một trong những khâu quan trọng nhất, bởi phần lớn các sự kiện lâm sàng trong hành trình khám chữa bệnh của bệnh nhân đều gắn liền với các lượt khám. Sau khi hoàn tất các bảng nền tảng trên (Hình 6.5), bạn có thể linh hoạt lựa chọn thứ tự ánh xạ các bảng sự kiện lâm sàng còn lại của CDM.
 
-được bao gồm và ánh xạ. Kiểm tra bảng VOCABULARY trong Từ vựng OMOP để
-xem những từ vựng nào được bao gồm. Để trích xuất ánh xạ từ các mã
-nguồn không chuẩn (ví dụ: mã ICD-10CM) sang các khái niệm chuẩn (ví
-dụ: mã SNOMED), chúng ta có thể sử dụng các bản ghi trong bảng
-CONCEPT_RELATIONSHIP có relationship_id = "Maps to" (Ánh xạ tới). Ví
-dụ, để tìm ID khái niệm chuẩn cho mã ICD-10CM 'I21' ("Acute Myocardial
-Infarction" - Nhồi máu cơ tim cấp), chúng ta có thể sử dụng SQL sau:
+![](media/image21.png){width="5.330207786526684in" height="2.8874989063867016in"}
 
-**SELECT** concept_id_2 standard_concept_id
+*Hình 6.5: Luồng thực hiện chung của một quy trình ETL và thứ tự các bảng cần được ánh xạ trước.*
 
-**FROM** concept_relationship
+Trong quá trình chuyển đổi dữ liệu sang CDM, bạn thường sẽ cần tạo các bảng trung gian tạm thời (*intermediate/staging tables*). Các bảng trung gian này rất hữu ích cho việc gán đúng định danh `VISIT_OCCURRENCE_ID` cho từng sự kiện lâm sàng, hoặc lập bảng tra cứu ánh xạ trước các mã nguồn sang khái niệm chuẩn (việc thực hiện kết nối bảng từ vựng trực tiếp ngay trong câu lệnh nạp dữ liệu lớn thường rất chậm). Việc sử dụng các bảng trung gian trong quá trình chạy ETL được hoàn toàn khuyến khích; tuy nhiên, không nên lưu giữ cố định hoặc để các công cụ phân tích phụ thuộc vào các bảng trung gian này sau khi quá trình chuyển đổi CDM đã hoàn tất.
 
-**INNER JOIN** concept source_concept **ON** concept_id **=**
-concept_id_1
+#### Ví dụ ánh xạ: Bảng `PERSON` {-}
 
-**WHERE** concept_code **=** \'I21\'
-
-**AND** vocabulary_id **=** \'ICD10CM\'
-
-**AND** relationship_id **=** \'Maps to\';
-
-STANDARD_CONCEPT_ID
-
-312327
-
-Thật không may, đôi khi dữ liệu nguồn sử dụng các hệ thống mã hóa
-không có trong Từ vựng. Trong trường hợp này, một ánh xạ phải được tạo
-từ hệ thống mã hóa nguồn sang các Khái niệm chuẩn. Ánh xạ mã có thể là
-một nhiệm vụ khó khăn, đặc biệt là khi có nhiều mã trong hệ thống mã
-hóa nguồn. Có một số điều có thể được thực hiện để làm cho nhiệm vụ dễ
-dàng hơn:
-
-- Tập trung vào các mã được sử dụng thường xuyên nhất. Một mã không bao
-giờ được sử dụng hoặc ít được sử dụng không đáng để bỏ công sức ánh
-xạ, vì nó sẽ không bao giờ được sử dụng trong một nghiên cứu thực tế.
-
-- Tận dụng thông tin hiện có bất cứ khi nào có thể. Ví dụ, nhiều hệ
-thống mã hóa thuốc quốc gia đã được ánh xạ sang ATC. Mặc dù ATC không
-đủ chi tiết cho nhiều mục đích, các mối quan hệ khái niệm giữa ATC và
-RxNorm có thể được sử dụng để đưa ra những dự đoán tốt về các mã
-RxNorm chính xác là gì.
-
-- Sử dụng Usagi.
+Cấu trúc dữ liệu của Synthea chứa tới 20 cột trong bảng `patients`, nhưng không phải tất cả các cột đó đều cần thiết để nạp vào bảng `PERSON` của CDM (như minh họa trong Hình 6.6). Điều này hoàn toàn bình thường trong thực tế và không có gì đáng ngại. Trong ví dụ này, nhiều trường dữ liệu trong bảng `patients` của Synthea không được đưa vào bảng `PERSON` của CDM là do chúng chứa các thông tin định danh cá nhân trực tiếp như họ tên bệnh nhân, số giấy phép lái xe và số hộ chiếu (những thông tin cần được lược bỏ để bảo mật quyền riêng tư theo nguyên tắc thiết kế CDM).
+
+![](media/image22.png){width="5.213333333333333in" height="4.473332239720035in"}
+
+*Hình 6.6: Ánh xạ từ bảng `patients` của Synthea sang bảng `PERSON` của CDM trên giao diện Rabbit-in-a-Hat.*
+
+Bảng 6.1 dưới đây trình bày chi tiết quy tắc logic ETL được áp dụng trên bảng `patients` của Synthea để chuyển đổi sang bảng `PERSON` của CDM. Cột *Trường đích (Destination Field)* cho biết tên trường trong bảng `PERSON` của CDM nhận dữ liệu; cột *Trường nguồn (Source field)* chỉ ra cột tương ứng từ bảng nguồn `patients`; và cột *Quy tắc logic & Ghi chú (Logic & comments)* giải thích chi tiết cách biến đổi dữ liệu.
+
+*Bảng 6.1: Quy tắc logic ETL chuyển đổi bảng `patients` của Synthea sang bảng `PERSON` của CDM.*
+
+| Trường đích (`Destination Field`) | Trường nguồn (`Source field`) | Quy tắc logic & Ghi chú (`Logic & comments`) |
+| :--- | :--- | :--- |
+| `PERSON_ID` | | Tự động sinh số nguyên tăng dần (*Autogenerate*) tại thời điểm chạy ETL. Lý do là trường `id` trong dữ liệu nguồn có kiểu chuỗi ký tự (`varchar`) trong khi `PERSON_ID` của CDM bắt buộc phải là kiểu số nguyên (`integer`). Giá trị `id` gốc từ nguồn sẽ được lưu vào trường `PERSON_SOURCE_VALUE` để bảo toàn khả năng đối chiếu và kiểm tra lỗi khi cần. |
+| `GENDER_CONCEPT_ID` | `gender` | Khi `gender = 'M'` thì gán `GENDER_CONCEPT_ID = 8507`; khi `gender = 'F'` thì gán bằng `8532`. Loại bỏ bất kỳ dòng bệnh nhân nào bị thiếu hoặc không rõ giới tính. Hai khái niệm này được chọn vì là hai khái niệm chuẩn duy nhất trong miền Giới tính (*Gender*). Quyết định loại bỏ bệnh nhân không rõ giới tính thường tùy thuộc vào từng đơn vị, nhưng được khuyến nghị mạnh mẽ vì những bản ghi thiếu giới tính chuẩn dù sao cũng sẽ bị loại khỏi các phân tích nghiên cứu. |
+| `YEAR_OF_BIRTH` | `birthdate` | Trích xuất năm từ trường `birthdate`. |
+| `MONTH_OF_BIRTH` | `birthdate` | Trích xuất tháng từ trường `birthdate`. |
+| `DAY_OF_BIRTH` | `birthdate` | Trích xuất ngày từ trường `birthdate`. |
+| `BIRTH_DATETIME` | `birthdate` | Kết hợp ngày sinh với giờ mặc định lúc nửa đêm `00:00:00` (do dữ liệu nguồn không cung cấp giờ sinh cụ thể). |
+| `RACE_CONCEPT_ID` | `race` | Khi `race = 'WHITE'` thì gán bằng `8527`; khi `race = 'BLACK'` thì gán bằng `8516`; khi `race = 'ASIAN'` thì gán bằng `8515`; các trường hợp còn lại gán bằng `0`. Các khái niệm này được chọn vì là những Khái niệm chuẩn thuộc miền Chủng tộc (*Race*) khớp sát nhất với phân loại chủng tộc trong dữ liệu nguồn. |
+| `ETHNICITY_CONCEPT_ID` | `race`, `ethnicity` | Khi `race = 'HISPANIC'` hoặc khi `ethnicity` thuộc danh sách `('CENTRAL_AMERICAN', 'DOMINICAN', 'MEXICAN', 'PUERTO_RICAN', 'SOUTH_AMERICAN')` thì gán bằng `38003563` (*Hispanic*); các trường hợp còn lại gán bằng `0`. Đây là một ví dụ điển hình cho thấy nhiều cột dữ liệu nguồn có thể cùng đóng góp vào việc xác định một cột trong CDM. |
+| `LOCATION_ID` | | Để trống (`NULL`). |
+| `PROVIDER_ID` | | Để trống (`NULL`). |
+| `CARE_SITE_ID` | | Để trống (`NULL`). |
+| `PERSON_SOURCE_VALUE` | `id` | Lưu nguyên văn mã định danh `id` từ bảng nguồn `patients`. |
+| `GENDER_SOURCE_VALUE` | `gender` | Lưu nguyên văn giá trị `gender` từ bảng nguồn. |
+| `GENDER_SOURCE_CONCEPT_ID` | | Đặt bằng `0` (hoặc `NULL`). |
+| `RACE_SOURCE_VALUE` | `race` | Lưu nguyên văn giá trị `race` từ bảng nguồn. |
+| `RACE_SOURCE_CONCEPT_ID` | | Đặt bằng `0` (hoặc `NULL`). |
+| `ETHNICITY_SOURCE_VALUE` | `ethnicity` | Lưu nguyên văn giá trị `ethnicity` từ bảng nguồn. Trong trường hợp này, `ETHNICITY_SOURCE_VALUE` sẽ lưu giữ độ chi tiết cao hơn so với `ETHNICITY_CONCEPT_ID`. |
+| `ETHNICITY_SOURCE_CONCEPT_ID` | | Đặt bằng `0` (hoặc `NULL`). |
+
+Để xem thêm các ví dụ về cách ánh xạ toàn bộ các bảng còn lại của tập dữ liệu Synthea sang CDM, vui lòng tham khảo tài liệu đặc tả kỹ thuật đầy đủ của dự án ETL-Synthea.[^syntheaEtlUrl]
+
+[^syntheaEtlUrl]: <https://ohdsi.github.io/ETL-Synthea/>
+
+## Bước 2: Tạo ánh xạ mã thuật ngữ (*Code Mappings*)
+
+Ngày càng có nhiều hệ thống mã nguồn trên thế giới được tích hợp sẵn vào Bộ Từ vựng Chuẩn hóa OMOP. Điều này có nghĩa là các hệ thống mã hóa đang dùng trong dữ liệu nguồn của bạn rất có thể đã có mặt và được ánh xạ sẵn trong Bộ Từ vựng. Hãy kiểm tra bảng `VOCABULARY` trong Bộ Từ vựng OMOP để xem những bộ mã nào đã được tích hợp. Để truy xuất ánh xạ từ các mã nguồn không chuẩn (ví dụ: mã ICD-10CM) sang các Khái niệm chuẩn (ví dụ: mã SNOMED), chúng ta chỉ cần sử dụng các bản ghi trong bảng `CONCEPT_RELATIONSHIP` có `relationship_id = 'Maps to'`. Ví dụ, để tìm mã định danh Khái niệm chuẩn (`standard_concept_id`) cho mã ICD-10CM `'I21'` (`"Acute Myocardial Infarction"` - Nhồi máu cơ tim cấp), chúng ta có thể thực thi câu truy vấn SQL sau:
+
+```sql
+SELECT concept_id_2 standard_concept_id
+FROM concept_relationship
+INNER JOIN concept source_concept
+  ON concept_id = concept_id_1
+WHERE concept_code = 'I21'
+  AND vocabulary_id = 'ICD10CM'
+  AND relationship_id = 'Maps to';
+```
+
+| `STANDARD_CONCEPT_ID` |
+| ---: |
+| `312327` |
+
+Tuy nhiên, trong thực tế đôi khi dữ liệu nguồn lại sử dụng các danh mục mã nội bộ hoặc bộ mã quốc gia chưa có sẵn trong Bộ Từ vựng OMOP. Trong trường hợp đó, bạn cần phải xây dựng bảng ánh xạ từ hệ thống mã nguồn đó sang các Khái niệm chuẩn. Ánh xạ mã thuật ngữ có thể là một công việc rất tốn công sức, đặc biệt khi hệ thống mã nguồn có số lượng mã lớn. Dưới đây là một số kinh nghiệm thực tiễn giúp công việc này trở nên nhẹ nhàng và hiệu quả hơn:
+
+- **Tập trung vào các mã có tần suất sử dụng cao nhất**: Một mã không bao giờ xuất hiện hoặc cực kỳ hiếm gặp trong dữ liệu thực tế sẽ không đáng để tốn nhiều giờ đồng hồ tra cứu ánh xạ, bởi nó hầu như không ảnh hưởng đến các nghiên cứu thực tế.
+- **Tận dụng tối đa các thông tin liên kết sẵn có**: Ví dụ, danh mục thuốc quốc gia tại nhiều nước đã có sẵn mã phân loại ATC tương ứng. Mặc dù mã ATC chưa đủ độ chi tiết đến từng chế phẩm hàm lượng như RxNorm, các mối quan hệ phân cấp giữa ATC và RxNorm trong Bộ Từ vựng OMOP có thể được dùng để thu hẹp phạm vi tìm kiếm và gợi ý chính xác các mã RxNorm đích.
+- **Sử dụng công cụ Usagi**.
 
 ### Usagi
 
-Usagi là một công cụ hỗ trợ quy trình thủ công tạo ánh xạ mã. Nó có
-thể đưa ra các ánh xạ gợi ý dựa trên sự tương đồng về văn bản của các
-mô tả mã. Nếu các mã nguồn chỉ có sẵn bằng tiếng nước ngoài, chúng tôi
-nhận thấy rằng Google Translate4 thường cung cấp bản dịch các thuật
-ngữ sang tiếng Anh đáng kinh ngạc. Usagi cho phép người dùng tìm kiếm
-các khái niệm mục tiêu thích hợp nếu gợi ý tự động không chính xác.
-Cuối cùng, người dùng có thể chỉ định ánh xạ nào được phê duyệt để sử
-dụng trong ETL. Usagi có sẵn trên GitHub.5
-
-^4^<https://translate.google.com/> ^5^<https://github.com/OHDSI/Usagi>
-
-#### Phạm vi và Mục đích
-
-Các mã nguồn cần ánh xạ được tải vào Usagi (nếu các mã không bằng
-tiếng Anh thì cần thêm các cột dịch thuật). Một phương pháp tương đồng
-thuật ngữ được sử dụng để kết nối các mã nguồn với các khái niệm Từ
-vựng. Tuy nhiên, các kết nối mã này cần được xem xét thủ công và Usagi
-cung cấp một giao diện để tạo điều kiện thuận lợi cho việc đó. Usagi
-sẽ chỉ đề xuất các khái niệm được đánh dấu là Khái niệm chuẩn trong Từ
-vựng.
-
-#### Tổng quan quy trình
-
-Trình tự điển hình để sử dụng phần mềm này là:
-
-1.  Tải các mã từ hệ thống nguồn của bạn ("các mã nguồn") mà bạn muốn
-ánh xạ tới các khái niệm Từ vựng.
-
-2.  Usagi sẽ chạy một phương pháp tương đồng thuật ngữ để ánh xạ các mã
-nguồn tới các khái niệm Từ vựng.
-
-3.  Tận dụng giao diện Usagi để kiểm tra và cải thiện các ánh xạ gợi ý
-khi cần. Tốt nhất là một cá nhân có kinh nghiệm với hệ thống mã hóa
-và thuật ngữ y tế nên được sử dụng cho việc đánh giá này.
-
-4.  Xuất ánh xạ tới SOURCE_TO_CONCEPT_MAP của Từ vựng.
-
-#### Nhập các mã nguồn vào Usagi
-
-Xuất các mã nguồn từ hệ thống nguồn vào tệp CSV hoặc Excel (.xlsx).
-Tệp này ít nhất nên có các cột chứa mã nguồn và mô tả mã nguồn bằng
-tiếng Anh, tuy nhiên thông tin bổ sung về các mã cũng có thể được đưa
-vào (ví dụ: đơn vị liều lượng, hoặc mô tả bằng ngôn ngữ gốc nếu đã
-được dịch). Ngoài thông tin về các mã nguồn, tần suất của mã cũng nên
-được đưa vào, vì điều này có thể giúp ưu tiên mã nào nên nhận được
-nhiều nỗ lực nhất trong việc ánh xạ (ví dụ: bạn có thể có 1.000 mã
-nguồn nhưng chỉ 100 mã thực sự được sử dụng trong hệ thống). Nếu bất
-kỳ thông tin mã nguồn nào cần dịch sang tiếng Anh, hãy sử dụng Google
-Translate.
-
-Lưu ý: các bản trích xuất mã nguồn nên được chia theo miền (tức là
-thuốc, thủ tục, tình trạng, quan sát) và không nên gộp chung vào một
-tệp lớn.
-
-Các mã nguồn được tải vào Usagi từ menu File --\> Import codes (Tệp
---\> Nhập mã). Từ đây, một "Import codes ..." (Nhập mã\...) sẽ hiển
-thị như thấy trong Hình 6.7. Trong hình này, các thuật ngữ mã nguồn
-bằng tiếng Hà Lan và cũng đã được dịch sang tiếng Anh. Usagi sẽ tận
-dụng các bản dịch tiếng Anh để ánh xạ tới từ vựng chuẩn.
-
-Phần "Column mapping" (Ánh xạ cột) (phía dưới bên trái) là nơi bạn
-định nghĩa cho Usagi cách sử dụng bảng đã nhập. Nếu bạn di chuột qua
-các menu thả xuống, một cửa sổ bật lên sẽ xuất hiện định nghĩa từng
-cột. Usagi sẽ không sử dụng (các) cột "Additional info" (Thông tin bổ
-sung) làm thông tin để liên kết các mã nguồn với các mã khái niệm Từ
-vựng; tuy nhiên, thông tin bổ sung này có thể giúp ích cho cá nhân
-đang xem xét ánh xạ mã nguồn và nên được bao gồm.
-
-Cuối cùng, trong phần "Filters" (Bộ lọc) (phía dưới bên phải), bạn có
-thể đặt một số hạn chế cho Usagi khi ánh xạ. Ví dụ, trong Hình 6.7,
-người dùng chỉ đang ánh xạ các mã nguồn tới
-
-![](media/image23.png){width="5.351041119860017in"
-height="2.652603893263342in"}
-
-Hình 6.7: Màn hình nhập mã nguồn Usagi.
-
-các khái niệm trong miền Tình trạng. Theo mặc định, Usagi chỉ ánh xạ
-tới các Khái niệm chuẩn, nhưng nếu tùy chọn "Filter standard concepts"
-(Lọc các khái niệm chuẩn) bị tắt, Usagi cũng sẽ xem xét các Khái niệm
-phân loại. Di chuột qua các bộ lọc khác nhau để biết thêm thông tin về
-bộ lọc.
-
-Một bộ lọc đặc biệt là "Filter by automatically selected concepts /
-ATC code" (Lọc theo các khái niệm được chọn tự động / mã ATC). Nếu có
-thông tin mà bạn có thể sử dụng để hạn chế tìm kiếm, bạn có thể thực
-hiện bằng cách cung cấp danh sách các CONCEPT_ID hoặc mã ATC trong cột
-được chỉ định trong cột Auto concept ID (ID khái niệm tự động) (phân
-cách bằng dấu chấm phẩy). Ví dụ, trong trường hợp thuốc, có thể đã có
-các mã ATC được gán cho mỗi loại thuốc. Mặc dù mã ATC không xác định
-duy nhất một mã thuốc RxNorm, nó giúp giới hạn không gian tìm kiếm chỉ
-với những khái niệm thuộc mã ATC trong Từ vựng. Để sử dụng mã ATC, hãy
-làm theo các bước sau:
-
-1.  Trong phần Column mapping (Ánh xạ cột), chuyển từ "Auto concept ID
-column" (Cột ID khái niệm tự động) sang "ATC column" (Cột ATC)
-
-2.  Trong phần Column mapping (Ánh xạ cột), chọn cột chứa mã ATC làm
-"ATC column" (Cột ATC).
-
-3.  Bật "Filter by user selected concepts / ATC code" (Lọc theo các khái
-niệm được chọn bởi người dùng / mã ATC) trong phần Filters (Bộ lọc).
-
-Bạn cũng có thể sử dụng các nguồn thông tin khác ngoài mã ATC để hạn
-chế tìm kiếm. Trong ví dụ hiển thị trong hình trên, chúng tôi đã sử
-dụng một ánh xạ một phần có nguồn gốc từ UMLS để hạn chế tìm kiếm
-Usagi. Trong trường hợp đó, chúng ta sẽ cần sử dụng "Auto concept ID
-column" (Cột ID khái niệm tự động).
-
-Khi tất cả các cài đặt của bạn đã hoàn tất, hãy nhấp vào nút "Import"
-(Nhập) để nhập tệp. Việc nhập tệp sẽ mất vài phút vì nó đang chạy
-thuật toán tương đồng thuật ngữ để ánh xạ các mã nguồn.
-
-#### Xem xét các ánh xạ từ mã nguồn tới khái niệm Từ vựng
-
-Khi bạn đã nhập tệp đầu vào gồm các mã nguồn, quy trình ánh xạ sẽ bắt
-đầu. Trong Hình 6.8, bạn thấy màn hình Usagi được tạo thành từ 3 phần
-chính: bảng tổng quan, phần ánh xạ đã chọn và nơi để thực hiện tìm
-kiếm. Lưu ý rằng trong bất kỳ bảng nào, bạn có thể nhấp chuột phải để
-chọn các cột được hiển thị hoặc ẩn để giảm độ phức tạp về mặt hình
-ảnh.
-
-![](media/image24.jpeg){width="5.403748906386702in"
-height="3.22875in"}
-
-Hình 6.8: Màn hình nhập mã nguồn Usagi.
-
-#### Phê duyệt một ánh xạ gợi ý
-
-"Overview Table" (Bảng tổng quan) hiển thị ánh xạ hiện tại của các mã
-nguồn tới các khái niệm. Ngay sau khi nhập các mã nguồn, ánh xạ này
-chứa các ánh xạ gợi ý được tạo tự động dựa trên sự tương đồng thuật
-ngữ và bất kỳ tùy chọn tìm kiếm nào. Trong ví dụ ở Hình 6.8, tên tiếng
-Anh của các mã tình trạng tiếng Hà Lan đã được ánh xạ tới các khái
-niệm chuẩn trong miền Tình trạng, vì người dùng đã hạn chế tìm kiếm
-trong miền đó. Usagi đã so sánh các mô tả mã nguồn với tên và từ đồng
-nghĩa của khái niệm để tìm ra kết quả khớp tốt nhất. Vì người dùng đã
-chọn "Include source terms" (Bao gồm các thuật ngữ nguồn), Usagi cũng
-đã xem xét tên và từ đồng nghĩa của tất cả các khái niệm nguồn trong
-từ vựng ánh xạ tới một khái niệm cụ thể. Nếu Usagi không thể thực hiện
-ánh xạ, nó sẽ ánh xạ tới CONCEPT_ID = 0.
-
-Chúng tôi khuyến nghị rằng một người có kinh nghiệm với các hệ thống
-mã hóa nên giúp ánh xạ các mã nguồn tới từ vựng chuẩn liên quan của
-chúng. Cá nhân đó sẽ làm việc qua từng mã trong "Overview Table" (Bảng
-tổng quan) để chấp nhận ánh xạ mà Usagi đã gợi ý hoặc chọn một ánh xạ
-mới. Ví dụ trong Hình 6.8, chúng ta thấy thuật ngữ tiếng Hà Lan
-"Hoesten" đã được dịch sang thuật ngữ tiếng Anh "Cough" (Ho). Usagi đã
-sử dụng "Cough" và ánh xạ nó tới khái niệm Từ vựng "4158493-C/O -
-cough". Đã có điểm số khớp là 0,58 liên kết
-
-liên quan đến cặp khớp này (điểm khớp thường từ 0 đến 1, với 1 là khớp
-có độ tin cậy cao), điểm số 0,58 cho thấy Usagi không quá chắc chắn về
-mức độ khớp chính xác mã tiếng Hà Lan này với SNOMED. Giả sử trong
-trường hợp này, chúng ta chấp nhận khớp nối đó, chúng ta có thể phê
-duyệt bằng cách nhấn vào nút "Approve" (Phê duyệt) màu xanh lá cây ở
-phần dưới cùng bên phải của màn hình.
-
-#### Tìm kiếm một khớp nối mới
-
-Sẽ có những trường hợp Usagi gợi ý một khớp nối và người dùng buộc
-phải cố gắng tìm một khớp nối tốt hơn hoặc đặt khớp nối thành không có
-khái niệm nào (CONCEPT_ID = 0). Trong ví dụ được đưa ra ở Hình 6.8,
-chúng ta thấy đối với Thuật ngữ tiếng Hà Lan "Hoesten", đã được dịch
-thành "Cough" (Ho). Gợi ý của Usagi bị hạn chế bởi khái niệm được xác
-định trong khớp nối tự động của chúng ta từ UMLS, và kết quả có thể
-không tối ưu. Trong Cơ sở Tìm kiếm (Search Facility), chúng ta có thể
-tìm kiếm các khái niệm khác bằng cách sử dụng chính thuật ngữ đó hoặc
-truy vấn trong hộp tìm kiếm.
-
-Khi sử dụng hộp tìm kiếm thủ công, người dùng cần lưu ý rằng Usagi sử
-dụng tìm kiếm mờ (fuzzy search) và không hỗ trợ các truy vấn tìm kiếm
-có cấu trúc, ví dụ như không hỗ trợ các toán tử Boolean như AND và OR.
-
-Để tiếp tục ví dụ của chúng ta, giả sử chúng ta đã sử dụng thuật ngữ
-tìm kiếm "Cough" để xem liệu có thể tìm thấy khớp nối tốt hơn hay
-không. Ở bên phải phần Truy vấn (Query) của Cơ sở Tìm kiếm, có một
-phần Bộ lọc (Filters), phần này cung cấp các tùy chọn để thu hẹp kết
-quả từ Từ vựng khi tìm kiếm thuật ngữ đó. Trong trường hợp này, chúng
-ta biết rằng mình chỉ muốn tìm các khái niệm chuẩn, và chúng ta cho
-phép tìm thấy các khái niệm dựa trên tên và từ đồng nghĩa của các khái
-niệm nguồn trong từ vựng có ánh xạ tới các khái niệm chuẩn đó.
-
-Khi áp dụng các tiêu chí tìm kiếm này, chúng ta tìm thấy
-"254761-Cough" và cảm thấy đây có thể là một khái niệm Từ vựng phù hợp
-để khớp với mã tiếng Hà Lan của chúng ta. Để thực hiện điều đó, chúng
-ta có thể nhấn nút "Replace concept" (Thay thế khái niệm), nút này sẽ
-cập nhật trong phần "Selected Source Code" (Mã nguồn đã chọn), sau đó
-nhấn nút "Approve" (Phê duyệt). Ngoài ra còn có nút "Add concept"
-(Thêm khái niệm), cho phép nhiều khái niệm Từ vựng chuẩn hóa ánh xạ
-tới một mã nguồn (ví dụ: một số mã nguồn có thể gộp nhiều bệnh lại với
-nhau trong khi từ vựng chuẩn hóa có thể không làm như vậy).
-
-#### Thông tin khái niệm
-
-Khi tìm kiếm các khái niệm phù hợp để ánh xạ tới, điều quan trọng là
-phải xem xét "đời sống xã hội" của một khái niệm. Ý nghĩa của một khái
-niệm có thể phụ thuộc một phần vào vị trí của nó trong hệ thống phân
-cấp, và đôi khi có những "khái niệm mồ côi" (orphan concepts) trong từ
-vựng với ít hoặc không có mối quan hệ phân cấp nào, điều này sẽ không
-phù hợp làm khái niệm mục tiêu. Usagi thường sẽ báo cáo số lượng cha
-và con mà một khái niệm có, và cũng có thể hiển thị thêm thông tin
-bằng cách nhấn ALT + C hoặc chọn view --\> Concept information (xem
---\> Thông tin khái niệm) trên thanh menu trên cùng.
-
-Hình 6.9 hiển thị bảng thông tin khái niệm. Nó hiển thị thông tin
-chung về một khái niệm, cũng như các khái niệm cha, con và các mã
-nguồn khác ánh xạ tới khái niệm đó.
-
-![](media/image25.png){width="5.328124453193351in"
-height="4.553124453193351in"}
-
-Hình 6.9: Bảng thông tin khái niệm Usagi.
-
-Người dùng có thể sử dụng bảng này để điều hướng hệ thống phân cấp và
-có khả năng chọn một khái niệm mục tiêu khác.
-
-Tiếp tục thực hiện quy trình này, từng mã một, cho đến khi tất cả các
-mã đã được kiểm tra. Trong danh sách các mã nguồn ở đầu màn hình, bằng
-cách chọn tiêu đề cột, bạn có thể sắp xếp các mã. Thông thường, chúng
-tôi đề xuất đi từ các mã có tần suất cao nhất đến thấp nhất. Ở góc
-dưới bên trái màn hình, bạn có thể thấy số lượng mã đã có khớp nối
-được phê duyệt và số lần xuất hiện mã tương ứng.
-
-Có thể thêm nhận xét vào các khớp nối, điều này có thể được sử dụng để
-ghi lại lý do tại sao một quyết định khớp nối được đưa ra.
-
-#### Các phương pháp hay nhất
-
-- Hãy sử dụng người có kinh nghiệm với các hệ thống mã hóa.
-
-- Bằng cách nhấp vào tên cột, bạn có thể sắp xếp các cột trong "Overview
-Table" (Bảng tổng quan). Việc sắp xếp theo "Match Score" (Điểm khớp)
-có thể rất giá trị; việc xem xét trước các mã mà Usagi tự tin nhất có
-thể nhanh chóng giải quyết một phần đáng kể các mã. Ngoài ra, việc sắp
-xếp theo "Frequency" (Tần suất) cũng rất giá trị, việc dành nhiều nỗ
-lực hơn cho các mã thường xuyên xuất hiện so với các mã ít xuất hiện
-là rất quan trọng.
-
-- Việc ánh xạ một số mã tới CONCEPT_ID = 0 là chấp nhận được, một số mã
-có thể không đáng để tìm một khớp nối tốt và những mã khác có thể chỉ
-đơn giản là thiếu một khớp nối phù hợp.
-
-- Điều quan trọng là phải xem xét ngữ cảnh của một khái niệm, đặc biệt
-là các khái niệm cha và con của nó.
-
-#### Xuất bản đồ Usagi đã tạo
-
-Khi bạn đã tạo xong bản đồ của mình trong USAGI, cách tốt nhất để sử
-dụng nó trong tương lai là xuất nó ra và đính kèm vào bảng
-SOURCE_TO_CONCEPT_MAP của Từ vựng.
-
-Để xuất các khớp nối của bạn, hãy đi tới File --\> Export
-source_to_concept_map. Một cửa sổ bật lên sẽ xuất hiện yêu cầu bạn
-chọn SOURCE_VOCABULARY_ID mà bạn muốn sử dụng, hãy nhập một mã định
-danh ngắn. Usagi sẽ sử dụng mã định danh này làm SOURCE_VOCABULARY_ID,
-cho phép bạn xác định khớp nối cụ thể của mình trong bảng
-SOURCE_TO_CONCEPT_MAP.
-
-Sau khi chọn SOURCE_VOCABULARY_ID, bạn đặt tên cho tệp CSV xuất ra
-
-và lưu vào vị trí mong muốn. Cấu trúc tệp CSV xuất ra tương ứng với
-cấu trúc của bảng SOURCE_TO_CONCEPT_MAP. Khớp nối này có thể được đính
-kèm vào bảng SOURCE_TO_CONCEPT_MAP của Từ vựng. Việc đính kèm một hàng
-duy nhất vào bảng VOCABULARY để định nghĩa SOURCE_VOCABULARY_ID mà bạn
-đã xác định ở bước trên cũng là hợp lý. Cuối cùng, điều quan trọng cần
-lưu ý là chỉ những khớp nối có trạng thái "Approved" (Đã phê duyệt)
-mới được xuất vào
-
-tệp CSV; khớp nối cần phải được hoàn thành trong USAGI để có thể xuất
-nó.
-
-#### Cập nhật khớp nối Usagi
-
-Thông thường, việc ánh xạ không phải là một nỗ lực chỉ thực hiện một
-lần. Khi dữ liệu được cập nhật, có thể các mã nguồn mới sẽ được thêm
-vào và từ vựng được cập nhật thường xuyên, có lẽ cần phải cập nhật cả
-khớp nối.
-
-Khi tập hợp các mã nguồn được cập nhật, các bước sau đây có thể hỗ trợ
-việc cập nhật:
-
-1.  Nhập tệp mã nguồn mới
-
-2.  Chọn File --\> Apply previous mapping (Áp dụng khớp nối trước đó),
-và chọn tệp khớp nối Usagi cũ
-
-3.  Xác định các mã chưa được kế thừa các ánh xạ đã phê duyệt từ ánh xạ
-cũ và thực hiện ánh xạ chúng như bình thường.
-
-Khi từ vựng được cập nhật, hãy làm theo các bước sau:
-
-1.  Tải xuống các tệp từ vựng mới từ Athena
-
-2.  Xây dựng lại chỉ mục Usagi (Help --\> Rebuild index)
-
-3.  Mở tệp khớp nối
-
-4.  Xác định các mã ánh xạ tới các khái niệm mà trong phiên bản từ vựng
-mới không còn là khái niệm Chuẩn nữa, và tìm các khái niệm mục tiêu
-phù hợp hơn.
-
-## Bước 3: Triển khai ETL
-
-Sau khi thiết kế và ánh xạ mã hoàn tất, quy trình ETL có thể được
-triển khai trong một phần mềm. Khi ETL được thiết kế, chúng tôi khuyến
-nghị những người am hiểu về dữ liệu nguồn và CDM nên làm việc cùng
-nhau. Tương tự, khi ETL được triển khai, ưu tiên sử dụng những người
-có kinh nghiệm làm việc với dữ liệu (đặc biệt là dữ liệu lớn) và kinh
-nghiệm triển khai ETL. Điều này có thể có nghĩa là làm việc với các cá
-nhân bên ngoài nhóm trực tiếp của bạn hoặc thuê các chuyên gia tư vấn
-kỹ thuật để thực hiện việc triển khai. Cũng cần lưu ý rằng đây không
-phải là chi phí một lần. Trong tương lai, tốt nhất nên có một người
-hoặc một nhóm dành ít nhất một phần thời gian chuyên trách để duy trì
-và vận hành ETL (điều này sẽ trở nên rõ ràng hơn trong Phần 6.7).
-
-Việc triển khai thường khác nhau tùy theo từng địa điểm và phần lớn
-phụ thuộc vào nhiều yếu tố bao gồm cơ sở hạ tầng, quy mô cơ sở dữ
-liệu, độ phức tạp của ETL và chuyên môn kỹ thuật sẵn có. Vì phụ thuộc
-vào nhiều yếu tố, cộng đồng OHDSI không đưa ra khuyến nghị chính thức
-về cách tốt nhất để triển khai ETL. Đã có các nhóm sử dụng các trình
-tạo SQL đơn giản, SAS, C#, Java và Kettle. Tất cả đều có ưu điểm và
-nhược điểm riêng, và không có công cụ nào có thể sử dụng được nếu
-không có ai tại địa điểm đó am hiểu về công nghệ này.
-
-Một vài ví dụ về các ETL khác nhau (được liệt kê theo thứ tự độ phức
-tạp):
-
-- ETL-Synthea - Một trình tạo SQL được viết để chuyển đổi cơ sở dữ liệu
-Synthea
-
-- <https://github.com/OHDSI/etl-synthea>
-
-- ETL-CDMBuilder - Một ứng dụng .NET được thiết kế để chuyển đổi nhiều
-cơ sở dữ liệu
-
-- <https://github.com/OHDSI/etl-cdmbuilder>
-
-- ETL-LambdaBuilder - Một trình tạo sử dụng chức năng AWS lambda
-
-- <https://github.com/OHDSI/etl-lambdabuilder>
-
-Cần lưu ý rằng sau vài lần thử nghiệm độc lập, chúng tôi đã từ bỏ việc
-phát triển công cụ ETL \'tối thượng\' thân thiện với người dùng. Luôn
-có trường hợp các công cụ như vậy hoạt động tốt cho 80% ETL, nhưng đối
-với 20% còn lại, cần phải viết một số mã cấp thấp dành riêng cho cơ sở
-dữ liệu nguồn.
-
-Sau khi các cá nhân kỹ thuật sẵn sàng bắt đầu triển khai, tài liệu
-thiết kế ETL nên được chia sẻ với họ. Cần có đủ thông tin trong tài
-liệu để họ bắt đầu, tuy nhiên, cần kỳ vọng rằng các nhà phát triển có
-quyền tiếp cận các nhà thiết kế ETL để đặt câu hỏi trong quá trình
-phát triển của họ. Logic có thể rõ ràng với các nhà thiết kế nhưng có
-thể ít rõ ràng hơn với người triển khai, những người có thể không quen
-thuộc với dữ liệu và CDM. Giai đoạn triển khai nên duy trì là một nỗ
-lực nhóm. Việc thực hiện quy trình tạo và kiểm thử CDM giữa người
-triển khai và nhà thiết kế cho đến khi cả hai nhóm đồng ý rằng tất cả
-logic đã được thực hiện chính xác được coi là thông lệ chấp nhận
-được.
-
-## Bước 4: Kiểm soát chất lượng
-
-Đối với quy trình trích xuất, chuyển đổi, nạp (ETL), kiểm soát chất
-lượng là một quy trình lặp lại. Mô hình điển hình là viết logic -\>
-triển khai logic -\> kiểm thử logic -\> sửa/viết lại logic. Có nhiều
-cách để kiểm thử CDM nhưng dưới đây là các bước được khuyến nghị đã
-được phát triển trong cộng đồng qua nhiều năm triển khai ETL.
-
-- Xem xét tài liệu thiết kế ETL, mã máy tính và ánh xạ mã. Bất kỳ ai
-cũng có thể mắc sai lầm, vì vậy luôn cần ít nhất một người khác xem
-xét những gì đã được thực hiện.
-
-- Các vấn đề lớn nhất trong mã máy tính thường xuất phát từ cách các
-mã nguồn trong dữ liệu gốc được ánh xạ tới các Khái niệm Chuẩn
-(Standard Concepts). Việc ánh xạ có thể trở nên phức tạp, đặc biệt
-là đối với các mã liên quan đến ngày tháng như NDC. Hãy chắc chắn
-kiểm tra kỹ bất kỳ khu vực nào có thực hiện ánh xạ để đảm bảo các từ
-vựng nguồn chính xác được dịch sang ID khái niệm phù hợp.
-
-- So sánh thủ công tất cả thông tin trên một mẫu bệnh nhân trong dữ liệu
-nguồn và dữ liệu mục tiêu.
-
-- Việc xem xét dữ liệu của một bệnh nhân có thể hữu ích, lý tưởng nhất
-là bệnh nhân có số lượng hồ sơ duy nhất lớn. Truy vết một bệnh nhân
-có thể làm nổi bật các vấn đề nếu dữ liệu trong CDM không như bạn
-mong đợi dựa trên logic đã thỏa thuận.
-
-- So sánh tổng số lượng trong dữ liệu nguồn và dữ liệu mục tiêu.
-
-- Có thể có một số khác biệt dự kiến về số lượng tùy thuộc vào cách
-bạn chọn giải quyết một số vấn đề nhất định. Ví dụ, một số cộng tác
-viên chọn loại bỏ bất kỳ người nào có giới tính NULL vì những người
-đó dù sao cũng sẽ không được đưa vào phân tích. Cũng có thể các lượt
-thăm khám trong CDM được xây dựng khác với các lượt thăm khám hoặc
-cuộc gặp gỡ trong dữ liệu gốc. Do đó,
-
-khi so sánh tổng số lượng giữa dữ liệu nguồn và dữ liệu CDM, hãy đảm
-bảo tính đến và dự đoán trước những khác biệt này.
-
-- Sao chép một nghiên cứu đã được thực hiện trên dữ liệu nguồn sang
-phiên bản CDM.
-
-- Đây là một cách tốt để hiểu bất kỳ sự khác biệt lớn nào giữa dữ liệu
-nguồn và phiên bản CDM, mặc dù nó tốn nhiều thời gian hơn một chút.
-
-- Tạo các bài kiểm thử đơn vị (unit tests) nhằm sao chép một mẫu trong
-dữ liệu nguồn cần được giải quyết trong ETL. Ví dụ, nếu ETL của bạn
-quy định rằng bệnh nhân không có thông tin giới tính nên bị loại bỏ,
-hãy tạo một bài kiểm thử đơn vị cho một người không có giới tính và
-đánh giá cách trình tạo xử lý nó.
-
-- Kiểm thử đơn vị rất hữu ích khi đánh giá chất lượng và độ chính xác
-của quá trình chuyển đổi ETL. Nó thường bao gồm việc tạo một tập dữ
-liệu nhỏ hơn nhiều mô phỏng cấu trúc của dữ liệu nguồn mà bạn đang
-chuyển đổi. Mỗi người hoặc hồ sơ trong tập dữ liệu nên kiểm thử một
-phần logic cụ thể như được viết trong tài liệu ETL. Sử dụng phương
-pháp này, rất dễ dàng truy vết lại các vấn đề và xác định logic bị
-lỗi. Kích thước nhỏ cũng cho phép mã máy tính thực thi rất nhanh,
-cho phép lặp lại nhanh hơn và xác định lỗi sớm hơn.
-
-Đây là những cách tiếp cận cấp cao để kiểm soát chất lượng từ góc độ
-ETL. Để biết thêm chi tiết về các nỗ lực chất lượng dữ liệu đang diễn
-ra trong OHDSI, vui lòng xem Chương 15.
-
-## Các quy ước ETL và THEMIS
-
-Khi ngày càng nhiều nhóm chuyển đổi dữ liệu sang CDM, rõ ràng là cần
-phải quy định các quy ước. Ví dụ, ETL nên làm gì trong tình huống hồ
-sơ một người thiếu năm sinh? Mục tiêu của CDM là chuẩn hóa dữ liệu
-chăm sóc sức khỏe, tuy nhiên nếu mỗi nhóm xử lý các tình huống dữ liệu
-cụ thể theo cách khác nhau, sẽ khó khăn hơn để sử dụng dữ liệu một
-cách có hệ thống trên toàn mạng lưới.
-
-Cộng đồng OHDSI bắt đầu ghi lại các quy ước để cải thiện tính nhất
-quán giữa các CDM. Các quy ước đã được định nghĩa này, mà cộng đồng
-OHDSI đã đồng ý, có thể được tìm thấy trên Wiki CDM.6 Mỗi bảng CDM có
-bộ quy ước riêng có thể tham khảo khi thiết kế một ETL. Ví dụ, những
-người có thể thiếu tháng hoặc ngày sinh, nhưng nếu họ thiếu năm sinh
-thì người đó nên bị loại bỏ. Khi thiết kế một ETL, hãy tham khảo các
-quy ước để giúp đưa ra các quyết định thiết kế nhất quán với cộng
-đồng.
-
-Mặc dù không bao giờ có thể ghi lại tất cả các tình huống dữ liệu có
-thể tồn tại và cách xử lý khi chúng xảy ra, nhưng có một nhóm làm việc
-OHDSI đang cố gắng ghi lại các tình huống phổ biến. THEMIS được tạo
-thành từ các cá nhân trong cộng đồng, những người tập hợp các quy ước,
-làm rõ chúng, chia sẻ với cộng đồng để lấy ý kiến, và sau đó ghi lại
-các quy ước đã hoàn thiện vào CDM Wiki. Themis là một Titan nữ trong
-thần thoại Hy Lạp cổ đại đại diện cho trật tự thần thánh, sự công
-bằng, luật pháp, luật tự nhiên và phong tục, điều này dường như rất
-phù hợp với phạm vi hoạt động của nhóm này. Khi
-
-^6^<https://github.com/OHDSI/CommonDataModel/wiki>\].
-^7^<https://github.com/OHDSI/Themis>
-
-khi thực hiện một ETL, nếu có một kịch bản mà bạn không chắc chắn cách
-xử lý, THEMIS khuyến nghị rằng một câu hỏi về kịch bản đó nên được đặt
-trên Diễn đàn OHDSI.8 Rất có thể nếu bạn có một câu hỏi, những người
-khác trong cộng đồng cũng có câu hỏi đó. THEMIS sử dụng các cuộc thảo
-luận này, cũng như các cuộc họp nhóm làm việc và thảo luận trực tiếp,
-để giúp thông báo những quy ước nào khác cần được ghi
-lại.
-
-## Bảo trì CDM và ETL
-
-Việc thiết kế ETL, tạo các khớp nối, triển khai ETL và xây dựng các
-biện pháp kiểm soát chất lượng không phải là một nỗ lực nhỏ. Thật
-không may, nỗ lực đó không dừng lại ở đó. Có một chu kỳ bảo trì ETL là
-một quy trình liên tục sau khi CDM đầu tiên được xây dựng. Một số yếu
-tố kích hoạt phổ biến đòi hỏi phải bảo trì là: thay đổi trong dữ liệu
-nguồn, lỗi trong ETL, phiên bản Từ vựng OMOP mới được phát hành, hoặc
-chính CDM đã thay đổi hoặc cập nhật. Nếu một trong những yếu tố kích
-hoạt này xảy ra, các phần sau đây có thể cần cập nhật: tài liệu ETL,
-phần mềm lập trình chạy ETL, và các trường hợp kiểm thử cũng như kiểm
-soát chất lượng.
-
-Thông thường, một nguồn dữ liệu chăm sóc sức khỏe luôn thay đổi. Dữ
-liệu mới có thể khả dụng (ví dụ: một cột mới trong dữ liệu có thể tồn
-tại). Các tình huống của bệnh nhân chưa từng tồn tại trước đây đột
-nhiên xuất hiện (ví dụ: một bệnh nhân mới có hồ sơ tử vong trước khi
-họ được sinh ra). Sự hiểu biết của bạn về dữ liệu có thể cải thiện (ví
-dụ: một số hồ sơ liên quan đến sinh con nội trú xuất hiện dưới dạng
-ngoại trú do cách xử lý các yêu cầu thanh toán). Không phải tất cả các
-thay đổi trong dữ liệu nguồn đều có thể kích hoạt thay đổi trong xử lý
-ETL, tuy nhiên tối thiểu là những thay đổi làm hỏng quy trình xử lý
-ETL sẽ cần được giải quyết.
-
-Nếu phát hiện lỗi, chúng cần được giải quyết. Tuy nhiên, điều quan
-trọng cần ghi nhớ là không phải tất cả các lỗi đều như nhau. Ví dụ,
-giả sử trong bảng COST, cột cost đang được làm tròn đến chữ số nguyên
-(ví dụ: dữ liệu nguồn có \$3,82 và điều này trở thành
-
-\$4,00 trong CDM). Nếu các nhà nghiên cứu chính sử dụng dữ liệu chủ
-yếu thực hiện đặc điểm hóa các lần phơi nhiễm thuốc và tình trạng của
-bệnh nhân, lỗi như vậy có ít tầm quan trọng và có thể được giải quyết
-trong tương lai. Nếu các nhà nghiên cứu chính sử dụng dữ liệu cũng bao
-gồm các nhà kinh tế y tế, đây sẽ là một lỗi nghiêm trọng cần được giải
-quyết ngay lập tức.
-
-Từ vựng OMOP cũng luôn thay đổi giống như dữ liệu nguồn của chúng ta.
-Trên thực tế, Từ vựng có thể có nhiều bản phát hành trong một tháng
-khi các từ vựng cập nhật. Mỗi CDM chạy trên một phiên bản Từ vựng cụ
-thể và việc chạy trên một phiên bản Từ vựng mới tốt hơn có thể dẫn đến
-những thay đổi trong cách các mã nguồn được ánh xạ tới các từ vựng
-chuẩn hóa. Thông thường, sự khác biệt giữa các Từ vựng là nhỏ, vì vậy
-việc xây dựng một CDM mới mỗi khi một Từ vựng mới được phát hành là
-không cần thiết. Tuy nhiên, thực hành tốt là áp dụng Từ vựng mới một
-hoặc hai lần một năm, điều này sẽ yêu cầu xử lý lại CDM. Hiếm khi
-những thay đổi trong phiên bản mới của Từ vựng yêu cầu mã ETL phải
-được cập nhật.
-
-Yếu tố kích hoạt cuối cùng có thể yêu cầu bảo trì CDM hoặc ETL là khi
-chính mô hình dữ liệu chung cập nhật. Khi cộng đồng phát triển và các
-yêu cầu dữ liệu mới được tìm thấy, điều này
-
-^8^<http://forums.ohdsi.org/>
-
-có thể dẫn đến việc lưu trữ dữ liệu bổ sung trong CDM. Điều này có thể
-có nghĩa là dữ liệu mà trước đây bạn không lưu trữ trong CDM có thể có
-một vị trí trong phiên bản CDM mới. Những thay đổi đối với cấu trúc
-CDM hiện có ít thường xuyên hơn, tuy nhiên đó là một khả năng. Ví dụ,
-CDM đã áp dụng các trường DATETIME thay vì các trường DATE ban đầu,
-điều này có thể gây ra lỗi trong xử lý ETL. Các phiên bản CDM không
-được phát hành thường xuyên và các địa điểm có thể chọn thời điểm di
-chuyển.
-
-## Suy nghĩ cuối cùng về ETL
-
-Quy trình ETL rất khó khăn vì nhiều lý do, không ít trong số đó là
-thực tế là tất cả chúng ta đều đang xử lý dữ liệu nguồn duy nhất,
-khiến việc tạo ra một giải pháp "một kích cỡ cho tất cả" trở nên khó
-khăn. Tuy nhiên, qua nhiều năm, chúng ta đã rút ra những bài học xương
-máu sau đây.
-
-- Quy tắc 80/20. Nếu có thể tránh được, đừng dành quá nhiều thời gian để
-ánh xạ thủ công mã nguồn tới các tập khái niệm. Lý tưởng nhất là ánh
-xạ các mã nguồn bao phủ phần lớn dữ liệu của bạn. Điều này sẽ đủ để
-giúp bạn bắt đầu và bạn có thể giải quyết bất kỳ mã còn lại nào trong
-tương lai dựa trên các trường hợp sử dụng.
-
-- Không sao nếu bạn mất dữ liệu không đạt chất lượng nghiên cứu. Thông
-thường, đây là những hồ sơ sẽ bị loại bỏ trước khi bắt đầu phân tích,
-chúng ta chỉ loại bỏ chúng trong quá trình ETL thay vì để lại.
-
-- CDM đòi hỏi phải bảo trì. Chỉ vì bạn hoàn thành một ETL không có nghĩa
-là bạn không cần chạm vào nó nữa. Dữ liệu thô của bạn có thể thay đổi,
-có thể có lỗi trong mã, có thể có từ vựng mới hoặc bản cập nhật cho
-CDM. Hãy lập kế hoạch phân bổ tài nguyên cho những thay đổi này để ETL
-của bạn luôn được cập nhật.
-
-- Để được hỗ trợ bắt đầu OHDSI CDM, thực hiện chuyển đổi cơ sở dữ liệu
-của bạn hoặc chạy các công cụ phân tích, vui lòng truy cập Diễn đàn
-Triển khai của chúng tôi.9
+**Usagi** là phần mềm mã nguồn mở do OHDSI phát triển nhằm hỗ trợ quá trình ánh xạ mã thuật ngữ bán tự động. Công cụ này đề xuất các gợi ý ánh xạ dựa trên thuật toán đo độ tương đồng văn bản (*textual similarity*) giữa chuỗi mô tả của mã nguồn và tên/từ đồng nghĩa của các Khái niệm chuẩn. Nếu bảng mô tả mã nguồn chỉ có bằng ngôn ngữ bản địa (ví dụ: tiếng Việt, tiếng Hà Lan, tiếng Hàn...), kinh nghiệm thực tế cho thấy việc dịch tự động sang tiếng Anh bằng các công cụ như Google Translate[^GoogleTranslateUrl] trước khi đưa vào Usagi thường mang lại kết quả gợi ý ban đầu rất khả quan. Usagi cũng cung cấp giao diện tìm kiếm linh hoạt để chuyên gia y tế tra cứu và chọn lại khái niệm chuẩn đích nếu gợi ý tự động chưa chính xác, đồng thời đánh dấu phê duyệt (*Approve*) các ánh xạ đã kiểm tra để xuất ra sử dụng trong ETL. Mã nguồn và bộ cài đặt của Usagi được cung cấp trên GitHub.[^UsagiUrl]
+
+[^GoogleTranslateUrl]: <https://translate.google.com/>
+[^UsagiUrl]: <https://github.com/OHDSI/Usagi>
+
+#### Phạm vi và Mục đích {-}
+
+Danh sách các mã nguồn cần ánh xạ được nạp vào Usagi (nếu mô tả mã nguồn không phải bằng tiếng Anh thì cần thêm một cột chứa bản dịch tiếng Anh). Usagi áp dụng thuật toán tương đồng thuật ngữ (TF-IDF / khớp chuỗi mờ) để ghép nối từng mã nguồn với các khái niệm tiềm năng trong Bộ Từ vựng. Tuy nhiên, các kết nối tự động này **bắt buộc phải được chuyên gia rà soát thủ công**, và Usagi cung cấp một giao diện trực quan để tối ưu hóa tốc độ rà soát đó. Theo mặc định, Usagi sẽ chỉ đề xuất các khái niệm được đánh dấu là Khái niệm chuẩn (*Standard Concepts*) trong Bộ Từ vựng.
+
+#### Tổng quan quy trình {-}
+
+Trình tự điển hình khi sử dụng phần mềm Usagi gồm 4 bước:
+
+1. Nạp danh sách các mã từ hệ thống dữ liệu nguồn ("mã nguồn") cần ánh xạ sang khái niệm của Bộ Từ vựng.
+2. Usagi tự động chạy thuật toán so khớp độ tương đồng thuật ngữ để gợi ý ánh xạ từ mã nguồn sang Khái niệm chuẩn.
+3. Sử dụng giao diện của Usagi để rà soát, chỉnh sửa và phê duyệt các ánh xạ gợi ý. Công việc thẩm định này nên được thực hiện bởi người có chuyên môn y dược và hiểu rõ hệ thống mã hóa lâm sàng.
+4. Xuất kết quả ánh xạ đã phê duyệt ra định dạng chuẩn của bảng `SOURCE_TO_CONCEPT_MAP` để nạp vào cơ sở dữ liệu CDM.
+
+#### Nhập danh sách mã nguồn vào Usagi {-}
+
+Trước hết, hãy trích xuất danh sách các mã nguồn từ hệ thống nguồn ra tệp CSV hoặc Excel (`.xlsx`). Tệp này tối thiểu phải có cột chứa mã nguồn và cột mô tả mã nguồn bằng tiếng Anh; ngoài ra, bạn có thể đưa thêm các cột thông tin bổ trợ khác (ví dụ: đơn vị liều dùng, đường dùng, hoặc tên mô tả gốc bằng ngôn ngữ bản địa trước khi dịch). Bên cạnh đó, **nên đưa cả cột tần suất xuất hiện của từng mã** trong dữ liệu nguồn vào tệp đầu vào — thông tin này giúp sắp xếp ưu tiên tập trung công sức ánh xạ cho những mã xuất hiện nhiều nhất (ví dụ: hệ thống có thể có danh mục 1.000 mã nguồn nhưng chỉ có 100 mã thực sự xuất hiện trong bệnh án của bệnh nhân). Nếu mô tả mã nguồn cần dịch sang tiếng Anh, bạn có thể sử dụng hàm dịch tự động hoặc Google Translate.
+
+*Lưu ý*: Các tệp trích xuất mã nguồn nên được tách riêng theo từng miền dữ liệu (tức là tách riêng tệp mã thuốc, tệp mã thủ thuật, tệp mã chẩn đoán bệnh, tệp mã xét nghiệm...) thay vì gộp chung tất cả vào một tệp lớn.
+
+Các mã nguồn được nạp vào Usagi thông qua trình đơn `File -> Import codes`. Khi đó, hộp thoại `"Import codes ..."` sẽ xuất hiện như trong Hình 6.7. Trong ví dụ minh họa này, các thuật ngữ mã nguồn ban đầu bằng tiếng Hà Lan và đã được dịch sang tiếng Anh ở cột bên cạnh. Usagi sẽ dựa vào cột bản dịch tiếng Anh để tính toán độ tương đồng với Bộ Từ vựng Chuẩn hóa.
+
+![](media/image23.png){width="5.351041119860017in" height="2.652603893263342in"}
+
+*Hình 6.7: Màn hình nhập danh sách mã nguồn (`Import codes`) trong Usagi.*
+
+Phần `"Column mapping"` (Ánh xạ cột, ở góc dưới bên trái) là nơi bạn khai báo cho Usagi biết ý nghĩa của từng cột trong tệp bảng tính vừa tải lên. Nếu di chuột qua các ô danh sách thả xuống, một chú giải sẽ hiện ra giải thích vai trò của từng thông số. Usagi sẽ không đưa nội dung của (các) cột `"Additional info"` (Thông tin bổ sung) vào thuật toán tính điểm khớp tự động; tuy nhiên, thông tin bổ sung này sẽ được hiển thị trên màn hình rà soát để hỗ trợ chuyên gia đưa ra quyết định chính xác hơn.
+
+Cuối cùng, tại phần `"Filters"` (Bộ lọc, ở góc dưới bên phải), bạn có thể thiết lập các điều kiện giới hạn không gian tìm kiếm cho Usagi. Ví dụ, trong Hình 6.7, người dùng giới hạn chỉ ánh xạ các mã nguồn sang các khái niệm thuộc miền Tình trạng bệnh (`Condition`). Theo mặc định, Usagi chỉ ánh xạ sang các Khái niệm chuẩn, nhưng nếu bỏ chọn ô `"Filter standard concepts"`, Usagi sẽ tìm kiếm trên cả các Khái niệm phân loại (*Classification Concepts*).
+
+Một bộ lọc rất hữu ích là `"Filter by automatically selected concepts / ATC code"` (Lọc theo các khái niệm được chọn tự động hoặc mã ATC). Nếu bạn có sẵn thông tin định hướng giúp thu hẹp phạm vi tìm kiếm, bạn có thể cung cấp một danh sách các `CONCEPT_ID` hoặc mã ATC (phân tách bằng dấu chấm phẩy) vào một cột trong tệp đầu vào và gán cột đó làm `"Auto concept ID column"`. Ví dụ, đối với danh mục thuốc nội viện, nhiều bệnh viện đã gắn sẵn mã hoạt chất ATC cho từng thuốc. Mặc dù mã ATC không chỉ định duy nhất một chế phẩm thuốc RxNorm, việc lọc theo mã ATC sẽ giúp giới hạn không gian tìm kiếm của Usagi chỉ gói gọn trong các khái niệm thuốc thuộc nhánh phân cấp của mã ATC đó trong Bộ Từ vựng. Để sử dụng bộ lọc mã ATC, hãy thực hiện 3 bước sau:
+
+1. Trong phần `Column mapping`, chuyển tùy chọn từ `"Auto concept ID column"` sang `"ATC column"`.
+2. Chọn tên cột chứa mã ATC trong tệp dữ liệu của bạn cho mục `"ATC column"`.
+3. Đánh dấu bật tùy chọn `"Filter by user selected concepts / ATC code"` trong phần `Filters`.
+
+Bạn cũng có thể tận dụng các nguồn ánh xạ trung gian khác ngoài mã ATC để giới hạn tìm kiếm. Chẳng hạn, trong ví dụ ở Hình 6.7, nhóm tác giả đã sử dụng một bảng ánh xạ sơ bộ trích từ UMLS để thu hẹp phạm vi tìm kiếm của Usagi thông qua `"Auto concept ID column"`.
+
+Sau khi hoàn tất mọi thiết lập, hãy nhấp vào nút `"Import"` để bắt đầu nhập dữ liệu. Quá trình này có thể mất vài phút trong lúc Usagi chạy thuật toán tính điểm tương đồng thuật ngữ cho toàn bộ danh sách mã nguồn.
+
+#### Rà soát ánh xạ từ mã nguồn sang khái niệm của Bộ Từ vựng {-}
+
+Sau khi tệp mã nguồn được nhập xong, giao diện làm việc chính của Usagi sẽ hiển thị như trong Hình 6.8, bao gồm 3 khu vực chính từ trên xuống dưới: bảng tổng quan danh sách mã (`Overview Table`), khu vực chi tiết ánh xạ của mã đang chọn (`Selected Source Code` & `Target Concepts`), và khu vực tìm kiếm khái niệm (`Search Facility`). Lưu ý rằng tại bất kỳ bảng nào trên giao diện, bạn đều có thể nhấp chuột phải vào thanh tiêu đề cột để bật/tắt các cột muốn hiển thị nhằm giảm bớt sự rối mắt.
+
+![](media/image24.jpeg){width="5.403748906386702in" height="3.22875in"}
+
+*Hình 6.8: Giao diện rà soát và phê duyệt ánh xạ mã nguồn trong Usagi.*
+
+#### Phê duyệt một ánh xạ được gợi ý {-}
+
+Bảng tổng quan (`"Overview Table"`, khung trên cùng) hiển thị trạng thái ánh xạ hiện tại của toàn bộ các mã nguồn. Ngay sau khi nhập tệp, bảng này chứa các ánh xạ gợi ý được Usagi tạo tự động dựa trên độ tương đồng văn bản và các bộ lọc đã thiết lập. Trong ví dụ ở Hình 6.8, bản dịch tiếng Anh của các mã bệnh lý tiếng Hà Lan được ánh xạ sang các Khái niệm chuẩn thuộc miền Tình trạng bệnh (`Condition`). Usagi đã đối chiếu mô tả tiếng Anh của mã nguồn với tên chính thức và các từ đồng nghĩa của khái niệm chuẩn để tìm ra ứng viên khớp nhất. Vì người dùng đã bật tùy chọn `"Include source terms"`, Usagi còn mở rộng so khớp với cả tên và từ đồng nghĩa của toàn bộ các khái niệm nguồn không chuẩn có ánh xạ về khái niệm chuẩn đó. Nếu Usagi không tìm được bất kỳ ứng viên nào phù hợp, mã nguồn sẽ được gán về `CONCEPT_ID = 0`.
+
+Chuyên gia thẩm định sẽ duyệt lần lượt từng dòng mã trong bảng tổng quan để quyết định chấp nhận gợi ý của Usagi hoặc tìm một khái niệm đích khác chính xác hơn. Ví dụ, trong Hình 6.8, thuật ngữ tiếng Hà Lan `"Hoesten"` được dịch sang tiếng Anh là `"Cough"` (Ho). Usagi đã lấy từ `"Cough"` và gợi ý ánh xạ sang khái niệm `"4158493 - C/O - cough"` (Than phiền bị ho) với điểm số tương đồng (`Match score`) là `0.58` (điểm tương đồng nằm trong khoảng từ `0` đến `1`, trong đó `1.0` là khớp hoàn toàn). Điểm số `0.58` cho thấy Usagi chưa thực sự chắc chắn về gợi ý này. Giả sử sau khi xem xét, nếu chúng ta đồng ý với ánh xạ gợi ý đó, chỉ cần nhấn nút `"Approve"` (Phê duyệt) màu xanh lá cây ở góc dưới bên phải của khung giữa.
+
+#### Tìm kiếm một ánh xạ mới {-}
+
+Sẽ có nhiều trường hợp gợi ý tự động của Usagi chưa tối ưu, và người thẩm định cần chủ động tìm một khái niệm chuẩn tốt hơn hoặc quyết định gán về `CONCEPT_ID = 0` (không có khái niệm tương đương). Quay lại ví dụ ở Hình 6.8 với thuật ngữ tiếng Hà Lan `"Hoesten"` (dịch sang tiếng Anh là `"Cough"`), gợi ý tự động ban đầu của Usagi bị giới hạn bởi danh sách khái niệm lọc trước từ UMLS nên rơi vào khái niệm `"C/O - cough"` chưa thật sự chuẩn xác nhất. Khi đó, tại khu vực Tìm kiếm (`Search Facility` ở khung dưới cùng), chúng ta có thể chủ động tìm kiếm toàn bộ các khái niệm khác trong Bộ Từ vựng bằng cách sử dụng chính cụm từ của mã nguồn hoặc nhập từ khóa mới vào ô truy vấn (`Query`).
+
+Khi sử dụng ô tìm kiếm thủ công, cần lưu ý rằng Usagi sử dụng cơ chế tìm kiếm mờ (*fuzzy search*) và không hỗ trợ các toán tử logic cấu trúc như `AND` hay `OR`.
+
+Tiếp tục ví dụ trên, giả sử chúng ta gõ từ khóa `"Cough"` vào ô tìm kiếm để xem có khái niệm nào phù hợp hơn không. Ở phía bên phải của ô truy vấn là cụm Bộ lọc (`Filters`) cho phép thu hẹp kết quả tìm kiếm theo miền dữ liệu, lớp khái niệm, bộ từ vựng hoặc chỉ lấy Khái niệm chuẩn. Khi áp dụng bộ lọc, chúng ta tìm thấy khái niệm chuẩn `"254761 - Cough"` (Triệu chứng ho) của SNOMED với điểm khớp tuyệt đối `1.00` và nhận thấy đây mới là khái niệm đích chính xác nhất cho mã tiếng Hà Lan đang xét. Để chọn khái niệm mới này, hãy nhấp vào dòng `"254761 - Cough"` ở bảng kết quả tìm kiếm bên dưới rồi nhấn nút `"Replace concept"` (Thay thế khái niệm) — bạn sẽ thấy khái niệm này lập tức được cập nhật lên khung `"Selected Source Code"` ở giữa — sau đó nhấn nút `"Approve"` (Phê duyệt). Ngoài ra, bên cạnh nút thay thế còn có nút `"Add concept"` (Thêm khái niệm), cho phép ánh xạ một mã nguồn duy nhất sang nhiều Khái niệm chuẩn cùng lúc (rất hữu ích khi mã nguồn là một mã bệnh tổ hợp bao gồm nhiều bệnh lý riêng lẻ).
+
+#### Xem thông tin chi tiết và ngữ cảnh phân cấp của khái niệm {-}
+
+Khi lựa chọn khái niệm đích để ánh xạ, việc kiểm tra "đời sống xã hội" (*social life* — tức ngữ cảnh quan hệ phân cấp) của khái niệm đó là vô cùng quan trọng. Ý nghĩa thực sự của một khái niệm trong hệ thống chuẩn phụ thuộc rất lớn vào vị trí của nó trong cây phân cấp; đôi khi trong từ vựng xuất hiện những "khái niệm mồ côi" (*orphan concepts*) có tên gọi nghe rất giống từ khóa nhưng lại nằm cô lập, hầu như không có khái niệm cha hay khái niệm con nào — những khái niệm như vậy thường không phù hợp để chọn làm khái niệm đích. Trên bảng kết quả của Usagi luôn hiển thị cột số lượng khái niệm cha (`Parent count`) và khái niệm con (`Child count`) của từng ứng viên; bạn cũng có thể mở cửa sổ xem chi tiết phả hệ bằng cách nhấn tổ hợp phím `ALT + C` hoặc chọn trình đơn `View -> Concept information` trên thanh công cụ.
+
+![](media/image25.png){width="5.328124453193351in" height="4.553124453193351in"}
+
+*Hình 6.9: Cửa sổ thông tin chi tiết và cây phân cấp của khái niệm (`Concept information`) trong Usagi.*
+
+Hình 6.9 minh họa cửa sổ thông tin chi tiết của một khái niệm, hiển thị đầy đủ các thuộc tính chung, danh sách các khái niệm cha trực tiếp (`Parents`), các khái niệm con trực tiếp (`Children`) cũng như các mã nguồn từ những bộ từ vựng khác đang được ánh xạ về khái niệm chuẩn này. Người thẩm định có thể nhấp đúp trực tiếp vào các khái niệm cha/con ngay trong cửa sổ này để điều hướng lên/xuống cây phân cấp và chọn ra khái niệm đích có mức độ chi tiết phù hợp nhất.
+
+Hãy tiếp tục thực hiện quy trình rà soát này lần lượt qua từng mã cho đến khi toàn bộ các mã nguồn cần thiết đều được kiểm tra. Trên bảng tổng quan ở đầu màn hình, bạn có thể nhấp vào tiêu đề cột để sắp xếp thứ tự các mã — thông thường nên sắp xếp giảm dần theo cột tần suất (`Frequency`) để ưu tiên duyệt từ các mã xuất hiện nhiều nhất xuống thấp nhất. Ở thanh trạng thái góc dưới bên trái màn hình, Usagi hiển thị thống kê theo thời gian thực về tỷ lệ số lượng mã nguồn đã được phê duyệt cũng như tổng tỷ lệ phần trăm số bản ghi dữ liệu thực tế đã được bao phủ bởi các mã đã duyệt đó. Bạn cũng có thể ghi chú lại lý do lựa chọn ánh xạ vào cột `Comment` cho từng mã.
+
+#### Các kinh nghiệm thực hành tốt nhất khi dùng Usagi {-}
+
+- Hãy phân công người có chuyên môn y khoa và kinh nghiệm về các hệ thống mã hóa lâm sàng thực hiện việc rà soát.
+- Tận dụng tính năng sắp xếp cột trên bảng `"Overview Table"`: việc sắp xếp giảm dần theo điểm tương đồng (`"Match Score"`) để duyệt nhanh loạt mã mà Usagi có độ tự tin cao nhất ở đầu danh sách sẽ giúp giải quyết nhanh một khối lượng lớn các mã dễ; kết hợp với việc sắp xếp theo tần suất (`"Frequency"`) để đảm bảo dành nhiều thời gian thẩm định kỹ cho các mã phổ biến nhất.
+- Hoàn toàn chấp nhận được việc gán một số mã nguồn về `CONCEPT_ID = 0`: có những mã nội bộ quá đặc thù hoặc tần suất quá nhỏ không đáng tốn công sức, hoặc bản chất thông tin đó không có khái niệm tương đương phù hợp trong Bộ Từ vựng.
+- Luôn kiểm tra ngữ cảnh của khái niệm đích trong cây phân cấp (đặc biệt là các khái niệm cha và khái niệm con của nó) trước khi bấm phê duyệt.
+
+#### Xuất bảng ánh xạ từ Usagi {-}
+
+Sau khi hoàn tất việc rà soát và phê duyệt ánh xạ trong Usagi, cách tốt nhất để đưa kết quả này vào quy trình ETL là xuất ra định dạng chuẩn và nạp bổ sung vào bảng `SOURCE_TO_CONCEPT_MAP` của Bộ Từ vựng.
+
+Để xuất kết quả ánh xạ, hãy chọn trình đơn `File -> Export source_to_concept_map`. Một hộp thoại sẽ hiện ra yêu cầu bạn nhập tên định danh từ vựng nguồn (`SOURCE_VOCABULARY_ID`) cho bộ mã nội bộ của mình — hãy đặt một chuỗi định danh ngắn gọn, dễ nhớ. Usagi sẽ điền chuỗi định danh này vào cột `SOURCE_VOCABULARY_ID`, giúp bạn phân biệt rõ các dòng ánh xạ nội bộ của đơn vị mình trong bảng `SOURCE_TO_CONCEPT_MAP`.
+
+Tiếp theo, đặt tên cho tệp CSV đầu ra và lưu vào máy tính. Tệp CSV xuất ra có cấu trúc các cột khớp hoàn toàn với bảng `SOURCE_TO_CONCEPT_MAP` của OMOP CDM, sẵn sàng để nạp trực tiếp vào cơ sở dữ liệu. Đồng thời, bạn cũng nên thêm một dòng định nghĩa tương ứng cho mã `SOURCE_VOCABULARY_ID` vừa tạo vào bảng `VOCABULARY`. Lưu ý quan trọng: **chỉ những dòng ánh xạ đã có trạng thái `"Approved"` (Đã phê duyệt)** mới được Usagi xuất ra tệp CSV `SOURCE_TO_CONCEPT_MAP`; các dòng chưa duyệt (`Unchecked`) sẽ được bỏ qua.
+
+#### Cập nhật tệp ánh xạ Usagi khi có dữ liệu hoặc từ vựng mới {-}
+
+Ánh xạ mã thuật ngữ thường không phải là công việc chỉ làm một lần rồi thôi. Khi dữ liệu nguồn được cập nhật định kỳ, các mã nguồn mới có thể phát sinh; mặt khác, khi đơn vị nâng cấp lên phiên bản Bộ Từ vựng OMOP mới, một số khái niệm chuẩn cũ có thể hết hiệu lực và cần được cập nhật lại ánh xạ.
+
+Khi danh mục mã nguồn có thêm các mã mới, bạn có thể kế thừa kết quả đã làm trước đó theo các bước sau:
+
+1. Nhập tệp danh sách mã nguồn mới vào Usagi (`File -> Import codes`).
+2. Chọn trình đơn `File -> Apply previous mapping` và chọn tệp dự án ánh xạ Usagi (`.csv`) đã làm ở đợt trước.
+3. Lọc ra những mã mới chưa có trạng thái phê duyệt kế thừa từ tệp cũ và tiến hành rà soát, phê duyệt như bình thường.
+
+Khi nâng cấp lên phiên bản Bộ Từ vựng Chuẩn hóa OMOP mới, hãy thực hiện các bước sau:
+
+1. Tải xuống bộ tệp từ vựng mới từ cổng ATHENA.
+2. Yêu cầu Usagi xây dựng lại chỉ mục tìm kiếm từ vựng mới (`Help -> Rebuild index`).
+3. Mở lại tệp dự án ánh xạ Usagi hiện có.
+4. Kiểm tra và lọc ra những mã nguồn đang ánh xạ tới các khái niệm mà trong phiên bản từ vựng mới không còn là Khái niệm chuẩn nữa, sau đó tìm kiếm và thay thế bằng các Khái niệm chuẩn mới phù hợp.
+
+## Bước 3: Triển khai kỹ thuật quy trình ETL
+
+Sau khi tài liệu thiết kế đặc tả và các bảng ánh xạ mã thuật ngữ đã hoàn tất, quy trình ETL sẽ được chuyển sang giai đoạn lập trình triển khai bằng phần mềm. Cũng giống như ở bước thiết kế cần sự phối hợp giữa người hiểu dữ liệu nguồn và người hiểu CDM, ở bước triển khai kỹ thuật này, nên ưu tiên huy động các kỹ sư có kinh nghiệm làm việc với cơ sở dữ liệu (đặc biệt là xử lý dữ liệu quy mô lớn) và có kinh nghiệm xây dựng hệ thống ETL. Điều này có thể đòi hỏi sự phối hợp với bộ phận công nghệ thông tin ngoài nhóm nghiên cứu trực tiếp hoặc thuê chuyên gia tư vấn kỹ thuật triển khai. Cần lưu ý rằng đây không phải là khoản đầu tư một lần duy nhất: về lâu dài, đơn vị nên duy trì một nhân sự hoặc một nhóm kỹ thuật dành một phần thời gian định kỳ để bảo trì và vận hành quy trình ETL (nội dung này sẽ được làm rõ hơn tại Mục 6.7).
+
+Cách thức triển khai kỹ thuật trên thực tế rất đa dạng giữa các cơ sở y tế, phụ thuộc vào hạ tầng máy chủ, quy mô dữ liệu, độ phức tạp của quy tắc chuyển đổi và thế mạnh công nghệ sẵn có của đội ngũ nhân sự tại chỗ. Chính vì sự đa dạng đó, cộng đồng OHDSI không áp đặt một công nghệ bắt buộc duy nhất nào để viết ETL. Các nhóm trong mạng lưới đã sử dụng thành công nhiều công cụ khác nhau như tập lệnh SQL thuần túy, SAS, C#, Java, Python, hoặc Pentaho Kettle. Mỗi công nghệ đều có ưu và nhược điểm riêng, và công cụ tốt nhất chính là công cụ mà đội ngũ kỹ thuật tại đơn vị của bạn nắm vững nhất.
+
+Dưới đây là một số ví dụ mã nguồn mở về các bộ công cụ triển khai ETL thực tế trong cộng đồng OHDSI (sắp xếp theo mức độ phức tạp tăng dần):
+
+- **ETL-Synthea** — Bộ kịch bản SQL chuyển đổi cơ sở dữ liệu giả lập Synthea sang OMOP CDM:
+  - <https://github.com/OHDSI/ETL-Synthea>
+- **ETL-CDMBuilder** — Ứng dụng nền tảng .NET (C#) được thiết kế để chuyển đổi tốc độ cao nhiều cơ sở dữ liệu lớn:
+  - <https://github.com/OHDSI/ETL-CDMBuilder>
+- **ETL-LambdaBuilder** — Hệ thống xây dựng CDM tận dụng kiến trúc điện toán đám mây phi máy chủ AWS Lambda:
+  - <https://github.com/OHDSI/ETL-LambdaBuilder>
+
+Cũng cần chia sẻ thẳng thắn rằng sau nhiều nỗ lực thử nghiệm độc lập, cộng đồng đã từ bỏ tham vọng tạo ra một công cụ ETL kéo-thả "vạn năng" có thể tự động hóa hoàn toàn mọi thứ cho người dùng cuối. Thực tế luôn cho thấy các công cụ tự động hóa như vậy chỉ giải quyết tốt được khoảng 80% khối lượng công việc ETL phổ thông, còn 20% logic đặc thù và phức tạp nhất của từng nguồn dữ liệu vẫn luôn đòi hỏi phải viết mã xử lý chuyên biệt ở cấp độ thấp.
+
+Khi đội ngũ kỹ thuật bắt đầu triển khai lập trình, tài liệu thiết kế đặc tả ETL (xuất từ Rabbit-in-a-Hat) cần được bàn giao đầy đủ cho họ. Mặc dù tài liệu thiết kế đã cung cấp khung thông tin chi tiết để bắt đầu, các lập trình viên vẫn cần giữ kênh trao đổi thường xuyên với nhóm thiết kế ETL để làm rõ các câu hỏi phát sinh trong quá trình viết mã — bởi những quy tắc viết trong tài liệu có thể rất hiển nhiên đối với người thiết kế nhưng lại đa nghĩa đối với người lập trình chưa quen thuộc với dữ liệu y tế và CDM. Giai đoạn triển khai cần được duy trì như một nỗ lực làm việc nhóm chặt chẽ, lặp đi lặp lại giữa việc chạy tạo dữ liệu CDM và kiểm thử đối chiếu cho đến khi cả nhóm thiết kế lẫn nhóm lập trình đều thống nhất rằng toàn bộ logic đã được hiện thực hóa chính xác.
+
+## Bước 4: Kiểm soát chất lượng (*Quality Control*)
+
+Đối với quy trình Trích xuất – Chuyển đổi – Nạp dữ liệu (ETL), kiểm soát chất lượng là một quá trình lặp đi lặp lại (*iterative process*) theo chu trình: **Viết đặc tả logic → Lập trình triển khai → Kiểm thử logic → Sửa lỗi / Cập nhật đặc tả logic**. Có nhiều phương pháp để kiểm thử một cơ sở dữ liệu CDM; dưới đây là các bước thực hành hiệu quả đã được cộng đồng OHDSI đúc kết qua nhiều năm triển khai thực tế:
+
+- **Rà soát chéo tài liệu thiết kế ETL, mã nguồn chương trình và bảng ánh xạ mã thuật ngữ**: Bất kỳ cá nhân nào cũng có thể mắc sai sót, vì vậy mọi hạng mục công việc đều cần có ít nhất một người thứ hai độc lập rà soát lại (*peer review*).
+  - Những lỗi lớn nhất trong chương trình ETL thường nằm ở khâu kết nối ánh xạ từ mã nguồn sang Khái niệm chuẩn. Việc ánh xạ có thể rất phức tạp, đặc biệt đối với những bộ mã có tính thời điểm hiệu lực như mã thuốc NDC. Hãy kiểm tra thật kỹ mọi câu lệnh SQL thực hiện ánh xạ để đảm bảo lọc đúng `vocabulary_id` nguồn và chuyển đổi sang đúng `concept_id` chuẩn của miền dữ liệu tương ứng.
+- **So sánh thủ công toàn bộ thông tin trên một mẫu bệnh nhân giữa dữ liệu nguồn và dữ liệu CDM đích**:
+  - Việc lấy ra một vài bệnh nhân cụ thể — lý tưởng nhất là những bệnh nhân có lịch sử khám chữa bệnh dày đặc với nhiều loại bản ghi khác nhau — và đối chiếu từng dòng sự kiện từ bảng nguồn sang các bảng CDM là cách kiểm tra cực kỳ hiệu quả. Việc lần theo dấu vết dữ liệu của một cá nhân cụ thể sẽ làm lộ rõ ngay những điểm bất hợp lý nếu dữ liệu trong CDM không khớp với kỳ vọng của quy tắc thiết kế.
+- **So sánh tổng số lượng bản ghi (*overall counts*) giữa dữ liệu nguồn và dữ liệu đích**:
+  - Có thể có những sự chênh lệch hoàn toàn hợp lý và đã được dự tính trước tùy thuộc vào quy tắc lọc dữ liệu của bạn. Ví dụ: một số đơn vị chủ động loại bỏ những bệnh nhân có giới tính `NULL` vì họ không đủ điều kiện đưa vào các phân tích dịch tễ; hoặc số lượng bản ghi lượt khám (`VISIT_OCCURRENCE`) trong CDM ít hơn số dòng tiếp xúc trong dữ liệu gốc do quy tắc gộp các dòng thanh toán nội trú liên tiếp thành một đợt nằm viện duy nhất. Khi đối chiếu tổng số lượng bản ghi giữa nguồn và CDM, hãy đảm bảo giải trình và kiểm chứng được chính xác nguyên nhân của mọi sự chênh lệch đó.
+- **Tái현 (*replicate*) một nghiên cứu từng được thực hiện trên dữ liệu nguồn gốc sang phiên bản dữ liệu CDM**:
+  - Đây là một bài kiểm tra thực tế rất tốt để phát hiện các sai khác hệ thống giữa dữ liệu nguồn và bản chuyển đổi CDM, mặc dù cách này đòi hỏi nhiều thời gian hơn.
+- **Xây dựng bộ kiểm thử đơn vị (*unit tests*) mô phỏng các tình huống dữ liệu đặc trưng cần xử lý trong ETL**:
+  - Ví dụ: nếu đặc tả ETL quy định phải loại bỏ bệnh nhân thiếu thông tin giới tính, hãy tạo một bản ghi bệnh nhân giả lập không có giới tính trong bộ dữ liệu kiểm thử và kiểm tra xem chương trình ETL có thực sự loại bỏ bản ghi đó như thiết kế hay không.
+  - Kiểm thử đơn vị đặc biệt hữu hiệu khi đánh giá độ chính xác của mã nguồn ETL. Phương pháp này thường được thực hiện bằng cách tạo một tập dữ liệu giả lập kích thước rất nhỏ nhưng có cấu trúc bảng giống hệt dữ liệu nguồn thực tế; mỗi bệnh nhân giả lập trong tập dữ liệu đó được thiết kế để kiểm tra một quy tắc logic cụ thể trong tài liệu đặc tả ETL (có thể dùng tính năng *Test Framework* tích hợp sẵn trong Rabbit-in-a-Hat để sinh mã kiểm thử R/SQL tự động). Nhờ kích thước dữ liệu nhỏ, bộ kiểm thử chạy chỉ trong vài giây, cho phép phát hiện lỗi tức thì và lặp lại chu trình sửa lỗi cực kỳ nhanh chóng.
+
+Trên đây là các phương pháp tiếp cận tổng quát để kiểm soát chất lượng từ góc độ xây dựng ETL. Để tìm hiểu sâu hơn về hệ thống các công cụ đánh giá chất lượng dữ liệu chuẩn hóa trong hệ sinh thái OHDSI (như ACHILLES và Data Quality Dashboard), vui lòng xem Chương 15.
+
+## Các quy ước ETL chuẩn và Nhóm công tác THEMIS
+
+Khi ngày càng có nhiều tổ chức trên thế giới chuyển đổi dữ liệu sang OMOP CDM, nhu cầu chuẩn hóa các quy ước xử lý tình huống cụ thể ngày càng trở nên cấp thiết. Ví dụ: quy trình ETL phải xử lý như thế nào khi gặp một bản ghi bệnh nhân bị khuyết năm sinh? Mục tiêu tối thượng của CDM là chuẩn hóa dữ liệu y tế; tuy nhiên, nếu mỗi đơn vị lại tự xử lý các tình huống dữ liệu biên theo một kiểu khác nhau thì việc triển khai các nghiên cứu đa trung tâm nhất quán trên toàn mạng lưới sẽ gặp nhiều trở ngại.
+
+Chính vì vậy, cộng đồng OHDSI đã bắt đầu chuẩn hóa và văn bản hóa các quy ước ETL nhằm nâng cao tính nhất quán giữa tất cả các cơ sở dữ liệu CDM. Những quy ước chuẩn đã được cộng đồng đồng thuận này được công bố chính thức trên trang CDM Wiki.[^cdmWikiUrl2] Mỗi bảng trong CDM đều có một mục quy ước riêng (*Conventions*) mà người thiết kế ETL cần tham chiếu. Ví dụ: quy ước chuẩn quy định một bản ghi trong bảng `PERSON` được phép khuyết tháng sinh hoặc ngày sinh, nhưng nếu khuyết năm sinh (`YEAR_OF_BIRTH`) thì bắt buộc phải loại bỏ bệnh nhân đó khỏi CDM. Khi thiết kế ETL, hãy luôn tra cứu các quy ước này để đưa ra các quyết định thiết kế đồng bộ với tiêu chuẩn chung của cộng đồng quốc tế.
+
+[^cdmWikiUrl2]: <https://github.com/OHDSI/CommonDataModel/wiki>
+
+Mặc dù không một tài liệu nào có thể dự liệu hết mọi tình huống dữ liệu đặc thù phát sinh trong thực tế, OHDSI có một nhóm công tác chuyên trách việc tổng hợp và giải quyết các tình huống phổ biến mang tên **THEMIS**.[^themisUrl] THEMIS quy tụ các chuyên gia giàu kinh nghiệm trong cộng đồng, có nhiệm vụ thu thập các câu hỏi về tình huống dữ liệu thực tế, thảo luận làm rõ, lấy ý kiến phản biện rộng rãi từ cộng đồng và sau đó cập nhật các quy ước đã chốt vào tài liệu chính thức trên CDM Wiki. (Trong thần thoại Hy Lạp cổ đại, nữ thần Titan *Themis* là hiện thân của trật tự thiêng liêng, sự công bằng, luật pháp và chuẩn mực — một tên gọi rất phù hợp với sứ mệnh của nhóm công tác này). Trong quá trình thực hiện ETL, nếu gặp bất kỳ tình huống dữ liệu nào chưa rõ cách xử lý chuẩn, THEMIS khuyến khích bạn đặt câu hỏi trực tiếp trên Diễn đàn OHDSI.[^ohdsiForum] Rất có thể thắc mắc của bạn cũng chính là vấn đề mà các đơn vị khác trong cộng đồng đang gặp phải. THEMIS sử dụng chính những cuộc thảo luận trên diễn đàn cùng các buổi họp nhóm định kỳ để liên tục bổ sung và hoàn thiện bộ quy ước chuẩn cho toàn mạng lưới.
+
+[^themisUrl]: <https://github.com/OHDSI/Themis>
+[^ohdsiForum]: <http://forums.ohdsi.org/>
+
+## Duy trì và bảo dưỡng CDM và ETL {#CDMandETLMaintenance}
+
+Việc thiết kế đặc tả ETL, ánh xạ mã thuật ngữ, lập trình triển khai và xây dựng quy trình kiểm soát chất lượng đã là một khối lượng công việc đồ sộ; tuy nhiên, nỗ lực đó không dừng lại sau khi cơ sở dữ liệu CDM đầu tiên được tạo xong. Luôn tồn tại một vòng đời duy trì và bảo dưỡng ETL diễn ra liên tục trong suốt quá trình vận hành. Bốn tác nhân phổ biến nhất kích hoạt nhu cầu bảo trì bao gồm: (1) sự thay đổi trong dữ liệu nguồn, (2) phát hiện lỗi (*bug*) trong chương trình ETL hiện tại, (3) phiên bản Bộ Từ vựng Chuẩn hóa OMOP mới được phát hành, hoặc (4) bản thân cấu trúc chuẩn OMOP CDM có phiên bản nâng cấp mới. Khi một trong các tác nhân này xuất hiện, bạn có thể cần phải cập nhật đồng bộ cả ba thành phần: tài liệu đặc tả thiết kế ETL, mã nguồn chương trình chạy ETL, và bộ kịch bản kiểm thử chất lượng.
+
+Trên thực tế, các nguồn dữ liệu y tế luôn vận động và thay đổi không ngừng theo thời gian. Dữ liệu mới có thể được bổ sung (ví dụ: hệ thống bệnh án điện tử thêm các bảng hoặc cột dữ liệu mới). Những tình huống lâm sàng hoặc lỗi dữ liệu chưa từng gặp trước đây có thể bất ngờ xuất hiện trong đợt trích xuất mới (ví dụ: xuất hiện một bệnh nhân mới có ngày tử vong ghi nhận sớm hơn cả ngày sinh). Sự hiểu biết của chính nhóm nghiên cứu về dữ liệu nguồn cũng ngày càng sâu sắc hơn qua quá trình khai thác (ví dụ: phát hiện ra rằng một số bản ghi sinh con nội trú lại bị hệ thống kế toán viện phí ghi nhận thành mã khám ngoại trú do quy trình tách phiếu thanh toán). Không phải mọi thay đổi nhỏ trong dữ liệu nguồn đều buộc phải sửa lại quy trình ETL, nhưng tối thiểu những thay đổi làm gián đoạn việc chạy chương trình hoặc làm sai lệch kết quả phân tích bắt buộc phải được khắc phục.
+
+Khi phát hiện lỗi (*bugs*) trong quy trình ETL, chúng cần được ghi nhận và xử lý. Tuy nhiên, cần đánh giá mức độ ưu tiên vì không phải mọi lỗi đều có mức độ nghiêm trọng như nhau. Ví dụ: giả sử trong bảng `COST` (Chi phí), cột chi phí đang bị làm tròn thành số nguyên (chẳng hạn dữ liệu nguồn là `3,82 USD` nhưng khi nạp vào CDM lại bị làm tròn thành `4,00 USD`). Nếu nhóm nghiên cứu chính khai thác cơ sở dữ liệu này chỉ tập trung vào việc mô tả dịch tễ học phơi nhiễm thuốc và bệnh lý lâm sàng của bệnh nhân, thì lỗi làm tròn chi phí trên hầu như không ảnh hưởng đến nghiên cứu hiện tại và có thể đưa vào danh sách chờ sửa ở đợt cập nhật sau. Ngược lại, nếu đơn vị có các chuyên gia kinh tế y tế đang thực hiện phân tích chi phí – hiệu quả trên CDM, thì đây lại là một lỗi nghiêm trọng cần phải được khắc phục ngay lập tức.
+
+Bộ Từ vựng Chuẩn hóa OMOP cũng liên tục được cập nhật giống như dữ liệu nguồn. Trên thực tế, Bộ Từ vựng có thể có nhiều bản phát hành trong cùng một tháng khi các bộ thuật ngữ quốc tế thành phần cập nhật mã mới. Mỗi cơ sở dữ liệu CDM tại một thời điểm đều gắn với một phiên bản Bộ Từ vựng cụ thể, và việc nâng cấp lên phiên bản Bộ Từ vựng mới hơn có thể làm thay đổi cách một số mã nguồn được ánh xạ sang Khái niệm chuẩn. Thông thường, sự khác biệt giữa hai bản phát hành liên tiếp của Bộ Từ vựng là khá nhỏ, nên không cần thiết phải chạy tạo lại toàn bộ cơ sở dữ liệu CDM mỗi khi có bản phát hành từ vựng mới. Tuy nhiên, thông lệ thực hành tốt được khuyến nghị là nên cập nhật Bộ Từ vựng mới khoảng một đến hai lần mỗi năm và chạy lại quy trình ETL để làm mới CDM. Hiếm khi sự thay đổi trong phiên bản mới của Bộ Từ vựng đòi hỏi phải viết lại bản thân mã nguồn chương trình ETL.
+
+Tác nhân cuối cùng đòi hỏi phải bảo trì CDM và nâng cấp ETL là khi bản thân tiêu chuẩn Mô hình Dữ liệu Chung OMOP phát hành phiên bản mới. Khi cộng đồng OHDSI phát triển và mở rộng sang các lĩnh vực nghiên cứu mới, mô hình CDM có thể được bổ sung thêm các bảng hoặc trường dữ liệu mới (đồng nghĩa với việc những thông tin trong dữ liệu nguồn trước đây chưa có chỗ lưu trữ nay có thể được đưa vào CDM). Những thay đổi phá vỡ cấu trúc bảng CDM hiện có rất hiếm khi xảy ra, nhưng vẫn có thể xuất hiện giữa các phiên bản lớn (ví dụ: việc bổ sung các trường bắt buộc kiểu `DATETIME` bên cạnh kiểu `DATE` truyền thống có thể đòi hỏi cập nhật lại câu lệnh `INSERT` trong mã nguồn ETL). Các phiên bản chính thức của CDM không phát hành quá thường xuyên, và từng cơ sở y tế hoàn toàn chủ động quyết định lộ trình nâng cấp phiên bản CDM phù hợp với nguồn lực của mình.
+
+## Những đúc kết cuối cùng về ETL
+
+Xây dựng quy trình ETL là một công việc đầy thách thức vì nhiều lý do, mà trước hết là bởi mỗi đơn vị đều phải làm việc với một nguồn dữ liệu có cấu trúc và lịch sử đặc thù riêng, khiến việc tạo ra một giải pháp tự động "một khuôn mẫu cho tất cả" (*one-size-fits-all*) là điều bất khả thi. Tuy nhiên, qua hàng trăm dự án chuyển đổi dữ liệu trên khắp thế giới, cộng đồng OHDSI đã rút ra những bài học kinh nghiệm quý báu sau:
+
+- **Quy tắc 80/20**: Nếu có thể, đừng dành quá nhiều thời gian ngay từ đầu để cố gắng ánh xạ thủ công 100% mọi mã nguồn hiếm gặp. Lý tưởng nhất là hãy ưu tiên ánh xạ nhóm mã nguồn cốt lõi chiếm phần lớn (80–90%) tổng dung lượng bản ghi dữ liệu của bạn. Chừng đó là hoàn toàn đủ để bạn khởi chạy cơ sở dữ liệu CDM và bắt đầu các nghiên cứu đầu tiên; những mã nguồn ít gặp còn lại có thể được bổ sung dần trong các chu kỳ bảo trì tiếp theo dựa trên nhu cầu của từng đề tài nghiên cứu cụ thể.
+- **Chấp nhận loại bỏ những dữ liệu không đạt chất lượng nghiên cứu**: Đừng ngần ngại nếu phải lọc bỏ một số bản ghi bị lỗi hoặc thiếu thông tin cốt lõi. Thông thường, đó cũng chính là những bản ghi không đạt tiêu chuẩn và đằng nào cũng sẽ bị loại bỏ trước khi chạy phân tích thống kê — việc loại bỏ chúng ngay trong quá trình ETL giúp cơ sở dữ liệu CDM sạch và đáng tin cậy hơn.
+- **CDM luôn đòi hỏi sự duy trì và bảo dưỡng**: Hoàn thành lần chạy ETL đầu tiên không có nghĩa là bạn sẽ không bao giờ phải chạm lại vào nó nữa. Dữ liệu thô của bệnh viện sẽ thay đổi, mã nguồn có thể phát sinh lỗi, Bộ Từ vựng có bản mới hoặc CDM được nâng cấp. Hãy chủ động lập kế hoạch phân bổ nguồn lực để duy trì và cập nhật định kỳ giúp hệ thống ETL và CDM của đơn vị luôn sống động và chuẩn xác.
+- Để nhận được sự hỗ trợ trực tiếp từ cộng đồng khi bắt đầu xây dựng OMOP CDM, thực hiện chuyển đổi cơ sở dữ liệu hoặc vận hành các công cụ phân tích, vui lòng truy cập Diễn đàn dành cho các nhà triển khai (*Implementers Forum*) của OHDSI.[^implementersForum]
+
+[^implementersForum]: <https://forums.ohdsi.org/c/implementers>
 
 ## Tóm tắt
 
-![](media/image4.png){width="0.4455205599300088in"
-height="0.4644783464566929in" .book-icon}
-
-- There is a generally agreed upon process for how to approach an ETL,
-includ-ing
-
-- Data experts and CDM experts together design the ETL
-
-- People with medical knowledge create the code mappings
-
-- A technical person implements the ETL
-
-- All are involved in quality control
-
-- Tools have been developed by the OHDSI community to facilitate these
-steps and are freely available for use
-
-- There are many ETL examples and agreed upon conventions you can use as
-a guide
-
-^9^<https://forums.ohdsi.org/c/implementers>
-
-*6.10. Bài tập 97*
+::: {.callout-tip title="Tóm tắt chương"}
+- Cộng đồng OHDSI đã thống nhất một quy trình chuẩn gồm 4 bước để tiếp cận và triển khai dự án ETL, bao gồm:
+  - Các chuyên gia dữ liệu nguồn và chuyên gia CDM cùng phối hợp thiết kế đặc tả ETL
+  - Các chuyên gia có kiến thức y khoa thực hiện việc tạo ánh xạ mã thuật ngữ (*code mappings*)
+  - Nhân sự kỹ thuật lập trình và triển khai quy trình ETL
+  - Tất cả các bên cùng tham gia vào quá trình kiểm soát chất lượng (*quality control*)
+- Nhiều công cụ phần mềm mã nguồn mở (như White Rabbit, Rabbit-in-a-Hat, Usagi) đã được cộng đồng OHDSI phát triển để hỗ trợ trực tiếp các bước này và được cung cấp hoàn toàn miễn phí.
+- Có rất nhiều ví dụ triển khai ETL thực tế cùng bộ quy ước chuẩn (THEMIS / CDM Wiki) đã được cộng đồng thống nhất mà bạn có thể sử dụng làm kim chỉ nam trong quá trình thực hiện.
+:::
 
 ## Bài tập
 
-**Bài tập 6.1. Sắp xếp các bước của quy trình ETL theo đúng thứ tự:**
+**Bài tập 6.1.** Hãy sắp xếp các bước của quy trình ETL dưới đây theo đúng thứ tự chuẩn:
 
-A)  Các chuyên gia dữ liệu và chuyên gia CDM cùng thiết kế ETL
+A) Các chuyên gia dữ liệu nguồn và chuyên gia CDM cùng thiết kế ETL
+B) Nhân sự kỹ thuật triển khai lập trình ETL
+C) Những người có kiến thức y khoa tạo các bảng ánh xạ mã thuật ngữ
+D) Tất cả các bên cùng tham gia vào kiểm soát chất lượng
 
-B)  Một người kỹ thuật triển khai ETL
+**Bài tập 6.2.** Sử dụng các nguồn tài liệu tham khảo của OHDSI mà bạn chọn (như CDM Wiki và ATHENA), hãy chỉ ra **bốn vấn đề sai chuẩn** trong bản ghi của bảng `PERSON` dưới đây (Bảng 6.2, một số cột đã được lược bớt để tiết kiệm không gian):
 
-C)  Những người có kiến thức y tế tạo ra các khớp nối mã
+*Bảng 6.2: Một bản ghi ví dụ trong bảng `PERSON`.*
 
-D)  Tất cả đều tham gia vào kiểm soát chất lượng
+| Tên cột (`Column`) | Giá trị (`Value`) |
+| :--- | :--- |
+| `PERSON_ID` | `A123B456` |
+| `GENDER_CONCEPT_ID` | `8532` |
+| `YEAR_OF_BIRTH` | `NULL` |
+| `MONTH_OF_BIRTH` | `NULL` |
+| `DAY_OF_BIRTH` | `NULL` |
+| `RACE_CONCEPT_ID` | `0` |
+| `ETHNICITY_CONCEPT_ID` | `8527` |
+| `PERSON_SOURCE_VALUE` | `A123B456` |
+| `GENDER_SOURCE_VALUE` | `F` |
+| `RACE_SOURCE_VALUE` | `WHITE` |
+| `ETHNICITY_SOURCE_VALUE` | `NONE PROVIDED` |
 
-**Bài tập 6.2. Sử dụng các tài nguyên OHDSI mà bạn chọn, hãy tìm ra
-bốn vấn đề với hồ sơ PERSON hiển thị trong Bảng 6.3 (bảng đã được rút
-gọn để tiết kiệm không gian):**
+**Bài tập 6.3.** Hãy thử áp dụng quy tắc logic để tạo các bản ghi `VISIT_OCCURRENCE`. Dưới đây là một ví dụ về quy tắc logic được viết cho cơ sở dữ liệu Synthea:
 
-Bảng 6.3: Bảng PERSON.
+Sắp xếp dữ liệu theo thứ tự tăng dần của `PATIENT`, `START`, `END`. Sau đó, trong từng `PERSON_ID`, gộp (*collapse*) các dòng yêu cầu thanh toán nội trú liên tiếp lại với nhau miễn là khoảng cách thời gian giữa ngày kết thúc (`END`) của dòng trước và ngày bắt đầu (`START`) của dòng kế tiếp nhỏ hơn hoặc bằng 1 ngày (`<= 1 ngày`). Mỗi cụm yêu cầu thanh toán nội trú sau khi gộp được xem là một lượt khám nội trú duy nhất trong CDM, với cách gán giá trị như sau:
 
-Cột Giá trị
+- Lấy `MIN(START)` làm `VISIT_START_DATE`
+- Lấy `MAX(END)` làm `VISIT_END_DATE`
+- Gán `"IP"` làm `PLACE_OF_SERVICE_SOURCE_VALUE` (hoặc `VISIT_SOURCE_VALUE`)
 
-PERSON_ID A123B456
+Nếu bạn bắt gặp tập hợp các dòng dữ liệu lượt khám trong dữ liệu nguồn như hiển thị tại Hình 6.10, bạn kỳ vọng (các) bản ghi `VISIT_OCCURRENCE` kết quả sau khi chạy ETL sẽ trông như thế nào trong CDM?
 
-ID_KHÁI_NIỆM_GIỚI_TÍNH 8532
+![](media/image26.jpeg){width="5.382812773403325in" height="0.9551038932633421in"}
 
-NĂM_SINH NULL
+*Hình 6.10: Ví dụ dữ liệu nguồn cho Bài tập 6.3.*
 
-THÁNG_SINH NULL
-
-DAY_OF_BIRTH NULL
-
-RACE_CONCEPT_ID 0
-
-ID_KHÁI_NIỆM_DÂN_TỘC 8527 GIÁ_TRỊ_NGUỒN_NGƯỜI A123B456
-GIÁ_TRỊ_NGUỒN_GIỚI_TÍNH F GIÁ_TRỊ_NGUỒN_CHỦNG_TỘC TRẮNG
-GIÁ_TRỊ_NGUỒN_DÂN_TỘC KHÔNG_CUNG_CẤP
-
-**Bài tập 6.3. Hãy thử tạo các hồ sơ VISIT_OCCURRENCE. Đây là một ví
-dụ về logic được viết cho Synthea: Sắp xếp dữ liệu theo thứ tự tăng
-dần theo PATIENT, START, END. Sau đó theo PERSON_ID, thu gọn các dòng
-yêu cầu thanh toán miễn là thời gian giữa END của một dòng và START
-của dòng tiếp theo là \<=1 ngày. Mỗi yêu cầu thanh toán nội trú được
-hợp nhất sau đó được coi là một lần thăm khám nội trú, đặt:**
-
-- MIN(START) là VISIT_START_DATE
-
-- MAX(END) vào VISIT_END_DATE
-
-- "IP" là PLACE_OF_SERVICE_SOURCE_VALUE
-
-Nếu bạn thấy một tập hợp các lượt thăm khám như hiển thị trong Hình
-6.10 trong dữ liệu nguồn của mình, bạn mong đợi hồ sơ VISIT_OCCURRENCE
-kết quả sẽ trông như thế nào trong CDM?
-
-Các câu trả lời gợi ý có thể được tìm thấy
-trong Phụ lục E.3.
-
-![](media/image26.jpeg){width="5.382812773403325in"
-height="0.9551038932633421in"}
-
-Hình 6.10: Dữ liệu nguồn ví dụ.
-
+Đáp án gợi ý có thể được tìm thấy trong Phụ lục E.3.

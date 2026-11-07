@@ -1,340 +1,117 @@
----
-title: "Chương 1: Cộng đồng OHDSI"
----
+# Chương 1: Cộng đồng OHDSI
 
-# Cộng đồng OHDSI
+*Chủ biên chương: Patrick Ryan & George Hripcsak*
 
-*Trưởng chương: Patrick Ryan & George Hripcsak*
-
-"Đến với nhau là một sự khởi đầu; giữ được nhau là sự tiến bộ; làm việc
-cùng nhau là thành công." Henry Ford
+> "Đến với nhau là một sự khởi đầu; gắn bó với nhau là sự tiến bộ; làm việc cùng nhau là thành công." — *Henry Ford*
 
 ## Hành trình từ dữ liệu đến bằng chứng
 
-Ở khắp mọi nơi trong lĩnh vực chăm sóc sức khỏe, trên toàn thế giới,
-trong các trung tâm y tế học thuật và các phòng khám tư nhân, các cơ
-quan quản lý và nhà sản xuất sản phẩm y tế, các công ty bảo hiểm và
-các trung tâm chính sách, và tại trung tâm của mọi tương tác giữa bệnh
-nhân và nhà cung cấp dịch vụ, có một thách thức chung: làm thế nào để
-chúng ta áp dụng những gì đã học từ quá khứ để đưa ra quyết định tốt
-hơn cho tương lai?
+Ở khắp mọi nơi trong lĩnh vực y tế trên toàn thế giới — từ các trung tâm y khoa học thuật đến các phòng khám tư nhân, từ các cơ quan quản lý dược phẩm đến các nhà sản xuất trang thiết bị và dược phẩm, từ các tổ chức bảo hiểm đến các viện hoạch định chính sách, và ngay tại trọng tâm của mọi tương tác giữa người bệnh và nhân viên y tế — luôn hiện hữu một thách thức chung: làm thế nào để chúng ta vận dụng những bài học từ quá khứ nhằm đưa ra các quyết định tốt hơn cho tương lai?
 
-Trong hơn một thập kỷ, nhiều người đã ủng hộ tầm nhìn về một hệ thống
-chăm sóc sức khỏe học tập, "được thiết kế để tạo ra và áp dụng bằng
-chứng tốt nhất cho các lựa chọn chăm sóc sức khỏe hợp tác của mỗi bệnh
-nhân và nhà cung cấp; để thúc đẩy quá trình khám phá như một kết quả
-tự nhiên của việc chăm sóc bệnh nhân; và để đảm bảo sự đổi mới, chất
-lượng, an toàn và giá trị trong chăm sóc sức khỏe". (Olsen et al.,
-2007) Một thành phần chính của tham vọng này dựa trên triển vọng thú
-vị rằng dữ liệu cấp độ bệnh nhân thu thập được trong quá trình chăm
-sóc lâm sàng thường quy có thể được phân tích để tạo ra bằng chứng
-thực tế, từ đó có thể được phổ biến khắp hệ thống chăm sóc sức khỏe để
-thông tin cho thực hành lâm sàng. Năm 2007, Viện Y học Roundtable về Y
-học dựa trên bằng chứng đã đưa ra một báo cáo thiết lập mục tiêu rằng
-"Đến năm 2020, 90 phần trăm các quyết định lâm sàng sẽ được hỗ trợ bởi
-thông tin lâm sàng chính xác, kịp thời và cập nhật, và sẽ phản ánh
-bằng chứng tốt nhất hiện có." (Olsen et al., 2007) Mặc dù đã đạt được
-những tiến bộ to lớn trên nhiều mặt trận khác nhau, chúng ta vẫn còn
-cách xa những khát vọng đáng khen ngợi này.
+Trong hơn một thập kỷ qua, nhiều học giả đã cổ vũ cho tầm nhìn về một **hệ thống y tế học tập liên tục** (*learning healthcare system*), "được thiết kế để tạo ra và áp dụng bằng chứng tốt nhất cho các lựa chọn chăm sóc sức khỏe mang tính hợp tác giữa từng bệnh nhân và người thầy thuốc; thúc đẩy quá trình khám phá tri thức như một kết quả tự nhiên của hoạt động chăm sóc người bệnh; đồng thời đảm bảo sự đổi mới, chất lượng, an toàn và giá trị trong chăm sóc sức khỏe" (Olsen et al., 2007). Một cấu phần cốt lõi của hoài bão này dựa trên triển vọng đầy hứa hẹn rằng dữ liệu ở cấp độ bệnh nhân (*patient-level data*) thu thập trong quá trình khám chữa bệnh thường quy có thể được phân tích để tạo ra **bằng chứng đời thực** (*real-world evidence*), rồi từ đó phổ biến rộng rãi trong toàn hệ thống y tế nhằm định hướng thực hành lâm sàng. Năm 2007, Hội nghị Bàn tròn về Y học Dựa trên Bằng chứng của Viện Y học Hoa Kỳ (*Institute of Medicine Roundtable on Evidence-Based Medicine*) đã công bố báo cáo đề ra mục tiêu: "Đến năm 2020, 90% các quyết định lâm sàng sẽ được hỗ trợ bởi thông tin lâm sàng chính xác, kịp thời, cập nhật và phản ánh bằng chứng tốt nhất hiện có" (Olsen et al., 2007). Mặc dù đã đạt được những bước tiến to lớn trên nhiều phương diện, chúng ta vẫn còn cách khá xa mục tiêu đáng khích lệ này.
 
-Tại sao? Một phần là vì hành trình từ dữ liệu cấp độ bệnh nhân đến
-bằng chứng đáng tin cậy là một hành trình gian nan. Không có con đường
-duy nhất được xác định từ dữ liệu đến bằng chứng, và không có bản đồ
-duy nhất nào có thể giúp điều hướng trên con đường đó. Trên thực tế,
-không có khái niệm duy nhất về "dữ liệu", cũng như không có khái niệm
-duy nhất về "bằng chứng".
+Tại sao vậy? Một phần nguyên nhân là bởi hành trình chuyển hóa từ dữ liệu ở cấp độ bệnh nhân thành bằng chứng khoa học đáng tin cậy là một chặng đường đầy gian nan. Không có một lối đi duy nhất nào được định sẵn từ dữ liệu đến bằng chứng, cũng chẳng có một tấm bản đồ vạn năng nào giúp định hướng trên suốt chặng đường đó. Trên thực tế, không tồn tại một khái niệm đơn nhất về "dữ liệu", cũng như không có một khái niệm đơn nhất về "bằng chứng".
 
-![](media/image2.jpeg){width="7.6in"
-height="5.8in"}
+![](media/image2.jpeg){width="7.6in" height="5.8in"}
 
-Hình 1.1: Hành trình từ dữ liệu đến bằng chứng
+Hình 1.1: Hành trình từ dữ liệu đến bằng chứng.
 
-Có nhiều loại cơ sở dữ liệu quan sát khác nhau thu thập dữ liệu cấp độ
-bệnh nhân khác biệt trong các hệ thống nguồn. Các cơ sở dữ liệu này đa
-dạng như chính hệ thống chăm sóc sức khỏe, phản ánh các quần thể, môi
-trường chăm sóc và quy trình thu thập dữ liệu khác nhau. Cũng có nhiều
-loại bằng chứng có thể hữu ích để thông tin cho việc ra quyết định, có
-thể được phân loại theo các trường hợp sử dụng phân tích về đặc điểm
-lâm sàng, ước tính hiệu quả cấp độ quần thể và dự đoán cấp độ bệnh
-nhân. Độc lập với nguồn gốc (dữ liệu nguồn) và đích đến mong muốn
-(bằng chứng), thách thức còn trở nên phức tạp hơn bởi sự rộng lớn của
-các năng lực lâm sàng, khoa học và kỹ thuật cần thiết để thực hiện
-hành trình. Nó đòi hỏi sự hiểu biết thấu đáo về tin học y tế, bao gồm
-toàn bộ nguồn gốc của dữ liệu nguồn từ điểm tương tác chăm sóc giữa
-bệnh nhân và nhà cung cấp thông qua các hệ thống hành chính và lâm
-sàng và vào kho lưu trữ cuối cùng, với sự đánh giá cao về những sai
-lệch có thể phát sinh như một phần của chính sách y tế và các động lực
-hành vi liên quan đến quy trình thu thập và quản lý dữ liệu. Nó đòi
-hỏi sự thông thạo các nguyên tắc dịch tễ học và phương pháp thống kê
-để dịch một câu hỏi lâm sàng thành một thiết kế nghiên cứu quan sát
-phù hợp để tạo ra câu trả lời thích hợp. Nó đòi hỏi khả năng kỹ thuật
-để triển khai và thực hiện các thuật toán khoa học dữ liệu hiệu quả về
-mặt tính toán trên các tập dữ liệu chứa hàng triệu bệnh nhân với hàng
-tỷ quan sát lâm sàng qua nhiều năm theo dõi dọc. Nó đòi hỏi kiến thức
-lâm sàng để tổng hợp những gì đã học được trên một mạng lưới dữ liệu
-quan sát với bằng chứng từ các nguồn thông tin khác, và để xác định
-cách thức kiến thức mới này nên tác động đến chính sách y tế và thực
-hành lâm sàng. Theo đó, rất hiếm khi bất kỳ cá nhân nào sở hữu đủ các
-kỹ năng và nguồn lực cần thiết để tự mình thực hiện thành công hành
-trình từ dữ liệu đến bằng chứng. Thay vào đó, hành trình thường yêu-
+Có rất nhiều loại cơ sở dữ liệu quan sát khác nhau ghi nhận dữ liệu cấp độ bệnh nhân không đồng nhất từ các hệ thống nguồn. Các cơ sở dữ liệu này đa dạng như chính hệ thống y tế, phản ánh các quần thể dân cư, bối cảnh chăm sóc và quy trình thu thập dữ liệu khác nhau. Đồng thời, cũng có nhiều loại bằng chứng khác nhau phục vụ việc ra quyết định, có thể được phân loại theo ba bài toán phân tích chính: **mô tả đặc trưng lâm sàng** (*clinical characterization*), **ước lượng hiệu quả ở cấp độ quần thể** (*population-level effect estimation*) và **dự báo ở cấp độ bệnh nhân** (*patient-level prediction*).
 
-*1.2. Đối tác Kết quả Y tế Quan sát 5*
+Bất kể điểm xuất phát (dữ liệu nguồn) và đích đến mong muốn (bằng chứng) là gì, thách thức này còn trở nên phức tạp hơn gấp bội bởi bề rộng của các năng lực lâm sàng, khoa học và kỹ thuật cần thiết để hoàn thành hành trình:
 
-cầu sự hợp tác giữa nhiều cá nhân và tổ chức để đảm bảo rằng dữ liệu
-tốt nhất hiện có được phân tích bằng các phương pháp phù hợp nhất để
-tạo ra bằng chứng mà tất cả các bên liên quan có thể tin tưởng và sử
-dụng trong quy trình ra quyết định của họ.
+- **Hiểu biết thấu đáo về tin học y tế** (*health informatics*): nắm vững toàn bộ nguồn gốc dữ liệu (*data provenance*) từ điểm tương tác trực tiếp giữa bệnh nhân và nhân viên y tế, đi qua các hệ thống hành chính và lâm sàng cho đến kho lưu trữ cuối cùng, đồng thời nhận diện rõ những sai lệch (*biases*) có thể phát sinh từ chính sách y tế và các động lực hành vi gắn liền với quy trình thu thập, chuẩn hóa dữ liệu.
+- **Tinh thông nguyên lý dịch tễ học và phương pháp thống kê**: chuyển hóa một câu hỏi lâm sàng thành thiết kế nghiên cứu quan sát phù hợp nhằm tạo ra câu trả lời xác đáng.
+- **Năng lực kỹ thuật và khoa học dữ liệu**: triển khai và thực thi các thuật toán có hiệu năng tính toán cao trên những tập dữ liệu chứa hàng triệu bệnh nhân với hàng tỷ quan sát lâm sàng trải dài qua nhiều năm theo dõi dọc (*longitudinal follow-up*).
+- **Kiến thức chuyên môn lâm sàng**: tổng hợp những phát hiện thu được từ mạng lưới dữ liệu quan sát với bằng chứng từ các nguồn thông tin khác, từ đó xác định cách thức tri thức mới này tác động đến chính sách y tế và thực hành lâm sàng.
 
-## Đối tác Kết quả Y tế Quan sát
+Do đó, rất hiếm khi một cá nhân đơn lẻ sở hữu đầy đủ mọi kỹ năng và nguồn lực cần thiết để tự mình đi trọn hành trình từ dữ liệu đến bằng chứng. Thay vào đó, hành trình này đòi hỏi sự hợp tác chặt chẽ giữa nhiều cá nhân và tổ chức nhằm đảm bảo rằng nguồn dữ liệu tốt nhất hiện có được phân tích bằng các phương pháp thích hợp nhất, tạo ra bằng chứng mà mọi bên liên quan đều có thể tin cậy và sử dụng trong quá trình ra quyết định.
 
-Một ví dụ đáng chú ý về sự hợp tác trong nghiên cứu quan sát là
-Observational Medical Outcomes Partnership (OMOP). OMOP là một quan hệ
-đối tác công-tư, do Cục Quản lý Thực phẩm và Dược phẩm Hoa Kỳ (FDA)
-chủ trì, được quản lý bởi Quỹ Viện Y tế Quốc gia và được tài trợ bởi
-một tập đoàn các công ty dược phẩm hợp tác với các nhà nghiên cứu học
-thuật và các đối tác dữ liệu y tế để thiết lập một chương trình nghiên
-cứu nhằm thúc đẩy khoa học về giám sát an toàn sản phẩm y tế chủ động
-sử dụng dữ liệu chăm sóc sức khỏe quan sát. (Stang et al., 2010) OMOP
-đã thiết lập một cấu trúc quản trị đa bên và thiết kế một loạt các thí
-nghiệm phương pháp luận để thử nghiệm thực nghiệm hiệu suất của các
-thiết kế dịch tễ học và phương pháp thống kê thay thế khi áp dụng cho
-một loạt các cơ sở dữ liệu yêu cầu thanh toán hành chính và hồ sơ sức
-khỏe điện tử cho nhiệm vụ xác định các liên kết an toàn thuốc thực sự
-và phân biệt chúng với các kết quả dương tính giả.
+## Quan hệ Đối tác về Kết cục Y tế Quan sát (OMOP)
 
-Nhận thức được những thách thức kỹ thuật trong việc thực hiện nghiên
-cứu trên các cơ sở dữ liệu quan sát khác biệt trong cả môi trường tập
-trung và mạng lưới nghiên cứu phân tán, nhóm đã thiết kế Mô hình dữ
-liệu chung OMOP (CDM) như một cơ chế để chuẩn hóa cấu trúc, nội dung
-và ngữ nghĩa của dữ liệu quan sát và giúp việc viết mã phân tích thống
-kê một lần có thể được tái sử dụng tại mỗi cơ sở dữ liệu. (Overhage et
-al., 2012) Các thí nghiệm của OMOP đã chứng minh rằng có thể thiết lập
-một mô hình dữ liệu chung và các từ vựng chuẩn hóa có thể chứa các
-loại dữ liệu khác nhau từ các môi trường chăm sóc khác nhau và được
-đại diện bởi các từ vựng nguồn khác nhau theo cách có thể tạo điều
-kiện cho sự hợp tác liên tổ chức và phân tích hiệu quả về mặt tính
-toán.
+Một hình mẫu tiêu biểu về sự hợp tác trong nghiên cứu quan sát là **Quan hệ Đối tác về Kết cục Y tế Quan sát** (*Observational Medical Outcomes Partnership* — **OMOP**). OMOP là một chương trình hợp tác công – tư do Cục Quản lý Thực phẩm và Dược phẩm Hoa Kỳ (FDA) chủ trì, Quỹ Viện Y tế Quốc gia Hoa Kỳ (FNIH) điều hành và được tài trợ bởi liên danh các tập đoàn dược phẩm, phối hợp cùng các nhà nghiên cứu học thuật và các đối tác dữ liệu y tế nhằm thúc đẩy khoa học giám sát chủ động an toàn sản phẩm y tế bằng dữ liệu chăm sóc sức khỏe quan sát (Stang et al., 2010). OMOP đã thiết lập cơ cấu quản trị đa bên và thiết kế hàng loạt thực nghiệm phương pháp luận nhằm kiểm chứng thực nghiệm hiệu năng của các thiết kế dịch tễ học và phương pháp thống kê khác nhau khi áp dụng trên nhiều cơ sở dữ liệu bảo hiểm y tế (*administrative claims*) và bệnh án điện tử (*electronic health records* — EHR), phục vụ nhiệm vụ nhận diện các mối liên quan thực sự về an toàn thuốc và phân biệt chúng với các kết quả dương tính giả.
 
-Ngay từ khi thành lập, OMOP đã áp dụng cách tiếp cận khoa học mở, đặt
-tất cả các sản phẩm công việc của mình, bao gồm thiết kế nghiên cứu,
-tiêu chuẩn dữ liệu, mã phân tích và kết quả thực nghiệm, vào phạm vi
-công cộng để thúc đẩy tính minh bạch, xây dựng niềm tin vào nghiên cứu
-mà OMOP đang thực hiện, nhưng cũng để cung cấp một nguồn lực cộng đồng
-có thể được tái sử dụng để thúc đẩy các mục tiêu nghiên cứu của những
-người khác. Mặc dù trọng tâm ban đầu của OMOP là an toàn thuốc, OMOP
-CDM liên tục phát triển để hỗ trợ một tập hợp các trường hợp sử dụng
-phân tích mở rộng, bao gồm hiệu quả so sánh của các can thiệp y tế và
-chính sách hệ thống y tế.
+Nhận thức rõ những rào cản kỹ thuật khi triển khai nghiên cứu trên các cơ sở dữ liệu quan sát không đồng nhất trong cả môi trường tập trung lẫn mạng lưới nghiên cứu phân tán, nhóm nghiên cứu đã thiết kế **Mô hình Dữ liệu Chung OMOP** (*OMOP Common Data Model* — **CDM**) như một cơ chế chuẩn hóa cấu trúc, nội dung và ngữ nghĩa của dữ liệu quan sát, cho phép viết mã phân tích thống kê một lần duy nhất nhưng có thể tái sử dụng tại mọi cơ sở dữ liệu (Overhage et al., 2012). Các thực nghiệm của OMOP đã chứng minh tính khả thi của việc thiết lập một mô hình dữ liệu chung cùng bộ từ vựng chuẩn hóa đủ khả năng dung nạp các loại dữ liệu khác nhau từ nhiều bối cảnh chăm sóc và nhiều bộ mã nguồn khác nhau, qua đó tạo điều kiện thuận lợi cho việc hợp tác liên tổ chức và phân tích hiệu năng cao.
 
-Và trong khi OMOP thành công trong việc hoàn thành các thí nghiệm thực
-nghiệm quy mô lớn của mình, (Ryan et al., 2012, 2013b) phát triển các
-đổi mới phương pháp luận, (Schuemie et al., 2014) và tạo ra tri thức
-hữu ích đã thông tin cho việc sử dụng thích hợp dữ liệu quan sát để ra
-quyết định an toàn, (Madigan et al., 2013b,a) di sản của OMOP có thể
-được nhớ đến nhiều hơn vì việc áp dụng sớm các nguyên tắc khoa học mở
-và sự kích thích thúc đẩy việc hình thành cộng đồng OHDSI.
+Ngay từ khi thành lập, OMOP đã áp dụng phương pháp tiếp cận **khoa học mở** (*open science*), đưa toàn bộ sản phẩm nghiên cứu của mình — bao gồm thiết kế nghiên cứu, tiêu chuẩn dữ liệu, mã nguồn phân tích và kết quả thực nghiệm — vào phạm vi công cộng để thúc đẩy tính minh bạch, củng cố niềm tin vào các nghiên cứu do OMOP thực hiện, đồng thời cung cấp nguồn tài nguyên chung mà cộng đồng có thể tái sử dụng cho các mục tiêu nghiên cứu khác. Dù trọng tâm ban đầu của OMOP là cảnh giác dược và an toàn thuốc, OMOP CDM đã liên tục phát triển để hỗ trợ một tập hợp ngày càng rộng các bài toán phân tích, bao gồm nghiên cứu hiệu quả so sánh (*comparative effectiveness*) của các can thiệp y khoa và chính sách hệ thống y tế.
 
-Khi dự án OMOP hoàn thành, sau khi hoàn thành nhiệm vụ thực hiện
-nghiên cứu phương pháp luận để thông tin cho các hoạt động giám sát
-chủ động của FDA, nhóm đã nhận ra
+Mặc dù OMOP đã hoàn thành xuất sắc các thực nghiệm quy mô lớn (Ryan et al., 2012, 2013b), phát triển nhiều đổi mới về phương pháp luận (Schuemie et al., 2014) và tạo ra tri thức hữu ích định hướng việc sử dụng dữ liệu quan sát trong ra quyết định về an toàn thuốc (Madigan et al., 2013b,a), di sản lớn nhất của OMOP có lẽ nằm ở việc tiên phong áp dụng các nguyên tắc khoa học mở và tạo động lực hình thành nên cộng đồng OHDSI.
 
-kết thúc của hành trình OMOP cần trở thành sự khởi đầu của một hành
-trình mới cùng nhau. Mặc dù nghiên cứu phương pháp luận của OMOP cung
-cấp những hiểu biết hữu hình về các thực hành tốt nhất khoa học có thể
-chứng minh cải thiện chất lượng bằng chứng được tạo ra từ dữ liệu quan
-sát, việc áp dụng các thực hành tốt nhất đó diễn ra chậm chạp. Một số
-rào cản đã được xác định, bao gồm: 1) những lo ngại cơ bản về chất
-lượng dữ liệu quan sát được coi là ưu tiên cao hơn cần giải quyết
-trước các đổi mới phân tích; 2) sự hiểu biết khái niệm không đầy đủ về
-các vấn đề và giải pháp phương pháp luận; 3) không có khả năng tự
-triển khai các giải pháp trong môi trường địa phương của họ; 4) sự
-không chắc chắn về việc liệu các phương pháp này có áp dụng được cho
-các vấn đề lâm sàng mà họ quan tâm hay không. Một chủ đề chung cho mọi
-rào cản là cảm giác rằng một người đơn độc không có tất cả những gì họ
-cần để thực hiện thay đổi, nhưng với sự hỗ trợ hợp tác, tất cả các vấn
-đề đều có thể được vượt qua. Nhưng cần có một số lĩnh vực hợp tác:
+Khi dự án OMOP khép lại sau khi hoàn thành sứ mệnh nghiên cứu phương pháp luận phục vụ hoạt động giám sát chủ động của FDA, nhóm nghiên cứu nhận ra rằng điểm kết thúc của hành trình OMOP cần trở thành điểm khởi đầu cho một hành trình mới cùng nhau. Dù các nghiên cứu phương pháp luận của OMOP đã mang lại những hiểu biết sâu sắc về các thực hành khoa học tốt nhất giúp cải thiện rõ rệt chất lượng bằng chứng từ dữ liệu quan sát, việc áp dụng rộng rãi các thực hành tốt nhất đó vào thực tế vẫn diễn ra khá chậm chạp. Bốn rào cản chính đã được xác định:
 
-- Hợp tác trong việc thiết lập các tiêu chuẩn dữ liệu cộng đồng mở, các
-từ vựng chuẩn hóa và các quy ước ETL (Trích xuất - Chuyển đổi - Nạp)
-sẽ tăng cường niềm tin vào chất lượng dữ liệu cơ bản và thúc đẩy tính
-nhất quán trong cấu trúc, nội dung và ngữ nghĩa để cho phép phân tích
-chuẩn hóa.
+1. Những lo ngại nền tảng về chất lượng dữ liệu quan sát được xem là ưu tiên cấp bách cần giải quyết trước khi áp dụng các đổi mới phân tích;
+2. Sự thấu hiểu về mặt khái niệm đối với các vấn đề và giải pháp phương pháp luận còn chưa đầy đủ;
+3. Nhiều đơn vị thiếu năng lực kỹ thuật để tự triển khai các giải pháp trong môi trường dữ liệu nội bộ của mình;
+4. Sự không chắc chắn về việc liệu các phương pháp này có áp dụng hiệu quả cho các bài toán lâm sàng cụ thể mà họ quan tâm hay không.
 
-- Hợp tác trong nghiên cứu phương pháp luận ngoài an toàn thuốc để thiết
-lập các thực hành tốt nhất rộng rãi hơn cho đặc điểm lâm sàng, ước
-tính hiệu quả cấp độ quần thể và dự đoán cấp độ bệnh nhân. Hợp tác
-trong phát triển phân tích mã nguồn mở, để hệ thống hóa các thực hành
-tốt nhất khoa học đã được chứng minh thông qua nghiên cứu phương pháp
-luận và làm cho chúng có thể tiếp cận được dưới dạng các công cụ công
-khai có thể dễ dàng được cộng đồng nghiên cứu áp dụng.
+Điểm chung xuyên suốt mọi rào cản trên là nhận thức rằng một cá nhân hay tổ chức đơn lẻ không thể có đủ mọi nguồn lực cần thiết để tự mình tạo nên thay đổi, nhưng với sự hỗ trợ hợp tác từ cộng đồng, mọi trở ngại đều có thể vượt qua. Điều này đòi hỏi sự hợp tác trên bốn trụ cột chính:
 
-- Hợp tác trong các ứng dụng lâm sàng giải quyết các câu hỏi sức khỏe
-quan trọng mà cộng đồng cùng quan tâm bằng cách cùng nhau điều hướng
-hành trình từ dữ liệu đến bằng chứng.
+- **Hợp tác xây dựng các tiêu chuẩn dữ liệu cộng đồng mở**, bộ từ vựng chuẩn hóa và các quy ước ETL (*Extract – Transform – Load*: Trích xuất – Chuyển đổi – Nạp) nhằm củng cố niềm tin vào chất lượng dữ liệu nền tảng và thúc đẩy tính nhất quán về cấu trúc, nội dung, ngữ nghĩa để phục vụ phân tích chuẩn hóa.
+- **Hợp tác nghiên cứu phương pháp luận** vượt ra ngoài phạm vi an toàn thuốc để xác lập các thực hành tốt nhất cho cả ba bài toán: mô tả đặc trưng lâm sàng, ước lượng hiệu quả ở cấp độ quần thể và dự báo ở cấp độ bệnh nhân.
+- **Hợp tác phát triển phần mềm phân tích mã nguồn mở** nhằm chuẩn hóa các thực hành khoa học tốt nhất đã được kiểm chứng thành bộ công cụ công khai mà cộng đồng nghiên cứu có thể dễ dàng tiếp cận và áp dụng.
+- **Hợp tác trong các nghiên cứu ứng dụng lâm sàng** nhằm giải quyết những câu hỏi y tế quan trọng được cộng đồng cùng quan tâm thông qua việc sát cánh trên hành trình từ dữ liệu đến bằng chứng.
 
-Từ cái nhìn sâu sắc này, OHDSI đã ra đời.
+Từ tầm nhìn sâu sắc đó, **OHDSI** đã ra đời.
 
-## OHDSI như một cộng đồng hợp tác khoa học mở
+## OHDSI — Cộng đồng hợp tác khoa học mở
 
-Observational Health Data Sciences and Informatics (OHDSI, phát âm là
-"Odyssey") là một cộng đồng khoa học mở nhằm cải thiện sức khỏe bằng
-cách trao quyền cho cộng đồng cùng nhau tạo ra bằng chứng thúc đẩy các
-quyết định sức khỏe tốt hơn và dịch vụ chăm sóc tốt hơn. (Hripcsak et
-al., 2015) OHDSI thực hiện nghiên cứu phương pháp luận để thiết lập
-các thực hành tốt nhất khoa học cho việc sử dụng thích hợp dữ liệu sức
-khỏe quan sát, phát triển phần mềm phân tích mã nguồn mở hệ thống hóa
-các thực hành này thành các giải pháp nhất quán, minh bạch, có thể tái
-lập và áp dụng các công cụ và thực hành này vào các câu hỏi lâm sàng
-để tạo ra bằng chứng có thể hướng dẫn chính sách chăm sóc sức khỏe và
-chăm sóc bệnh nhân.
+**Khoa học Dữ liệu và Tin học Y tế Quan sát** (*Observational Health Data Sciences and Informatics* — **OHDSI**, phát âm như *"Odyssey"*) là một cộng đồng khoa học mở hướng tới mục tiêu nâng cao sức khỏe con người bằng cách trao quyền cho cộng đồng cùng nhau tạo ra bằng chứng khoa học thúc đẩy các quyết định y tế đúng đắn hơn và dịch vụ chăm sóc tốt hơn (Hripcsak et al., 2015). OHDSI tiến hành nghiên cứu phương pháp luận nhằm xác lập các thực hành khoa học tốt nhất cho việc khai thác dữ liệu y tế quan sát, phát triển phần mềm phân tích mã nguồn mở để hiện thực hóa các thực hành này thành những giải pháp nhất quán, minh bạch, có khả năng tái lập (*reproducible*), đồng thời ứng dụng các công cụ và thực hành đó vào các câu hỏi lâm sàng nhằm tạo ra bằng chứng định hướng chính sách y tế và chăm sóc người bệnh.
 
 ### Sứ mệnh của chúng tôi
 
-Cải thiện sức khỏe bằng cách trao quyền cho một cộng đồng cùng nhau
-tạo ra bằng chứng thúc đẩy các quyết định sức khỏe tốt hơn và dịch vụ
-chăm sóc tốt hơn.
-
-4.  *Tiến độ của OHDSI 7*
+> Nâng cao sức khỏe bằng cách trao quyền cho cộng đồng cùng nhau tạo ra bằng chứng khoa học thúc đẩy các quyết định y tế tốt hơn và dịch vụ chăm sóc tốt hơn.
 
 ### Tầm nhìn của chúng tôi
 
-Một thế giới mà nghiên cứu quan sát tạo ra sự hiểu biết toàn diện về
-sức khỏe và bệnh tật.
+> Một thế giới nơi nghiên cứu quan sát mang lại sự hiểu biết toàn diện về sức khỏe và bệnh tật.
 
-### Mục tiêu của chúng tôi
+### Mục tiêu cốt lõi của chúng tôi
 
-- **Đổi mới&#58; Nghiên cứu quan sát là một lĩnh vực sẽ được hưởng lợi rất
-nhiều từ tư duy đột phá. Chúng tôi tích cực tìm kiếm và khuyến khích
-các cách tiếp cận phương pháp luận mới mẻ trong công việc của mình.**
+- **Đổi mới (*Innovation*):** Nghiên cứu quan sát là một lĩnh vực hưởng lợi rất lớn từ tư duy đột phá. Chúng tôi tích cực tìm kiếm và khuyến khích các cách tiếp cận phương pháp luận mới mẻ trong công việc của mình.
+- **Khả năng tái lập (*Reproducibility*):** Bằng chứng chính xác, có thể tái lập và được hiệu chuẩn tốt là điều kiện tiên quyết để cải thiện sức khỏe.
+- **Cộng đồng (*Community*):** Mọi người đều được chào đón tham gia tích cực vào OHDSI, dù bạn là bệnh nhân, chuyên gia y tế, nhà nghiên cứu hay bất kỳ ai đồng hành cùng sứ mệnh của chúng tôi.
+- **Hợp tác (*Collaboration*):** Chúng tôi làm việc tập thể để ưu tiên và giải quyết các nhu cầu thực tiễn của các thành viên trong cộng đồng.
+- **Tính mở (*Openness*):** Chúng tôi nỗ lực công khai và mở hoàn toàn mọi thành quả của cộng đồng, bao gồm các phương pháp, công cụ phần mềm và bằng chứng khoa học được tạo ra.
+- **Tính nhân văn (*Beneficence*):** Chúng tôi luôn bảo vệ quyền lợi chính đáng của các cá nhân và tổ chức tham gia trong cộng đồng.
 
-- **Tính tái lập&#58; Bằng chứng chính xác, có thể tái lập và được hiệu
-chuẩn tốt là cần thiết cho việc cải thiện sức khỏe.**
+## Những bước tiến của OHDSI
 
-- **Cộng đồng&#58; Mọi người đều được chào đón tham gia tích cực vào OHDSI,
-cho dù bạn là bệnh nhân, chuyên gia y tế, nhà nghiên cứu hay bất kỳ ai
-tin tưởng vào mục tiêu của chúng tôi.**
+Kể từ khi thành lập vào năm 2014, OHDSI đã phát triển mạnh mẽ với hơn 2.500 cộng tác viên trên các diễn đàn trực tuyến đến từ nhiều nhóm bên liên quan khác nhau — bao gồm giới học thuật, ngành công nghiệp dược phẩm và trang thiết bị y tế, cơ quan quản lý, chính phủ, tổ chức bảo hiểm, nhà cung cấp công nghệ, hệ thống y tế, bác sĩ lâm sàng và bệnh nhân — đại diện cho nhiều lĩnh vực chuyên môn như khoa học máy tính, dịch tễ học, thống kê, tin học y sinh, chính sách y tế và y học lâm sàng. Danh sách các cộng tác viên OHDSI được công bố trên [trang thông tin cộng tác viên OHDSI](https://www.ohdsi.org/who-we-are/collaborators/). Bản đồ cộng tác viên OHDSI (Hình 1.2) thể hiện rõ quy mô rộng khắp và tính đa dạng của cộng đồng quốc tế này.
 
-- **Hợp tác&#58; Chúng tôi làm việc tập thể để ưu tiên và giải quyết các nhu
-cầu thực tế của những người tham gia cộng đồng của chúng tôi.**
+![](media/image3.jpeg){width="5.34in" height="3.06in"}
 
-- **Tính mở: Chúng tôi cố gắng làm cho tất cả các thành quả của cộng
-đồng chúng tôi trở nên mở và công khai, bao gồm các phương pháp, công
-cụ và bằng chứng mà chúng tôi tạo ra.**
+Hình 1.2: Bản đồ cộng tác viên OHDSI tính đến tháng 8 năm 2019.
 
-- **Tính nhân văn&#58; Chúng tôi tìm cách bảo vệ quyền của các cá nhân và tổ
-chức trong cộng đồng của mình mọi lúc.**
+Tính đến tháng 8 năm 2019, OHDSI đã thiết lập một mạng lưới dữ liệu gồm hơn 100 cơ sở dữ liệu chăm sóc sức khỏe tại hơn 20 quốc gia, tổng cộng bao phủ hơn một tỷ hồ sơ bệnh nhân thông qua mô hình mạng lưới phân tán (*distributed network*) dựa trên tiêu chuẩn dữ liệu cộng đồng mở do OHDSI duy trì là **OMOP CDM**. Trong mạng lưới phân tán, dữ liệu ở cấp độ bệnh nhân không cần phải chia sẻ hay chuyển giao ra ngoài ranh giới của từng tổ chức. Thay vào đó, các câu hỏi nghiên cứu được đặt ra dưới dạng một đề cương nghiên cứu (*study protocol*) kèm theo mã nguồn phân tích giúp tạo ra bằng chứng dưới dạng các thống kê tóm tắt tổng hợp (*aggregated summary statistics*), và chỉ những kết quả tổng hợp này mới được chia sẻ giữa các đối tác tham gia nghiên cứu. Nhờ mô hình mạng lưới phân tán của OHDSI, mỗi đối tác dữ liệu giữ toàn quyền tự chủ đối với việc sử dụng dữ liệu cấp độ bệnh nhân của đơn vị mình và tuân thủ nghiêm ngặt các quy định quản trị dữ liệu cũng như bảo mật quyền riêng tư tại từng tổ chức.
 
-## Tiến độ của OHDSI
+Cộng đồng các nhà phát triển OHDSI đã xây dựng một thư viện phong phú gồm các công cụ phân tích mã nguồn mở hoạt động trên nền tảng OMOP CDM nhằm hỗ trợ 3 bài toán ứng dụng chính:
 
-OHDSI đã phát triển kể từ khi thành lập vào năm 2014 với hơn 2.500
-cộng tác viên trên các diễn đàn trực tuyến từ các bên liên quan khác
-nhau, bao gồm học viện, ngành công nghiệp sản phẩm y tế, cơ quan quản
-lý, chính phủ, người trả tiền, nhà cung cấp công nghệ, hệ thống y tế,
-bác sĩ lâm sàng, bệnh nhân và đại diện cho các ngành khác nhau, bao
-gồm khoa học máy tính, dịch tễ học, thống kê, tin học y sinh, chính
-sách y tế và khoa học lâm sàng. Danh sách các cộng tác viên OHDSI tự
-xác định có sẵn trên trang web OHDSI. 1 Bản đồ cộng tác viên OHDSI
-(Hình 1.2) làm nổi bật sự rộng lớn và đa dạng của cộng đồng quốc tế.
+1. **Mô tả đặc trưng lâm sàng** (*Clinical characterization*): tìm hiểu lịch sử tự nhiên của bệnh, mô hình sử dụng thuốc/điều trị và cải tiến chất lượng dịch vụ y tế;
+2. **Ước lượng hiệu quả ở cấp độ quần thể** (*Population-level effect estimation*): áp dụng các phương pháp suy luận nhân quả (*causal inference*) cho giám sát an toàn sản phẩm y tế và đánh giá hiệu quả so sánh;
+3. **Dự báo ở cấp độ bệnh nhân** (*Patient-level prediction*): ứng dụng các thuật toán học máy (*machine learning*) cho y học chính xác (*precision medicine*) và can thiệp dự phòng bệnh tật sớm.
 
-Tính đến tháng 8 năm 2019, OHDSI cũng đã thiết lập một mạng lưới dữ
-liệu gồm hơn 100 cơ sở dữ liệu chăm sóc sức khỏe khác nhau từ hơn 20
-quốc gia, cùng nhau thu thập hơn một tỷ hồ sơ bệnh nhân bằng cách áp
-dụng cách tiếp cận mạng lưới phân tán sử dụng tiêu chuẩn dữ liệu cộng
-đồng mở mà nó duy trì, OMOP CDM. Một mạng lưới phân tán có nghĩa là dữ
-liệu cấp độ bệnh nhân không cần phải được chia sẻ giữa các cá nhân
-hoặc tổ chức. Thay vào đó, các câu hỏi nghiên cứu được đặt ra bởi các
-cá nhân trong cộng đồng dưới dạng một giao thức nghiên cứu và kèm theo
-mã phân tích tạo ra bằng chứng dưới dạng một tập hợp các số liệu thống
-kê tóm tắt tổng hợp, và chỉ những số liệu thống kê tóm tắt này mới
-được chia sẻ giữa các đối tác lựa chọn hợp tác trong nghiên cứu. Với mạng lưới phân tán OHDSI, mỗi
-đối tác dữ liệu giữ toàn quyền tự chủ đối với việc sử dụng dữ liệu cấp
-độ bệnh nhân của họ và tiếp tục tuân thủ các chính sách quản trị dữ
-liệu trong các tổ chức tương ứng của họ.
+Bên cạnh đó, các nhà phát triển OHDSI còn xây dựng hệ thống công cụ hỗ trợ chuyển đổi dữ liệu sang OMOP CDM, đánh giá chất lượng dữ liệu và điều phối các nghiên cứu mạng lưới OHDSI. Hệ sinh thái này bao gồm các gói thống kê xử lý phía máy chủ (*back-end*) viết bằng R và Python, cùng các ứng dụng web tương tác (*front-end*) phát triển bằng HTML và JavaScript. Toàn bộ công cụ của OHDSI đều là phần mềm mã nguồn mở và được chia sẻ công khai trên [GitHub của OHDSI](https://github.com/OHDSI).
 
-^1^<https://www.ohdsi.org/who-we-are/collaborators/>
+Cách tiếp cận cộng đồng khoa học mở kết hợp với bộ công cụ mã nguồn mở của OHDSI đã mang lại những bước tiến vượt bậc cho nghiên cứu quan sát. Một trong những nghiên cứu mạng lưới đầu tiên của OHDSI đã khảo sát lộ trình điều trị (*treatment pathways*) trên ba bệnh mạn tính phổ biến: đái tháo đường, trầm cảm và tăng huyết áp. Được công bố trên tạp chí *Proceedings of the National Academy of Sciences* (PNAS), đây là một trong những nghiên cứu quan sát lớn nhất từng được thực hiện với kết quả tổng hợp từ 11 nguồn dữ liệu bao phủ hơn 250 triệu bệnh nhân, qua đó phát hiện những khác biệt địa lý sâu sắc và tính không đồng nhất lớn giữa các bệnh nhân trong lựa chọn phác đồ điều trị mà trước đây chưa từng quan sát được (Hripcsak et al., 2016).
 
-![](media/image3.jpeg){width="5.34375in"
-height="3.0625in"}
+OHDSI cũng đã phát triển các phương pháp thống kê mới nhằm hiệu chỉnh yếu tố gây nhiễu (*confounding adjustment*) (Tian et al., 2018) và thẩm định tính giá trị của bằng chứng quan sát trong suy luận nhân quả (Schuemie et al., 2018a), đồng thời áp dụng thành công trong nhiều bối cảnh lâm sàng: từ câu hỏi giám sát an toàn thuốc chuyên biệt trong bệnh động kinh (Duke et al., 2017), đánh giá hiệu quả so sánh của các thuốc điều trị đái tháo đường hàng thứ hai (Vashisht et al., 2018), cho đến nghiên cứu ước lượng hiệu quả cấp độ quần thể quy mô lớn về độ an toàn so sánh của các phương pháp điều trị trầm cảm (Schuemie et al., 2018b). Cộng đồng OHDSI cũng đã thiết lập một khung phương pháp luận chuẩn mực để ứng dụng các thuật toán học máy một cách có trách nhiệm trên dữ liệu y tế quan sát (Reps et al., 2018) và triển khai rộng rãi trên nhiều chuyên khoa lâm sàng khác nhau (Johnston et al., 2019; Cepeda et al., 2018; Reps et al., 2019).
 
-Hình 1.2: Bản đồ cộng tác viên OHDSI tính đến tháng 8 năm 2019
+## Hợp tác trong cộng đồng OHDSI
 
-Cộng đồng nhà phát triển OHDSI đã tạo ra một thư viện mạnh mẽ các công
-cụ phân tích mã nguồn mở trên OMOP CDM để hỗ trợ 3 trường hợp sử
-dụng: 1) đặc điểm lâm sàng cho lịch sử tự nhiên của bệnh, sử dụng điều
-trị và cải thiện chất lượng; 2) ước tính hiệu quả cấp độ quần thể để
-áp dụng các phương pháp suy luận nhân quả cho giám sát an toàn sản
-phẩm y tế và hiệu quả so sánh; và 3) dự đoán cấp độ bệnh nhân để áp
-dụng các thuật toán học máy cho y học chính xác và ngăn chặn bệnh tật.
-Các nhà phát triển OHDSI cũng đã phát triển các ứng dụng để hỗ trợ
-việc áp dụng OMOP CDM, đánh giá chất lượng dữ liệu và tạo điều kiện
-cho các nghiên cứu mạng lưới OHDSI. Các công cụ này bao gồm các gói
-thống kê phụ trợ được xây dựng bằng R và Python, và các ứng dụng web
-giao diện người dùng được phát triển bằng HTML và Javascript. Tất cả
-các công cụ OHDSI đều là mã nguồn mở và công khai thông qua Github.2
+Vì OHDSI là một cộng đồng hướng tới việc trao quyền hợp tác để tạo ra bằng chứng y khoa, việc trở thành một cộng tác viên OHDSI có ý nghĩa gì? Nếu bạn tin tưởng vào sứ mệnh của OHDSI và mong muốn đóng góp ở bất kỳ chặng nào trên hành trình từ dữ liệu đến bằng chứng, thì OHDSI chính là cộng đồng dành cho bạn:
 
-Cách tiếp cận cộng đồng khoa học mở của OHDSI, cùng với các công cụ mã
-nguồn mở của nó, đã cho phép những tiến bộ to lớn trong nghiên cứu
-quan sát. Một trong những phân tích mạng lưới OHDSI đầu tiên đã kiểm
-tra các lộ trình điều trị trên ba bệnh mãn tính: tiểu đường, trầm cảm
-và tăng huyết áp. Được xuất bản trong Kỷ yếu của Viện Hàn lâm Khoa học
-Quốc gia, đây là một trong những nghiên cứu quan sát lớn nhất từng
-được thực hiện, với kết quả từ 11 nguồn dữ liệu bao gồm hơn 250 triệu
-bệnh nhân và tiết lộ những khác biệt địa lý to lớn và sự không đồng
-nhất của bệnh nhân trong các lựa chọn điều trị mà trước đây chưa từng
-quan sát được. (Hripcsak et al., 2016) OHDSI đã phát triển các phương
-pháp thống kê mới để điều chỉnh sai lệch (Tian et al., 2018) và đánh
-giá tính hợp lệ của bằng chứng quan sát cho suy luận nhân quả, (Schuemie et al., 2018a) và
-nó đã áp dụng các cách tiếp cận này trong nhiều bối cảnh, từ một câu
-hỏi giám sát an toàn cá nhân trong bệnh động kinh (Duke et al., 2017)
-đến hiệu quả so sánh của các thuốc tiểu đường dòng thứ hai (Vashisht
-et al., 2018) đến một nghiên cứu ước tính hiệu quả cấp độ quần thể quy
-mô lớn về an toàn so sánh của các phương pháp điều trị trầm cảm.
-(Schuemie et al., 2018b) Cộng đồng OHDSI cũng đã thiết lập một khung
-cho cách áp dụng có trách nhiệm các thuật toán học máy vào dữ liệu
-chăm sóc sức khỏe quan sát, (Reps et al., 2018) đã được áp dụng trên
-nhiều lĩnh vực trị liệu khác nhau. (Johnston et al., 2019; Cepeda et
-al., 2018; Reps et al., 2019)
+- **Đối tác dữ liệu**: Những cá nhân hoặc tổ chức quản lý dữ liệu cấp độ bệnh nhân mong muốn khai thác nguồn dữ liệu đó để tạo ra bằng chứng khoa học phục vụ cộng đồng.
+- **Nhà phương pháp luận**: Các nhà dịch tễ học, thống kê sinh học quan tâm đến việc xác lập các thực hành khoa học tốt nhất và đánh giá hiệu năng của các phương pháp phân tích.
+- **Nhà phát triển phần mềm**: Các kỹ sư và lập trình viên mong muốn vận dụng kỹ năng lập trình để xây dựng những công cụ mã nguồn mở phục vụ toàn bộ cộng đồng.
+- **Nhà nghiên cứu lâm sàng**: Các bác sĩ và nhà khoa học đặt ra những câu hỏi y tế công cộng thiết thực và tìm kiếm bằng chứng giải đáp các câu hỏi đó để công bố khoa học và ứng dụng vào thực hành lâm sàng.
+- **Nhà tài trợ và điều phối cộng đồng**: Các cá nhân hoặc tổ chức đồng hành cùng mục tiêu sức khỏe cộng đồng và hỗ trợ nguồn lực để duy trì hoạt động cộng đồng, tổ chức hội nghị và các khóa đào tạo trên toàn thế giới.
 
-^2^<https://github.com/OHDSI>
-
-5.  *Hợp tác trong OHDSI 9*
-
-## Hợp tác trong OHDSI
-
-Vì OHDSI là một cộng đồng nhằm trao quyền hợp tác để tạo ra bằng
-chứng, việc trở thành một cộng tác viên OHDSI có ý nghĩa gì? Nếu bạn
-là người tin vào sứ mệnh của OHDSI và quan tâm đến việc đóng góp ở bất
-kỳ đâu dọc theo hành trình từ dữ liệu đến bằng chứng, thì OHDSI có thể
-là cộng đồng dành cho bạn. Các cộng tác viên có thể là những cá nhân
-có quyền truy cập vào dữ liệu cấp độ bệnh nhân quan tâm đến việc thấy
-dữ liệu đó được sử dụng để tạo ra bằng chứng. Các cộng tác viên có thể
-là các nhà phương pháp luận quan tâm đến việc thiết lập các thực hành
-tốt nhất khoa học và đánh giá các cách tiếp cận thay thế. Các cộng tác
-viên có thể là các nhà phát triển phần mềm quan tâm đến việc áp dụng
-các kỹ năng lập trình của họ để tạo ra các công cụ có thể được phần
-còn lại của cộng đồng sử dụng. Các cộng tác viên có thể là các nhà
-nghiên cứu lâm sàng có các câu hỏi sức khỏe cộng đồng quan trọng và
-đang tìm cách cung cấp bằng chứng cho những câu hỏi đó cho cộng đồng
-chăm sóc sức khỏe rộng lớn hơn thông qua xuất bản và các hình thức phổ
-biến khác. Các cộng tác viên có thể là các cá nhân hoặc tổ chức tin
-tưởng vào mục tiêu chung này vì sức khỏe cộng đồng và muốn cung cấp
-các nguồn lực để đảm bảo rằng cộng đồng có thể duy trì chính mình và
-tiếp tục sứ mệnh của mình, bao gồm tổ chức các hoạt động cộng đồng và
-các buổi đào tạo trên khắp thế giới. Bất kể nền tảng kỷ luật hay sự
-liên kết với bên liên quan của bạn là gì, OHDSI tìm cách trở thành một
-nơi mà các cá nhân có thể làm việc cùng nhau hướng tới một mục đích
-chung, mỗi người thực hiện những đóng góp cá nhân của mình, cùng nhau
-có thể thúc đẩy chăm sóc sức khỏe. Nếu bạn quan tâm đến việc tham gia
-hành trình, hãy xem Chương 2 ("Nơi bắt đầu") để biết cách bắt đầu.
+Bất kể chuyên ngành đào tạo hay vai trò công tác của bạn là gì, OHDSI luôn hướng tới việc trở thành nơi hội tụ để mọi cá nhân cùng làm việc vì một mục đích chung — mỗi người đóng góp thế mạnh riêng của mình để cùng nhau thúc đẩy nền y tế phát triển. Nếu bạn quan tâm đến việc tham gia hành trình này, hãy xem tiếp Chương 2 (*"Bắt đầu từ đâu"*) để biết cách khởi đầu.
 
 ## Tóm tắt
 
-![](media/image4.png){width="0.4455205599300088in"
-height="0.4644783464566929in" .book-icon}
-
-- Sứ mệnh của OHDSI là cải thiện sức khỏe bằng cách trao quyền cho cộng đồng cùng nhau tạo ra bằng chứng thúc đẩy các quyết định y tế tốt hơn và dịch vụ chăm sóc tốt hơn.
-
-- Tầm nhìn của chúng tôi là một thế giới nơi nghiên cứu quan sát tạo ra sự hiểu biết toàn diện về sức khỏe và bệnh tật, điều này sẽ đạt được thông qua các mục tiêu của chúng tôi về đổi mới, khả năng tái lập, cộng đồng, hợp tác, cởi mở và lòng nhân ái.
-
-– Các cộng tác viên của OHDSI tập trung vào các tiêu chuẩn dữ liệu cộng đồng mở, nghiên cứu phương pháp luận, phát triển phân tích mã nguồn mở và các ứng dụng lâm sàng để cải thiện hành trình từ dữ liệu đến bằng chứng.
-
+::: {.callout-tip title="Tóm tắt chương"}
+- **Sứ mệnh của OHDSI** là nâng cao sức khỏe bằng cách trao quyền cho cộng đồng cùng nhau tạo ra bằng chứng khoa học thúc đẩy các quyết định y tế tốt hơn và dịch vụ chăm sóc tốt hơn.
+- **Tầm nhìn của OHDSI** là một thế giới nơi nghiên cứu quan sát mang lại sự hiểu biết toàn diện về sức khỏe và bệnh tật, được hiện thực hóa thông qua sáu mục tiêu cốt lõi: đổi mới, khả năng tái lập, cộng đồng, hợp tác, tính mở và tính nhân văn.
+- **Các cộng tác viên của OHDSI** tập trung vào bốn trụ cột: tiêu chuẩn dữ liệu cộng đồng mở, nghiên cứu phương pháp luận, phát triển phần mềm phân tích mã nguồn mở và các nghiên cứu ứng dụng lâm sàng nhằm hoàn thiện hành trình từ dữ liệu đến bằng chứng.
+:::

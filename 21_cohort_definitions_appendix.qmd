@@ -1,1189 +1,695 @@
----
-title: "Phụ lục A: Định nghĩa nhóm thuần tập"
----
+# Phụ lục A: Chi tiết định nghĩa đoàn hệ
 
-# Định nghĩa nhóm thuần tập
+Phụ lục này trình bày chi tiết các định nghĩa đoàn hệ (nhóm thuần tập – *cohort definitions*) được sử dụng xuyên suốt trong cuốn sách.
 
-Phụ lục này chứa các định nghĩa nhóm thuần
-tập được sử dụng trong suốt cuốn sách.
+## Thuốc ức chế men chuyển (ACE Inhibitors) {#AceInhibitors}
 
-## Thuốc ức chế men chuyển (ACE Inhibitors)
+#### Đoàn hệ biến cố khởi đầu
 
-#### Nhóm thuần tập sự kiện ban đầu
+Những người có bất kỳ tiêu chí nào sau đây:
 
-Những người có bất kỳ đặc điểm nào sau đây:
+- một bản ghi phơi nhiễm thuốc thuộc nhóm *Thuốc ức chế men chuyển* (Bảng B.1) lần đầu tiên trong tiền sử của người đó
 
-- phơi nhiễm thuốc ức chế men chuyển (Bảng B.1) lần đầu tiên trong tiền
-sử của người đó
+với thời gian quan sát liên tục ít nhất 365 ngày trước và 0 ngày sau ngày chỉ số của biến cố (*event index date*), và giới hạn các biến cố khởi đầu thành: tất cả các biến cố trên mỗi người.
 
-với quan sát liên tục ít nhất 365 ngày trước và 0 ngày sau ngày chỉ số
-sự kiện, và giới hạn các sự kiện ban đầu thành: tất cả các sự kiện cho
-mỗi người.
+Giới hạn đoàn hệ đủ tiêu chuẩn thành: tất cả các biến cố trên mỗi người.
 
-Giới hạn nhóm thuần tập đủ điều kiện thành: tất cả các sự kiện cho mỗi
-người.
+#### Chiến lược xác định ngày kết thúc
 
-#### Chiến lược ngày kết thúc
+Tiêu chí thoát theo giai đoạn dùng thuốc tùy chỉnh (*Custom Drug Era Exit Criteria*): Chiến lược này tạo ra một giai đoạn dùng thuốc (*drug era*) từ các mã khái niệm nằm trong tập hợp khái niệm đã chỉ định. Nếu biến cố chỉ số nằm trong một giai đoạn dùng thuốc, ngày kết thúc đoàn hệ sẽ lấy theo ngày kết thúc của giai đoạn dùng thuốc đó. Ngược lại, ngày kết thúc đoàn hệ sẽ lấy theo ngày kết thúc của giai đoạn quan sát chứa biến cố chỉ số.
 
-Tiêu chí thoát kỷ nguyên thuốc tùy chỉnh: Chiến lược này tạo ra một kỷ
-nguyên thuốc từ các mã được tìm thấy trong tập hợp khái niệm đã chỉ
-định. Nếu sự kiện chỉ số được tìm thấy trong một kỷ nguyên, ngày kết
-thúc nhóm thuần tập sẽ sử dụng ngày kết thúc của kỷ nguyên đó. Nếu
-không, nó sẽ sử dụng ngày kết thúc của thời gian quan sát chứa sự kiện
-chỉ số.
+Sử dụng ngày kết thúc giai đoạn dùng thuốc của *Thuốc ức chế men chuyển* (Bảng B.1):
 
-Sử dụng ngày kết thúc kỷ nguyên của thuốc ức chế men chuyển (Bảng B.1)
+- cho phép khoảng cách tối đa 30 ngày giữa các lần phơi nhiễm
+- cộng thêm 0 ngày sau khi kết thúc phơi nhiễm
 
-- cho phép 30 ngày giữa các lần phơi nhiễm
+#### Chiến lược gộp đoàn hệ
 
-- thêm 0 ngày sau khi kết thúc phơi nhiễm
-
-#### Chiến lược thu gọn nhóm thuần tập
-
-Thu gọn nhóm thuần tập theo kỷ nguyên với kích thước khoảng cách là 30
-ngày.
+Gộp đoàn hệ theo giai đoạn (*era*) với khoảng trống tối đa (*gap size*) là 30 ngày.
 
 #### Định nghĩa tập hợp khái niệm
 
-Bảng B.1&#58; Thuốc ức chế men chuyển
+Bảng B.1: Thuốc ức chế men chuyển (*ACE inhibitors*)
 
-***
-ID khái   Tên khái niệm  Đã loại  Các khái   Đã ánh
-niệm                     trừ      niệm con   xạ
---------- -------------- -------- ---------- ------
-1308216   Lisinopril     NO       CÓ         NO
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 1308216 | Lisinopril | KHÔNG | CÓ | KHÔNG |
+| 1310756 | moexipril | KHÔNG | CÓ | KHÔNG |
+| 1331235 | quinapril | KHÔNG | CÓ | KHÔNG |
+| 1334456 | Ramipril | KHÔNG | CÓ | KHÔNG |
+| 1335471 | benazepril | KHÔNG | CÓ | KHÔNG |
+| 1340128 | Captopril | KHÔNG | CÓ | KHÔNG |
+| 1341927 | Enalapril | KHÔNG | CÓ | KHÔNG |
+| 1342439 | trandolapril | KHÔNG | CÓ | KHÔNG |
+| 1363749 | Fosinopril | KHÔNG | CÓ | KHÔNG |
+| 1373225 | Perindopril | KHÔNG | CÓ | KHÔNG |
 
-1310756   moexipril      NO       CÓ         NO
+## Người dùng mới sử dụng thuốc ức chế men chuyển đơn trị liệu {#AceInhibitorsMono}
 
-1331235   quinapril      NO       CÓ         NO
+#### Đoàn hệ biến cố khởi đầu
 
-1334456   Ramipril       NO       CÓ         NO
+Những người có bất kỳ tiêu chí nào sau đây:
 
-1335471   benazepril     NO       CÓ         NO
+- một bản ghi phơi nhiễm thuốc thuộc nhóm *Thuốc ức chế men chuyển* (Bảng B.2) lần đầu tiên trong tiền sử của người đó
 
-1340128   Captopril      NO       CÓ         NO
+với thời gian quan sát liên tục ít nhất 365 ngày trước và 0 ngày sau ngày chỉ số của biến cố, và giới hạn các biến cố khởi đầu thành: biến cố sớm nhất trên mỗi người.
 
-1341927   Enalapril      NO       CÓ         NO
+#### Quy tắc thu nhận
 
-1342439   trandolapril   NO       CÓ         NO
-
-1363749   Fosinopril     NO       CÓ         NO
-
-1373225   Perindopril    NO       CÓ         NO
-***
-
-## Người dùng mới sử dụng thuốc ức chế men chuyển đơn trị liệu
-
-#### Nhóm thuần tập sự kiện ban đầu
-
-Những người có bất kỳ đặc điểm nào sau đây:
-
-- phơi nhiễm thuốc ức chế men chuyển (Bảng B.2) lần đầu tiên trong tiền
-sử của người đó
-
-với quan sát liên tục ít nhất 365 ngày trước và 0 ngày sau ngày chỉ số
-sự kiện, và giới hạn các sự kiện ban đầu thành: sự kiện sớm nhất cho
-mỗi người.
-
-#### Quy tắc bao gồm
-
-Tiêu chí bao gồm #1: có chẩn đoán tăng huyết áp trong 1 năm trước khi
-điều trị. Có tất cả các tiêu chí sau:
-
-- ít nhất 1 lần xuất hiện tình trạng bệnh Rối loạn tăng huyết áp (Bảng
-B.3) trong đó sự kiện bắt đầu từ 365 ngày trước và 0 ngày sau ngày bắt
-đầu chỉ số
-
-Tiêu chí bao gồm #2: Không có tiền sử phơi nhiễm thuốc chống tăng
-huyết áp trong tiền sử y tế. Có tất cả các tiêu chí sau:
-
-- chính xác 0 lần xuất hiện phơi nhiễm thuốc chống tăng huyết áp (Bảng
-B.4) trong đó sự kiện bắt đầu từ tất cả các ngày trước và 1 ngày trước
-ngày bắt đầu chỉ số
-
-Tiêu chí bao gồm #3: Chỉ dùng thuốc ức chế men chuyển dưới dạng đơn
-trị liệu, không dùng kèm các phương pháp điều trị kết hợp
+Tiêu chí thu nhận #1: Có chẩn đoán tăng huyết áp trong vòng 1 năm trước khi điều trị
 
 Có tất cả các tiêu chí sau:
 
-2.  *Người dùng mới sử dụng thuốc ức chế men chuyển đơn trị liệu 387*
+- ít nhất 1 lần xuất hiện tình trạng bệnh *Rối loạn tăng huyết áp* (Bảng B.3) với ngày bắt đầu biến cố nằm trong khoảng từ 365 ngày trước đến 0 ngày sau ngày bắt đầu chỉ số
 
-- chính xác 1 lần xuất hiện riêng biệt kỷ nguyên thuốc chống tăng huyết
-áp (Bảng B.4) trong đó sự kiện bắt đầu từ 0 ngày trước và 7 ngày sau
-ngày bắt đầu chỉ số
-
-Giới hạn nhóm thuần tập đủ điều kiện thành: sự kiện sớm nhất cho mỗi
-người.
-
-#### Chiến lược ngày kết thúc
-
-Tiêu chí thoát kỷ nguyên thuốc tùy chỉnh. Chiến lược này tạo ra một kỷ
-nguyên thuốc từ các mã được tìm thấy trong tập hợp khái niệm đã chỉ
-định. Nếu sự kiện chỉ số được tìm thấy trong một kỷ nguyên, ngày kết
-thúc nhóm thuần tập sẽ sử dụng ngày kết thúc của kỷ nguyên đó. Nếu
-không, nó sẽ sử dụng ngày kết thúc của thời gian quan sát chứa sự kiện
-chỉ số.
-
-Sử dụng ngày kết thúc kỷ nguyên của thuốc ức chế men chuyển (Bảng B.2)
-
-- cho phép 30 ngày giữa các lần phơi nhiễm
-
-- thêm 0 ngày sau khi kết thúc phơi nhiễm
-
-#### Chiến lược thu gọn nhóm thuần tập
-
-Thu gọn nhóm thuần tập theo kỷ nguyên với kích thước khoảng cách là 0
-ngày.
-
-#### Định nghĩa tập hợp khái niệm
-
-Bảng B.2: Thuốc ức chế men chuyển
-
-+---------+--------------+-------+---------+-------+
-| ID khái | Tên khái     | Đã    | Các     | > Đã  |
-| niệm    | niệm         | loại  | khái    | > ánh |
-|         |              | trừ   | niệm    | > xạ  |
-|         |              |       | con     |       |
-+=========+==============+=======+=========+=======+
-| 1308216 | Lisinopril   | NO    | CÓ      | NO    |
-+---------+--------------+-------+---------+-------+
-| 1310756 | moexipril    | NO    | CÓ      | NO    |
-+---------+--------------+-------+---------+-------+
-| 1331235 | quinapril    | NO    | CÓ      | NO    |
-+---------+--------------+-------+---------+-------+
-| 1334456 | Ramipril     | NO    | CÓ      | NO    |
-+---------+--------------+-------+---------+-------+
-| 1335471 | benazepril   | NO    | CÓ      | NO    |
-+---------+--------------+-------+---------+-------+
-| 1340128 | Captopril    | NO    | CÓ      | NO    |
-+---------+--------------+-------+---------+-------+
-| 1341927 | Enalapril    | NO    | CÓ      | NO    |
-+---------+--------------+-------+---------+-------+
-| 1342439 | trandolapril | NO    | CÓ      | NO    |
-+---------+--------------+-------+---------+-------+
-| 1363749 | Fosinopril   | NO    | CÓ      | NO    |
-+---------+--------------+-------+---------+-------+
-| 1373225 | Perindopril  | NO    | CÓ      | NO    |
-+---------+--------------+-------+---------+-------+
-
-Bảng B.3: Rối loạn tăng huyết áp
-
-ID Khái niệm Tên Khái niệm Loại trừ Hậu duệ Được ánh xạ 316866 Rối
-loạn tăng huyết áp KHÔNG CÓ KHÔNG
-
-Bảng B.4: Thuốc chống tăng huyết áp
-
-***
-ID khái   Tên khái niệm         Đã loại  Các khái   Đã ánh
-niệm                            trừ      niệm con   xạ
---------- --------------------- -------- ---------- ------
-904542    Triamterene           NO       CÓ         NO
-
-907013    Metolazone            NO       CÓ         NO
-
-932745    Bumetanide            NO       CÓ         NO
-
-942350    torsemide             NO       CÓ         NO
-
-956874    Furosemide            NO       CÓ         NO
-
-970250    Spironolactone        NO       CÓ         NO
-
-974166    Hydrochlorothiazide   NO       CÓ         NO
-
-978555    Indapamide            NO       CÓ         NO
-
-991382    Amiloride             NO       CÓ         NO
-
-1305447   Methyldopa            NO       CÓ         NO
-
-1307046   Metoprolol            NO       CÓ         NO
-
-1307863   Verapamil             NO       CÓ         NO
-
-1308216   Lisinopril            NO       CÓ         NO
-
-1308842   valsartan             NO       CÓ         NO
-
-1309068   Minoxidil             NO       CÓ         NO
-
-1309799   eplerenone            NO       CÓ         NO
-
-1310756   moexipril             NO       CÓ         NO
-
-1313200   Nadolol               NO       CÓ         NO
-
-1314002   Atenolol              NO       CÓ         NO
-
-1314577   nebivolol             NO       CÓ         NO
-
-1317640   telmisartan           NO       CÓ         NO
-
-1317967   aliskiren             NO       CÓ         NO
-
-1318137   Nicardipine           NO       CÓ         NO
-
-1318853   Nifedipine            NO       CÓ         NO
-
-1319880   Nisoldipine           NO       CÓ         NO
-
-1319998   Acebutolol            NO       CÓ         NO
-
-1322081   Betaxolol             NO       CÓ         NO
-
-1326012   Isradipine            NO       CÓ         NO
-
-1327978   Penbutolol            NO       CÓ         NO
-
-1328165   Diltiazem             NO       CÓ         NO
-
-1331235   quinapril             NO       CÓ         NO
-
-1332418   Amlodipine            NO       CÓ         NO
-
-1334456   Ramipril              NO       CÓ         NO
-
-1335471   benazepril            NO       CÓ         NO
-
-1338005   Bisoprolol            NO       CÓ         NO
-
-1340128   Captopril             NO       CÓ         NO
-
-1341238   Terazosin             NO       CÓ         NO
-
-1341927   Enalapril             NO       CÓ         NO
-
-1342439   trandolapril          NO       CÓ         NO
-
-1344965   Guanfacine            NO       CÓ         NO
-
-1345858   Pindolol              NO       CÓ         NO
-***
-
-+----------+----------------+---------+---------+-----+
-| ID khái  | Tên khái niệm  | > Đã    | Các     | Đã  |
-| niệm     |                | > loại  | khái    | ánh |
-|          |                | > trừ   | niệm    | xạ  |
-|          |                |         | con     |     |
-+==========+================+=========+=========+=====+
-| 1346686  | eprosartan     | > NO    | CÓ      | NO  |
-+----------+----------------+---------+---------+-----+
-| 1346823  | carvedilol     | > NO    | CÓ      | NO  |
-+----------+----------------+---------+---------+-----+
-| 1347384  | irbesartan     | > NO    | CÓ      | NO  |
-+----------+----------------+---------+---------+-----+
-| 1350489  | Prazosin       | > NO    | CÓ      | NO  |
-+----------+----------------+---------+---------+-----+
-| 1351557  | candesartan    | > NO    | CÓ      | NO  |
-+----------+----------------+---------+---------+-----+
-| 1353766  | Propranolol    | > NO    | CÓ      | NO  |
-+----------+----------------+---------+---------+-----+
-| 1353776  | Felodipine     | > NO    | CÓ      | NO  |
-+----------+----------------+---------+---------+-----+
-| 1363053  | Doxazosin      | > NO    | CÓ      | NO  |
-+----------+----------------+---------+---------+-----+
-| 1363749  | Fosinopril     | > NO    | CÓ      | NO  |
-+----------+----------------+---------+---------+-----+
-| 1367500  | Losartan       | > NO    | CÓ      | NO  |
-+----------+----------------+---------+---------+-----+
-| 1373225  | Perindopril    | > NO    | CÓ      | NO  |
-+----------+----------------+---------+---------+-----+
-| 1373928  | Hydralazine    | > NO    | CÓ      | NO  |
-+----------+----------------+---------+---------+-----+
-| 1386957  | Labetalol      | > NO    | CÓ      | NO  |
-+----------+----------------+---------+---------+-----+
-| 1395058  | Chlorthalidone | > NO    | CÓ      | NO  |
-+----------+----------------+---------+---------+-----+
-| 1398937  | Clonidine      | > NO    | CÓ      | NO  |
-+----------+----------------+---------+---------+-----+
-| 40226742 | olmesartan     | > NO    | CÓ      | NO  |
-+----------+----------------+---------+---------+-----+
-| 40235485 | azilsartan     | > NO    | CÓ      | NO  |
-+----------+----------------+---------+---------+-----+
-
-## Nhồi máu cơ tim cấp (AMI)
-
-#### Nhóm thuần tập sự kiện ban đầu
-
-Những người có bất kỳ đặc điểm nào sau đây:
-
-- một tình trạng xuất hiện Nhồi máu cơ tim cấp (Bảng B.5)
-
-với quan sát liên tục ít nhất 0 ngày trước và 0 ngày sau ngày chỉ số
-sự kiện, và giới hạn các sự kiện ban đầu thành: tất cả các sự kiện cho
-mỗi người.
-
-Đối với những người khớp với các Sự kiện chính, bao gồm: Có bất kỳ
-tiêu chí nào sau đây:
-
-- ít nhất 1 lần xuất hiện lượt khám Nội trú hoặc Cấp cứu (Bảng B.6)
-trong đó sự kiện bắt đầu từ tất cả các ngày trước và 0 ngày sau ngày
-bắt đầu chỉ số và sự kiện kết thúc từ 0 ngày trước và tất cả các ngày
-sau ngày bắt đầu chỉ số
-
-Giới hạn nhóm thuần tập sự kiện ban đầu thành: tất cả các sự kiện cho
-mỗi người. Giới hạn nhóm thuần tập đủ điều kiện thành: tất cả các sự
-kiện cho mỗi người.
-
-#### Chiến lược ngày kết thúc
-
-Tiêu chí thoát bù trừ ngày. Ngày kết thúc định nghĩa nhóm thuần tập
-này sẽ là ngày bắt đầu của sự kiện chỉ số cộng thêm 7 ngày
-
-#### Chiến lược thu gọn nhóm thuần tập
-
-Thu gọn nhóm thuần tập theo kỷ nguyên với kích thước khoảng cách là
-180 ngày.
-
-#### Định nghĩa tập hợp khái niệm
-
-Bảng B.5: Lượt khám Nội trú hoặc Cấp cứu
-
-+---------+------------------+-------+---------+------+
-| ID khái | Tên khái niệm    | Đã    | Các     | Đã   |
-| niệm    |                  | loại  | khái    | ánh  |
-|         |                  | trừ   | niệm    | xạ   |
-|         |                  |       | con     |      |
-+=========+==================+=======+=========+======+
-| 314666  | Nhồi máu cơ tim  | CÓ    | CÓ      | > NO |
-|         | cũ               |       |         |      |
-+---------+------------------+-------+---------+------+
-| 4329847 | Nhồi máu cơ tim  | NO    | CÓ      | > NO |
-+---------+------------------+-------+---------+------+
-
-Bảng B.6: Lượt khám Nội trú hoặc Cấp cứu
-
-+-------+-------------------------+-------+---------+-------+
-| ID    | Tên khái niệm           | Đã    | > Các   | > Đã  |
-| khái  |                         | loại  | > khái  | > ánh |
-| niệm  |                         | trừ   | > niệm  | > xạ  |
-|       |                         |       | > con   |       |
-+=======+=========================+=======+=========+=======+
-| 262   | Khám cấp cứu và nội trú | NO    | > CÓ    | > NO  |
-+-------+-------------------------+-------+---------+-------+
-| 9201  | Khám nội trú            | NO    | > CÓ    | > NO  |
-+-------+-------------------------+-------+---------+-------+
-| 9203  | Khám cấp cứu            | NO    | > CÓ    | > NO  |
-+-------+-------------------------+-------+---------+-------+
-
-## Phù mạch
-
-#### Nhóm thuần tập sự kiện ban đầu
-
-Những người có bất kỳ đặc điểm nào sau đây:
-
-- một tình trạng xuất hiện Phù mạch (Bảng B.7)
-
-với quan sát liên tục ít nhất 0 ngày trước và 0 ngày sau ngày chỉ số
-sự kiện, và giới hạn các sự kiện ban đầu thành: tất cả các sự kiện cho
-mỗi người.
-
-Đối với những người khớp với các Sự kiện chính, bao gồm: Có bất kỳ
-tiêu chí nào sau đây:
-
-- ít nhất 1 lần xuất hiện lượt khám Nội trú hoặc Cấp cứu (Bảng B.8)
-trong đó sự kiện bắt đầu từ tất cả các ngày trước và 0 ngày sau ngày
-bắt đầu chỉ số và sự kiện kết thúc từ 0 ngày trước và tất cả các ngày
-sau ngày bắt đầu chỉ số
-
-Giới hạn nhóm thuần tập sự kiện ban đầu thành: tất cả các sự kiện cho
-mỗi người. Giới hạn nhóm thuần tập đủ điều kiện thành: tất cả các sự
-kiện cho mỗi người.
-
-#### Chiến lược ngày kết thúc
-
-Ngày kết thúc định nghĩa nhóm thuần tập này sẽ là ngày bắt đầu của sự
-kiện chỉ số cộng thêm 7 ngày
-
-#### Chiến lược thu gọn nhóm thuần tập
-
-Thu gọn nhóm thuần tập theo kỷ nguyên với kích thước khoảng cách là 30
-ngày.
-
-#### Định nghĩa tập hợp khái niệm
-
-Bảng B.7: Phù mạch
-
-ID Khái niệm Tên Khái niệm Loại trừ Hậu duệ Được ánh xạ 432791 Phù
-mạch KHÔNG CÓ KHÔNG
-
-Bảng B.8: Lượt khám Nội trú hoặc Cấp cứu
-
-***
-ID khái  Tên khái niệm              Đã loại  Các khái   Đã ánh
-niệm                                trừ      niệm con   xạ
--------- -------------------------- -------- ---------- ------
-262      Thăm khám tại phòng cấp    NO       CÓ         NO
-cứu và nội trú
-
-9201     Thăm khám nội trú          NO       CÓ         NO
-
-9203     Thăm khám tại phòng cấp    NO       CÓ         NO
-cứu
-***
-
-## Người dùng mới sử dụng thuốc lợi tiểu nhóm Thiazide đơn trị liệu
-
-#### Nhóm thuần tập sự kiện ban đầu
-
-Những người có bất kỳ đặc điểm nào sau đây:
-
-- phơi nhiễm thuốc lợi tiểu nhóm Thiazide hoặc tương tự Thiazide (Bảng
-B.9) lần đầu tiên trong tiền sử của người đó
-
-với quan sát liên tục ít nhất 365 ngày trước và 0 ngày sau ngày chỉ số
-sự kiện, và giới hạn các sự kiện ban đầu thành: sự kiện sớm nhất cho
-mỗi người.
-
-#### Quy tắc bao gồm
-
-Tiêu chí bao gồm #1: có chẩn đoán tăng huyết áp trong 1 năm trước khi
-điều trị. Có tất cả các tiêu chí sau:
-
-- ít nhất 1 lần xuất hiện tình trạng bệnh Rối loạn tăng huyết áp (Bảng
-B.10) trong đó sự kiện bắt đầu từ 365 ngày trước và 0 ngày sau ngày
-bắt đầu chỉ số
-
-Tiêu chí bao gồm #2: Không có tiền sử phơi nhiễm thuốc chống tăng
-huyết áp trong tiền sử y tế. Có tất cả các tiêu chí sau:
-
-- chính xác 0 lần xuất hiện phơi nhiễm thuốc chống tăng huyết áp (Bảng
-B.11) trong đó sự kiện bắt đầu từ tất cả các ngày trước và 1 ngày
-trước ngày bắt đầu chỉ số
-
-Tiêu chí bao gồm #3: Chỉ dùng thuốc ức chế men chuyển dưới dạng đơn
-trị liệu, không dùng kèm các phương pháp điều trị kết hợp
+Tiêu chí thu nhận #2: Không có tiền sử phơi nhiễm thuốc hạ huyết áp trước đó trong tiền sử y khoa
 
 Có tất cả các tiêu chí sau:
 
-- chính xác 1 lần xuất hiện riêng biệt kỷ nguyên thuốc chống tăng huyết
-áp (Bảng B.11) trong đó sự kiện bắt đầu từ 0 ngày trước và 7 ngày sau
-ngày bắt đầu chỉ số
+- chính xác 0 lần xuất hiện phơi nhiễm thuốc *Thuốc điều trị tăng huyết áp* (Bảng B.4) với ngày bắt đầu biến cố nằm trong khoảng từ tất cả các ngày trước đó đến 1 ngày trước ngày bắt đầu chỉ số
 
-Giới hạn nhóm thuần tập đủ điều kiện thành: sự kiện sớm nhất cho mỗi
-người.
-
-#### Chiến lược ngày kết thúc
-
-Tiêu chí thoát kỷ nguyên thuốc tùy chỉnh. Chiến lược này tạo ra một kỷ
-nguyên thuốc từ các mã được tìm thấy trong tập hợp khái niệm đã chỉ
-định. Nếu sự kiện chỉ số được tìm thấy trong một kỷ nguyên, ngày kết
-thúc nhóm thuần tập sẽ sử dụng ngày kết thúc của kỷ nguyên đó. Nếu
-không, nó sẽ sử dụng ngày kết thúc của thời gian quan sát chứa sự kiện
-chỉ số.
-
-Sử dụng ngày kết thúc kỷ nguyên của thuốc lợi tiểu nhóm Thiazide hoặc
-tương tự Thiazide (Bảng B.9)
-
-- cho phép 30 ngày giữa các lần phơi nhiễm
-
-- thêm 0 ngày sau khi kết thúc phơi nhiễm
-
-#### Chiến lược thu gọn nhóm thuần tập
-
-Thu gọn nhóm thuần tập theo kỷ nguyên với kích thước khoảng cách là 0
-ngày.
-
-#### Định nghĩa tập hợp khái niệm
-
-Bảng B.9&#58; Thuốc lợi tiểu nhóm Thiazide hoặc tương tự Thiazide
-
-***
-ID khái   Tên khái niệm         Đã loại  Các khái   Đã ánh
-niệm                            trừ      niệm con   xạ
---------- --------------------- -------- ---------- ------
-907013    Metolazone            NO       CÓ         NO
-
-974166    Hydrochlorothiazide   NO       CÓ         NO
-
-978555    Indapamide            NO       CÓ         NO
-
-1395058   Chlorthalidone        NO       CÓ         NO
-***
-
-Bảng B.10&#58; Rối loạn tăng huyết áp
-
-+--------+----------------------------------+------+
-| ID     | Tên khái niệm Đã loại trừ Các    | Đã   |
-| khái   | khái niệm con                    | ánh  |
-| niệm   |                                  | xạ   |
-+========+==================================+======+
-| 316866 | Rối loạn tăng huyết áp KHÔNG CÓ  | > NO |
-+--------+----------------------------------+------+
-
-Bảng B.11&#58; Thuốc chống tăng huyết áp
-
-+--------+-------------+---------+---------+-------+
-| ID     | Tên khái    | > Đã    | Các     | > Đã  |
-| khái   | niệm        | > loại  | khái    | > ánh |
-| niệm   |             | > trừ   | niệm    | > xạ  |
-|        |             |         | con     |       |
-+========+=============+=========+=========+=======+
-| 904542 | Triamterene | > NO    | > CÓ    | > NO  |
-+--------+-------------+---------+---------+-------+
-| 907013 | Metolazone  | > NO    | > CÓ    | > NO  |
-+--------+-------------+---------+---------+-------+
-| 932745 | Bumetanide  | > NO    | > CÓ    | > NO  |
-+--------+-------------+---------+---------+-------+
-| 942350 | torsemide   | > NO    | > CÓ    | > NO  |
-+--------+-------------+---------+---------+-------+
-
-***
-ID khái   Tên khái niệm         Đã loại  Các khái   Đã ánh
-niệm                            trừ      niệm con   xạ
---------- --------------------- -------- ---------- ------
-956874    Furosemide            NO       CÓ         NO
-
-970250    Spironolactone        NO       CÓ         NO
-
-974166    Hydrochlorothiazide   NO       CÓ         NO
-
-978555    Indapamide            NO       CÓ         NO
-
-991382    Amiloride             NO       CÓ         NO
-
-1305447   Methyldopa            NO       CÓ         NO
-
-1307046   Metoprolol            NO       CÓ         NO
-
-1307863   Verapamil             NO       CÓ         NO
-
-1308216   Lisinopril            NO       CÓ         NO
-
-1308842   valsartan             NO       CÓ         NO
-
-1309068   Minoxidil             NO       CÓ         NO
-
-1309799   eplerenone            NO       CÓ         NO
-
-1310756   moexipril             NO       CÓ         NO
-
-1313200   Nadolol               NO       CÓ         NO
-
-1314002   Atenolol              NO       CÓ         NO
-
-1314577   nebivolol             NO       CÓ         NO
-
-1317640   telmisartan           NO       CÓ         NO
-
-1317967   aliskiren             NO       CÓ         NO
-
-1318137   Nicardipine           NO       CÓ         NO
-
-1318853   Nifedipine            NO       CÓ         NO
-
-1319880   Nisoldipine           NO       CÓ         NO
-
-1319998   Acebutolol            NO       CÓ         NO
-
-1322081   Betaxolol             NO       CÓ         NO
-
-1326012   Isradipine            NO       CÓ         NO
-
-1327978   Penbutolol            NO       CÓ         NO
-
-1328165   Diltiazem             NO       CÓ         NO
-
-1331235   quinapril             NO       CÓ         NO
-
-1332418   Amlodipine            NO       CÓ         NO
-
-1334456   Ramipril              NO       CÓ         NO
-
-1335471   benazepril            NO       CÓ         NO
-
-1338005   Bisoprolol            NO       CÓ         NO
-
-1340128   Captopril             NO       CÓ         NO
-
-1341238   Terazosin             NO       CÓ         NO
-
-1341927   Enalapril             NO       CÓ         NO
-
-1342439   trandolapril          NO       CÓ         NO
-
-1344965   Guanfacine            NO       CÓ         NO
-
-1345858   Pindolol              NO       CÓ         NO
-
-1346686   eprosartan            NO       CÓ         NO
-
-1346823   carvedilol            NO       CÓ         NO
-
-1347384   irbesartan            NO       CÓ         NO
-
-1350489   Prazosin              NO       CÓ         NO
-
-1351557   candesartan           NO       CÓ         NO
-
-1353766   Propranolol           NO       CÓ         NO
-***
-
-+----------+----------------+---------+---------+-------+
-| ID khái  | Tên khái niệm  | > Đã    | Các     | > Đã  |
-| niệm     |                | > loại  | khái    | > ánh |
-|          |                | > trừ   | niệm    | > xạ  |
-|          |                |         | con     |       |
-+==========+================+=========+=========+=======+
-| 1353776  | Felodipine     | > NO    | > CÓ    | > NO  |
-+----------+----------------+---------+---------+-------+
-| 1363053  | Doxazosin      | > NO    | > CÓ    | > NO  |
-+----------+----------------+---------+---------+-------+
-| 1363749  | Fosinopril     | > NO    | > CÓ    | > NO  |
-+----------+----------------+---------+---------+-------+
-| 1367500  | Losartan       | > NO    | > CÓ    | > NO  |
-+----------+----------------+---------+---------+-------+
-| 1373225  | Perindopril    | > NO    | > CÓ    | > NO  |
-+----------+----------------+---------+---------+-------+
-| 1373928  | Hydralazine    | > NO    | > CÓ    | > NO  |
-+----------+----------------+---------+---------+-------+
-| 1386957  | Labetalol      | > NO    | > CÓ    | > NO  |
-+----------+----------------+---------+---------+-------+
-| 1395058  | Chlorthalidone | > NO    | > CÓ    | > NO  |
-+----------+----------------+---------+---------+-------+
-| 1398937  | Clonidine      | > NO    | > CÓ    | > NO  |
-+----------+----------------+---------+---------+-------+
-| 40226742 | olmesartan     | > NO    | > CÓ    | > NO  |
-+----------+----------------+---------+---------+-------+
-| 40235485 | azilsartan     | > NO    | > CÓ    | > NO  |
-+----------+----------------+---------+---------+-------+
-
-## Bệnh nhân bắt đầu liệu pháp điều trị tăng huyết áp dòng đầu
-
-#### Nhóm thuần tập sự kiện ban đầu
-
-Những người có bất kỳ đặc điểm nào sau đây:
-
-- phơi nhiễm thuốc chống tăng huyết áp dòng đầu (Bảng B.12) lần đầu tiên
-trong tiền sử của người đó
-
-với quan sát liên tục ít nhất 365 ngày trước và 365 ngày sau ngày chỉ
-số sự kiện, và giới hạn các sự kiện ban đầu thành: sự kiện sớm nhất
-cho mỗi người.
-
-#### Quy tắc bao gồm
+Tiêu chí thu nhận #3: Chỉ sử dụng thuốc ức chế men chuyển dưới dạng đơn trị liệu, không dùng kèm các thuốc phối hợp đồng thời
 
 Có tất cả các tiêu chí sau:
 
-- chính xác 0 lần xuất hiện phơi nhiễm thuốc chống tăng huyết áp (Bảng
-B.13) trong đó sự kiện bắt đầu từ tất cả các ngày trước và 1 ngày
-trước ngày bắt đầu chỉ số
+- chính xác 1 lần xuất hiện riêng biệt giai đoạn dùng thuốc (*drug era*) của *Thuốc điều trị tăng huyết áp* (Bảng B.4) với ngày bắt đầu biến cố nằm trong khoảng từ 0 ngày trước đến 7 ngày sau ngày bắt đầu chỉ số
 
-- và ít nhất 1 lần xuất hiện tình trạng bệnh Rối loạn tăng huyết áp
-(Bảng B.14) trong đó sự kiện bắt đầu từ 365 ngày trước và 0 ngày sau
-ngày bắt đầu chỉ số
+Giới hạn đoàn hệ đủ tiêu chuẩn thành: biến cố sớm nhất trên mỗi người.
 
-Giới hạn nhóm thuần tập sự kiện ban đầu thành: sự kiện sớm nhất cho
-mỗi người. Giới hạn nhóm thuần tập đủ điều kiện thành: sự kiện sớm
-nhất cho mỗi người.
+#### Chiến lược xác định ngày kết thúc
 
-#### Chiến lược ngày kết thúc
+Tiêu chí thoát theo giai đoạn dùng thuốc tùy chỉnh. Chiến lược này tạo ra một giai đoạn dùng thuốc từ các mã khái niệm nằm trong tập hợp khái niệm đã chỉ định. Nếu biến cố chỉ số nằm trong một giai đoạn dùng thuốc, ngày kết thúc đoàn hệ sẽ lấy theo ngày kết thúc của giai đoạn dùng thuốc đó. Ngược lại, ngày kết thúc đoàn hệ sẽ lấy theo ngày kết thúc của giai đoạn quan sát chứa biến cố chỉ số.
 
-Không có chiến lược ngày kết thúc nào được chọn. Theo mặc định, ngày
-kết thúc nhóm thuần tập sẽ là ngày kết thúc của thời gian quan sát
-chứa sự kiện chỉ số.
+Sử dụng ngày kết thúc giai đoạn dùng thuốc của *Thuốc ức chế men chuyển* (Bảng B.2):
 
-#### Chiến lược thu gọn nhóm thuần tập
+- cho phép khoảng cách tối đa 30 ngày giữa các lần phơi nhiễm
+- cộng thêm 0 ngày sau khi kết thúc phơi nhiễm
 
-Thu gọn nhóm thuần tập theo kỷ nguyên với kích thước khoảng cách là 0
-ngày.
+#### Chiến lược gộp đoàn hệ
+
+Gộp đoàn hệ theo giai đoạn với khoảng trống tối đa là 0 ngày.
 
 #### Định nghĩa tập hợp khái niệm
 
-Bảng B.12: Thuốc chống tăng huyết áp dòng đầu
+Bảng B.2: Thuốc ức chế men chuyển (*ACE inhibitors*)
+
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 1308216 | Lisinopril | KHÔNG | CÓ | KHÔNG |
+| 1310756 | moexipril | KHÔNG | CÓ | KHÔNG |
+| 1331235 | quinapril | KHÔNG | CÓ | KHÔNG |
+| 1334456 | Ramipril | KHÔNG | CÓ | KHÔNG |
+| 1335471 | benazepril | KHÔNG | CÓ | KHÔNG |
+| 1340128 | Captopril | KHÔNG | CÓ | KHÔNG |
+| 1341927 | Enalapril | KHÔNG | CÓ | KHÔNG |
+| 1342439 | trandolapril | KHÔNG | CÓ | KHÔNG |
+| 1363749 | Fosinopril | KHÔNG | CÓ | KHÔNG |
+| 1373225 | Perindopril | KHÔNG | CÓ | KHÔNG |
+
+Bảng B.3: Rối loạn tăng huyết áp (*Hypertensive disorder*)
+
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 316866 | Hypertensive disorder (Rối loạn tăng huyết áp) | KHÔNG | CÓ | KHÔNG |
+
+Bảng B.4: Thuốc điều trị tăng huyết áp (*Hypertension drugs*)
+
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 904542 | Triamterene | KHÔNG | CÓ | KHÔNG |
+| 907013 | Metolazone | KHÔNG | CÓ | KHÔNG |
+| 932745 | Bumetanide | KHÔNG | CÓ | KHÔNG |
+| 942350 | torsemide | KHÔNG | CÓ | KHÔNG |
+| 956874 | Furosemide | KHÔNG | CÓ | KHÔNG |
+| 970250 | Spironolactone | KHÔNG | CÓ | KHÔNG |
+| 974166 | Hydrochlorothiazide | KHÔNG | CÓ | KHÔNG |
+| 978555 | Indapamide | KHÔNG | CÓ | KHÔNG |
+| 991382 | Amiloride | KHÔNG | CÓ | KHÔNG |
+| 1305447 | Methyldopa | KHÔNG | CÓ | KHÔNG |
+| 1307046 | Metoprolol | KHÔNG | CÓ | KHÔNG |
+| 1307863 | Verapamil | KHÔNG | CÓ | KHÔNG |
+| 1308216 | Lisinopril | KHÔNG | CÓ | KHÔNG |
+| 1308842 | valsartan | KHÔNG | CÓ | KHÔNG |
+| 1309068 | Minoxidil | KHÔNG | CÓ | KHÔNG |
+| 1309799 | eplerenone | KHÔNG | CÓ | KHÔNG |
+| 1310756 | moexipril | KHÔNG | CÓ | KHÔNG |
+| 1313200 | Nadolol | KHÔNG | CÓ | KHÔNG |
+| 1314002 | Atenolol | KHÔNG | CÓ | KHÔNG |
+| 1314577 | nebivolol | KHÔNG | CÓ | KHÔNG |
+| 1317640 | telmisartan | KHÔNG | CÓ | KHÔNG |
+| 1317967 | aliskiren | KHÔNG | CÓ | KHÔNG |
+| 1318137 | Nicardipine | KHÔNG | CÓ | KHÔNG |
+| 1318853 | Nifedipine | KHÔNG | CÓ | KHÔNG |
+| 1319880 | Nisoldipine | KHÔNG | CÓ | KHÔNG |
+| 1319998 | Acebutolol | KHÔNG | CÓ | KHÔNG |
+| 1322081 | Betaxolol | KHÔNG | CÓ | KHÔNG |
+| 1326012 | Isradipine | KHÔNG | CÓ | KHÔNG |
+| 1327978 | Penbutolol | KHÔNG | CÓ | KHÔNG |
+| 1328165 | Diltiazem | KHÔNG | CÓ | KHÔNG |
+| 1331235 | quinapril | KHÔNG | CÓ | KHÔNG |
+| 1332418 | Amlodipine | KHÔNG | CÓ | KHÔNG |
+| 1334456 | Ramipril | KHÔNG | CÓ | KHÔNG |
+| 1335471 | benazepril | KHÔNG | CÓ | KHÔNG |
+| 1338005 | Bisoprolol | KHÔNG | CÓ | KHÔNG |
+| 1340128 | Captopril | KHÔNG | CÓ | KHÔNG |
+| 1341238 | Terazosin | KHÔNG | CÓ | KHÔNG |
+| 1341927 | Enalapril | KHÔNG | CÓ | KHÔNG |
+| 1342439 | trandolapril | KHÔNG | CÓ | KHÔNG |
+| 1344965 | Guanfacine | KHÔNG | CÓ | KHÔNG |
+| 1345858 | Pindolol | KHÔNG | CÓ | KHÔNG |
+| 1346686 | eprosartan | KHÔNG | CÓ | KHÔNG |
+| 1346823 | carvedilol | KHÔNG | CÓ | KHÔNG |
+| 1347384 | irbesartan | KHÔNG | CÓ | KHÔNG |
+| 1350489 | Prazosin | KHÔNG | CÓ | KHÔNG |
+| 1351557 | candesartan | KHÔNG | CÓ | KHÔNG |
+| 1353766 | Propranolol | KHÔNG | CÓ | KHÔNG |
+| 1353776 | Felodipine | KHÔNG | CÓ | KHÔNG |
+| 1363053 | Doxazosin | KHÔNG | CÓ | KHÔNG |
+| 1363749 | Fosinopril | KHÔNG | CÓ | KHÔNG |
+| 1367500 | Losartan | KHÔNG | CÓ | KHÔNG |
+| 1373225 | Perindopril | KHÔNG | CÓ | KHÔNG |
+| 1373928 | Hydralazine | KHÔNG | CÓ | KHÔNG |
+| 1386957 | Labetalol | KHÔNG | CÓ | KHÔNG |
+| 1395058 | Chlorthalidone | KHÔNG | CÓ | KHÔNG |
+| 1398937 | Clonidine | KHÔNG | CÓ | KHÔNG |
+| 40226742 | olmesartan | KHÔNG | CÓ | KHÔNG |
+| 40235485 | azilsartan | KHÔNG | CÓ | KHÔNG |
+
+## Nhồi máu cơ tim cấp (AMI) {#Ami}
+
+#### Đoàn hệ biến cố khởi đầu
+
+Những người có bất kỳ tiêu chí nào sau đây:
+
+- một lần xuất hiện tình trạng bệnh *Nhồi máu cơ tim cấp* (Bảng B.5)
+
+với thời gian quan sát liên tục ít nhất 0 ngày trước và 0 ngày sau ngày chỉ số của biến cố, và giới hạn các biến cố khởi đầu thành: tất cả các biến cố trên mỗi người.
+
+Đối với những người khớp với Biến cố Chính, thu nhận khi có bất kỳ tiêu chí nào sau đây:
+
+- ít nhất 1 lần xuất hiện lượt khám *Nội trú hoặc Cấp cứu* (Bảng B.6) với ngày bắt đầu lượt khám nằm trong khoảng từ tất cả các ngày trước đó đến 0 ngày sau ngày bắt đầu chỉ số và ngày kết thúc lượt khám nằm trong khoảng từ 0 ngày trước đến tất cả các ngày sau ngày bắt đầu chỉ số
+
+Giới hạn đoàn hệ biến cố khởi đầu thành: tất cả các biến cố trên mỗi người.
+
+Giới hạn đoàn hệ đủ tiêu chuẩn thành: tất cả các biến cố trên mỗi người.
 
-***
-ID khái    Tên khái niệm         Đã loại  Các khái   Đã ánh
-niệm                             trừ      niệm con   xạ
----------- --------------------- -------- ---------- ------
-907013     Metolazone            NO       CÓ         NO
+#### Chiến lược xác định ngày kết thúc
 
-974166     Hydrochlorothiazide   NO       CÓ         NO
+Tiêu chí thoát theo độ lệch ngày (*Date Offset Exit Criteria*). Ngày kết thúc của định nghĩa đoàn hệ này sẽ là ngày bắt đầu của biến cố chỉ số cộng thêm 7 ngày.
 
-978555     Indapamide            NO       CÓ         NO
+#### Chiến lược gộp đoàn hệ
 
-1307863    Verapamil             NO       CÓ         NO
-
-1308216    Lisinopril            NO       CÓ         NO
-
-1308842    valsartan             NO       CÓ         NO
-
-1310756    moexipril             NO       CÓ         NO
-
-1317640    telmisartan           NO       CÓ         NO
-
-1318137    Nicardipine           NO       CÓ         NO
-
-1318853    Nifedipine            NO       CÓ         NO
-
-1319880    Nisoldipine           NO       CÓ         NO
-
-1326012    Isradipine            NO       CÓ         NO
-
-1328165    Diltiazem             NO       CÓ         NO
-
-1331235    quinapril             NO       CÓ         NO
-
-1332418    Amlodipine            NO       CÓ         NO
-
-1334456    Ramipril              NO       CÓ         NO
-
-1335471    benazepril            NO       CÓ         NO
-
-1340128    Captopril             NO       CÓ         NO
-
-1341927    Enalapril             NO       CÓ         NO
-
-1342439    trandolapril          NO       CÓ         NO
-
-1346686    eprosartan            NO       CÓ         NO
-
-1347384    irbesartan            NO       CÓ         NO
-
-1351557    candesartan           NO       CÓ         NO
-
-1353776    Felodipine            NO       CÓ         NO
-
-1363749    Fosinopril            NO       CÓ         NO
-
-1367500    Losartan              NO       CÓ         NO
-
-1373225    Perindopril           NO       CÓ         NO
-
-1395058    Chlorthalidone        NO       CÓ         NO
-
-40226742   olmesartan            NO       CÓ         NO
-
-40235485   azilsartan            NO       CÓ         NO
-***
-
-Bảng B.13: Thuốc chống tăng huyết áp
-
-+--------+-------------+---------+---------+--------+
-| ID     | Tên khái    | > Loại  | Các     | > Được |
-| khái   | niệm        | > trừ   | khái    | > ánh  |
-| niệm   |             |         | niệm    | > xạ   |
-|        |             |         | con     |        |
-+========+=============+=========+=========+========+
-| 904542 | Triamterene | > NO    | > CÓ    | > NO   |
-+--------+-------------+---------+---------+--------+
-| 907013 | Metolazone  | > NO    | > CÓ    | > NO   |
-+--------+-------------+---------+---------+--------+
-| 932745 | Bumetanide  | > NO    | > CÓ    | > NO   |
-+--------+-------------+---------+---------+--------+
-| 942350 | torsemide   | > NO    | > CÓ    | > NO   |
-+--------+-------------+---------+---------+--------+
-
-***
-ID khái   Tên khái niệm         Loại trừ Các khái   Được
-niệm                                     niệm con   ánh xạ
---------- --------------------- -------- ---------- ------
-956874    Furosemide            NO       CÓ         NO
-
-970250    Spironolactone        NO       CÓ         NO
-
-974166    Hydrochlorothiazide   NO       CÓ         NO
-
-978555    Indapamide            NO       CÓ         NO
-
-991382    Amiloride             NO       CÓ         NO
-
-1305447   Methyldopa            NO       CÓ         NO
-
-1307046   Metoprolol            NO       CÓ         NO
-
-1307863   Verapamil             NO       CÓ         NO
-
-1308216   Lisinopril            NO       CÓ         NO
-
-1308842   valsartan             NO       CÓ         NO
-
-1309068   Minoxidil             NO       CÓ         NO
-
-1309799   eplerenone            NO       CÓ         NO
-
-1310756   moexipril             NO       CÓ         NO
-
-1313200   Nadolol               NO       CÓ         NO
-
-1314002   Atenolol              NO       CÓ         NO
-
-1314577   nebivolol             NO       CÓ         NO
-
-1317640   telmisartan           NO       CÓ         NO
-
-1317967   aliskiren             NO       CÓ         NO
-
-1318137   Nicardipine           NO       CÓ         NO
-
-1318853   Nifedipine            NO       CÓ         NO
-
-1319880   Nisoldipine           NO       CÓ         NO
-
-1319998   Acebutolol            NO       CÓ         NO
-
-1322081   Betaxolol             NO       CÓ         NO
-
-1326012   Isradipine            NO       CÓ         NO
-
-1327978   Penbutolol            NO       CÓ         NO
-
-1328165   Diltiazem             NO       CÓ         NO
-
-1331235   quinapril             NO       CÓ         NO
-
-1332418   Amlodipine            NO       CÓ         NO
-
-1334456   Ramipril              NO       CÓ         NO
-
-1335471   benazepril            NO       CÓ         NO
-
-1338005   Bisoprolol            NO       CÓ         NO
-
-1340128   Captopril             NO       CÓ         NO
-
-1341238   Terazosin             NO       CÓ         NO
-
-1341927   Enalapril             NO       CÓ         NO
-
-1342439   trandolapril          NO       CÓ         NO
-
-1344965   Guanfacine            NO       CÓ         NO
-
-1345858   Pindolol              NO       CÓ         NO
-
-1346686   eprosartan            NO       CÓ         NO
-
-1346823   carvedilol            NO       CÓ         NO
-
-1347384   irbesartan            NO       CÓ         NO
-
-1350489   Prazosin              NO       CÓ         NO
-
-1351557   candesartan           NO       CÓ         NO
-
-1353766   Propranolol           NO       CÓ         NO
-***
-
-+----------+----------------+---------+---------+------+
-| ID khái  | Tên khái niệm  | > Loại  | Các     | Được |
-| niệm     |                | > trừ   | khái    | ánh  |
-|          |                |         | niệm    | xạ   |
-|          |                |         | con     |      |
-+==========+================+=========+=========+======+
-| 1353776  | Felodipine     | > NO    | CÓ      | NO   |
-+----------+----------------+---------+---------+------+
-| 1363053  | Doxazosin      | > NO    | CÓ      | NO   |
-+----------+----------------+---------+---------+------+
-| 1363749  | Fosinopril     | > NO    | CÓ      | NO   |
-+----------+----------------+---------+---------+------+
-| 1367500  | Losartan       | > NO    | CÓ      | NO   |
-+----------+----------------+---------+---------+------+
-| 1373225  | Perindopril    | > NO    | CÓ      | NO   |
-+----------+----------------+---------+---------+------+
-| 1373928  | Hydralazine    | > NO    | CÓ      | NO   |
-+----------+----------------+---------+---------+------+
-| 1386957  | Labetalol      | > NO    | CÓ      | NO   |
-+----------+----------------+---------+---------+------+
-| 1395058  | Chlorthalidone | > NO    | CÓ      | NO   |
-+----------+----------------+---------+---------+------+
-| 1398937  | Clonidine      | > NO    | CÓ      | NO   |
-+----------+----------------+---------+---------+------+
-| 40226742 | olmesartan     | > NO    | CÓ      | NO   |
-+----------+----------------+---------+---------+------+
-| 40235485 | azilsartan     | > NO    | CÓ      | NO   |
-+----------+----------------+---------+---------+------+
-
-Bảng B.14: Rối loạn tăng huyết áp
-
-+--------+----------------------------------+------+
-| ID     | Tên khái niệm Loại trừ Các khái  | Được |
-| khái   | niệm con                         | ánh  |
-| niệm   |                                  | xạ   |
-+========+==================================+======+
-| 316866 | Rối loạn tăng huyết áp KHÔNG CÓ  | > NO |
-+--------+----------------------------------+------+
-
-## Bệnh nhân bắt đầu liệu pháp điều trị tăng huyết áp dòng đầu với thời gian theo dõi \> 3 năm
-
-Giống như định nghĩa nhóm thuần tập B.6 nhưng với quan sát liên tục ít
-nhất 365 ngày trước và 1095 ngày sau ngày chỉ số sự
-kiện
-
-## Sử dụng thuốc ức chế men chuyển
-
-#### Nhóm thuần tập sự kiện ban đầu
-
-Những người có bất kỳ đặc điểm nào sau đây:
-
-- phơi nhiễm thuốc ức chế men chuyển (Bảng B.15)
-
-với quan sát liên tục ít nhất 0 ngày trước và 0 ngày sau ngày chỉ số
-sự kiện, và giới hạn các sự kiện ban đầu thành: tất cả các sự kiện cho
-mỗi người.
-
-Giới hạn nhóm thuần tập đủ điều kiện thành: tất cả các sự kiện cho mỗi
-người.
-
-#### Chiến lược ngày kết thúc
-
-Chiến lược này tạo ra một kỷ nguyên thuốc từ các mã được tìm thấy
-trong tập hợp khái niệm đã chỉ định. Nếu sự kiện chỉ số được tìm thấy
-trong một kỷ nguyên, ngày kết thúc nhóm thuần tập sẽ sử dụng ngày kết
-thúc của kỷ nguyên đó. Nếu không, nó sẽ sử dụng ngày kết thúc của thời
-gian quan sát chứa sự kiện chỉ số.
-
-Sử dụng ngày kết thúc kỷ nguyên của thuốc ức chế men chuyển (Bảng
-B.15)
-
-- cho phép 30 ngày giữa các lần phơi nhiễm
-
-- thêm 0 ngày sau khi kết thúc phơi nhiễm
-
-#### Chiến lược thu gọn nhóm thuần tập
-
-Thu gọn nhóm thuần tập theo kỷ nguyên với kích thước khoảng cách là 30
-ngày.
+Gộp đoàn hệ theo giai đoạn với khoảng trống tối đa là 180 ngày.
 
 #### Định nghĩa tập hợp khái niệm
 
-Bảng B.15&#58; Thuốc ức chế men chuyển
+Bảng B.5: Nhồi máu cơ tim cấp (*Acute myocardial infarction*)
 
-***
-ID khái   Tên khái niệm  Loại trừ Các khái   Được
-niệm                              niệm con   ánh xạ
---------- -------------- -------- ---------- ------
-1308216   Lisinopril     NO       CÓ         NO
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 314666 | Old myocardial infarction (Nhồi máu cơ tim cũ) | CÓ | CÓ | KHÔNG |
+| 4329847 | Myocardial infarction (Nhồi máu cơ tim) | KHÔNG | CÓ | KHÔNG |
 
-1310756   moexipril      NO       CÓ         NO
+Bảng B.6: Lượt khám Nội trú hoặc Cấp cứu (*Inpatient or ER visit*)
 
-1331235   quinapril      NO       CÓ         NO
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 262 | Emergency Room and Inpatient Visit (Khám cấp cứu và nội trú) | KHÔNG | CÓ | KHÔNG |
+| 9201 | Inpatient Visit (Khám nội trú) | KHÔNG | CÓ | KHÔNG |
+| 9203 | Emergency Room Visit (Khám cấp cứu) | KHÔNG | CÓ | KHÔNG |
 
-1334456   Ramipril       NO       CÓ         NO
+## Phù mạch (Angioedema) {#Angioedema}
 
-1335471   benazepril     NO       CÓ         NO
+#### Đoàn hệ biến cố khởi đầu
 
-1340128   Captopril      NO       CÓ         NO
+Những người có bất kỳ tiêu chí nào sau đây:
 
-1341927   Enalapril      NO       CÓ         NO
+- một lần xuất hiện tình trạng bệnh *Phù mạch* (Bảng B.7)
 
-1342439   trandolapril   NO       CÓ         NO
+với thời gian quan sát liên tục ít nhất 0 ngày trước và 0 ngày sau ngày chỉ số của biến cố, và giới hạn các biến cố khởi đầu thành: tất cả các biến cố trên mỗi người.
 
-1363749   Fosinopril     NO       CÓ         NO
+Đối với những người khớp với Biến cố Chính, thu nhận khi có bất kỳ tiêu chí nào sau đây:
 
-1373225   Perindopril    NO       CÓ         NO
-***
+- ít nhất 1 lần xuất hiện lượt khám *Nội trú hoặc Cấp cứu* (Bảng B.8) với ngày bắt đầu lượt khám nằm trong khoảng từ tất cả các ngày trước đó đến 0 ngày sau ngày bắt đầu chỉ số và ngày kết thúc lượt khám nằm trong khoảng từ 0 ngày trước đến tất cả các ngày sau ngày bắt đầu chỉ số
 
-## Sử dụng thuốc chẹn thụ thể Angiotensin (ARB)
+Giới hạn đoàn hệ biến cố khởi đầu thành: tất cả các biến cố trên mỗi người.
 
-Giống như định nghĩa nhóm thuần tập B.8 với thuốc chẹn thụ thể
-Angiotensin (ARB) (Bảng B.16) thay thế cho thuốc ức chế men chuyển
-(Bảng B.15).
+Giới hạn đoàn hệ đủ tiêu chuẩn thành: tất cả các biến cố trên mỗi người.
 
-#### Định nghĩa tập hợp khái niệm
+#### Chiến lược xác định ngày kết thúc
 
-Bảng B.16&#58; Thuốc chẹn thụ thể Angiotensin (ARB)
+Ngày kết thúc của định nghĩa đoàn hệ này sẽ là ngày bắt đầu của biến cố chỉ số cộng thêm 7 ngày.
 
-+----------+-------------+-------+---------+--------+
-| ID khái  | Tên khái    | Loại  | Các     | > Được |
-| niệm     | niệm        | trừ   | khái    | > ánh  |
-|          |             |       | niệm    | > xạ   |
-|          |             |       | con     |        |
-+==========+=============+=======+=========+========+
-| 1308842  | valsartan   | NO    | CÓ      | NO     |
-+----------+-------------+-------+---------+--------+
-| 1317640  | telmisartan | NO    | CÓ      | NO     |
-+----------+-------------+-------+---------+--------+
-| 1346686  | eprosartan  | NO    | CÓ      | NO     |
-+----------+-------------+-------+---------+--------+
-| 1347384  | irbesartan  | NO    | CÓ      | NO     |
-+----------+-------------+-------+---------+--------+
-| 1351557  | candesartan | NO    | CÓ      | NO     |
-+----------+-------------+-------+---------+--------+
-| 1367500  | Losartan    | NO    | CÓ      | NO     |
-+----------+-------------+-------+---------+--------+
-| 40226742 | olmesartan  | NO    | CÓ      | NO     |
-+----------+-------------+-------+---------+--------+
-| 40235485 | azilsartan  | NO    | CÓ      | NO     |
-+----------+-------------+-------+---------+--------+
+#### Chiến lược gộp đoàn hệ
 
-*B.10. Sử dụng thuốc lợi tiểu nhóm Thiazide hoặc tương tự Thiazide
-
-## Sử dụng thuốc lợi tiểu nhóm Thiazide hoặc tương tự Thiazide
-
-Giống như định nghĩa nhóm thuần tập B.8 với thuốc lợi tiểu nhóm
-Thiazide hoặc tương tự Thiazide (Bảng B.17) thay thế cho thuốc ức chế
-men chuyển (Bảng B.15).
+Gộp đoàn hệ theo giai đoạn với khoảng trống tối đa là 30 ngày.
 
 #### Định nghĩa tập hợp khái niệm
 
-Bảng B.17: Thuốc lợi tiểu nhóm Thiazide hoặc tương tự Thiazide
+Bảng B.7: Phù mạch (*Angioedema*)
 
-***
-ID khái   Tên khái niệm         Loại trừ Các khái   Đã ánh
-niệm                                     niệm con   xạ
---------- --------------------- -------- ---------- ------
-907013    Metolazone            NO       CÓ         NO
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 432791 | Angioedema (Phù mạch) | KHÔNG | CÓ | KHÔNG |
 
-974166    Hydrochlorothiazide   NO       CÓ         NO
+Bảng B.8: Lượt khám Nội trú hoặc Cấp cứu (*Inpatient or ER visit*)
 
-978555    Indapamide            NO       CÓ         NO
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 262 | Emergency Room and Inpatient Visit (Khám cấp cứu và nội trú) | KHÔNG | CÓ | KHÔNG |
+| 9201 | Inpatient Visit (Khám nội trú) | KHÔNG | CÓ | KHÔNG |
+| 9203 | Emergency Room Visit (Khám cấp cứu) | KHÔNG | CÓ | KHÔNG |
 
-1395058   Chlorthalidone        NO       CÓ         NO
-***
+## Người dùng mới sử dụng thuốc lợi tiểu nhóm Thiazide hoặc tương tự Thiazide đơn trị liệu {#ThiazidesMono}
 
-## Sử dụng thuốc chẹn kênh canxi Dihydropyridine (dCCB)
+#### Đoàn hệ biến cố khởi đầu
 
-Giống như định nghĩa nhóm thuần tập B.8 với thuốc chẹn kênh canxi
-dihydropyridine (dCCB) (Bảng B.18) thay thế cho thuốc ức chế men
-chuyển (Bảng B.15).
+Những người có bất kỳ tiêu chí nào sau đây:
 
-#### Định nghĩa tập hợp khái niệm
+- một bản ghi phơi nhiễm thuốc thuộc nhóm *Thuốc lợi tiểu nhóm Thiazide hoặc tương tự Thiazide* (Bảng B.9) lần đầu tiên trong tiền sử của người đó
 
-Bảng B.18: Thuốc chẹn kênh canxi Dihydropyridine (dCCB)
+với thời gian quan sát liên tục ít nhất 365 ngày trước và 0 ngày sau ngày chỉ số của biến cố, và giới hạn các biến cố khởi đầu thành: biến cố sớm nhất trên mỗi người.
 
-+---------+-------------+-------+---------+-------+
-| ID khái | Tên khái    | Loại  | Các     | > Đã  |
-| niệm    | niệm        | trừ   | khái    | > ánh |
-|         |             |       | niệm    | > xạ  |
-|         |             |       | con     |       |
-+=========+=============+=======+=========+=======+
-| 1318137 | Nicardipine | NO    | CÓ      | NO    |
-+---------+-------------+-------+---------+-------+
-| 1318853 | Nifedipine  | NO    | CÓ      | NO    |
-+---------+-------------+-------+---------+-------+
-| 1319880 | Nisoldipine | NO    | CÓ      | NO    |
-+---------+-------------+-------+---------+-------+
-| 1326012 | Isradipine  | NO    | CÓ      | NO    |
-+---------+-------------+-------+---------+-------+
-| 1332418 | Amlodipine  | NO    | CÓ      | NO    |
-+---------+-------------+-------+---------+-------+
-| 1353776 | Felodipine  | NO    | CÓ      | NO    |
-+---------+-------------+-------+---------+-------+
+#### Quy tắc thu nhận
 
-## Sử dụng thuốc chẹn kênh canxi không phải Dihydropyridine (nd-CCB)
+Tiêu chí thu nhận #1: Có chẩn đoán tăng huyết áp trong vòng 1 năm trước khi điều trị
 
-Giống như định nghĩa nhóm thuần tập B.8 với thuốc chẹn kênh canxi
-không phải dihydropyridine (nd-CCB) (Bảng B.19) thay thế cho thuốc ức
-chế men chuyển (Bảng B.15).
+Có tất cả các tiêu chí sau:
 
-#### Định nghĩa tập hợp khái niệm
+- ít nhất 1 lần xuất hiện tình trạng bệnh *Rối loạn tăng huyết áp* (Bảng B.10) với ngày bắt đầu biến cố nằm trong khoảng từ 365 ngày trước đến 0 ngày sau ngày bắt đầu chỉ số
 
-####
+Tiêu chí thu nhận #2: Không có tiền sử phơi nhiễm thuốc hạ huyết áp trước đó trong tiền sử y khoa
 
-Bảng B.19: Thuốc chẹn kênh canxi không phải dihydropyridine (nd-CCB)
+Có tất cả các tiêu chí sau:
 
-***
-ID khái   Tên khái    Loại trừ Các khái   Đã ánh
-niệm      niệm                 niệm con   xạ
---------- ----------- -------- ---------- ------
-1307863   Verapamil   NO       CÓ         NO
+- chính xác 0 lần xuất hiện phơi nhiễm thuốc *Thuốc điều trị tăng huyết áp* (Bảng B.11) với ngày bắt đầu biến cố nằm trong khoảng từ tất cả các ngày trước đó đến 1 ngày trước ngày bắt đầu chỉ số
 
-1328165   Diltiazem   NO       CÓ         NO
-***
+Tiêu chí thu nhận #3: Chỉ sử dụng thuốc dưới dạng đơn trị liệu, không dùng kèm các thuốc phối hợp đồng thời
 
-## Sử dụng thuốc chẹn Beta
+Có tất cả các tiêu chí sau:
 
-Giống như định nghĩa nhóm thuần tập B.8 với thuốc chẹn Beta (Bảng
-B.20) thay thế cho thuốc ức chế men chuyển (Bảng B.15).
+- chính xác 1 lần xuất hiện riêng biệt giai đoạn dùng thuốc của *Thuốc điều trị tăng huyết áp* (Bảng B.11) với ngày bắt đầu biến cố nằm trong khoảng từ 0 ngày trước đến 7 ngày sau ngày bắt đầu chỉ số
+
+Giới hạn đoàn hệ đủ tiêu chuẩn thành: biến cố sớm nhất trên mỗi người.
+
+#### Chiến lược xác định ngày kết thúc
+
+Tiêu chí thoát theo giai đoạn dùng thuốc tùy chỉnh. Chiến lược này tạo ra một giai đoạn dùng thuốc từ các mã khái niệm nằm trong tập hợp khái niệm đã chỉ định. Nếu biến cố chỉ số nằm trong một giai đoạn dùng thuốc, ngày kết thúc đoàn hệ sẽ lấy theo ngày kết thúc của giai đoạn dùng thuốc đó. Ngược lại, ngày kết thúc đoàn hệ sẽ lấy theo ngày kết thúc của giai đoạn quan sát chứa biến cố chỉ số.
+
+Sử dụng ngày kết thúc giai đoạn dùng thuốc của *Thuốc lợi tiểu nhóm Thiazide hoặc tương tự Thiazide* (Bảng B.9):
+
+- cho phép khoảng cách tối đa 30 ngày giữa các lần phơi nhiễm
+- cộng thêm 0 ngày sau khi kết thúc phơi nhiễm
+
+#### Chiến lược gộp đoàn hệ
+
+Gộp đoàn hệ theo giai đoạn với khoảng trống tối đa là 0 ngày.
 
 #### Định nghĩa tập hợp khái niệm
 
-Bảng B.20&#58; Thuốc chẹn Beta
+Bảng B.9: Thuốc lợi tiểu nhóm Thiazide hoặc tương tự Thiazide (*Thiazide or thiazide-like diuretic*)
 
-***
-ID khái   Tên khái niệm Loại trừ Các khái   Đã ánh
-niệm                             niệm con   xạ
---------- ------------- -------- ---------- ------
-1307046   Metoprolol    NO       CÓ         NO
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 907013 | Metolazone | KHÔNG | CÓ | KHÔNG |
+| 974166 | Hydrochlorothiazide | KHÔNG | CÓ | KHÔNG |
+| 978555 | Indapamide | KHÔNG | CÓ | KHÔNG |
+| 1395058 | Chlorthalidone | KHÔNG | CÓ | KHÔNG |
 
-1313200   Nadolol       NO       CÓ         NO
+Bảng B.10: Rối loạn tăng huyết áp (*Hypertensive disorder*)
 
-1314002   Atenolol      NO       CÓ         NO
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 316866 | Hypertensive disorder (Rối loạn tăng huyết áp) | KHÔNG | CÓ | KHÔNG |
 
-1314577   nebivolol     NO       CÓ         NO
+Bảng B.11: Thuốc điều trị tăng huyết áp (*Hypertension drugs*)
 
-1319998   Acebutolol    NO       CÓ         NO
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 904542 | Triamterene | KHÔNG | CÓ | KHÔNG |
+| 907013 | Metolazone | KHÔNG | CÓ | KHÔNG |
+| 932745 | Bumetanide | KHÔNG | CÓ | KHÔNG |
+| 942350 | torsemide | KHÔNG | CÓ | KHÔNG |
+| 956874 | Furosemide | KHÔNG | CÓ | KHÔNG |
+| 970250 | Spironolactone | KHÔNG | CÓ | KHÔNG |
+| 974166 | Hydrochlorothiazide | KHÔNG | CÓ | KHÔNG |
+| 978555 | Indapamide | KHÔNG | CÓ | KHÔNG |
+| 991382 | Amiloride | KHÔNG | CÓ | KHÔNG |
+| 1305447 | Methyldopa | KHÔNG | CÓ | KHÔNG |
+| 1307046 | Metoprolol | KHÔNG | CÓ | KHÔNG |
+| 1307863 | Verapamil | KHÔNG | CÓ | KHÔNG |
+| 1308216 | Lisinopril | KHÔNG | CÓ | KHÔNG |
+| 1308842 | valsartan | KHÔNG | CÓ | KHÔNG |
+| 1309068 | Minoxidil | KHÔNG | CÓ | KHÔNG |
+| 1309799 | eplerenone | KHÔNG | CÓ | KHÔNG |
+| 1310756 | moexipril | KHÔNG | CÓ | KHÔNG |
+| 1313200 | Nadolol | KHÔNG | CÓ | KHÔNG |
+| 1314002 | Atenolol | KHÔNG | CÓ | KHÔNG |
+| 1314577 | nebivolol | KHÔNG | CÓ | KHÔNG |
+| 1317640 | telmisartan | KHÔNG | CÓ | KHÔNG |
+| 1317967 | aliskiren | KHÔNG | CÓ | KHÔNG |
+| 1318137 | Nicardipine | KHÔNG | CÓ | KHÔNG |
+| 1318853 | Nifedipine | KHÔNG | CÓ | KHÔNG |
+| 1319880 | Nisoldipine | KHÔNG | CÓ | KHÔNG |
+| 1319998 | Acebutolol | KHÔNG | CÓ | KHÔNG |
+| 1322081 | Betaxolol | KHÔNG | CÓ | KHÔNG |
+| 1326012 | Isradipine | KHÔNG | CÓ | KHÔNG |
+| 1327978 | Penbutolol | KHÔNG | CÓ | KHÔNG |
+| 1328165 | Diltiazem | KHÔNG | CÓ | KHÔNG |
+| 1331235 | quinapril | KHÔNG | CÓ | KHÔNG |
+| 1332418 | Amlodipine | KHÔNG | CÓ | KHÔNG |
+| 1334456 | Ramipril | KHÔNG | CÓ | KHÔNG |
+| 1335471 | benazepril | KHÔNG | CÓ | KHÔNG |
+| 1338005 | Bisoprolol | KHÔNG | CÓ | KHÔNG |
+| 1340128 | Captopril | KHÔNG | CÓ | KHÔNG |
+| 1341238 | Terazosin | KHÔNG | CÓ | KHÔNG |
+| 1341927 | Enalapril | KHÔNG | CÓ | KHÔNG |
+| 1342439 | trandolapril | KHÔNG | CÓ | KHÔNG |
+| 1344965 | Guanfacine | KHÔNG | CÓ | KHÔNG |
+| 1345858 | Pindolol | KHÔNG | CÓ | KHÔNG |
+| 1346686 | eprosartan | KHÔNG | CÓ | KHÔNG |
+| 1346823 | carvedilol | KHÔNG | CÓ | KHÔNG |
+| 1347384 | irbesartan | KHÔNG | CÓ | KHÔNG |
+| 1350489 | Prazosin | KHÔNG | CÓ | KHÔNG |
+| 1351557 | candesartan | KHÔNG | CÓ | KHÔNG |
+| 1353766 | Propranolol | KHÔNG | CÓ | KHÔNG |
+| 1353776 | Felodipine | KHÔNG | CÓ | KHÔNG |
+| 1363053 | Doxazosin | KHÔNG | CÓ | KHÔNG |
+| 1363749 | Fosinopril | KHÔNG | CÓ | KHÔNG |
+| 1367500 | Losartan | KHÔNG | CÓ | KHÔNG |
+| 1373225 | Perindopril | KHÔNG | CÓ | KHÔNG |
+| 1373928 | Hydralazine | KHÔNG | CÓ | KHÔNG |
+| 1386957 | Labetalol | KHÔNG | CÓ | KHÔNG |
+| 1395058 | Chlorthalidone | KHÔNG | CÓ | KHÔNG |
+| 1398937 | Clonidine | KHÔNG | CÓ | KHÔNG |
+| 40226742 | olmesartan | KHÔNG | CÓ | KHÔNG |
+| 40235485 | azilsartan | KHÔNG | CÓ | KHÔNG |
 
-1322081   Betaxolol     NO       CÓ         NO
+## Bệnh nhân bắt đầu liệu pháp điều trị tăng huyết áp đầu tay {#HTN1yrFO}
 
-1327978   Penbutolol    NO       CÓ         NO
+#### Đoàn hệ biến cố khởi đầu
 
-1338005   Bisoprolol    NO       CÓ         NO
+Những người có bất kỳ tiêu chí nào sau đây:
 
-1345858   Pindolol      NO       CÓ         NO
+- một bản ghi phơi nhiễm thuốc thuộc nhóm *Thuốc điều trị tăng huyết áp đầu tay* (Bảng B.12) lần đầu tiên trong tiền sử của người đó
 
-1346823   carvedilol    NO       CÓ         NO
+với thời gian quan sát liên tục ít nhất 365 ngày trước và 365 ngày sau ngày chỉ số của biến cố, và giới hạn các biến cố khởi đầu thành: biến cố sớm nhất trên mỗi người.
 
-1353766   Propranolol   NO       CÓ         NO
+#### Quy tắc thu nhận
 
-1386957   Labetalol     NO       CÓ         NO
-***
+Có tất cả các tiêu chí sau:
 
-## Sử dụng thuốc lợi tiểu quai
+- chính xác 0 lần xuất hiện phơi nhiễm thuốc *Thuốc điều trị tăng huyết áp* (Bảng B.13) với ngày bắt đầu biến cố nằm trong khoảng từ tất cả các ngày trước đó đến 1 ngày trước ngày bắt đầu chỉ số
+- và ít nhất 1 lần xuất hiện tình trạng bệnh *Rối loạn tăng huyết áp* (Bảng B.14) với ngày bắt đầu biến cố nằm trong khoảng từ 365 ngày trước đến 0 ngày sau ngày bắt đầu chỉ số
 
-Giống như định nghĩa nhóm thuần tập B.8 với thuốc lợi tiểu quai (Bảng
-B.21) thay thế cho thuốc ức chế men chuyển (Bảng B.15).
+Giới hạn đoàn hệ biến cố khởi đầu thành: biến cố sớm nhất trên mỗi người.
+
+Giới hạn đoàn hệ đủ tiêu chuẩn thành: biến cố sớm nhất trên mỗi người.
+
+#### Chiến lược xác định ngày kết thúc
+
+Không chọn chiến lược ngày kết thúc cụ thể. Theo mặc định, ngày kết thúc đoàn hệ sẽ là ngày kết thúc của giai đoạn quan sát chứa biến cố chỉ số.
+
+#### Chiến lược gộp đoàn hệ
+
+Gộp đoàn hệ theo giai đoạn với khoảng trống tối đa là 0 ngày.
 
 #### Định nghĩa tập hợp khái niệm
 
-Bảng B.21&#58; Thuốc lợi tiểu quai
+Bảng B.12: Thuốc điều trị tăng huyết áp đầu tay (*First-line hypertension drugs*)
 
-ID Khái niệm Tên Khái niệm Loại trừ Hậu duệ Được ánh xạ 932745
-Bumetanide KHÔNG CÓ KHÔNG
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 907013 | Metolazone | KHÔNG | CÓ | KHÔNG |
+| 974166 | Hydrochlorothiazide | KHÔNG | CÓ | KHÔNG |
+| 978555 | Indapamide | KHÔNG | CÓ | KHÔNG |
+| 1307863 | Verapamil | KHÔNG | CÓ | KHÔNG |
+| 1308216 | Lisinopril | KHÔNG | CÓ | KHÔNG |
+| 1308842 | valsartan | KHÔNG | CÓ | KHÔNG |
+| 1310756 | moexipril | KHÔNG | CÓ | KHÔNG |
+| 1317640 | telmisartan | KHÔNG | CÓ | KHÔNG |
+| 1318137 | Nicardipine | KHÔNG | CÓ | KHÔNG |
+| 1318853 | Nifedipine | KHÔNG | CÓ | KHÔNG |
+| 1319880 | Nisoldipine | KHÔNG | CÓ | KHÔNG |
+| 1326012 | Isradipine | KHÔNG | CÓ | KHÔNG |
+| 1328165 | Diltiazem | KHÔNG | CÓ | KHÔNG |
+| 1331235 | quinapril | KHÔNG | CÓ | KHÔNG |
+| 1332418 | Amlodipine | KHÔNG | CÓ | KHÔNG |
+| 1334456 | Ramipril | KHÔNG | CÓ | KHÔNG |
+| 1335471 | benazepril | KHÔNG | CÓ | KHÔNG |
+| 1340128 | Captopril | KHÔNG | CÓ | KHÔNG |
+| 1341927 | Enalapril | KHÔNG | CÓ | KHÔNG |
+| 1342439 | trandolapril | KHÔNG | CÓ | KHÔNG |
+| 1346686 | eprosartan | KHÔNG | CÓ | KHÔNG |
+| 1347384 | irbesartan | KHÔNG | CÓ | KHÔNG |
+| 1351557 | candesartan | KHÔNG | CÓ | KHÔNG |
+| 1353776 | Felodipine | KHÔNG | CÓ | KHÔNG |
+| 1363749 | Fosinopril | KHÔNG | CÓ | KHÔNG |
+| 1367500 | Losartan | KHÔNG | CÓ | KHÔNG |
+| 1373225 | Perindopril | KHÔNG | CÓ | KHÔNG |
+| 1395058 | Chlorthalidone | KHÔNG | CÓ | KHÔNG |
+| 40226742 | olmesartan | KHÔNG | CÓ | KHÔNG |
+| 40235485 | azilsartan | KHÔNG | CÓ | KHÔNG |
 
-*B.15. Sử dụng thuốc lợi tiểu giữ kali 401*
+Bảng B.13: Thuốc điều trị tăng huyết áp (*Hypertension drugs*)
 
-+--------+------------+-------+---------+-------+
-| ID     | Tên khái   | Loại  | Các     | > Đã  |
-| khái   | niệm       | trừ   | khái    | > ánh |
-| niệm   |            |       | niệm    | > xạ  |
-|        |            |       | con     |       |
-+========+============+=======+=========+=======+
-| 942350 | torsemide  | NO    | CÓ      | NO    |
-+--------+------------+-------+---------+-------+
-| 956874 | Furosemide | NO    | CÓ      | NO    |
-+--------+------------+-------+---------+-------+
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 904542 | Triamterene | KHÔNG | CÓ | KHÔNG |
+| 907013 | Metolazone | KHÔNG | CÓ | KHÔNG |
+| 932745 | Bumetanide | KHÔNG | CÓ | KHÔNG |
+| 942350 | torsemide | KHÔNG | CÓ | KHÔNG |
+| 956874 | Furosemide | KHÔNG | CÓ | KHÔNG |
+| 970250 | Spironolactone | KHÔNG | CÓ | KHÔNG |
+| 974166 | Hydrochlorothiazide | KHÔNG | CÓ | KHÔNG |
+| 978555 | Indapamide | KHÔNG | CÓ | KHÔNG |
+| 991382 | Amiloride | KHÔNG | CÓ | KHÔNG |
+| 1305447 | Methyldopa | KHÔNG | CÓ | KHÔNG |
+| 1307046 | Metoprolol | KHÔNG | CÓ | KHÔNG |
+| 1307863 | Verapamil | KHÔNG | CÓ | KHÔNG |
+| 1308216 | Lisinopril | KHÔNG | CÓ | KHÔNG |
+| 1308842 | valsartan | KHÔNG | CÓ | KHÔNG |
+| 1309068 | Minoxidil | KHÔNG | CÓ | KHÔNG |
+| 1309799 | eplerenone | KHÔNG | CÓ | KHÔNG |
+| 1310756 | moexipril | KHÔNG | CÓ | KHÔNG |
+| 1313200 | Nadolol | KHÔNG | CÓ | KHÔNG |
+| 1314002 | Atenolol | KHÔNG | CÓ | KHÔNG |
+| 1314577 | nebivolol | KHÔNG | CÓ | KHÔNG |
+| 1317640 | telmisartan | KHÔNG | CÓ | KHÔNG |
+| 1317967 | aliskiren | KHÔNG | CÓ | KHÔNG |
+| 1318137 | Nicardipine | KHÔNG | CÓ | KHÔNG |
+| 1318853 | Nifedipine | KHÔNG | CÓ | KHÔNG |
+| 1319880 | Nisoldipine | KHÔNG | CÓ | KHÔNG |
+| 1319998 | Acebutolol | KHÔNG | CÓ | KHÔNG |
+| 1322081 | Betaxolol | KHÔNG | CÓ | KHÔNG |
+| 1326012 | Isradipine | KHÔNG | CÓ | KHÔNG |
+| 1327978 | Penbutolol | KHÔNG | CÓ | KHÔNG |
+| 1328165 | Diltiazem | KHÔNG | CÓ | KHÔNG |
+| 1331235 | quinapril | KHÔNG | CÓ | KHÔNG |
+| 1332418 | Amlodipine | KHÔNG | CÓ | KHÔNG |
+| 1334456 | Ramipril | KHÔNG | CÓ | KHÔNG |
+| 1335471 | benazepril | KHÔNG | CÓ | KHÔNG |
+| 1338005 | Bisoprolol | KHÔNG | CÓ | KHÔNG |
+| 1340128 | Captopril | KHÔNG | CÓ | KHÔNG |
+| 1341238 | Terazosin | KHÔNG | CÓ | KHÔNG |
+| 1341927 | Enalapril | KHÔNG | CÓ | KHÔNG |
+| 1342439 | trandolapril | KHÔNG | CÓ | KHÔNG |
+| 1344965 | Guanfacine | KHÔNG | CÓ | KHÔNG |
+| 1345858 | Pindolol | KHÔNG | CÓ | KHÔNG |
+| 1346686 | eprosartan | KHÔNG | CÓ | KHÔNG |
+| 1346823 | carvedilol | KHÔNG | CÓ | KHÔNG |
+| 1347384 | irbesartan | KHÔNG | CÓ | KHÔNG |
+| 1350489 | Prazosin | KHÔNG | CÓ | KHÔNG |
+| 1351557 | candesartan | KHÔNG | CÓ | KHÔNG |
+| 1353766 | Propranolol | KHÔNG | CÓ | KHÔNG |
+| 1353776 | Felodipine | KHÔNG | CÓ | KHÔNG |
+| 1363053 | Doxazosin | KHÔNG | CÓ | KHÔNG |
+| 1363749 | Fosinopril | KHÔNG | CÓ | KHÔNG |
+| 1367500 | Losartan | KHÔNG | CÓ | KHÔNG |
+| 1373225 | Perindopril | KHÔNG | CÓ | KHÔNG |
+| 1373928 | Hydralazine | KHÔNG | CÓ | KHÔNG |
+| 1386957 | Labetalol | KHÔNG | CÓ | KHÔNG |
+| 1395058 | Chlorthalidone | KHÔNG | CÓ | KHÔNG |
+| 1398937 | Clonidine | KHÔNG | CÓ | KHÔNG |
+| 40226742 | olmesartan | KHÔNG | CÓ | KHÔNG |
+| 40235485 | azilsartan | KHÔNG | CÓ | KHÔNG |
 
-## Sử dụng thuốc lợi tiểu giữ kali
+Bảng B.14: Rối loạn tăng huyết áp (*Hypertensive disorder*)
 
-Giống như định nghĩa nhóm thuần tập B.8 với thuốc lợi tiểu giữ kali
-(Bảng B.22) thay thế cho thuốc ức chế men chuyển (Bảng B.15).
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 316866 | Hypertensive disorder (Rối loạn tăng huyết áp) | KHÔNG | CÓ | KHÔNG |
+
+## Bệnh nhân bắt đầu liệu pháp điều trị tăng huyết áp đầu tay với thời gian theo dõi > 3 năm {#HTN3yrFO}
+
+Giống như định nghĩa đoàn hệ *Bệnh nhân bắt đầu liệu pháp điều trị tăng huyết áp đầu tay* ở trên nhưng yêu cầu thời gian quan sát liên tục ít nhất 365 ngày trước và **1095 ngày** sau ngày chỉ số của biến cố.
+
+## Sử dụng thuốc ức chế men chuyển (ACE Inhibitor Use) {#ACEiUse}
+
+#### Đoàn hệ biến cố khởi đầu
+
+Những người có bất kỳ tiêu chí nào sau đây:
+
+- một bản ghi phơi nhiễm thuốc thuộc nhóm *Thuốc ức chế men chuyển* (Bảng B.15)
+
+với thời gian quan sát liên tục ít nhất 0 ngày trước và 0 ngày sau ngày chỉ số của biến cố, và giới hạn các biến cố khởi đầu thành: tất cả các biến cố trên mỗi người.
+
+Giới hạn đoàn hệ đủ tiêu chuẩn thành: tất cả các biến cố trên mỗi người.
+
+#### Chiến lược xác định ngày kết thúc
+
+Chiến lược này tạo ra một giai đoạn dùng thuốc từ các mã khái niệm nằm trong tập hợp khái niệm đã chỉ định. Nếu biến cố chỉ số nằm trong một giai đoạn dùng thuốc, ngày kết thúc đoàn hệ sẽ lấy theo ngày kết thúc của giai đoạn dùng thuốc đó. Ngược lại, ngày kết thúc đoàn hệ sẽ lấy theo ngày kết thúc của giai đoạn quan sát chứa biến cố chỉ số.
+
+Sử dụng ngày kết thúc giai đoạn dùng thuốc của *Thuốc ức chế men chuyển* (Bảng B.15):
+
+- cho phép khoảng cách tối đa 30 ngày giữa các lần phơi nhiễm
+- cộng thêm 0 ngày sau khi kết thúc phơi nhiễm
+
+#### Chiến lược gộp đoàn hệ
+
+Gộp đoàn hệ theo giai đoạn với khoảng trống tối đa là 30 ngày.
 
 #### Định nghĩa tập hợp khái niệm
 
-Bảng B.22: Thuốc lợi tiểu giữ kali
+Bảng B.15: Thuốc ức chế men chuyển (*ACE inhibitors*)
 
-***
-ID khái  Tên khái niệm Loại trừ Các khái   Đã ánh
-niệm                            niệm con   xạ
--------- ------------- -------- ---------- ------
-904542   Triamterene   NO       CÓ         NO
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 1308216 | Lisinopril | KHÔNG | CÓ | KHÔNG |
+| 1310756 | moexipril | KHÔNG | CÓ | KHÔNG |
+| 1331235 | quinapril | KHÔNG | CÓ | KHÔNG |
+| 1334456 | Ramipril | KHÔNG | CÓ | KHÔNG |
+| 1335471 | benazepril | KHÔNG | CÓ | KHÔNG |
+| 1340128 | Captopril | KHÔNG | CÓ | KHÔNG |
+| 1341927 | Enalapril | KHÔNG | CÓ | KHÔNG |
+| 1342439 | trandolapril | KHÔNG | CÓ | KHÔNG |
+| 1363749 | Fosinopril | KHÔNG | CÓ | KHÔNG |
+| 1373225 | Perindopril | KHÔNG | CÓ | KHÔNG |
 
-991382   Amiloride     NO       CÓ         NO
-***
+## Sử dụng thuốc chẹn thụ thể Angiotensin (ARB Use) {#ARBUse}
 
-## Sử dụng thuốc chẹn Alpha-1
-
-Giống như định nghĩa nhóm thuần tập B.8 với thuốc chẹn Alpha-1 (Bảng
-B.23) thay thế cho thuốc ức chế men chuyển (Bảng B.15).
+Giống như định nghĩa đoàn hệ *Sử dụng thuốc ức chế men chuyển* ở trên nhưng thay bằng *Thuốc chẹn thụ thể Angiotensin (ARBs)* (Bảng B.16) thế chỗ cho *Thuốc ức chế men chuyển* (Bảng B.15).
 
 #### Định nghĩa tập hợp khái niệm
 
-Bảng B.23: Thuốc chẹn alpha-1
+Bảng B.16: Thuốc chẹn thụ thể Angiotensin (*Angiotensin Receptor Blockers – ARBs*)
 
-+---------+-----------+-------+---------+-------+
-| ID khái | Tên khái  | Loại  | Các     | > Đã  |
-| niệm    | niệm      | trừ   | khái    | > ánh |
-|         |           |       | niệm    | > xạ  |
-|         |           |       | con     |       |
-+=========+===========+=======+=========+=======+
-| 1341238 | Terazosin | NO    | CÓ      | NO    |
-+---------+-----------+-------+---------+-------+
-| 1350489 | Prazosin  | NO    | CÓ      | NO    |
-+---------+-----------+-------+---------+-------+
-| 1363053 | Doxazosin | NO    | CÓ      | NO    |
-+---------+-----------+-------+---------+-------+
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 1308842 | valsartan | KHÔNG | CÓ | KHÔNG |
+| 1317640 | telmisartan | KHÔNG | CÓ | KHÔNG |
+| 1346686 | eprosartan | KHÔNG | CÓ | KHÔNG |
+| 1347384 | irbesartan | KHÔNG | CÓ | KHÔNG |
+| 1351557 | candesartan | KHÔNG | CÓ | KHÔNG |
+| 1367500 | Losartan | KHÔNG | CÓ | KHÔNG |
+| 40226742 | olmesartan | KHÔNG | CÓ | KHÔNG |
+| 40235485 | azilsartan | KHÔNG | CÓ | KHÔNG |
 
-Chương C
+## Sử dụng thuốc lợi tiểu nhóm Thiazide hoặc tương tự Thiazide {#THZUse}
 
+Giống như định nghĩa đoàn hệ *Sử dụng thuốc ức chế men chuyển* ở trên nhưng thay bằng *Thuốc lợi tiểu nhóm Thiazide hoặc tương tự Thiazide* (Bảng B.17) thế chỗ cho *Thuốc ức chế men chuyển* (Bảng B.15).
+
+#### Định nghĩa tập hợp khái niệm
+
+Bảng B.17: Thuốc lợi tiểu nhóm Thiazide hoặc tương tự Thiazide (*Thiazide or thiazide-like diuretic*)
+
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 907013 | Metolazone | KHÔNG | CÓ | KHÔNG |
+| 974166 | Hydrochlorothiazide | KHÔNG | CÓ | KHÔNG |
+| 978555 | Indapamide | KHÔNG | CÓ | KHÔNG |
+| 1395058 | Chlorthalidone | KHÔNG | CÓ | KHÔNG |
+
+## Sử dụng thuốc chẹn kênh canxi nhóm Dihydropyridine (dCCB) {#dCCBUse}
+
+Giống như định nghĩa đoàn hệ *Sử dụng thuốc ức chế men chuyển* ở trên nhưng thay bằng *Thuốc chẹn kênh canxi nhóm dihydropyridine (dCCB)* (Bảng B.18) thế chỗ cho *Thuốc ức chế men chuyển* (Bảng B.15).
+
+#### Định nghĩa tập hợp khái niệm
+
+Bảng B.18: Thuốc chẹn kênh canxi nhóm Dihydropyridine (*Dihydropyridine Calcium channel blockers – dCCB*)
+
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 1318137 | Nicardipine | KHÔNG | CÓ | KHÔNG |
+| 1318853 | Nifedipine | KHÔNG | CÓ | KHÔNG |
+| 1319880 | Nisoldipine | KHÔNG | CÓ | KHÔNG |
+| 1326012 | Isradipine | KHÔNG | CÓ | KHÔNG |
+| 1332418 | Amlodipine | KHÔNG | CÓ | KHÔNG |
+| 1353776 | Felodipine | KHÔNG | CÓ | KHÔNG |
+
+## Sử dụng thuốc chẹn kênh canxi nhóm Non-Dihydropyridine (ndCCB) {#ndCCBUse}
+
+Giống như định nghĩa đoàn hệ *Sử dụng thuốc ức chế men chuyển* ở trên nhưng thay bằng *Thuốc chẹn kênh canxi nhóm non-dihydropyridine (ndCCB)* (Bảng B.19) thế chỗ cho *Thuốc ức chế men chuyển* (Bảng B.15).
+
+#### Định nghĩa tập hợp khái niệm
+
+Bảng B.19: Thuốc chẹn kênh canxi nhóm Non-Dihydropyridine (*non-dihydropyridine Calcium channel blockers – ndCCB*)
+
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 1307863 | Verapamil | KHÔNG | CÓ | KHÔNG |
+| 1328165 | Diltiazem | KHÔNG | CÓ | KHÔNG |
+
+## Sử dụng thuốc chẹn Beta (Beta-Blocker Use) {#BBUse}
+
+Giống như định nghĩa đoàn hệ *Sử dụng thuốc ức chế men chuyển* ở trên nhưng thay bằng *Thuốc chẹn Beta* (Bảng B.20) thế chỗ cho *Thuốc ức chế men chuyển* (Bảng B.15).
+
+#### Định nghĩa tập hợp khái niệm
+
+Bảng B.20: Thuốc chẹn Beta (*Beta blockers*)
+
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 1307046 | Metoprolol | KHÔNG | CÓ | KHÔNG |
+| 1313200 | Nadolol | KHÔNG | CÓ | KHÔNG |
+| 1314002 | Atenolol | KHÔNG | CÓ | KHÔNG |
+| 1314577 | nebivolol | KHÔNG | CÓ | KHÔNG |
+| 1319998 | Acebutolol | KHÔNG | CÓ | KHÔNG |
+| 1322081 | Betaxolol | KHÔNG | CÓ | KHÔNG |
+| 1327978 | Penbutolol | KHÔNG | CÓ | KHÔNG |
+| 1338005 | Bisoprolol | KHÔNG | CÓ | KHÔNG |
+| 1345858 | Pindolol | KHÔNG | CÓ | KHÔNG |
+| 1346823 | carvedilol | KHÔNG | CÓ | KHÔNG |
+| 1353766 | Propranolol | KHÔNG | CÓ | KHÔNG |
+| 1386957 | Labetalol | KHÔNG | CÓ | KHÔNG |
+
+## Sử dụng thuốc lợi tiểu quai (Diuretic-Loop Use) {#DLoopUse}
+
+Giống như định nghĩa đoàn hệ *Sử dụng thuốc ức chế men chuyển* ở trên nhưng thay bằng *Thuốc lợi tiểu quai* (Bảng B.21) thế chỗ cho *Thuốc ức chế men chuyển* (Bảng B.15).
+
+#### Định nghĩa tập hợp khái niệm
+
+Bảng B.21: Thuốc lợi tiểu quai (*Diuretics - Loop*)
+
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 932745 | Bumetanide | KHÔNG | CÓ | KHÔNG |
+| 942350 | torsemide | KHÔNG | CÓ | KHÔNG |
+| 956874 | Furosemide | KHÔNG | CÓ | KHÔNG |
+
+## Sử dụng thuốc lợi tiểu giữ kali (Diuretic-Potassium Sparing Use) {#DPUse}
+
+Giống như định nghĩa đoàn hệ *Sử dụng thuốc ức chế men chuyển* ở trên nhưng thay bằng *Thuốc lợi tiểu giữ kali* (Bảng B.22) thế chỗ cho *Thuốc ức chế men chuyển* (Bảng B.15).
+
+#### Định nghĩa tập hợp khái niệm
+
+Bảng B.22: Thuốc lợi tiểu giữ kali (*Diuretics - potassium sparing*)
+
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 904542 | Triamterene | KHÔNG | CÓ | KHÔNG |
+| 991382 | Amiloride | KHÔNG | CÓ | KHÔNG |
+
+## Sử dụng thuốc chẹn Alpha-1 (Alpha-1 Blocker Use) {#A1BUse}
+
+Giống như định nghĩa đoàn hệ *Sử dụng thuốc ức chế men chuyển* ở trên nhưng thay bằng *Thuốc chẹn Alpha-1* (Bảng B.23) thế chỗ cho *Thuốc ức chế men chuyển* (Bảng B.15).
+
+#### Định nghĩa tập hợp khái niệm
+
+Bảng B.23: Thuốc chẹn Alpha-1 (*Alpha-1 blocker*)
+
+| ID khái niệm | Tên khái niệm | Loại trừ | Khái niệm con | Đã ánh xạ |
+| :--- | :--- | :--- | :--- | :--- |
+| 1341238 | Terazosin | KHÔNG | CÓ | KHÔNG |
+| 1350489 | Prazosin | KHÔNG | CÓ | KHÔNG |
+| 1363053 | Doxazosin | KHÔNG | CÓ | KHÔNG |

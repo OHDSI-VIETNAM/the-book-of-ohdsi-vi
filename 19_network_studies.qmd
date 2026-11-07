@@ -1,635 +1,165 @@
----
-title: "Chương 19: Nghiên cứu mạng lưới OHDSI"
----
-
-# Nghiên cứu mạng lưới OHDSI
+# Chương 19: Nghiên cứu mạng lưới đa trung tâm OHDSI
 
 *Chủ biên chương: Kristin Kostka, Greg Klebanov & Sara Dempster*
 
-Sứ mệnh của OHDSI là tạo ra bằng chứng chất lượng cao thông qua nghiên
-cứu quan sát. Một cách chính để đạt được điều này là thông qua các
-nghiên cứu nghiên cứu hợp tác. Trong các chương trước, chúng tôi đã
-thảo luận về cách cộng đồng OHDSI đã soạn thảo các tiêu chuẩn và công
-cụ để tạo điều kiện cho nghiên cứu chất lượng cao, có thể tái lập, bao
-gồm Từ vựng chuẩn hóa OMOP, Mô hình dữ liệu chung (CDM), các gói
-phương pháp phân tích, ATLAS và các bước nghiên cứu (Chương 19) để
-chạy một nghiên cứu cơ sở dữ liệu hồi cứu. Các nghiên cứu mạng lưới
-OHDSI đại diện cho đỉnh cao của một cách minh bạch, nhất quán và có
-thể tái lập để tiến hành nghiên cứu trên một số lượng lớn các dữ liệu
-phân tán về mặt địa lý. Trong chương này, chúng tôi sẽ thảo luận về
-những gì cấu thành một nghiên cứu mạng lưới OHDSI, cách chạy một
-nghiên cứu mạng lưới và thảo luận về các công nghệ kích hoạt như Mạng
-lưới nghiên cứu ARACHNE.
-
-## OHDSI như một mạng lưới nghiên cứu
-
-Mạng lưới nghiên cứu OHDSI là một sự hợp tác quốc tế của các nhà
-nghiên cứu tìm cách thúc đẩy nghiên cứu dữ liệu quan sát trong chăm
-sóc sức khỏe. Ngày nay, mạng lưới bao gồm hơn 100 cơ sở dữ liệu được
-chuẩn hóa theo mô hình dữ liệu chung OMOP, đại diện chung cho hơn 1 tỷ
-hồ sơ bệnh nhân. OHDSI là một mạng lưới mở, mời các tổ chức chăm sóc
-sức khỏe trên toàn cầu có dữ liệu cấp bệnh nhân tham gia mạng lưới
-bằng cách chuyển đổi dữ liệu sang OMOP CDM và tham gia vào các nghiên
-cứu mạng lưới. Khi các chuyển đổi dữ liệu hoàn tất, các cộng tác viên
-được mời báo cáo thông tin cơ sở trong cuộc điều tra dân số Mạng lưới
-dữ liệu được duy trì bởi Quản lý chương trình OHDSI. Mỗi cơ sở mạng
-lưới OHDSI tham gia tự nguyện. Không có nghĩa vụ cứng nhắc. Mỗi cơ sở
-chọn tham gia vào từng nghiên cứu mạng lưới tương ứng. Trong mỗi
-nghiên cứu, dữ liệu vẫn ở cơ sở sau một tường lửa. Không có việc gộp
-dữ liệu cấp bệnh nhân xảy ra trên các cơ sở mạng lưới. Chỉ các kết quả
-tổng hợp được chia sẻ.
-
-![**Benefits of a Data Owner Joining the OHDSI
-Network**](media/image6.png){width="0.45499890638670165in"
-height="0.455in"}
-
-- **Access to free tools:** OHDSI publishes free, open source tools for
-data char-acterization and standardized analytics (e.g. browsing the
-clinical concepts, defining and characterizing cohorts, running
-Population-Level Estimation and Patient-Level Prediction studies).
-
-- **Participate in a premier research community:** Author and publish
-network research, collaborate with leaders across various disciplines
-and stakeholder groups.
-
-- **Opportunity to benchmark care:** Network studies can enable clinical
-char-acterization and quality improvement benchmarks across data
-partners.
-
-## Các nghiên cứu mạng lưới OHDSI
-
-Trong chương trước (Chương 19), chúng tôi đã thảo luận về các cân nhắc
-thiết kế chung cho việc chạy một nghiên cứu bằng cách sử dụng CDM. Nói
-chung, một nghiên cứu có thể được tiến hành trên một CDM đơn lẻ hoặc
-trên nhiều CDM. Nó có thể được chạy trong dữ liệu CDM của một tổ chức
-đơn lẻ hoặc trên nhiều tổ chức. Trong phần này, chúng tôi sẽ thảo luận
-lý do tại sao bạn có thể muốn mở rộng các phân tích của mình trên
-nhiều tổ chức thành một nghiên cứu mạng lưới.
-
-### Động lực cho việc tiến hành một nghiên cứu mạng lưới OHDSI
-
-Một trường hợp sử dụng điển hình cho các nghiên cứu quan sát là kiểm
-tra hiệu quả so sánh hoặc tính an toàn của một phương pháp điều trị
-trong bối cảnh \"thế giới thực\". Cụ thể hơn, bạn có thể hướng đến
-việc tái lập một thử nghiệm lâm sàng trong bối cảnh hậu thị trường để
-giải quyết các mối quan tâm về khả năng khái quát hóa các phát hiện từ
-một thử nghiệm lâm sàng. Trong các kịch bản khác, bạn có thể muốn chạy
-một nghiên cứu so sánh hai phương pháp điều trị chưa bao giờ được so
-sánh trong một thử nghiệm lâm sàng vì một phương pháp điều trị đang
-được sử dụng ngoài nhãn (off-label). Hoặc bạn có thể cần nghiên cứu
-một kết cục an toàn hậu thị trường hiếm gặp mà một thử nghiệm lâm sàng
-không đủ sức mạnh để quan sát. Để giải quyết các câu hỏi nghiên cứu
-này, có thể không đủ để chạy một nghiên cứu quan sát đơn lẻ trong một
-hoặc thậm chí hai cơ sở dữ liệu tại cơ sở của bạn vì bạn chỉ nhận được
-một câu trả lời có ý nghĩa trong bối cảnh của một nhóm bệnh nhân cụ
-thể.
-
-Kết quả của một nghiên cứu quan sát có thể bị ảnh hưởng bởi nhiều yếu
-tố thay đổi theo vị trí của nguồn dữ liệu như sự tuân thủ, sự đa dạng
-di truyền, hoặc các yếu tố môi trường, tình trạng sức khỏe tổng thể:
-các yếu tố có thể không thể thay đổi trong bối cảnh của một thử nghiệm
-lâm sàng ngay cả khi một thử nghiệm tồn tại cho cùng một câu hỏi
-nghiên cứu của bạn. Do đó, một động lực điển hình để chạy một nghiên
-cứu quan sát trong một mạng lưới là tăng sự đa dạng của các nguồn dữ
-liệu và các quần thể nghiên cứu tiềm năng để hiểu mức độ kết quả khái
-quát hóa tốt như thế nào. Nói cách khác, các phát hiện nghiên cứu có
-thể được tái lập trên nhiều cơ sở không hay chúng khác nhau và nếu
-chúng khác nhau, có thể thu được bất kỳ hiểu biết nào về lý do tại sao
-không?
-
-Do đó, các nghiên cứu mạng lưới cung cấp cơ hội để điều tra tác động
-của các yếu tố \"thế giới thực\" đối với các phát hiện của nghiên cứu
-quan sát bằng cách kiểm tra một loạt các bối cảnh và nguồn dữ liệu
-rộng lớn.
-
-### Định nghĩa về một nghiên cứu mạng lưới OHDSI
-
-![**When is a study considered a *network* study?** An OHDSI study
-becomes an OHDSI network study when it is run across multiple CDMs at
-different
-institu-tions.](media/image6.png){width="0.45499890638670165in"
-height="0.45499890638670165in"}
-
-Phương pháp tiếp cận OHDSI đối với nghiên cứu mạng lưới sử dụng OMOP
-CDM và các công cụ chuẩn hóa cũng như các gói nghiên cứu chỉ định đầy
-đủ tất cả các tham số để chạy một nghiên cứu. Các phân tích chuẩn hóa
-OHDSI được thiết kế đặc biệt để giảm các tạo tác và cải thiện hiệu quả
-và khả năng mở rộng của các nghiên cứu mạng lưới.
-
-Các nghiên cứu mạng lưới là một phần quan trọng của cộng đồng nghiên
-cứu OHDSI. Tuy nhiên, không có quy định nào bắt buộc một nghiên cứu
-OHDSI phải được đóng gói và chia sẻ trên toàn bộ mạng lưới OHDSI. Bạn
-vẫn có thể tiến hành nghiên cứu bằng cách sử dụng OMOP CDM và thư viện
-phương pháp OHDSI trong một tổ chức đơn lẻ hoặc giới hạn một nghiên
-cứu nghiên cứu chỉ cho các tổ chức được chọn. Những đóng góp nghiên
-cứu này quan trọng không kém đối với cộng đồng. Việc một nghiên cứu
-được thiết kế để chạy trên một cơ sở dữ liệu đơn lẻ, tiến hành một
-nghiên cứu trên một tập hợp đối tác hạn chế hay mở nghiên cứu cho sự
-tham gia đầy đủ vào mạng lưới OHDSI là tùy thuộc vào quyết định của
-từng nhà nghiên cứu. Chương này dự định nói về các nghiên cứu mạng
-lưới mở cho tất cả mà cộng đồng OHDSI tiến hành.
-
-**Các yếu tố của một nghiên cứu mạng lưới OHDSI mở: Khi tiến hành một
-nghiên cứu mạng lưới OHDSI mở, bạn đang cam kết thực hiện nghiên cứu
-hoàn toàn minh bạch. Có một vài thành phần làm cho nghiên cứu OHDSI
-trở nên độc đáo. Điều này bao gồm:**
-
-- Tất cả tài liệu, mã nghiên cứu và kết quả sau đó được công khai trên
-GitHub OHDSI.
-
-- Các nhà nghiên cứu phải tạo và xuất bản một đề cương nghiên cứu công
-khai chi tiết phạm vi và mục đích của phân tích sẽ được thực hiện.
-
-- Các nhà nghiên cứu phải tạo một gói nghiên cứu (thường với R hoặc SQL)
-với mã tuân thủ CDM.
-
-- Các nhà nghiên cứu được khuyến khích tham dự các Cuộc gọi cộng đồng
-OHDSI để quảng bá và tuyển dụng cộng tác viên cho nghiên cứu mạng lưới
-OHDSI của họ.
-
-- Khi kết thúc phân tích, các kết quả nghiên cứu tổng hợp được cung cấp
-trên GitHub OHDSI.
-
-- Ở những nơi có thể, các nhà nghiên cứu được khuyến khích xuất bản các
-Ứng dụng R Shiny nghiên cứu lên data.ohdsi.org.
-
-Trong phần tiếp theo, chúng tôi sẽ nói về cách tạo nghiên cứu mạng
-lưới của riêng bạn cũng như các cân nhắc thiết kế và hậu cần độc đáo
-để triển khai một nghiên cứu mạng lưới.
-
-### Các cân nhắc thiết kế cho một nghiên cứu mạng lưới OHDSI
-
-Thiết kế một nghiên cứu để chạy trên mạng lưới OHDSI đòi hỏi một sự
-thay đổi mô hình trong cách bạn thiết kế và lắp ráp mã nghiên cứu của
-mình. Thông thường, bạn có thể thiết kế một nghiên cứu với một tập dữ
-liệu mục tiêu trong tâm trí. Khi làm như vậy, bạn có thể viết mã liên
-quan đến những gì bạn biết là
-
-đúng trong dữ liệu bạn đang sử dụng cho phân tích của mình. Ví dụ, nếu
-bạn đang lắp ráp một nhóm thuần tập phù mạch, bạn có thể chọn chỉ chọn
-các mã khái niệm cho phù mạch được đại diện trong CDM của bạn. Điều
-này có thể gây rắc rối nếu dữ liệu của bạn nằm trong một bối cảnh chăm
-sóc cụ thể (ví dụ: chăm sóc ban đầu, bối cảnh ngoại trú) hoặc cụ thể
-cho một khu vực (ví dụ: tập trung vào Mỹ). Các lựa chọn mã của bạn có
-thể đang làm sai lệch định nghĩa nhóm thuần tập của bạn.
-
-Trong một nghiên cứu mạng lưới OHDSI, bạn không còn thiết kế và xây
-dựng một gói nghiên cứu chỉ cho dữ liệu của mình. Bạn đang xây dựng
-một gói nghiên cứu để được chạy trên nhiều cơ sở trên toàn cầu. Bạn sẽ
-không bao giờ thấy dữ liệu cơ bản cho các cơ sở tham gia bên ngoài tổ
-chức của riêng bạn. Các nghiên cứu mạng lưới OHDSI chỉ chia sẻ các tệp
-kết quả. Gói nghiên cứu của bạn chỉ có thể thu thập dữ liệu có sẵn
-trong các miền của CDM. Bạn sẽ cần một phương pháp tiếp cận toàn diện
-để tạo tập hợp khái niệm để đại diện cho sự đa dạng của các bối cảnh
-chăm sóc mà dữ liệu y tế quan sát được thu thập. Các gói nghiên cứu
-OHDSI thường sử dụng cùng một định nghĩa nhóm thuần tập trên tất cả
-các cơ sở. Điều này có nghĩa là bạn phải suy nghĩ một cách toàn diện
-để tránh làm sai lệch một định nghĩa nhóm thuần tập chỉ đại diện cho
-một tập hợp con dữ liệu đủ điều kiện (ví dụ: dữ liệu tập trung vào yêu
-cầu thanh toán hoặc dữ liệu cụ thể của EHR) trong mạng lưới. Bạn được
-khuyến khích viết một định nghĩa nhóm thuần tập toàn diện có thể được
-chuyển sang nhiều CDM. Các gói nghiên cứu OHDSI sử dụng cùng một tập
-hợp mã được tham số hóa trên tất cả các cơ sở -- chỉ với các tùy chỉnh
-nhỏ để kết nối vào lớp cơ sở dữ liệu và lưu trữ kết quả cục bộ. Sau
-này, chúng tôi sẽ thảo luận về các ý nghĩa đối với việc diễn giải các
-phát hiện lâm sàng từ các tập dữ liệu đa dạng.
-
-Ngoài sự thay đổi mã hóa lâm sàng, bạn sẽ cần thiết kế để dự đoán các
-biến thể trong cơ sở hạ tầng kỹ thuật cục bộ. Mã nghiên cứu của bạn sẽ
-không còn chạy trong một môi trường kỹ thuật duy nhất. Mỗi cơ sở mạng
-lưới OHDSI đưa ra lựa chọn độc lập riêng về lớp cơ sở dữ liệu. Điều
-này có nghĩa là bạn không thể mã hóa cứng một gói nghiên cứu vào một
-phương ngữ cơ sở dữ liệu cụ thể. Mã nghiên cứu cần được tham số hóa
-thành một loại SQL có thể dễ dàng sửa đổi cho các toán tử trong phương
-ngữ đó. Rất may, Cộng đồng OHDSI có các giải pháp như ATLAS,
-DatabaseConnector và SqlRender để giúp bạn khái quát hóa gói nghiên
-cứu của mình cho sự tuân thủ CDM trên các phương ngữ cơ sở dữ liệu
-khác nhau. Các nhà nghiên cứu OHDSI được khuyến khích tìm kiếm sự giúp
-đỡ từ các cơ sở nghiên cứu mạng lưới khác để kiểm tra và xác nhận gói
-nghiên cứu có thể được thực thi trong các môi trường khác nhau. Khi
-các lỗi mã hóa xuất hiện, các nhà nghiên cứu OHDSI có thể sử dụng các
-Diễn đàn OHDSI để thảo luận và gỡ lỗi các gói.
-
-### Các cân nhắc hậu cần cho một nghiên cứu mạng lưới OHDSI
-
-OHDSI là một cộng đồng khoa học mở, và trung tâm điều phối trung tâm
-OHDSI cung cấp một cơ sở hạ tầng cộng đồng để cho phép các cộng tác
-viên của mình dẫn đầu và tham gia vào nghiên cứu cộng đồng. Mỗi nghiên
-cứu mạng lưới OHDSI đòi hỏi một nhà nghiên cứu chính, và đó có thể là
-bất kỳ cộng tác viên nào trong cộng đồng OHDSI. Các nghiên cứu mạng
-lưới OHDSI đòi hỏi sự phối hợp giữa nhà nghiên cứu chính, các nhà
-nghiên cứu cộng tác và các đối tác dữ liệu mạng lưới tham gia. Mỗi cơ
-sở phải thực hiện thẩm định riêng của mình để đảm bảo đề cương nghiên
-cứu được phê duyệt và ủy quyền để được thực hiện trên CDM cục bộ, nếu
-được yêu cầu. Các nhà phân tích dữ liệu có thể cần sự hỗ trợ từ nhóm
-CNTT cục bộ để cho phép các quyền phù hợp để chạy nghiên cứu. Quy mô
-và phạm vi của nhóm nghiên cứu tại mỗi cơ sở sẽ là một hàm số của quy
-mô và độ phức tạp của nghiên cứu mạng lưới được đề xuất cũng như sự
-trưởng thành của việc áp dụng OMOP CDM và bộ công cụ OHDSI của cơ sở
-đó. Mức độ kinh nghiệm mà một cơ sở
-
-có với việc chạy một nghiên cứu mạng lưới OHDSI cũng sẽ ảnh hưởng đến
-nhân sự cần thiết. Đối với mỗi nghiên cứu, các hoạt động khởi động cơ
-sở có thể bao gồm:
-
-- Đăng ký nghiên cứu với Hội đồng đánh giá thể chế (hoặc tương đương),
-nếu được yêu cầu
-
-- Nhận phê duyệt của Hội đồng đánh giá thể chế để thực hiện nghiên cứu,
-nếu được yêu cầu
-
-- Nhận quyền cấp cơ sở dữ liệu để đọc/ghi một lược đồ vào CDM đã được
-phê duyệt
-
-- Đảm bảo cấu hình môi trường RStudio chức năng để thực hiện gói nghiên
-cứu
-
-- Xem xét mã nghiên cứu cho bất kỳ bất thường kỹ thuật nào
-
-- Làm việc với nhóm CNTT cục bộ để cho phép và cài đặt bất kỳ gói R phụ
-thuộc nào cần thiết để thực hiện gói trong các ràng buộc kỹ thuật
-
-![**Data Quality and Network Studies:** As discussed in Chapter
-[6](#_bookmark128), quality control is a fundamental and iterative piece
-of the ETL process. This should be done regularly outside of the network
-study process. For a network study, a study lead may ask to review
-participating site's data quality reports or design custom SQL queries
-to understand potential variation in contributing data sources. For more
-detail on the data quality efforts going on within OHDSI, please see
-Chapter
-[15](#_bookmark448).](media/image6.png){width="0.45499890638670165in"
-height="0.45499890638670165in"}
-
-Mỗi cơ sở sẽ có một nhà phân tích dữ liệu cục bộ thực hiện gói nghiên
-cứu. Cá nhân này phải xem xét đầu ra của gói nghiên cứu để đảm bảo
-không có thông tin nhạy cảm nào được truyền đi, mặc dù tất cả dữ liệu
-trong CDM đã được khử định danh. Khi bạn đang sử dụng các phương pháp
-OHDSI được xây dựng trước như Ước tính hiệu ứng cấp độ quần thể (PLE)
-và Dự đoán cấp độ bệnh nhân (PLP), có các cài đặt có thể cấu hình cho
-số lượng ô tối thiểu cho một phân tích nhất định. Nhà phân tích dữ
-liệu được yêu cầu xem xét các ngưỡng này và đảm bảo nó tuân thủ các
-chính sách quản trị cục bộ.
-
-Khi chia sẻ kết quả nghiên cứu, nhà phân tích dữ liệu phải tuân thủ
-tất cả các chính sách quản trị cục bộ, bao gồm phương pháp truyền kết
-quả và tuân thủ các quy trình phê duyệt để xuất bản kết quả bên ngoài.
-Các nghiên cứu mạng lưới OHDSI không chia sẻ dữ liệu cấp bệnh nhân.
-Nói cách khác, dữ liệu cấp bệnh nhân từ các cơ sở khác nhau không bao
-giờ được gộp lại trong một môi trường trung tâm. Các gói nghiên cứu
-tạo ra các tệp kết quả được thiết kế để trở thành kết quả tổng hợp (ví
-dụ: thống kê tóm tắt, ước tính điểm, biểu đồ chẩn đoán, v.v.) và không
-chia sẻ thông tin cấp bệnh nhân. Nhiều tổ chức không yêu cầu các thỏa
-thuận chia sẻ dữ liệu phải được thực hiện giữa các thành viên nhóm
-nghiên cứu tham gia. Tuy nhiên, tùy thuộc vào các tổ chức liên quan và
-các nguồn dữ liệu, có thể cần phải có các thỏa thuận chia sẻ dữ liệu
-chính thức hơn và được ký bởi các thành viên nhóm nghiên cứu cụ thể.
-Nếu bạn là chủ sở hữu dữ liệu quan tâm đến việc tham gia vào các
-nghiên cứu mạng lưới, bạn được khuyến khích tham khảo nhóm quản trị
-cục bộ của mình để hiểu các chính sách nào đang được áp dụng và phải
-được thực hiện để tham gia các nghiên cứu cộng đồng
-OHDSI.
-
-## Chạy một nghiên cứu mạng lưới OHDSI
-
-Chạy một nghiên cứu mạng lưới OHDSI có ba giai đoạn chung riêng biệt:
-
-- Thiết kế nghiên cứu và tính khả thi
-
-- Thực hiện nghiên cứu
-
-- Phổ biến kết quả và xuất bản
-
-### Thiết kế nghiên cứu và tính khả thi
-
-Giai đoạn tính khả thi của nghiên cứu (hoặc giai đoạn trước nghiên
-cứu) xác định một câu hỏi nghiên cứu và mô tả quy trình để trả lời câu
-hỏi này thông qua đề cương nghiên cứu. Giai đoạn này tập trung vào
-việc đánh giá tính khả thi của việc thực hiện đề cương nghiên cứu trên
-các cơ sở tham gia.
-
-Kết quả của giai đoạn tính khả thi là việc tạo ra một đề cương và gói
-nghiên cứu đã hoàn thiện được xuất bản sẵn sàng cho việc thực hiện
-mạng lưới. Đề cương chính thức sẽ chi tiết nhóm nghiên cứu, bao gồm
-nhà nghiên cứu chính được chỉ định (thường là tác giả liên hệ cho mục
-đích xuất bản), và thông tin về tiến độ cho nghiên cứu. Đề cương là
-một thành phần quan trọng để các cơ sở mạng lưới bổ sung xem xét, phê
-duyệt và thực hiện đầy đủ gói nghiên cứu trên dữ liệu CDM của họ. Một
-đề cương phải bao gồm thông tin về quần thể nghiên cứu, các phương
-pháp đang được sử dụng, cách kết quả sẽ được lưu trữ và phân tích cũng
-như cách kết quả nghiên cứu sẽ được phổ biến sau khi hoàn thành (ví
-dụ: một ấn phẩm, bài thuyết trình tại hội nghị khoa học, v.v.).
-
-Giai đoạn tính khả thi không phải là một quy trình được xác định rõ
-ràng. Đó là một loạt các hoạt động phụ thuộc rất nhiều vào loại nghiên
-cứu được đề xuất. Tối thiểu, nhà nghiên cứu chính sẽ dành thời gian
-xác định các cơ sở mạng lưới liên quan có chứa (các) quần thể bệnh
-nhân mục tiêu với thông tin phơi nhiễm thuốc, thông tin thủ thuật,
-tình trạng hoặc thông tin nhân khẩu học được yêu cầu. Ở những nơi có
-thể, nhà nghiên cứu chính nên tạm thời sử dụng CDM của riêng họ để
-thiết kế các nhóm thuần tập mục tiêu. Tuy nhiên, không có yêu cầu nào
-buộc nhà nghiên cứu chính phải có quyền truy cập vào một OMOP CDM trực
-tiếp với dữ liệu bệnh nhân thực để chạy một nghiên cứu mạng lưới. Nhà
-nghiên cứu chính có thể thiết kế định nghĩa nhóm thuần tập mục tiêu
-của họ bằng cách sử dụng dữ liệu tổng hợp (ví dụ: CMS Synthetic Public
-Use Files, SyntheticMass từ Mitre hoặc Synthea) và yêu cầu các cộng
-tác viên tại các cơ sở mạng lưới OHDSI giúp xác nhận tính khả thi của
-nhóm thuần tập này. Các hoạt động tính khả thi có thể bao gồm yêu cầu
-các cộng tác viên tạo và đặc điểm hóa các nhóm thuần tập bằng cách sử
-dụng các tệp JSON của các định nghĩa nhóm thuần tập từ ATLAS hoặc kiểm
-tra các gói nghiên cứu R và chạy các chẩn đoán ban đầu như được thảo
-luận trong Chương 19. Đồng thời, nhà nghiên cứu chính có thể cần bắt
-đầu bất kỳ quy trình cụ thể của tổ chức nào để phê duyệt một nghiên
-cứu OHDSI tại tổ chức tổ chức, nếu được yêu cầu -- chẳng hạn như phê
-duyệt của Hội đồng đánh giá thể chế nội bộ. Trách nhiệm của nhà nghiên
-cứu chính là hoàn thành các hoạt động cụ thể của tổ chức này trong
-giai đoạn tính khả thi.
-
-### Thực hiện nghiên cứu
-
-Sau khi hoàn thành các bài tập tính khả thi, nghiên cứu tiến tới giai
-đoạn thực hiện. Giai đoạn này đại diện cho thời điểm các cơ sở mạng
-lưới OHDSI có thể chọn tham gia vào phân tích. Giai đoạn này là khi
-các cân nhắc thiết kế và hậu cần mà chúng tôi đã thảo luận trở nên
-quan trọng nhất.
-
-Một nghiên cứu sẽ chuyển sang thực hiện khi nhà nghiên cứu chính tiếp
-cận cộng đồng OHDSI để chính thức thông báo một nghiên cứu mạng lưới
-OHDSI mới và chính thức bắt đầu tuyển dụng các cơ sở tham gia. Nhà
-nghiên cứu chính sẽ xuất bản đề cương nghiên cứu lên GitHub OHDSI. Nhà
-nghiên cứu chính sẽ thông báo nghiên cứu trên Cuộc gọi cộng đồng OHDSI
-hàng tuần và Diễn đàn OHDSI, mời các trung tâm tham gia và các cộng
-tác viên. Khi các cơ sở chọn tham gia, nhà nghiên cứu chính sẽ liên
-lạc trực tiếp với từng cơ sở và cung cấp thông tin về kho lưu trữ
-GitHub nơi đề cương nghiên cứu và mã được xuất bản cũng như hướng dẫn
-cách thực hiện gói nghiên cứu. Lý tưởng nhất, một nghiên cứu mạng lưới
-sẽ được thực hiện song song bởi tất cả các cơ sở, vì vậy kết quả cuối
-cùng được chia sẻ đồng thời đảm bảo rằng các thành viên nhóm của không
-cơ sở nào bị sai lệch bởi kiến thức về các phát hiện của nhóm khác.
-
-Tại mỗi cơ sở, nhóm nghiên cứu sẽ đảm bảo nghiên cứu tuân thủ các quy
-trình của tổ chức để nhận phê duyệt tham gia nghiên cứu, thực hiện gói
-và chia sẻ kết quả bên ngoài. Điều này có khả năng bao gồm việc nhận
-miễn trừ hoặc phê duyệt của Hội đồng đánh giá thể chế (IRB) hoặc tương
-đương cho đề cương được chỉ định. Khi nghiên cứu được phê duyệt để
-chạy, các nhà khoa học/thống kê dữ liệu cơ sở sẽ làm theo hướng dẫn
-của nhà nghiên cứu chính để truy cập gói nghiên cứu OHDSI và tạo kết
-quả theo định dạng chuẩn hóa theo hướng dẫn của OHDSI. Mỗi cơ sở tham
-gia sẽ tuân thủ các quy trình nội bộ của tổ chức liên quan đến các quy
-tắc chia sẻ dữ liệu. Các cơ sở không nên chia sẻ kết quả trừ khi đạt
-được phê duyệt hoặc miễn trừ từ IRB hoặc các quy trình phê duyệt tổ
-chức khác.
-
-Nhà nghiên cứu chính sẽ chịu trách nhiệm truyền đạt cách họ muốn nhận
-kết quả (ví dụ: qua SFTP hoặc một thùng Amazon S3 an toàn) và khung
-thời gian để trả kết quả. Các cơ sở có thể chỉ định nếu phương pháp
-truyền không tuân thủ đề cương nội bộ và một giải pháp thay thế có thể
-được phát triển cho phù hợp.
-
-Trong giai đoạn thực hiện, nhóm nghiên cứu tập thể (bao gồm nhà nghiên
-cứu chính và các nhóm cơ sở tham gia) có thể lặp lại trên kết quả, nếu
-các điều chỉnh hợp lý được yêu cầu. Nếu phạm vi và mức độ của đề cương
-phát triển vượt ra ngoài những gì được phê duyệt, trách nhiệm của cơ
-sở tham gia là truyền đạt điều này cho tổ chức của họ bằng cách làm
-việc với nhà nghiên cứu chính để cập nhật đề cương sau đó gửi lại đề
-cương để xem xét và phê duyệt lại bởi IRB cục bộ.
-
-Cuối cùng, trách nhiệm của nhà nghiên cứu chính và bất kỳ nhà khoa
-học/thống kê dữ liệu hỗ trợ nào là thực hiện việc tổng hợp kết quả
-trên các trung tâm và thực hiện phân tích tổng hợp, nếu phù hợp. Cộng
-đồng OHDSI có các phương pháp luận đã được xác nhận để tổng hợp các
-tệp kết quả được chia sẻ từ nhiều cơ sở mạng lưới thành một câu trả
-lời duy nhất. Gói EvidenceSynthesis là một gói R có sẵn miễn phí chứa
-các quy trình để kết hợp bằng chứng và chẩn đoán trên nhiều nguồn,
-chẳng hạn như nhiều cơ sở dữ liệu trong một nghiên cứu phân tán. Điều
-này bao gồm các chức năng để thực hiện phân tích tổng hợp và biểu đồ
-rừng.
-
-Nhà nghiên cứu chính sẽ cần giám sát sự tham gia của cơ sở và giúp
-loại bỏ các rào cản trong việc thực hiện gói bằng cách thường xuyên
-kiểm tra với các cơ sở tham gia. Thực hiện nghiên cứu không phải là
-một kích thước phù hợp cho tất cả tại mỗi cơ sở. Có thể có những thách
-thức liên quan đến lớp cơ sở dữ liệu (ví dụ: quyền truy cập / quyền
-lược đồ) hoặc công cụ phân tích trong môi trường của họ (ví dụ: không
-thể cài đặt các gói cần thiết, không thể truy cập cơ sở dữ liệu thông
-qua R, v.v.). Cơ sở tham gia
-
-sẽ ở vị trí lái xe và sẽ truyền đạt những rào cản nào tồn tại để thực
-hiện nghiên cứu. Cuối cùng, quyền quyết định của cơ sở tham gia là huy
-động các nguồn lực phù hợp để giúp giải quyết các vấn đề gặp phải
-trong CDM cục bộ của họ.
-
-Trong khi các nghiên cứu OHDSI có thể được thực hiện nhanh chóng,
-khuyến nghị nên dành một khoảng thời gian hợp lý để tất cả các cơ sở
-tham gia thực hiện nghiên cứu và nhận các phê duyệt phù hợp để xuất
-bản kết quả. Các cơ sở mạng lưới OHDSI mới hơn có thể thấy nghiên cứu
-mạng lưới đầu tiên họ tham gia lâu hơn bình thường khi họ làm việc
-thông qua các vấn đề với cấu hình môi trường như quyền cơ sở dữ liệu
-hoặc cập nhật thư viện phân tích. Hỗ trợ có sẵn từ Cộng đồng OHDSI.
-Các vấn đề có thể được đăng lên Diễn đàn OHDSI khi chúng được gặp
-phải.
-
-Nhà nghiên cứu chính nên đặt các cột mốc nghiên cứu trong đề cương và
-truyền đạt ngày đóng nghiên cứu dự kiến trước để hỗ trợ việc quản lý
-tiến độ nghiên cứu tổng thể. Nếu tiến độ không được tuân thủ, trách
-nhiệm của nhà nghiên cứu chính là thông báo cho các cơ sở tham gia về
-các cập nhật cho lịch trình nghiên cứu và quản lý tiến độ tổng thể của
-việc thực hiện nghiên cứu.
-
-### Phổ biến kết quả và xuất bản
-
-Trong giai đoạn phổ biến kết quả và xuất bản, nhà nghiên cứu chính sẽ
-cộng tác với những người tham gia khác về các nhiệm vụ hành chính khác
-nhau, chẳng hạn như phát triển bản thảo và tối ưu hóa các hình ảnh hóa
-dữ liệu. Khi nghiên cứu được thực hiện và kết quả được lưu trữ tập
-trung để nhà nghiên cứu chính phân tích thêm. Nhà nghiên cứu chính
-chịu trách nhiệm tạo và phổ biến các kết quả nghiên cứu đầy đủ (ví dụ:
-một Ứng dụng Shiny) để các trung tâm tham gia xem xét. Nếu nhà nghiên
-cứu chính đang sử dụng một khung nghiên cứu OHDSI, được tạo bởi Atlas
-hoặc được sửa đổi thủ công từ mã GitHub, Ứng dụng Shiny sẽ tự động
-được tạo. Trong trường hợp nhà nghiên cứu chính đang tạo mã tùy chỉnh,
-nhà nghiên cứu chính có thể sử dụng Diễn đàn OHDSI để yêu cầu trợ giúp
-tạo Ứng dụng Shiny của riêng họ cho gói nghiên cứu của họ.
-
-![Not sure where to publish your OHDSI network study? Consult JANE
-(Jour-nal/Author Name Estimator), a tool which takes your abstract and
-scans publications for relevance and
-fit.^1^](media/image6.png){width="0.45499890638670165in"
-height="0.45499890638670165in"}
-
-Khi các bản thảo được viết, mỗi cộng tác viên tham gia được khuyến
-khích xem xét và đảm bảo đầu ra tuân thủ các quy trình xuất bản bên
-ngoài. Tối thiểu, cơ sở tham gia nên chỉ định một trưởng nhóm xuất bản
--- cá nhân này sẽ đảm bảo rằng các quy trình nội bộ được tuân thủ
-trong quá trình chuẩn bị và gửi bản thảo. Việc lựa chọn tạp chí nào để
-gửi nghiên cứu là tùy thuộc vào quyết định của nhà nghiên cứu chính,
-mặc dù nên là kết quả của cuộc thảo luận hợp tác khi bắt đầu nghiên
-cứu. Tất cả các đồng tác giả trong các nghiên cứu OHDSI dự kiến sẽ đáp
-ứng các hướng dẫn tác giả ICMJE.2 Việc trình bày kết quả có thể xảy ra
-trong bất kỳ diễn đàn nào họ chọn (ví dụ: một Hội nghị chuyên đề
-OHDSI, một thủ tục học thuật khác hoặc trong một ấn phẩm tạp chí). Các
-nhà nghiên cứu cũng được mời trình bày OHDSI
-
-^2http://www.icmje.org/recommendations/browse/roles-and-duty/defining-the-role-of-^
-
-[tác giả và người đóng
-góp.html](http://www.icmje.org/recommendations/browse/roles-and-responsibilities/defining-the-role-of-authors-and-contributors.html)
-
-Các nghiên cứu mạng lưới trên các cuộc gọi
-cộng đồng OHDSI hàng tuần và tại các Hội nghị chuyên đề OHDSI trên
-toàn cầu.
-
-## Hướng tới tương lai: Sử dụng tự động hóa nghiên cứu mạng lưới
-
-Quy trình nghiên cứu mạng lưới hiện tại là thủ công -- với các thành
-viên nhóm nghiên cứu sử dụng nhiều cơ chế khác nhau (bao gồm Wiki,
-GitHub và email) để cộng tác về thiết kế nghiên cứu, chia sẻ mã và kết
-quả. Quy trình này không nhất quán và có thể mở rộng và để giải quyết
-vấn đề đó, cộng đồng OHDSI đang tích cực làm việc để hệ thống hóa các
-quy trình nghiên cứu.
-
-![](media/image179.jpeg){width="4.36125in"
-height="2.818124453193351in"}
-
-Hình 20.1: Quy trình nghiên cứu mạng lưới ARACHNE.
-
-ARACHNE là một nền tảng được thiết kế để hợp lý hóa và tự động hóa quy
-trình tiến hành các nghiên cứu mạng lưới. ARACHNE sử dụng các tiêu
-chuẩn OHDSI và thiết lập một quy trình nghiên cứu quan sát nhất quán,
-minh bạch, an toàn và tuân thủ trên nhiều tổ chức. ARACHNE chuẩn hóa
-quy trình giao tiếp để truy cập dữ liệu và trao đổi kết quả phân tích,
-đồng thời cho phép xác thực và ủy quyền cho nội dung bị hạn chế. Nó
-đưa các tổ chức tham gia - nhà cung cấp dữ liệu, nhà nghiên cứu, nhà
-tài trợ và nhà khoa học dữ liệu - vào một nhóm nghiên cứu cộng tác duy
-nhất và tạo điều kiện cho sự phối hợp nghiên cứu quan sát từ đầu đến
-cuối. Công cụ này cho phép tạo ra một môi trường thực thi R, Python và
-SQL đầy đủ, dựa trên tiêu chuẩn bao gồm các quy trình phê duyệt được
-kiểm soát bởi người giám sát dữ liệu.
-
-ARACHNE được xây dựng để cung cấp sự tích hợp liền mạch với các công
-cụ OHDSI khác, bao gồm các báo cáo ACHILLES và khả năng nhập các tạo
-tác thiết kế ATLAS, tạo các gói khép kín và tự động thực thi chúng
-trên nhiều cơ sở. Tầm nhìn tương lai là cuối cùng cho phép nhiều mạng
-lưới được liên kết với nhau vì mục đích tiến hành nghiên cứu không chỉ
-giữa các tổ chức trong một mạng lưới duy nhất, mà còn giữa các tổ chức
-
-trên nhiều mạng lưới.
-
-![](media/image180.jpeg){width="4.494374453193351in"
-height="2.3962489063867016in"}
-
-Hình 20.2: Mạng lưới các mạng lưới ARACHNE.
-
-## Thực tiễn tốt nhất cho các nghiên cứu mạng lưới OHDSI
-
-Khi bạn đang tiến hành một nghiên cứu mạng lưới, cộng đồng OHDSI sẵn
-sàng hỗ trợ bạn trong việc đảm bảo bạn tuân thủ thực tiễn tốt nhất cho
-các nghiên cứu mạng lưới OHDSI.
-
-**Thiết kế nghiên cứu và tính khả thi: Khi chạy một nghiên cứu mạng
-lưới, hãy đảm bảo rằng bạn không làm sai lệch thiết kế nghiên cứu của
-mình sang một loại dữ liệu duy nhất. Nhiệm vụ hài hòa các định nghĩa
-nhóm thuần tập để đại diện cho các quần thể nhất quán trên tất cả các
-cơ sở có thể liên quan nhiều hơn hoặc ít hơn tùy thuộc vào mức độ
-không đồng nhất của các loại dữ liệu và mức độ cẩn thận mà cơ sở
-nghiên cứu tuân theo tất cả các quy ước chuẩn hóa để chuyển đổi dữ
-liệu sang OMOP CDM. Lý do điều này rất quan trọng là nhu cầu kiểm soát
-sự khác biệt trong việc thu thập, biểu diễn và chuyển đổi dữ liệu trên
-các cơ sở mạng lưới so với những khác biệt có ý nghĩa lâm sàng. Đặc
-biệt, đối với các nghiên cứu hiệu quả so sánh, các thách thức có thể
-phát sinh trong việc đảm bảo các nhóm thuần tập phơi nhiễm và định
-nghĩa nhóm thuần tập kết cục đồng nhất trên các cơ sở. Ví dụ, thông
-tin phơi nhiễm thuốc có thể đến từ nhiều nguồn dữ liệu khác nhau có
-thể thay đổi về khả năng phân loại sai của chúng. Một yêu cầu thanh
-toán cấp phát thuốc từ một chương trình bảo hiểm y tế có thể được xét
-duyệt, nghĩa là khi có một yêu cầu cho một loại thuốc, có một cơ hội
-rất tốt là người đó đã hoàn thành đơn thuốc. Tuy nhiên, một đơn thuốc
-được nhập vào EHR có thể là tất cả những gì có sẵn, không có liên kết
-với dữ liệu khác để xác định liệu đơn thuốc có được cấp hoặc tiêu thụ
-hay không. Có thể có một khoảng thời gian giữa hồ sơ của bác sĩ viết
-đơn thuốc, thời điểm dược sĩ cấp thuốc, thời điểm bệnh nhân lấy thuốc
-tại nhà thuốc, và thời điểm bệnh nhân thực sự tiêu thụ viên thuốc đầu
-tiên của mình. Sai số đo lường này có thể làm sai lệch kết quả trên
-bất kỳ trường hợp sử dụng phân tích nào. Do đó, điều quan trọng là
-phải thực hiện tính khả thi của nghiên cứu để đánh giá sự phù hợp của
-việc tham gia cơ sở dữ liệu khi phát triển đề cương nghiên cứu.**
-
-**Thực hiện nghiên cứu: Ở những nơi có thể, các nhà nghiên cứu chính
-được khuyến khích sử dụng ATLAS, Thư viện phương pháp OHDSI và Khung
-nghiên cứu OHDSI để tạo mã nghiên cứu sử dụng các gói phân tích chuẩn
-hóa nhiều nhất có thể. Mã nghiên cứu phải luôn tuân thủ CDM, theo cách
-bất khả tri lớp cơ sở dữ liệu bằng cách sử dụng các gói OHDSI. Hãy
-chắc chắn tham số hóa tất cả các chức năng và biến (ví dụ: không kết
-nối cơ sở dữ liệu cứng, đường dẫn ổ cứng cục bộ, giả định một hệ điều
-hành nhất định). Khi tuyển dụng các cơ sở tham gia, nhà nghiên cứu
-chính nên đảm bảo rằng mỗi cơ sở mạng lưới tuân thủ CDM và thường
-xuyên cập nhật các từ vựng chuẩn hóa OMOP. Nhà nghiên cứu chính nên
-thực hiện thẩm định để đảm bảo với mỗi cơ sở mạng lưới đã thực hiện và
-tài liệu hóa các kiểm tra chất lượng dữ liệu trên CDM của họ (ví dụ:
-đảm bảo ETL đã tuân theo các quy tắc và quy ước kinh doanh THEMIS, dữ
-liệu chính xác đã được đặt vào các bảng và trường CDM chính xác). Mỗi
-nhà phân tích dữ liệu được khuyến khích cập nhật các gói R cục bộ của
-họ lên các phiên bản gói OHDSI mới nhất trước khi thực hiện gói nghiên
-cứu.**
-
-**Kết quả và phổ biến: Nhà nghiên cứu chính nên đảm bảo mỗi cơ sở tuân
-thủ các quy tắc quản trị cục bộ trước khi kết quả được chia sẻ. Khoa
-học mở, có thể tái lập có nghĩa là mọi thứ được thiết kế và thực thi
-đều trở nên có sẵn. Các nghiên cứu mạng lưới OHDSI hoàn toàn minh bạch
-với tất cả tài liệu và kết quả sau đó được xuất bản lên kho lưu trữ
-GitHub OHDSI hoặc máy chủ R Shiny data.ohdsi.org. Khi bạn chuẩn bị bản
-thảo của mình, nhà nghiên cứu chính nên xem xét các nguyên tắc của
-OMOP CDM và Từ vựng chuẩn hóa để đảm bảo tạp chí hiểu cách dữ liệu có
-thể thay đổi trên các cơ sở mạng lưới OHDSI. Ví dụ, nếu bạn đang thực
-hiện một nghiên cứu mạng lưới sử dụng các cơ sở dữ liệu yêu cầu thanh
-toán và EHR, bạn có thể được các nhà đánh giá tạp chí yêu cầu giải
-thích cách duy trì tính toàn vẹn của định nghĩa nhóm thuần tập trên
-nhiều loại dữ liệu. Một nhà đánh giá có thể muốn hiểu cách giai đoạn
-quan sát OMOP (như đã thảo luận trong Chương 4 so sánh với một tệp đủ
-điều kiện -- một tệp tồn tại trong các cơ sở dữ liệu yêu cầu thanh
-toán để quy định khi nào một người được và không được bảo hiểm bởi một
-nhà cung cấp bảo hiểm. Điều này vốn dĩ đang yêu cầu tập trung vào một
-yếu tố tạo tác của chính các cơ sở dữ liệu và tập trung vào ETL về
-cách CDM chuyển đổi các hồ sơ thành các quan sát. Trong trường hợp
-này, nhà nghiên cứu mạng lưới chính có thể thấy hữu ích khi tham chiếu
-cách GIAI ĐOẠN QUAN SÁT OMOP CDM được tạo ra và mô tả cách các quan
-sát được tạo ra bằng cách sử dụng các cuộc gặp gỡ trong hệ thống
-nguồn. Thảo luận bản thảo có thể cần thừa nhận các hạn chế của cách dữ
-liệu EHR, không giống như dữ liệu yêu cầu thanh toán phản ánh tất cả
-các cuộc gặp gỡ đã thanh toán cho khoảng thời gian đó họ được bảo
-hiểm, nó không ghi lại khi một người gặp một nhà cung cấp sử dụng một
-EHR hồ sơ khác và do đó, các khoảng nghỉ trong giai đoạn quan sát có
-thể xảy ra vì người đó tìm kiếm sự chăm sóc từ một nhà cung cấp ngoài
-EHR. Đây là một tạo tác của cách dữ liệu tồn tại trong hệ thống mà nó
-được thu thập. Nó không phải là một sự khác biệt có ý nghĩa lâm sàng
-nhưng có thể gây nhầm lẫn cho những người không quen thuộc với cách
-OMOP dẫn xuất bảng giai đoạn quan sát. Rất đáng để giải thích trong
-phần thảo luận để làm rõ quy ước không quen thuộc này. Tương tự, nhà
-nghiên cứu chính có thể thấy hữu ích khi mô tả dịch vụ thuật ngữ được
-cung cấp bởi các từ vựng chuẩn OMOP cho phép một khái niệm lâm sàng
-giống nhau ở bất cứ nơi nào nó được thu thập. Luôn luôn có các quyết
-định được đưa ra trong việc ánh xạ các mã nguồn sang các khái niệm
-chuẩn, tuy nhiên các quy ước THEMIS và kiểm tra chất lượng CDM có thể
-giúp cung cấp thông tin về nơi thông tin nên đi và mức độ cơ sở dữ
-liệu tuân thủ nguyên tắc đó.**
+Sứ mệnh của OHDSI là tạo ra bằng chứng khoa học chất lượng cao thông qua nghiên cứu quan sát. Một phương thức trọng tâm để hiện thực hóa sứ mệnh này là triển khai các nghiên cứu hợp tác đa trung tâm. Trong các chương trước, chúng tôi đã thảo luận về cách cộng đồng OHDSI xây dựng các bộ tiêu chuẩn và công cụ nhằm thúc đẩy nghiên cứu chất lượng cao, có khả năng tái lập, bao gồm Từ vựng Chuẩn hóa OMOP, Mô hình Dữ liệu Chung (CDM), các gói phương pháp phân tích, công cụ ATLAS và quy trình thực hiện nghiên cứu (Chương 18) để triển khai một nghiên cứu cơ sở dữ liệu hồi cứu. Các nghiên cứu mạng lưới đa trung tâm (*network studies*) của OHDSI đại diện cho đỉnh cao của phương pháp tiếp cận minh bạch, nhất quán và có thể tái lập nhằm tiến hành nghiên cứu trên một mạng lưới dữ liệu phân tán (*distributed data network*) rộng khắp về mặt địa lý. Trong chương này, chúng tôi sẽ thảo luận về những yếu tố cấu thành một nghiên cứu mạng lưới đa trung tâm OHDSI, quy trình triển khai nghiên cứu mạng lưới và các công nghệ nền tảng hỗ trợ như Mạng lưới Nghiên cứu ARACHNE (*ARACHNE Research Network*).
+
+## OHDSI với vai trò là một mạng lưới nghiên cứu
+
+Mạng lưới nghiên cứu OHDSI là một liên minh hợp tác quốc tế của các nhà nghiên cứu cùng hướng tới mục tiêu thúc đẩy nghiên cứu dữ liệu quan sát trong lĩnh vực chăm sóc sức khỏe. Ngày nay, mạng lưới bao gồm hơn 100 cơ sở dữ liệu đã được chuẩn hóa theo Mô hình Dữ liệu Chung OMOP, đại diện tổng cộng cho hơn 1 tỷ hồ sơ bệnh nhân. OHDSI là một mạng lưới mở, luôn chào đón các tổ chức y tế trên toàn cầu đang sở hữu dữ liệu ở cấp độ bệnh nhân tham gia vào mạng lưới thông qua việc chuyển đổi dữ liệu sang OMOP CDM và hợp tác trong các nghiên cứu mạng lưới đa trung tâm. Khi quá trình chuyển đổi dữ liệu hoàn tất, các cộng tác viên được mời đăng ký thông tin của đơn vị mình vào danh bạ khảo sát Mạng lưới Dữ liệu (*Data Network census*) do [Quản lý Chương trình OHDSI](mailto:contact@ohdsi.org) duy trì. Mỗi đơn vị thành viên trong mạng lưới OHDSI đều tham gia trên tinh thần hoàn toàn tự nguyện, không có bất kỳ nghĩa vụ ràng buộc cứng nhắc nào. Từng đơn vị chủ động lựa chọn tham gia (*opt-in*) vào từng nghiên cứu mạng lưới cụ thể. Trong mỗi nghiên cứu, dữ liệu luôn được lưu trữ tại chỗ bên sau tường lửa của từng đơn vị. Không có việc gom chung dữ liệu cấp độ bệnh nhân giữa các điểm nghiên cứu trong mạng lưới. **Chỉ các kết quả tổng hợp (*aggregate results*) mới được chia sẻ.**
+
+::: {.callout-important title="Điểm quan trọng"}
+**Lợi ích khi đơn vị sở hữu dữ liệu tham gia Mạng lưới OHDSI**
+
+- **Tiếp cận bộ công cụ miễn phí:** OHDSI phát hành các công cụ mã nguồn mở miễn phí phục vụ đặc trưng hóa dữ liệu và phân tích chuẩn hóa (ví dụ: tra cứu các khái niệm lâm sàng, định nghĩa và mô tả đặc điểm đoàn hệ, triển khai các nghiên cứu Ước tính hiệu quả ở cấp độ quần thể – PLE và Dự đoán ở cấp độ bệnh nhân – PLP).
+- **Tham gia cộng đồng nghiên cứu hàng đầu:** Đóng góp tác giả và công bố các nghiên cứu mạng lưới đa trung tâm, hợp tác với các chuyên gia đầu ngành thuộc nhiều lĩnh vực chuyên môn và nhóm các bên liên quan khác nhau.
+- **Cơ hội đối sánh chất lượng chăm sóc y tế:** Các nghiên cứu mạng lưới đa trung tâm cho phép mô tả đặc trưng lâm sàng và thiết lập các chuẩn đối sánh (*benchmarks*) nhằm cải tiến chất lượng chăm sóc sức khỏe giữa các đối tác dữ liệu.
+:::
+
+## Các nghiên cứu mạng lưới đa trung tâm OHDSI
+
+Trong chương trước (Chương 18), chúng tôi đã thảo luận về các lưu ý thiết kế chung khi thực hiện một nghiên cứu sử dụng CDM. Nhìn chung, một nghiên cứu có thể được tiến hành trên một cơ sở dữ liệu CDM đơn lẻ hoặc trên nhiều cơ sở dữ liệu CDM; nghiên cứu đó có thể chạy trong phạm vi dữ liệu CDM của một tổ chức duy nhất hoặc mở rộng qua nhiều tổ chức khác nhau. Trong mục này, chúng tôi sẽ thảo luận lý do vì sao bạn nên mở rộng phân tích của mình qua nhiều tổ chức để tạo thành một nghiên cứu mạng lưới đa trung tâm.
+
+### Động lực tiến hành một nghiên cứu mạng lưới đa trung tâm OHDSI
+
+Một trường hợp sử dụng điển hình của nghiên cứu quan sát là đánh giá hiệu quả so sánh hoặc tính an toàn của một phương pháp điều trị trong bối cảnh "thời gian thực / thế giới thực" (*real-world setting*). Cụ thể hơn, bạn có thể hướng tới việc kiểm chứng lặp lại một thử nghiệm lâm sàng trong giai đoạn hậu mãi (*post-market setting*) nhằm giải quyết những băn khoăn về khả năng khái quát hóa (*generalizability*) của các kết quả từ thử nghiệm lâm sàng đó. Trong những kịch bản khác, bạn có thể muốn thực hiện một nghiên cứu so sánh hai phương pháp điều trị chưa từng được đối đầu trực tiếp trong thử nghiệm lâm sàng bởi một trong hai phương pháp đang được kê đơn ngoài chỉ định trên nhãn (*off-label*). Hoặc bạn có thể cần khảo sát một biến cố bất lợi hiếm gặp sau khi thuốc lưu hành trên thị trường mà các thử nghiệm lâm sàng trước đó không đủ lực thống kê (*underpowered*) để phát hiện. Để giải quyết những câu hỏi nghiên cứu này, việc chỉ thực hiện một nghiên cứu quan sát đơn lẻ trên một hoặc thậm chí hai cơ sở dữ liệu tại đơn vị của bạn có thể là chưa đủ, bởi câu trả lời thu được chỉ mang ý nghĩa trong phạm vi một nhóm quần thể bệnh nhân đặc thù.
+
+Kết quả của một nghiên cứu quan sát có thể chịu ảnh hưởng bởi nhiều yếu tố biến thiên theo vị trí địa lý và đặc trưng của nguồn dữ liệu, chẳng hạn như mức độ tuân thủ điều trị, sự đa dạng di truyền, các yếu tố môi trường hay tình trạng sức khỏe tổng quát — những yếu tố vốn khó có thể khảo sát hết sự biến thiên trong khuôn khổ một thử nghiệm lâm sàng ngay cả khi có một thử nghiệm giải quyết cùng câu hỏi nghiên cứu của bạn. Do đó, động lực điển hình để triển khai một nghiên cứu quan sát trong mạng lưới đa trung tâm là gia tăng sự đa dạng của các nguồn dữ liệu và các quần thể nghiên cứu nhằm đánh giá mức độ khái quát hóa của kết quả. Nói cách khác, liệu các phát hiện nghiên cứu có thể tái lập nhất quán qua nhiều trung tâm hay có sự khác biệt giữa các nơi, và nếu có sự khác biệt thì chúng ta có thể rút ra bài học sâu sắc nào về nguyên nhân đằng sau hay không?
+
+Vì vậy, các nghiên cứu mạng lưới đa trung tâm mang lại cơ hội quý giá để khảo sát tác động của các yếu tố "thế giới thực" lên kết quả nghiên cứu quan sát thông qua việc kiểm tra trên một phổ rộng các bối cảnh chăm sóc y tế và nguồn dữ liệu khác nhau.
+
+### Định nghĩa nghiên cứu mạng lưới đa trung tâm OHDSI
+
+::: {.callout-important title="Điểm quan trọng"}
+**Khi nào một nghiên cứu được xem là nghiên cứu *mạng lưới* (*network study*)?** Một nghiên cứu OHDSI trở thành nghiên cứu mạng lưới đa trung tâm OHDSI khi được triển khai trên nhiều cơ sở dữ liệu CDM tại các tổ chức/trung tâm khác nhau.
+:::
+
+Phương pháp tiếp cận của OHDSI đối với nghiên cứu mạng lưới đa trung tâm sử dụng OMOP CDM cùng các công cụ chuẩn hóa và gói nghiên cứu (*study packages*) quy định đầy đủ mọi tham số cần thiết để vận hành nghiên cứu. Các quy trình phân tích chuẩn hóa của OHDSI được thiết kế chuyên biệt nhằm giảm thiểu các sai số tạo tác do kỹ thuật (*artifacts*) cũng như nâng cao hiệu suất và khả năng mở rộng quy mô của các nghiên cứu mạng lưới đa trung tâm.
+
+Nghiên cứu mạng lưới đa trung tâm là một bộ phận quan trọng của cộng đồng nghiên cứu OHDSI. Tuy nhiên, không có quy định bắt buộc nào yêu cầu mọi nghiên cứu OHDSI đều phải được đóng gói và chia sẻ trên toàn bộ mạng lưới OHDSI. Bạn hoàn toàn có thể tiến hành nghiên cứu sử dụng OMOP CDM và thư viện phương pháp OHDSI trong phạm vi một tổ chức đơn lẻ hoặc giới hạn nghiên cứu trong một nhóm các tổ chức đối tác được chọn lọc. Những đóng góp nghiên cứu như vậy đều có giá trị quan trọng ngang nhau đối với cộng đồng. Việc thiết kế một nghiên cứu để chạy trên một cơ sở dữ liệu đơn lẻ, triển khai trên một nhóm đối tác giới hạn hay mở rộng cho toàn bộ mạng lưới OHDSI cùng tham gia hoàn toàn thuộc quyền quyết định của từng nhà nghiên cứu. Chương này tập trung trình bày về các nghiên cứu mạng lưới mở rộng cho mọi thành viên cùng tham gia mà cộng đồng OHDSI thực hiện.
+
+**Các yếu tố cốt lõi của một Nghiên cứu Mạng lưới OHDSI *Mở*:**
+Khi tiến hành một nghiên cứu mạng lưới OHDSI mở, bạn đang cam kết thực hiện nghiên cứu hoàn toàn minh bạch. Có một số thành tố tạo nên nét đặc trưng riêng biệt của nghiên cứu OHDSI, bao gồm:
+
+- Toàn bộ tài liệu, mã nguồn nghiên cứu và các kết quả thu được về sau đều được công khai trên GitHub của OHDSI.
+- Các nhà nghiên cứu phải xây dựng và công bố một đề cương nghiên cứu (*study protocol*) công khai, trình bày chi tiết phạm vi và mục tiêu của phân tích sẽ thực hiện.
+- Các nhà nghiên cứu phải tạo một gói nghiên cứu (thường viết bằng R hoặc SQL) với mã nguồn tuân thủ chuẩn CDM.
+- Các nhà nghiên cứu được khuyến khích tham dự các cuộc họp Cộng đồng OHDSI (*OHDSI Community Calls*) để giới thiệu và mời gọi các cộng tác viên tham gia vào nghiên cứu mạng lưới OHDSI của mình.
+- Khi kết thúc phân tích, các kết quả nghiên cứu tổng hợp được công bố công khai trên GitHub của OHDSI.
+- Ở những nơi có điều kiện, các nhà nghiên cứu được khuyến khích xuất bản các ứng dụng R Shiny hiển thị kết quả nghiên cứu lên cổng dữ liệu [data.ohdsi.org](http://data.ohdsi.org).
+
+Trong mục tiếp theo, chúng tôi sẽ trình bày cách khởi tạo nghiên cứu mạng lưới đa trung tâm của riêng bạn cũng như các lưu ý đặc thù về thiết kế và hậu cần khi triển khai một nghiên cứu mạng lưới.
+
+### Các lưu ý thiết kế cho nghiên cứu mạng lưới đa trung tâm OHDSI
+
+Việc thiết kế một nghiên cứu để chạy trên toàn mạng lưới OHDSI đòi hỏi một sự chuyển dịch tư duy (*paradigm shift*) trong cách bạn thiết kế và lắp ghép mã nguồn nghiên cứu. Thông thường, bạn có thể thiết kế một nghiên cứu với một tập dữ liệu mục tiêu duy nhất trong đầu. Khi làm như vậy, bạn dễ viết mã dựa trên những gì bạn biết là đúng trong tập dữ liệu nội bộ mà mình đang sử dụng. Ví dụ, nếu đang xây dựng một đoàn hệ bệnh nhân phù mạch (*angioedema*), bạn có thể chỉ chọn những mã khái niệm phù mạch xuất hiện trong cơ sở dữ liệu CDM của đơn vị mình. Cách làm này có thể gây ra vấn đề nếu dữ liệu của bạn chỉ thuộc một bối cảnh chăm sóc đặc thù (ví dụ: chăm sóc ban đầu, khám ngoại trú) hoặc mang tính đặc thù vùng miền (ví dụ: dữ liệu tập trung tại Hoa Kỳ). Khi đó, sự lựa chọn mã của bạn có thể làm thiên lệch định nghĩa đoàn hệ khi áp dụng sang nơi khác.
+
+Trong một nghiên cứu mạng lưới đa trung tâm OHDSI, bạn không còn thiết kế và xây dựng gói nghiên cứu chỉ cho dữ liệu của riêng mình nữa, mà đang xây dựng một gói nghiên cứu để thực thi tại nhiều trung tâm trên khắp thế giới. Bạn sẽ không bao giờ nhìn thấy dữ liệu cấp độ bệnh nhân tại các trung tâm tham gia bên ngoài tổ chức của mình; các nghiên cứu mạng lưới OHDSI chỉ chia sẻ các tệp kết quả tổng hợp. Gói nghiên cứu của bạn chỉ có thể thu thập những dữ liệu hiện diện trong các miền chuẩn của CDM. Do đó, bạn sẽ cần một phương pháp tiếp cận toàn diện khi xây dựng tập hợp khái niệm (*concept set*) nhằm đại diện đầy đủ cho sự đa dạng của các bối cảnh chăm sóc y tế nơi dữ liệu quan sát được ghi nhận. Các gói nghiên cứu OHDSI thường áp dụng cùng một định nghĩa đoàn hệ thống nhất trên tất cả các trung tâm. Điều này có nghĩa là bạn phải tư duy một cách tổng thể nhằm tránh làm thiên lệch định nghĩa đoàn hệ theo hướng chỉ đại diện cho một tập con dữ liệu (chẳng hạn dữ liệu thuần túy bảo hiểm y tế hoặc dữ liệu đặc thù EHR) trong mạng lưới. Bạn được khuyến khích xây dựng một định nghĩa đoàn hệ bao quát, có khả năng chuyển giao (*portable*) sang nhiều cơ sở dữ liệu CDM khác nhau. Các gói nghiên cứu OHDSI sử dụng cùng một bộ mã nguồn đã được tham số hóa trên tất cả các trung tâm — chỉ kèm theo những tùy chỉnh nhỏ để kết nối vào tầng quản trị cơ sở dữ liệu và lưu trữ kết quả cục bộ. Ở phần sau của chương, chúng tôi sẽ thảo luận về ý nghĩa của vấn đề này đối với việc diễn giải các phát hiện lâm sàng từ các nguồn dữ liệu đa dạng.
+
+Bên cạnh sự biến thiên trong thực hành mã hóa lâm sàng, bạn cũng cần thiết kế gói nghiên cứu có tính đến sự khác biệt về hạ tầng kỹ thuật cục bộ tại từng đơn vị. Mã nghiên cứu của bạn sẽ không còn chạy trong một môi trường kỹ thuật duy nhất. Mỗi đơn vị thành viên trong mạng lưới OHDSI đều độc lập lựa chọn hệ quản trị cơ sở dữ liệu của riêng mình. Điều này có nghĩa là bạn không thể viết cố định (*hard-code*) gói nghiên cứu theo một phương ngữ cơ sở dữ liệu (*database dialect*) cụ thể nào. Mã nguồn nghiên cứu cần được tham số hóa sang một dạng SQL chuẩn có thể dễ dàng biên dịch sang các toán tử tương ứng của từng phương ngữ cơ sở dữ liệu. Rất may là cộng đồng OHDSI đã phát triển các giải pháp như ATLAS, [DatabaseConnector](https://ohdsi.github.io/DatabaseConnector/) và [SqlRender](https://ohdsi.github.io/SqlRender/) để giúp bạn khái quát hóa gói nghiên cứu nhằm đảm bảo tương thích với CDM trên nhiều hệ quản trị cơ sở dữ liệu khác nhau. Các nhà nghiên cứu OHDSI được khuyến khích nhờ sự hỗ trợ từ các trung tâm đối tác khác trong mạng lưới để kiểm thử và xác nhận gói nghiên cứu có thể thực thi trơn tru trong các môi trường kỹ thuật khác nhau. Khi phát sinh lỗi mã nguồn, các nhà nghiên cứu OHDSI có thể sử dụng [Diễn đàn OHDSI](http://forums.ohdsi.org) để cùng thảo luận và gỡ lỗi gói nghiên cứu.
+
+### Các lưu ý về tổ chức và hậu cần cho nghiên cứu mạng lưới đa trung tâm OHDSI
+
+OHDSI là một cộng đồng khoa học mở, và trung tâm điều phối của OHDSI cung cấp hạ tầng cộng đồng cho phép các thành viên chủ trì cũng như tham gia vào các nghiên cứu chung. Mỗi nghiên cứu mạng lưới đa trung tâm OHDSI đều cần một chủ nhiệm nghiên cứu (*lead investigator* / *study lead*), và vị trí này có thể do bất kỳ cộng tác viên nào trong cộng đồng OHDSI đảm nhận. Các nghiên cứu mạng lưới OHDSI đòi hỏi sự điều phối nhịp nhàng giữa chủ nhiệm nghiên cứu, các nhà nghiên cứu cộng tác và các đối tác dữ liệu tham gia trong mạng lưới. Mỗi trung tâm phải tự thực hiện quy trình rà soát thẩm định (*due diligence*) của đơn vị mình nhằm đảm bảo đề cương nghiên cứu được phê duyệt và cấp phép thực thi trên cơ sở dữ liệu CDM cục bộ (nếu có yêu cầu). Chuyên viên phân tích dữ liệu có thể cần sự hỗ trợ từ bộ phận CNTT tại đơn vị để được cấp quyền truy cập phù hợp phục vụ việc chạy nghiên cứu. Quy mô và phạm vi của nhóm nghiên cứu tại mỗi trung tâm sẽ phụ thuộc vào quy mô và độ phức tạp của nghiên cứu mạng lưới được đề xuất cũng như mức độ trưởng thành trong việc triển khai OMOP CDM và bộ công cụ OHDSI tại đơn vị đó. Mức độ kinh nghiệm của một trung tâm trong việc vận hành các nghiên cứu mạng lưới OHDSI cũng sẽ ảnh hưởng đến nguồn nhân lực cần thiết.
+
+Đối với mỗi nghiên cứu, các hoạt động khởi động tại từng trung tâm tham gia (*site start-up activities*) có thể bao gồm:
+
+- Đăng ký nghiên cứu với Hội đồng Đánh giá Đạo đức Nghiên cứu Y sinh (*Institutional Review Board* – IRB, hoặc hội đồng tương đương), nếu đơn vị yêu cầu.
+- Nhận văn bản phê duyệt của Hội đồng Đánh giá Đạo đức Nghiên cứu Y sinh cho phép thực thi nghiên cứu, nếu đơn vị yêu cầu.
+- Nhận quyền truy cập ở cấp độ cơ sở dữ liệu để đọc/ghi dữ liệu trên một lược đồ (*schema*) thuộc cơ sở dữ liệu CDM đã được phê duyệt.
+- Đảm bảo cấu hình môi trường RStudio hoạt động ổn định để thực thi gói nghiên cứu.
+- Rà soát mã nguồn nghiên cứu để phát hiện bất kỳ điểm bất thường nào về mặt kỹ thuật.
+- Phối hợp với đội ngũ CNTT nội bộ để cấp phép và cài đặt các gói R phụ thuộc (*dependent R packages*) cần thiết nhằm thực thi gói nghiên cứu trong khuôn khổ các ràng buộc kỹ thuật của đơn vị.
+
+::: {.callout-important title="Điểm quan trọng"}
+**Chất lượng dữ liệu và Nghiên cứu mạng lưới đa trung tâm:** Như đã thảo luận tại Chương 6, kiểm soát chất lượng là một cấu phần nền tảng và mang tính lặp lại của quy trình ETL. Công việc này cần được thực hiện định kỳ độc lập với quy trình triển khai nghiên cứu mạng lưới. Đối với một nghiên cứu mạng lưới đa trung tâm, chủ nhiệm nghiên cứu có thể đề nghị xem xét báo cáo chất lượng dữ liệu của các trung tâm tham gia hoặc thiết kế các truy vấn SQL tùy chỉnh nhằm tìm hiểu sự biến thiên tiềm tàng giữa các nguồn dữ liệu đóng góp. Để biết thêm chi tiết về các hoạt động đảm bảo chất lượng dữ liệu đang diễn ra trong cộng đồng OHDSI, vui lòng xem Chương 14.
+:::
+
+Mỗi trung tâm sẽ có một chuyên viên phân tích dữ liệu tại chỗ trực tiếp thực thi gói nghiên cứu. Chuyên viên này phải rà soát kết quả đầu ra của gói nghiên cứu để đảm bảo không có bất kỳ thông tin nhạy cảm nào bị truyền ra ngoài, mặc dù toàn bộ dữ liệu trong CDM vốn đã được khử định danh (*de-identified*). Khi sử dụng các gói phương pháp OHDSI dựng sẵn như Ước tính hiệu quả ở cấp độ quần thể (PLE) và Dự đoán ở cấp độ bệnh nhân (PLP), luôn có các thiết lập cấu hình cho số đếm ô tối thiểu (*minimum cell count*) đối với mỗi phân tích. Chuyên viên phân tích dữ liệu có trách nhiệm kiểm tra các ngưỡng này và đảm bảo chúng tuân thủ đúng chính sách quản trị dữ liệu tại đơn vị mình.
+
+Khi chia sẻ kết quả nghiên cứu, chuyên viên phân tích dữ liệu phải tuân thủ toàn bộ các chính sách quản trị nội bộ, bao gồm cả phương thức truyền tải kết quả và quy trình phê duyệt trước khi công bố kết quả ra bên ngoài. **Các nghiên cứu mạng lưới đa trung tâm OHDSI tuyệt đối không chia sẻ dữ liệu ở cấp độ bệnh nhân.** Nói cách khác, dữ liệu cấp độ bệnh nhân từ các trung tâm khác nhau không bao giờ được gom về một môi trường tập trung. Các gói nghiên cứu chỉ xuất ra các tệp kết quả được thiết kế ở dạng tổng hợp (ví dụ: thống kê mô tả tóm tắt, ước lượng điểm, biểu đồ chẩn đoán nghiên cứu, v.v.) và không chứa thông tin định danh cá nhân. Nhiều tổ chức không yêu cầu phải ký kết thỏa thuận chia sẻ dữ liệu (*data sharing agreements*) giữa các thành viên nhóm nghiên cứu tham gia. Tuy nhiên, tùy thuộc vào quy định của các tổ chức liên quan và bản chất nguồn dữ liệu, có thể vẫn cần thiết lập các thỏa thuận chia sẻ dữ liệu chính thức có chữ ký của các thành viên cụ thể trong nhóm nghiên cứu. Nếu bạn là đơn vị sở hữu dữ liệu quan tâm đến việc tham gia các nghiên cứu mạng lưới đa trung tâm, bạn nên tham vấn bộ phận quản trị và pháp chế tại đơn vị mình để nắm rõ các chính sách hiện hành cần đáp ứng khi tham gia nghiên cứu cộng đồng OHDSI.
+
+## Quy trình triển khai một nghiên cứu mạng lưới đa trung tâm OHDSI
+
+Việc triển khai một nghiên cứu mạng lưới đa trung tâm OHDSI bao gồm ba giai đoạn chính tách biệt:
+
+- Thiết kế nghiên cứu và đánh giá tính khả thi (*Study design and feasibility*)
+- Thực thi nghiên cứu (*Study execution*)
+- Phổ biến kết quả và công bố khoa học (*Results dissemination and publication*)
+
+### Thiết kế nghiên cứu và đánh giá tính khả thi
+
+Giai đoạn đánh giá tính khả thi của nghiên cứu *(hay giai đoạn tiền nghiên cứu)* xác định câu hỏi nghiên cứu và mô tả quy trình trả lời câu hỏi đó thông qua đề cương nghiên cứu (*study protocol*). Giai đoạn này tập trung vào việc đánh giá tính khả thi của việc thực thi đề cương nghiên cứu trên các trung tâm tham gia trong mạng lưới.
+
+Kết quả đầu ra của giai đoạn đánh giá tính khả thi là một đề cương nghiên cứu và một gói nghiên cứu hoàn chỉnh được công bố công khai, sẵn sàng cho việc thực thi trên toàn mạng lưới. Đề cương nghiên cứu chính thức sẽ nêu chi tiết thành phần nhóm nghiên cứu, bao gồm chủ nhiệm nghiên cứu được chỉ định (thường đồng thời là tác giả liên hệ khi công bố bài báo) cùng thông tin về lộ trình thời gian của nghiên cứu. Đề cương nghiên cứu là tài liệu then chốt để các trung tâm thành viên trong mạng lưới xem xét, phê duyệt và thực thi đầy đủ gói nghiên cứu trên dữ liệu CDM của họ. Một đề cương nghiên cứu phải bao gồm thông tin về quần thể nghiên cứu, các phương pháp phân tích được sử dụng, cách thức lưu trữ và phân tích kết quả cũng như kế hoạch phổ biến kết quả nghiên cứu sau khi hoàn thành (ví dụ: công bố bài báo khoa học, báo cáo tại hội nghị khoa học, v.v.).
+
+Giai đoạn đánh giá tính khả thi không phải là một quy trình cứng nhắc duy nhất, mà là một chuỗi các hoạt động phụ thuộc chặt chẽ vào loại hình nghiên cứu được đề xuất. Tối thiểu, chủ nhiệm nghiên cứu sẽ dành thời gian xác định các trung tâm phù hợp trong mạng lưới có chứa (các) quần thể bệnh nhân mục tiêu cùng đầy đủ thông tin cần thiết về phơi nhiễm thuốc, thủ thuật, tình trạng bệnh lý hoặc nhân khẩu học. Ở những nơi có điều kiện, chủ nhiệm nghiên cứu nên sử dụng cơ sở dữ liệu CDM tại đơn vị mình để thiết kế thử nghiệm các đoàn hệ mục tiêu. Tuy nhiên, không có quy định bắt buộc nào yêu cầu chủ nhiệm nghiên cứu phải có quyền truy cập trực tiếp vào một cơ sở dữ liệu OMOP CDM chứa dữ liệu bệnh nhân thực mới được phép chủ trì một nghiên cứu mạng lưới. Chủ nhiệm nghiên cứu hoàn toàn có thể thiết kế định nghĩa đoàn hệ mục tiêu bằng dữ liệu giả lập (*synthetic data*, ví dụ: CMS Synthetic Public Use Files, SyntheticMass từ MITRE hoặc Synthea) và nhờ các cộng tác viên tại các trung tâm trong mạng lưới OHDSI hỗ trợ kiểm tra, xác nhận tính khả thi của đoàn hệ đó. Các hoạt động đánh giá tính khả thi có thể bao gồm việc đề nghị các cộng tác viên khởi tạo và mô tả đặc điểm đoàn hệ bằng các tệp JSON định nghĩa đoàn hệ xuất từ ATLAS, hoặc kiểm thử các gói nghiên cứu R và chạy các bước chẩn đoán nghiên cứu sơ bộ như đã thảo luận tại Chương 18. Đồng thời, chủ nhiệm nghiên cứu có thể cần khởi động các thủ tục nội bộ tại đơn vị chủ trì để xin phê duyệt nghiên cứu OHDSI (nếu có yêu cầu) — chẳng hạn như xin phê duyệt của Hội đồng Đánh giá Đạo đức Nghiên cứu Y sinh nội bộ. Chủ nhiệm nghiên cứu có trách nhiệm hoàn tất các thủ tục cấp tổ chức này ngay trong giai đoạn đánh giá tính khả thi.
+
+### Thực thi nghiên cứu
+
+Sau khi hoàn tất các bước đánh giá tính khả thi, nghiên cứu bước sang giai đoạn thực thi. Đây là thời điểm các trung tâm trong mạng lưới OHDSI có thể đăng ký tham gia (*opt-in*) vào phân tích, và cũng là lúc các lưu ý về thiết kế kỹ thuật và hậu cần mà chúng tôi thảo luận ở trên trở nên quan trọng nhất.
+
+Một nghiên cứu sẽ chính thức chuyển sang giai đoạn thực thi khi chủ nhiệm nghiên cứu liên hệ với cộng đồng OHDSI để thông báo chính thức về nghiên cứu mạng lưới OHDSI mới và bắt đầu mời gọi các trung tâm tham gia. Chủ nhiệm nghiên cứu sẽ công bố đề cương nghiên cứu lên GitHub của OHDSI, đồng thời thông báo về nghiên cứu trong cuộc họp Cộng đồng OHDSI hàng tuần và trên [Diễn đàn OHDSI](http://forums.ohdsi.org) để mời các trung tâm và cộng tác viên tham gia. Khi các trung tâm đăng ký tham gia, chủ nhiệm nghiên cứu sẽ trao đổi trực tiếp với từng đơn vị và cung cấp thông tin về kho lưu trữ GitHub nơi đăng tải đề cương và mã nguồn nghiên cứu kèm theo hướng dẫn chi tiết cách thực thi gói nghiên cứu. Lý tưởng nhất, nghiên cứu mạng lưới đa trung tâm nên được thực hiện song song tại tất cả các đơn vị để các kết quả cuối cùng được chia sẻ đồng thời, qua đó đảm bảo không một nhóm nghiên cứu tại trung tâm nào bị chi phối hay thiên lệch bởi việc biết trước kết quả của trung tâm khác.
+
+Tại mỗi trung tâm, nhóm nghiên cứu địa phương sẽ đảm bảo nghiên cứu tuân thủ đúng quy trình của đơn vị mình trong việc xin phê duyệt tham gia nghiên cứu, thực thi gói nghiên cứu và chia sẻ kết quả ra bên ngoài. Quy trình này thường bao gồm việc xin miễn trừ (*exemption*) hoặc phê duyệt chính thức từ Hội đồng Đánh giá Đạo đức Nghiên cứu Y sinh (IRB) hoặc hội đồng tương đương cho đề cương nghiên cứu đã chỉ định. Khi nghiên cứu đã được cấp phép triển khai, các nhà khoa học dữ liệu / chuyên viên thống kê tại trung tâm sẽ làm theo hướng dẫn của chủ nhiệm nghiên cứu để tải gói nghiên cứu OHDSI và xuất kết quả theo định dạng chuẩn hóa của OHDSI. Mỗi trung tâm tham gia phải tuân thủ nghiêm ngặt quy trình nội bộ của đơn vị mình về quy tắc chia sẻ dữ liệu. Các trung tâm không nên chia sẻ kết quả trừ khi đã nhận được văn bản phê duyệt hoặc miễn trừ từ Hội đồng Đạo đức (IRB) hoặc các quy trình phê duyệt hợp lệ khác của tổ chức.
+
+Chủ nhiệm nghiên cứu chịu trách nhiệm thông báo rõ phương thức tiếp nhận kết quả (ví dụ: qua giao thức SFTP hoặc một kho lưu trữ Amazon S3 bảo mật) cũng như khung thời gian hoàn thành việc gửi kết quả. Các trung tâm có thể phản hồi nếu phương thức truyền tải đó chưa tương thích với quy định bảo mật nội bộ của đơn vị để cùng thống nhất phương án thay thế phù hợp.
+
+Trong giai đoạn thực thi, tập thể nhóm nghiên cứu (bao gồm chủ nhiệm nghiên cứu và nhóm nghiên cứu tại các trung tâm tham gia) có thể tinh chỉnh lặp lại nếu cần thiết phải có những điều chỉnh hợp lý. Tuy nhiên, nếu phạm vi và mức độ của đề cương nghiên cứu thay đổi vượt ra ngoài khuôn khổ đã được phê duyệt ban đầu, trung tâm tham gia có trách nhiệm báo cáo việc này với đơn vị chủ quản của mình thông qua việc phối hợp cùng chủ nhiệm nghiên cứu cập nhật lại đề cương, sau đó đệ trình lại đề cương để Hội đồng Đạo đức (IRB) tại đơn vị xem xét và phê duyệt lại.
+
+Cuối cùng, chủ nhiệm nghiên cứu cùng các nhà khoa học dữ liệu / chuyên viên thống kê hỗ trợ chịu trách nhiệm tổng hợp kết quả từ tất cả các trung tâm và thực hiện phân tích gộp (*meta-analysis*) khi phù hợp. Cộng đồng OHDSI đã xây dựng và thẩm định các phương pháp luận chuẩn mực để tổng hợp các tệp kết quả được chia sẻ từ nhiều trung tâm trong mạng lưới thành một ước lượng tổng hợp duy nhất. Gói [EvidenceSynthesis](https://github.com/OHDSI/EvidenceSynthesis) là một gói R miễn phí chứa các hàm chuyên dụng để tổng hợp bằng chứng và kết quả chẩn đoán nghiên cứu từ nhiều nguồn dữ liệu trong một nghiên cứu mạng lưới dữ liệu phân tán, bao gồm các hàm thực hiện phân tích gộp và vẽ biểu đồ cánh rừng (*forest plots*).
+
+Chủ nhiệm nghiên cứu cần theo dõi sát sao tiến độ tham gia của các trung tâm và hỗ trợ tháo gỡ các vướng mắc trong quá trình chạy gói nghiên cứu thông qua việc giữ liên lạc thường xuyên với các đơn vị. Việc thực thi nghiên cứu không phải lúc nào cũng diễn ra giống hệt nhau tại mọi trung tâm: có thể phát sinh những thách thức liên quan đến tầng cơ sở dữ liệu (ví dụ: quyền truy cập / quyền tạo bảng trên schema) hoặc công cụ phân tích trong môi trường cục bộ (ví dụ: không thể cài đặt các gói phụ thuộc, không thể kết nối cơ sở dữ liệu từ R, v.v.). Trung tâm tham gia sẽ giữ vai trò chủ động thông báo những rào cản kỹ thuật đang gặp phải. Quyền quyết định cuối cùng thuộc về trung tâm tham gia trong việc huy động nguồn lực nội bộ thích hợp để giải quyết các vấn đề phát sinh trên cơ sở dữ liệu CDM của đơn vị mình.
+
+Mặc dù các nghiên cứu OHDSI có thể được thực thi rất nhanh chóng về mặt tính toán, chúng tôi khuyến nghị nên dự trù một khoảng thời gian hợp lý để tất cả các trung tâm tham gia hoàn tất việc chạy nghiên cứu và xin đầy đủ các phê duyệt cần thiết cho việc công bố kết quả. Các đơn vị mới gia nhập mạng lưới OHDSI có thể mất nhiều thời gian hơn bình thường trong lần đầu tiên tham gia nghiên cứu mạng lưới do cần xử lý các vấn đề cấu hình môi trường như phân quyền cơ sở dữ liệu hoặc cập nhật thư viện phân tích. Cộng đồng OHDSI luôn sẵn sàng hỗ trợ; mọi vấn đề kỹ thuật đều có thể được đăng tải lên [Diễn đàn OHDSI](http://forums.ohdsi.org) ngay khi gặp phải.
+
+Chủ nhiệm nghiên cứu nên thiết lập các cột mốc tiến độ (*milestones*) ngay trong đề cương nghiên cứu và thông báo trước ngày dự kiến kết thúc thu nhận kết quả để thuận tiện cho việc quản lý tiến độ chung của toàn dự án. Nếu tiến độ có sự thay đổi, chủ nhiệm nghiên cứu có trách nhiệm thông báo kịp thời cho các trung tâm tham gia về lịch trình cập nhật và điều phối tiến độ tổng thể của nghiên cứu.
+
+### Phổ biến kết quả và công bố khoa học
+
+Trong giai đoạn phổ biến kết quả và công bố khoa học, chủ nhiệm nghiên cứu sẽ phối hợp cùng các thành viên tham gia thực hiện các công việc học thuật và hành chính như biên soạn bản thảo bài báo và tối ưu hóa các biểu đồ trực quan hóa dữ liệu. Sau khi nghiên cứu đã được thực thi và kết quả tổng hợp đã được lưu trữ tập trung để phân tích sâu hơn, chủ nhiệm nghiên cứu chịu trách nhiệm khởi tạo và chia sẻ bộ kết quả nghiên cứu đầy đủ (ví dụ: dưới dạng một ứng dụng web tương tác R Shiny) để các trung tâm tham gia cùng xem xét và phản biện. Nếu chủ nhiệm nghiên cứu sử dụng khung gói nghiên cứu chuẩn của OHDSI (*OHDSI study skeleton*) — dù được xuất tự động từ ATLAS hay tùy chỉnh từ mã mẫu trên GitHub — ứng dụng Shiny sẽ được khởi tạo tự động. Trong trường hợp tự viết mã tùy chỉnh hoàn toàn, chủ nhiệm nghiên cứu có thể sử dụng Diễn đàn OHDSI để nhờ cộng đồng hướng dẫn tạo ứng dụng Shiny riêng cho gói nghiên cứu của mình.
+
+::: {.callout-important title="Điểm quan trọng"}
+Bạn chưa chắc chắn nên công bố nghiên cứu mạng lưới OHDSI của mình ở đâu? Hãy tham khảo JANE (*Journal/Author Name Estimator* — Công cụ gợi ý tên tạp chí/tác giả), một công cụ tiếp nhận phần tóm tắt (*abstract*) của bạn và quét các ấn phẩm khoa học để tìm tạp chí có chủ đề liên quan và phù hợp nhất.[^janeUrl]
+:::
+
+[^janeUrl]: http://jane.biosemantics.org/
+
+Khi bản thảo bài báo được biên soạn, mỗi cộng tác viên tham gia đều được khuyến khích đọc duyệt và đảm bảo nội dung đầu ra tuân thủ đúng quy định công bố thông tin đối ngoại của đơn vị mình. Tối thiểu, mỗi trung tâm tham gia nên cử một đầu mối phụ trách công bố (*publication lead*) — người sẽ đảm bảo rằng mọi quy trình nội bộ của đơn vị đều được tuân thủ trong suốt quá trình chuẩn bị và nộp bản thảo. Việc lựa chọn tạp chí khoa học nào để gửi bài thuộc quyền quyết định của chủ nhiệm nghiên cứu, song nên dựa trên sự thảo luận và đồng thuận tập thể ngay từ khi bắt đầu nghiên cứu. Tất cả các đồng tác giả trong các nghiên cứu OHDSI đều được kỳ vọng đáp ứng đầy đủ tiêu chuẩn tác giả của Ủy ban Quốc tế các Tổng biên tập Tạp chí Y khoa (ICMJE).[^icmjeUrl] Việc trình bày kết quả nghiên cứu có thể diễn ra tại bất kỳ diễn đàn khoa học nào mà nhóm nghiên cứu lựa chọn (ví dụ: Hội nghị chuyên đề OHDSI – *OHDSI Symposium*, kỷ yếu hội nghị học thuật khác hoặc ấn phẩm tạp chí chuyên ngành). Các nhà nghiên cứu cũng luôn được chào đón trình bày các nghiên cứu mạng lưới đa trung tâm OHDSI tại các cuộc họp cộng đồng OHDSI hàng tuần và tại các Hội nghị chuyên đề OHDSI trên toàn cầu.
+
+[^icmjeUrl]: http://www.icmje.org/recommendations/browse/roles-and-responsibilities/defining-the-role-of-authors-and-contributors.html
+
+## Hướng tới tương lai: Tự động hóa nghiên cứu mạng lưới đa trung tâm
+
+Quy trình thực hiện nghiên cứu mạng lưới đa trung tâm hiện nay vẫn còn nhiều khâu thủ công — trong đó các thành viên nhóm nghiên cứu sử dụng nhiều kênh khác nhau (bao gồm Wiki, GitHub và thư điện tử) để cộng tác thiết kế nghiên cứu, chia sẻ mã nguồn và gửi kết quả. Quy trình thủ công này chưa thật sự đồng nhất và khó mở rộng quy mô lớn; để giải quyết bài toán đó, cộng đồng OHDSI đang tích cực làm việc nhằm hệ thống hóa và tự động hóa các quy trình nghiên cứu mạng lưới.
+
+![](media/image179.jpeg){width="4.36125in" height="2.818124453193351in"}
+
+Hình 19.1: Quy trình nghiên cứu mạng lưới đa trung tâm trên nền tảng ARACHNE.
+
+ARACHNE là một nền tảng được thiết kế nhằm tinh gọn hóa và tự động hóa quy trình tiến hành các nghiên cứu mạng lưới đa trung tâm. ARACHNE vận hành dựa trên các tiêu chuẩn của OHDSI và thiết lập một quy trình nghiên cứu quan sát nhất quán, minh bạch, bảo mật và tuân thủ quy định qua nhiều tổ chức. ARACHNE chuẩn hóa giao thức kết nối để truy cập dữ liệu và trao đổi kết quả phân tích, đồng thời cung cấp cơ chế xác thực và phân quyền chặt chẽ đối với các nội dung giới hạn truy cập. Nền tảng này kết nối các tổ chức tham gia — bao gồm đơn vị cung cấp dữ liệu, nhà nghiên cứu, đơn vị tài trợ và nhà khoa học dữ liệu — vào một nhóm nghiên cứu cộng tác thống nhất và hỗ trợ điều phối nghiên cứu quan sát trọn vẹn từ đầu đến cuối (*end-to-end*). Công cụ cho phép thiết lập một môi trường thực thi R, Python và SQL hoàn chỉnh, dựa trên tiêu chuẩn, tích hợp sẵn các luồng phê duyệt (*approval workflows*) dưới sự kiểm soát trực tiếp của người giám hộ dữ liệu (*data custodian*) tại từng đơn vị.
+
+ARACHNE được xây dựng để tích hợp liền mạch với các công cụ OHDSI khác, bao gồm báo cáo ACHILLES cùng khả năng nhập trực tiếp các bản thiết kế từ ATLAS, đóng gói thành các gói nghiên cứu khép kín và tự động thực thi chúng trên nhiều trung tâm. Tầm nhìn xa hơn trong tương lai là cho phép liên kết nhiều mạng lưới nghiên cứu với nhau nhằm phục vụ việc triển khai nghiên cứu không chỉ giữa các tổ chức bên trong một mạng lưới đơn lẻ, mà còn giữa các tổ chức thuộc nhiều mạng lưới khác nhau (*Network of Networks*).
+
+![](media/image180.jpeg){width="4.494374453193351in" height="2.3962489063867016in"}
+
+Hình 19.2: Mô hình Mạng lưới của các Mạng lưới (*Network of Networks*) trên ARACHNE.
+
+## Thực hành tốt nhất cho các nghiên cứu mạng lưới đa trung tâm OHDSI
+
+Khi bạn tiến hành một nghiên cứu mạng lưới đa trung tâm, cộng đồng OHDSI luôn sẵn sàng đồng hành và hỗ trợ nhằm đảm bảo bạn tuân thủ các thực hành tốt nhất cho nghiên cứu mạng lưới OHDSI.
+
+**Thiết kế nghiên cứu và đánh giá tính khả thi:** Khi triển khai một nghiên cứu mạng lưới đa trung tâm, hãy đảm bảo rằng bạn không làm thiên lệch thiết kế nghiên cứu của mình theo hướng chỉ phù hợp với một loại nguồn dữ liệu duy nhất. Nhiệm vụ hài hòa hóa các định nghĩa đoàn hệ để đại diện cho các quần thể bệnh nhân nhất quán trên tất cả các trung tâm có thể phức tạp ít hay nhiều tùy thuộc vào mức độ không đồng nhất (*heterogeneity*) của các loại dữ liệu và mức độ chặt chẽ mà từng trung tâm tuân thủ các quy ước chuẩn hóa khi chuyển đổi dữ liệu sang OMOP CDM. Lý do khiến khâu này trở nên tối quan trọng là nhu cầu kiểm soát và phân tách rõ những khác biệt bắt nguồn từ quy trình thu thập, biểu diễn và chuyển đổi dữ liệu giữa các trung tâm với những khác biệt thực sự có ý nghĩa lâm sàng. Đặc biệt, đối với các nghiên cứu đánh giá hiệu quả so sánh, thách thức có thể nảy sinh trong việc đảm bảo sự tương hợp của định nghĩa đoàn hệ phơi nhiễm và đoàn hệ kết cục giữa các đơn vị. Ví dụ, thông tin phơi nhiễm thuốc có thể đến từ nhiều nguồn dữ liệu khác nhau với nguy cơ phân loại sai (*misclassification*) khác nhau. Một bản ghi yêu cầu thanh toán cấp phát thuốc tại nhà thuốc từ chương trình bảo hiểm y tế đã qua thẩm định đồng nghĩa với việc khi có bản ghi yêu cầu thanh toán, khả năng rất cao là bệnh nhân đã thực sự nhận thuốc. Ngược lại, một y lệnh kê đơn được nhập vào hệ thống EHR có thể là thông tin duy nhất sẵn có mà không có liên kết với dữ liệu nhà thuốc để xác định xem đơn thuốc đó đã được cấp phát hay bệnh nhân đã uống thuốc hay chưa. Có thể tồn tại một khoảng trễ thời gian giữa thời điểm bác sĩ kê đơn, thời điểm dược sĩ xuất thuốc, thời điểm bệnh nhân đến nhà thuốc nhận thuốc và thời điểm bệnh nhân thực sự uống viên thuốc đầu tiên. Sai số đo lường (*measurement error*) này có nguy cơ gây thiên lệch kết quả trong bất kỳ bài toán phân tích nào. Do đó, việc thực hiện đánh giá tính khả thi của nghiên cứu nhằm xem xét mức độ phù hợp của từng cơ sở dữ liệu tham gia ngay trong quá trình xây dựng đề cương nghiên cứu là hết sức cần thiết.
+
+**Thực thi nghiên cứu:** Ở những nơi có điều kiện, các chủ nhiệm nghiên cứu được khuyến khích tận dụng ATLAS, Thư viện Phương pháp OHDSI (*OHDSI Methods Library*) và các Khung gói nghiên cứu mẫu của OHDSI (*OHDSI Study Skeletons*) để khởi tạo mã nguồn nghiên cứu sử dụng tối đa các gói phân tích chuẩn hóa. Mã nguồn nghiên cứu phải luôn tuân thủ chuẩn CDM và độc lập với tầng hệ quản trị cơ sở dữ liệu thông qua việc sử dụng các gói công cụ của OHDSI. Hãy đảm bảo tham số hóa toàn bộ các hàm và biến số (ví dụ: tuyệt đối không viết cố định thông tin kết nối cơ sở dữ liệu, đường dẫn ổ cứng cục bộ hoặc giả định một hệ điều hành cụ thể). Khi mời gọi các trung tâm tham gia, chủ nhiệm nghiên cứu cần đảm bảo mỗi đơn vị trong mạng lưới đều tuân thủ chuẩn CDM và cập nhật định kỳ Từ vựng Chuẩn hóa OMOP. Chủ nhiệm nghiên cứu cũng cần thực hiện rà soát thẩm định để chắc chắn rằng mỗi trung tâm tham gia đã thực hiện và lưu trữ tài liệu kiểm tra chất lượng dữ liệu trên cơ sở dữ liệu CDM của mình (ví dụ: đảm bảo quy trình ETL đã tuân thủ các quy tắc nghiệp vụ và quy ước THEMIS, dữ liệu được đưa đúng vào các bảng và trường chuẩn của CDM). Mỗi chuyên viên phân tích dữ liệu được khuyến nghị cập nhật các gói R tại đơn vị mình lên phiên bản gói OHDSI mới nhất trước khi thực thi gói nghiên cứu.
+
+**Kết quả và phổ biến kết quả:** Chủ nhiệm nghiên cứu cần đảm bảo mỗi trung tâm tuân thủ đầy đủ các quy tắc quản trị dữ liệu nội bộ trước khi chia sẻ kết quả. Khoa học mở và có thể tái lập đồng nghĩa với việc mọi thành phần được thiết kế và thực thi đều được minh bạch hóa. Các nghiên cứu mạng lưới đa trung tâm OHDSI hoàn toàn minh bạch với toàn bộ tài liệu và kết quả thu được đều được công bố trên kho lưu trữ GitHub của OHDSI hoặc máy chủ R Shiny tại `data.ohdsi.org`. Khi chuẩn bị bản thảo bài báo, chủ nhiệm nghiên cứu nên nắm vững các nguyên lý của OMOP CDM và Từ vựng Chuẩn hóa để giải thích rõ cho tạp chí khoa học hiểu cách dữ liệu có thể biến thiên giữa các trung tâm trong mạng lưới OHDSI. Ví dụ, nếu bạn thực hiện một nghiên cứu mạng lưới kết hợp cả cơ sở dữ liệu bảo hiểm y tế và cơ sở dữ liệu EHR, các phản biện viên của tạp chí có thể yêu cầu bạn giải thích làm thế nào để duy trì tính toàn vẹn của định nghĩa đoàn hệ qua nhiều loại nguồn dữ liệu khác nhau. Một phản biện viên có thể muốn hiểu giai đoạn quan sát (*observation period*) trong OMOP (như đã thảo luận tại Chương 4) tương ứng như thế nào với tệp thời hạn hiệu lực bảo hiểm (*eligibility file*) — một tệp tồn tại trong cơ sở dữ liệu bảo hiểm dùng để xác định khoảng thời gian một người được và không được bảo hiểm chi trả. Thực chất câu hỏi này đang hướng sự chú ý vào một yếu tố mang tính tạo tác kỹ thuật của bản thân các cơ sở dữ liệu và cách quy trình ETL chuyển đổi các bản ghi nguồn sang bảng giai đoạn quan sát trong CDM. Trong trường hợp đó, chủ nhiệm nghiên cứu mạng lưới sẽ thấy rất hữu ích khi dẫn chiếu cách bảng `OBSERVATION_PERIOD` của OMOP CDM được khởi tạo từ các lượt khám (*encounters*) trong hệ thống dữ liệu nguồn. Phần bàn luận của bản thảo có thể cần nhìn nhận thẳng thắn hạn chế của dữ liệu EHR: không giống như dữ liệu bảo hiểm vốn phản ánh mọi lượt khám được chi trả trong suốt thời gian người bệnh tham gia bảo hiểm, hệ thống EHR của một bệnh viện không ghi nhận được các lượt khám khi người bệnh đi khám tại một cơ sở y tế khác sử dụng hệ thống EHR khác; do đó, sự gián đoạn trong giai đoạn quan sát có thể xảy ra khi người bệnh tìm kiếm dịch vụ y tế bên ngoài hệ thống EHR đó. Đây là một đặc điểm tạo tác của cách dữ liệu tồn tại trong hệ thống thu thập ban đầu, không phải là một sự khác biệt có ý nghĩa lâm sàng nhưng dễ gây bối rối cho những độc giả chưa quen với quy ước dẫn xuất bảng `OBSERVATION_PERIOD` trong OMOP. Việc giải thích rõ điểm này trong phần bàn luận của bài báo sẽ giúp làm sáng tỏ quy ước trên. Tương tự, chủ nhiệm nghiên cứu cũng nên mô tả cách dịch vụ thuật ngữ do Từ vựng Chuẩn hóa OMOP cung cấp cho phép một khái niệm lâm sàng được biểu diễn đồng nhất bất kể dữ liệu được thu thập tại đâu. Dù luôn có những quyết định ánh xạ nhất định khi chuyển từ mã nguồn sang khái niệm chuẩn, các quy ước THEMIS cùng các bước kiểm tra chất lượng CDM sẽ cung cấp thông tin minh bạch về vị trí lưu trữ chuẩn xác của dữ liệu cũng như mức độ tuân thủ nguyên tắc đó của từng cơ sở dữ liệu.
 
 ## Tóm tắt
 
-![](media/image4.png){width="0.4455205599300088in"
-height="0.4644783464566929in" .book-icon}
-
-- An OHDSI study becomes an OHDSI Network study when it is run across
-multiple CDMs at different institutions.
-
-- OHDSI network studies are open to all. Anyone can lead a network
-study. Anyone with an OMOP compliant database may opt to participate
-and con-tribute results.
-
-- Need help running a network study? Consult with the OHDSI Study
-Nurture Committee to help design and execute your study.
-
-- **Sharing is caring.** All study documentation, code and results are
-published on the OHDSI GitHub or in an R Shiny application. Study
-leads are invited to present their research at OHDSI events.
-
-Chương A
-
+::: {.callout-tip title="Tóm tắt chương"}
+- Một nghiên cứu OHDSI trở thành nghiên cứu mạng lưới đa trung tâm OHDSI (*OHDSI Network study*) khi được triển khai trên nhiều cơ sở dữ liệu CDM tại các tổ chức/trung tâm khác nhau.
+- Các nghiên cứu mạng lưới đa trung tâm OHDSI luôn rộng mở với tất cả mọi người. Bất kỳ ai cũng có thể chủ trì một nghiên cứu mạng lưới, và bất kỳ đơn vị nào sở hữu cơ sở dữ liệu tuân thủ chuẩn OMOP đều có thể đăng ký tham gia và đóng góp kết quả.
+- Cần hỗ trợ khi triển khai một nghiên cứu mạng lưới? Hãy tham vấn Ủy ban Hỗ trợ Phát triển Nghiên cứu của OHDSI (*OHDSI Study Nurture Committee*) để được tư vấn thiết kế và thực thi nghiên cứu của bạn.
+- **Chia sẻ là gắn kết (*Sharing is caring*).** Toàn bộ tài liệu, mã nguồn và kết quả nghiên cứu đều được công bố công khai trên GitHub của OHDSI hoặc trong ứng dụng R Shiny. Các chủ nhiệm nghiên cứu luôn được chào đón trình bày công trình nghiên cứu của mình tại các sự kiện của cộng đồng OHDSI.
+:::

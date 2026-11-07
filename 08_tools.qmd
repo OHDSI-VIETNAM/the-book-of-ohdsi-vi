@@ -1,621 +1,274 @@
----
-title: "Chương 8: Công cụ phân tích OHDSI"
----
+# Chương 8: Hệ sinh thái công cụ phân tích OHDSI
 
-# Công cụ phân tích OHDSI
+*Chủ biên chương: Martijn Schuemie & Frank DeFalco*
 
-*Trưởng nhóm chương: Martijn Schuemie & Frank DeFalco*
+OHDSI cung cấp một hệ sinh thái đa dạng các công cụ mã nguồn mở nhằm hỗ trợ nhiều bài toán ứng dụng phân tích dữ liệu khác nhau trên dữ liệu quan sát ở cấp độ bệnh nhân. Điểm chung của các công cụ này là tất cả đều có thể tương tác với một hoặc nhiều cơ sở dữ liệu sử dụng Mô hình dữ liệu chung (CDM). Hơn nữa, các công cụ này chuẩn hóa quy trình phân tích cho nhiều bài toán ứng dụng khác nhau; thay vì phải bắt đầu từ con số không, một phân tích có thể được triển khai bằng cách điền vào các biểu mẫu chuẩn. Điều này giúp việc thực hiện phân tích trở nên dễ dàng hơn, đồng thời nâng cao tính tái lập (reproducibility) và tính minh bạch (transparency). Ví dụ, dù trên lý thuyết có vô số cách để tính tỷ suất mới mắc (incidence rate), nhưng trong các công cụ của OHDSI, phép tính này có thể được xác định chỉ qua một vài tùy chọn thiết lập, và bất kỳ nhà nghiên cứu nào đưa ra cùng những lựa chọn đó đều sẽ tính toán tỷ suất mới mắc theo đúng một cách thống nhất.
 
-OHDSI cung cấp nhiều loại công cụ mã nguồn mở để hỗ trợ các trường hợp
-sử dụng phân tích dữ liệu khác nhau trên dữ liệu quan sát cấp độ bệnh
-nhân. Điểm chung của các công cụ này là tất cả đều có thể tương tác
-với một hoặc nhiều cơ sở dữ liệu sử dụng Mô hình dữ liệu chung (CDM).
-Hơn nữa, các công cụ này chuẩn hóa các phân tích cho nhiều trường hợp
-sử dụng khác nhau; Thay vì phải bắt đầu từ con số không, một phân tích
-có thể được thực hiện bằng cách điền vào các mẫu chuẩn. Điều này giúp
-việc thực hiện phân tích trở nên dễ dàng hơn, đồng thời cải thiện khả
-năng tái lập và tính minh bạch. Ví dụ, có vẻ như có vô số cách để tính
-tỷ lệ mắc bệnh, nhưng những cách này có thể được chỉ định trong các
-công cụ OHDSI chỉ với một vài lựa chọn, và bất kỳ ai đưa ra những lựa
-chọn tương tự sẽ tính toán tỷ lệ mắc bệnh theo cùng một cách.
+Trong chương này, trước hết chúng tôi mô tả các phương thức khác nhau để triển khai một phân tích và các chiến lược mà phân tích đó có thể áp dụng. Tiếp theo, chúng tôi điểm qua các công cụ phân tích của OHDSI và cách chúng đáp ứng từng bài toán ứng dụng cụ thể.
 
-Trong chương này, trước tiên chúng tôi mô tả nhiều cách khác nhau mà
-chúng ta có thể chọn để thực hiện một phân tích và các chiến lược mà
-phân tích đó có thể sử dụng. Sau đó, chúng tôi xem xét các công cụ
-OHDSI khác nhau và cách chúng phù hợp với các trường hợp sử dụng khác
-nhau.
+## Triển khai phân tích
 
-## Thực hiện phân tích
+Hình 8.1 minh họa các phương thức khác nhau mà chúng ta có thể lựa chọn để triển khai một nghiên cứu trên cơ sở dữ liệu chuẩn hóa theo CDM.
 
-Hình 8.1 cho thấy các cách khác nhau mà chúng ta có thể chọn để thực
-hiện một nghiên cứu trên cơ sở dữ liệu sử dụng CDM.
+![](media/image27.jpeg){width="4.885in" height="1.76in"}
 
-Có ba phương pháp chính để thực hiện một nghiên cứu. Phương pháp đầu
-tiên là viết mã tùy chỉnh không sử dụng bất kỳ công cụ nào mà OHDSI
-cung cấp. Người ta có thể viết một phân tích mới (de novo) bằng R, SAS
-hoặc bất kỳ ngôn ngữ nào khác. Điều này mang lại sự linh hoạt tối đa
-và thực tế có thể là lựa chọn duy nhất nếu phân tích cụ thể đó không
-được hỗ trợ bởi bất kỳ công cụ nào của chúng tôi. Tuy nhiên, con đường
-này đòi hỏi nhiều kỹ năng kỹ thuật, thời gian và công sức, và khi phân
-tích trở nên phức tạp hơn, việc tránh lỗi trong mã sẽ trở nên khó khăn
-hơn.
+*Hình 8.1: Các phương thức khác nhau để triển khai một phân tích trên dữ liệu trong CDM.*
 
-Phương pháp thứ hai liên quan đến việc phát triển phân tích bằng R và
-sử dụng các gói trong Thư viện phương pháp OHDSI (Methods Library).
-Tối thiểu, người ta có thể sử dụng các gói SqlRender và
-DatabaseConnector được mô tả chi tiết hơn trong Chương 9 cho phép cùng
-một
+Có ba hướng tiếp cận chính để triển khai một nghiên cứu. Hướng tiếp cận đầu tiên là tự viết mã lệnh tùy chỉnh (custom code) mà không sử dụng bất kỳ công cụ nào do OHDSI cung cấp. Nhà nghiên cứu có thể viết mới hoàn toàn (de novo) một chương trình phân tích bằng R, SAS hoặc bất kỳ ngôn ngữ lập trình nào khác. Cách làm này mang lại sự linh hoạt tối đa và thực tế có thể là lựa chọn duy nhất nếu phân tích chuyên biệt đó chưa được hỗ trợ bởi bất kỳ công cụ hiện có nào của OHDSI. Tuy nhiên, hướng đi này đòi hỏi kỹ năng kỹ thuật cao, tốn nhiều thời gian và công sức; đồng thời khi mức độ phức tạp của phân tích tăng lên, việc tránh sai sót trong mã lệnh sẽ ngày càng trở nên khó khăn hơn.
 
-![](media/image27.jpeg){width="4.885in"
-height="1.76in"}
+Hướng tiếp cận thứ hai là phát triển phân tích bằng ngôn ngữ R và sử dụng các gói phần mềm trong [Thư viện Phương pháp OHDSI (OHDSI Methods Library)](https://ohdsi.github.io/MethodsLibrary/). Ở mức tối thiểu, nhà nghiên cứu có thể sử dụng hai gói [SqlRender](https://ohdsi.github.io/SqlRender/) và [DatabaseConnector](https://ohdsi.github.io/DatabaseConnector/) (được trình bày chi tiết hơn trong Chương 9) để cho phép cùng một đoạn mã có thể thực thi trên nhiều hệ quản trị cơ sở dữ liệu khác nhau như PostgreSQL, SQL Server và Oracle. Các gói khác như [CohortMethod](https://ohdsi.github.io/CohortMethod/) và [PatientLevelPrediction](https://ohdsi.github.io/PatientLevelPrediction/) cung cấp các hàm R phục vụ phân tích chuyên sâu trên CDM mà người dùng có thể gọi trực tiếp trong mã lệnh của mình. Hướng tiếp cận này vẫn đòi hỏi chuyên môn kỹ thuật đáng kể, nhưng nhờ tái sử dụng các thành phần đã được kiểm định của Thư viện Phương pháp, chúng ta có thể làm việc hiệu quả hơn và ít gặp lỗi hơn nhiều so với việc viết mã tùy chỉnh hoàn toàn.
 
-Hình 8.1: Các cách khác nhau để thực hiện một phân tích trên dữ liệu
-trong CDM.
+Hướng tiếp cận thứ ba dựa trên nền tảng phân tích tương tác [ATLAS](https://github.com/OHDSI/Atlas/wiki) — một công cụ trên nền tảng web cho phép những người không chuyên về lập trình vẫn có thể thực hiện hiệu quả nhiều loại phân tích khác nhau. ATLAS vận hành dựa trên Thư viện Phương pháp nhưng cung cấp giao diện đồ họa trực quan, đơn giản để thiết kế phân tích và trong nhiều trường hợp có thể tự động sinh mã R cần thiết để chạy phân tích đó. Tuy nhiên, ATLAS không hỗ trợ toàn bộ các tùy chọn nâng cao hiện có trong Thư viện Phương pháp. Mặc dù phần lớn các nghiên cứu dự kiến đều có thể thực hiện thông qua ATLAS, một số nghiên cứu chuyên biệt vẫn có thể cần đến sự linh hoạt của hướng tiếp cận thứ hai.
 
-mã được thực thi trên nhiều nền tảng cơ sở dữ liệu khác nhau, chẳng
-hạn như PostgreSQL, SQL Server và Oracle. Các gói khác như
-CohortMethod và PatientLevelPrediction cung cấp các hàm R cho phân
-tích nâng cao trên CDM có thể được gọi trong mã của người dùng. Cách
-này vẫn đòi hỏi nhiều chuyên môn kỹ thuật, nhưng bằng cách tái sử dụng
-các thành phần đã được xác thực của Thư viện phương pháp, chúng ta có
-thể làm việc hiệu quả hơn và ít xảy ra lỗi hơn so với việc sử dụng mã
-hoàn toàn tùy chỉnh.
-
-Phương pháp thứ ba dựa trên nền tảng phân tích tương tác ATLAS của
-chúng tôi, một công cụ dựa trên web cho phép những người không lập
-trình thực hiện nhiều loại phân tích một cách hiệu quả. ATLAS sử dụng
-các Thư viện phương pháp nhưng cung cấp một giao diện đồ họa đơn giản
-để thiết kế các phân tích và trong nhiều trường hợp, tạo ra mã R cần
-thiết để chạy phân tích. Tuy nhiên, ATLAS không hỗ trợ tất cả các tùy
-chọn có sẵn trong Thư viện phương pháp. Mặc dù dự kiến rằng phần lớn
-các nghiên cứu có thể được thực hiện thông qua ATLAS, một số nghiên
-cứu có thể yêu cầu sự linh hoạt được cung cấp bởi phương pháp thứ hai.
-
-ATLAS và Thư viện phương pháp không độc lập với nhau. Một số phân tích
-phức tạp hơn có thể được gọi trong ATLAS được thực hiện thông qua các
-lệnh gọi đến các gói trong Thư viện phương pháp. Tương tự, các nhóm
-thuần tập được sử dụng trong Thư viện phương pháp thường được thiết kế
-trong ATLAS.
+ATLAS và Thư viện Phương pháp không tách rời nhau. Một số phân tích phức tạp được khởi tạo trong ATLAS thực chất được thực thi thông qua các lệnh gọi đến các gói trong Thư viện Phương pháp. Ngược lại, các đoàn hệ (nhóm thuần tập) sử dụng trong Thư viện Phương pháp thường được thiết kế trên ATLAS.
 
 ## Chiến lược phân tích
 
-Ngoài chiến lược được sử dụng để thực hiện phân tích của chúng ta trên
-CDM, ví dụ thông qua mã hóa tùy chỉnh hoặc sử dụng mã phân tích tiêu
-chuẩn trong Thư viện phương pháp, còn có nhiều chiến lược khác để sử
-dụng các kỹ thuật phân tích đó nhằm tạo ra bằng chứng. Hình
+Bên cạnh phương thức kỹ thuật dùng để triển khai phân tích trên CDM (ví dụ: viết mã tùy chỉnh hoặc sử dụng mã phân tích chuẩn hóa trong Thư viện Phương pháp), còn có nhiều chiến lược khác nhau trong việc vận dụng các kỹ thuật phân tích đó để tạo ra bằng chứng khoa học. Hình 8.2 làm nổi bật ba chiến lược đang được áp dụng trong cộng đồng OHDSI.
 
-2.  làm nổi bật ba chiến lược được sử dụng trong OHDSI.
+![](media/image28.jpeg){width="4.885in" height="2.055in"}
 
-Chiến lược đầu tiên coi mỗi phân tích là một nghiên cứu cá nhân duy
-nhất. Phân tích phải được chỉ định trước trong một giao thức, được
-triển khai dưới dạng mã, thực thi trên dữ liệu, sau đó kết quả có thể
-được tổng hợp và diễn giải. Đối với mỗi câu hỏi, tất cả các bước phải
-được lặp lại. Một ví dụ về phân tích như vậy là nghiên cứu của OHDSI
-về nguy cơ phù mạch liên quan đến levetiracetam so với phenytoin.
-(Duke và cộng sự, 2017) Ở đây, một giao thức
+*Hình 8.2: Các chiến lược tạo bằng chứng cho các câu hỏi (lâm sàng).*
 
-![](media/image28.jpeg){width="4.885in"
-height="2.055in"}
+Chiến lược đầu tiên xem mỗi phân tích là một nghiên cứu đơn lẻ độc lập (single study). Phân tích phải được xác định trước trong một đề cương nghiên cứu (protocol), được lập trình thành mã lệnh, thực thi trên dữ liệu, sau đó kết quả mới được tổng hợp và diễn giải. Với mỗi câu hỏi nghiên cứu mới, toàn bộ các bước này đều phải lặp lại từ đầu. Một ví dụ điển hình cho chiến lược này là nghiên cứu của OHDSI về nguy cơ phù mạch liên quan đến levetiracetam so với phenytoin (Duke và cộng sự, 2017). Trong nghiên cứu đó, đề cương đã được soạn thảo trước, mã lệnh phân tích sử dụng Thư viện Phương pháp OHDSI được phát triển và thực thi trên toàn mạng lưới OHDSI, sau đó kết quả được tổng hợp và công bố trên một tạp chí khoa học.
 
-Hình 8.2: Các chiến lược tạo bằng chứng cho các câu hỏi (lâm sàng).
+Chiến lược thứ hai là xây dựng một ứng dụng cho phép người dùng trả lời một lớp câu hỏi cụ thể theo thời gian thực hoặc gần thời gian thực (real-time queries). Khi ứng dụng đã được phát triển xong, người dùng có thể tương tác để định nghĩa truy vấn, gửi yêu cầu thực thi và xem ngay kết quả. Một ví dụ của chiến lược này là công cụ định nghĩa và khởi tạo đoàn hệ (cohort definition and generation tool) trong ATLAS. Công cụ này cho phép người dùng thiết lập các định nghĩa đoàn hệ với mức độ phức tạp khác nhau và thực thi định nghĩa đó trực tiếp trên cơ sở dữ liệu để biết có bao nhiêu người thỏa mãn các tiêu chí nhận vào và loại ra.
 
-đã được viết trước, mã phân tích sử dụng Thư viện phương pháp OHDSI đã
-được phát triển và thực thi trên mạng lưới OHDSI, và kết quả đã được
-tổng hợp và phổ biến trong một ấn phẩm tạp chí.
+Chiến lược thứ ba cũng tập trung vào một lớp các câu hỏi nghiên cứu, nhưng hướng tới việc tạo ra một cách toàn diện và vét cạn toàn bộ bằng chứng cho tất cả các câu hỏi thuộc lớp đó (large-scale analytics). Sau đó, người dùng có thể tra cứu và khám phá kho bằng chứng này khi cần thông qua nhiều giao diện khác nhau. Một ví dụ tiêu biểu là nghiên cứu của OHDSI về hiệu quả của các phương pháp điều trị trầm cảm (Schuemie và cộng sự, 2018b). Trong nghiên cứu này, tất cả các phác đồ điều trị trầm cảm được đem ra so sánh trên một tập hợp lớn các kết cục quan tâm qua bốn cơ sở dữ liệu quan sát quy mô lớn. Toàn bộ tập kết quả — bao gồm 17.718 tỷ số nguy cơ (hazard ratios) đã được hiệu chuẩn thực nghiệm cùng các chỉ số chẩn đoán thẩm định nghiên cứu chi tiết — đều được công khai trên một ứng dụng web tương tác.[^1]
 
-Chiến lược thứ hai phát triển một ứng dụng cho phép người dùng trả lời
-một nhóm câu hỏi cụ thể trong thời gian thực hoặc gần thời gian thực.
-Sau khi ứng dụng đã được phát triển, người dùng có thể tương tác xác
-định các truy vấn, gửi chúng và xem kết quả. Một ví dụ về chiến lược
-này là công cụ định nghĩa và tạo nhóm thuần tập trong ATLAS. Công cụ
-này cho phép người dùng chỉ định các định nghĩa nhóm thuần tập với độ
-phức tạp khác nhau và thực thi định nghĩa đó trên cơ sở dữ liệu để xem
-có bao nhiêu người đáp ứng các tiêu chí bao gồm và loại trừ khác nhau.
-
-Chiến lược thứ ba tương tự tập trung vào một nhóm câu hỏi, nhưng sau
-đó cố gắng tạo ra một cách đầy đủ tất cả các bằng chứng cho các câu
-hỏi trong nhóm đó. Người dùng sau đó có thể khám phá bằng chứng khi
-cần thông qua nhiều giao diện khác nhau. Một ví dụ là nghiên cứu của
-OHDSI về tác động của các phương pháp điều trị trầm cảm. (Schuemie và
-cộng sự, 2018b) Trong nghiên cứu này, tất cả các phương pháp điều trị
-trầm cảm được so sánh cho một tập hợp lớn các kết quả quan tâm trên
-bốn cơ sở dữ liệu quan sát lớn. Bộ kết quả đầy đủ, bao gồm 17.718 tỷ
-lệ nguy cơ được hiệu chuẩn theo kinh nghiệm cùng với các chẩn đoán
-nghiên cứu mở rộng, có sẵn trong một ứng dụng web tương
-tác.1
+[^1]: <http://data.ohdsi.org/SystematicEvidence/>
 
 ## ATLAS
 
-ATLAS là một công cụ dựa trên web, miễn phí và công khai, được cộng
-đồng OHDSI phát triển nhằm tạo điều kiện thuận lợi cho việc thiết kế
-và thực hiện các phân tích trên dữ liệu quan sát cấp độ bệnh nhân,
-được chuẩn hóa theo định dạng CDM. ATLAS được triển khai như một ứng
-dụng web kết hợp với OHDSI WebAPI và thường được lưu trữ trên Apache
-Tomcat. Việc thực hiện các phân tích thời gian thực đòi hỏi quyền truy
-cập vào dữ liệu cấp độ bệnh nhân trong CDM và do đó thường được cài
-đặt phía sau tường lửa của tổ chức. Tuy nhiên, cũng có một ATLAS công
-khai2, và
+ATLAS là một công cụ mã nguồn mở, miễn phí hoạt động trên nền tảng web do cộng đồng OHDSI phát triển nhằm hỗ trợ việc thiết kế và thực thi các phân tích trên dữ liệu quan sát cấp độ bệnh nhân đã được chuẩn hóa theo định dạng CDM. ATLAS được triển khai dưới dạng ứng dụng web kết hợp với OHDSI WebAPI và thường được vận hành trên máy chủ Apache Tomcat. Việc thực hiện các phân tích theo thời gian thực đòi hỏi quyền truy cập trực tiếp vào dữ liệu cấp độ bệnh nhân trong CDM, do đó hệ thống này thường được cài đặt bên trong tường lửa của từng tổ chức. Tuy nhiên, OHDSI cũng cung cấp một phiên bản ATLAS công khai[^2]; mặc dù phiên bản công khai này chỉ kết nối với một vài tập dữ liệu mô phỏng quy mô nhỏ, nó vẫn rất hữu ích cho nhiều mục đích như dùng thử và đào tạo. Thậm chí, nhà nghiên cứu có thể thiết kế hoàn chỉnh một nghiên cứu ước lượng hiệu quả hoặc dự báo trên phiên bản ATLAS công khai, rồi xuất tự động mã lệnh R để thực thi nghiên cứu đó. Đoạn mã R này sau đó có thể được đem chạy ở bất kỳ môi trường nào có sẵn cơ sở dữ liệu CDM mà không cần phải cài đặt ATLAS và WebAPI tại chỗ.
 
-^1^<http://data.ohdsi.org/SystematicEvidence/>
-^2^<http://www.ohdsi.org/web/atlas>
+[^2]: <http://www.ohdsi.org/web/atlas>
 
-mặc dù phiên bản ATLAS này chỉ có quyền truy
-cập vào một vài tập dữ liệu mô phỏng nhỏ, nó vẫn có thể được sử dụng
-cho nhiều mục đích bao gồm thử nghiệm và đào tạo. Thậm chí có thể xác
-định đầy đủ một nghiên cứu dự đoán hoặc ước tính tác động bằng cách sử
-dụng phiên bản ATLAS công khai và tự động tạo mã R để thực hiện nghiên
-cứu đó. Mã đó sau đó có thể được chạy trong bất kỳ môi trường nào có
-sẵn CDM mà không cần phải cài đặt ATLAS và WebAPI.
+![](media/image29.jpeg){width="5.308957786526684in" height="3.2335411198600177in"}
 
-![](media/image29.jpeg){width="5.308957786526684in"
-height="3.2335411198600177in"}
+*Hình 8.3: Giao diện người dùng ATLAS.*
 
-Hình 8.3: Giao diện người dùng ATLAS.
+Ảnh chụp màn hình giao diện của ATLAS được trình bày trong Hình 8.3. Phía bên trái là thanh điều hướng hiển thị các chức năng khác nhau do ATLAS cung cấp:
 
-Ảnh chụp màn hình của ATLAS được cung cấp trong Hình 8.3. Ở bên trái
-là thanh điều hướng hiển thị các chức năng khác nhau được cung cấp bởi
-ATLAS:
+- **Nguồn dữ liệu (Data Sources):** Cung cấp khả năng xem xét các báo cáo mô tả chuẩn hóa cho từng nguồn dữ liệu đã được cấu hình trong nền tảng ATLAS của bạn. Tính năng này sử dụng chiến lược phân tích quy mô lớn: toàn bộ các thống kê mô tả đều đã được tính toán trước (pre-computed). Chức năng Nguồn dữ liệu được thảo luận chi tiết trong Chương 11.
 
-**Nguồn dữ liệu (Data Sources) cung cấp khả năng xem xét các báo cáo
-mô tả, chuẩn hóa cho từng nguồn dữ liệu mà bạn đã cấu hình trong nền
-tảng Atlas của mình. Tính năng này sử dụng chiến lược phân tích quy mô
-lớn: tất cả các mô tả đã được tính toán trước. Nguồn dữ liệu được thảo
-luận trong Chương 11.**
+- **Tìm kiếm từ vựng (Vocabulary Search):** Cho phép tìm kiếm và khám phá bộ từ vựng chuẩn hóa OMOP nhằm nắm bắt các khái niệm (concepts) hiện có trong từ vựng và cách áp dụng chúng vào phân tích chuẩn hóa trên các nguồn dữ liệu của bạn. Tính năng này được thảo luận trong Chương 5.
 
-**Tìm kiếm từ vựng (Vocabulary Search) Atlas cung cấp khả năng tìm
-kiếm và khám phá từ vựng chuẩn hóa OMOP để hiểu những khái niệm nào
-tồn tại trong các từ vựng đó và cách áp dụng các khái niệm đó trong
-phân tích chuẩn hóa của bạn đối với các nguồn dữ liệu của bạn. Tính
-năng này được thảo luận trong Chương 5.**
+- **Tập khái niệm (Concept Sets):** Cung cấp khả năng tạo lập các tập hợp biểu thức logic dùng để xác định một nhóm các khái niệm sử dụng xuyên suốt trong các phân tích chuẩn hóa. Tập khái niệm mang lại sự chặt chẽ và linh hoạt cao hơn nhiều so với một danh sách mã code đơn thuần. Một tập khái niệm bao gồm nhiều khái niệm trích từ bộ từ vựng chuẩn hóa kết hợp với các cờ chỉ báo logic, cho phép người dùng chỉ định việc đưa vào hoặc loại trừ các khái niệm liên quan trong cây phân cấp từ vựng (vocabulary hierarchy). Quá trình tìm kiếm từ vựng, xác định nhóm khái niệm và thiết lập quy tắc logic để phân giải tập khái niệm tạo nên một cơ chế mạnh mẽ giúp định nghĩa rõ ràng các thuật ngữ y khoa vốn thường phức tạp trong kế hoạch phân tích. Các tập khái niệm này có thể được lưu trữ trong ATLAS và tái sử dụng xuyên suốt quá trình phân tích như một phần của định nghĩa đoàn hệ hoặc đặc tả phân tích.
 
-**Bộ khái niệm (Concept Sets) cung cấp khả năng tạo các tập hợp các
-biểu thức logic có thể được sử dụng để xác định một tập hợp các khái
-niệm sẽ được sử dụng trong suốt các phân tích chuẩn hóa của bạn. Bộ
-khái niệm cung cấp sự tinh vi hơn so với một danh sách đơn giản các mã
-hoặc giá trị. Một bộ khái niệm bao gồm nhiều khái niệm từ từ vựng
-chuẩn hóa kết hợp với các chỉ số logic cho phép người dùng chỉ định
-rằng họ quan tâm đến việc bao gồm hoặc loại trừ các khái niệm liên
-quan trong hệ thống phân cấp từ vựng. Tìm kiếm từ vựng, xác định tập
-hợp các khái niệm và chỉ định**
+- **Định nghĩa đoàn hệ / nhóm thuần tập (Cohort Definitions):** Cung cấp khả năng xây dựng một tập hợp các cá thể thỏa mãn một hoặc nhiều tiêu chí trong một khoảng thời gian xác định; các đoàn hệ này sau đó đóng vai trò là dữ liệu đầu vào nền tảng cho toàn bộ các phân tích tiếp theo. Tính năng này được thảo luận trong Chương 10.
 
-logic được sử dụng để giải quyết một bộ khái niệm cung cấp một cơ chế
-mạnh mẽ để định nghĩa ngôn ngữ y tế thường khó hiểu được sử dụng trong
-các kế hoạch phân tích. Các bộ khái niệm này có thể được lưu trong
-ATLAS và sau đó được sử dụng trong suốt quá trình phân tích của bạn
-như một phần của các định nghĩa nhóm thuần tập hoặc các đặc tả phân
-tích.
+- **Mô tả đặc trưng lâm sàng (Characterizations):** Là chức năng phân tích cho phép bạn khảo sát một hoặc nhiều đoàn hệ đã định nghĩa và tổng hợp các đặc điểm của những quần thể bệnh nhân đó. Tính năng này sử dụng chiến lược truy vấn thời gian thực và được thảo luận trong Chương 11.
 
-**Định nghĩa nhóm thuần tập (Cohort Definitions) là khả năng xây dựng
-một tập hợp những người đáp ứng một hoặc nhiều tiêu chí trong một
-khoảng thời gian và các nhóm thuần tập này sau đó có thể đóng vai trò
-là cơ sở đầu vào cho tất cả các phân tích tiếp theo của bạn. Tính năng
-này được thảo luận trong Chương 10.**
+- **Lộ trình đoàn hệ (Cohort Pathways):** Là công cụ phân tích cho phép bạn khảo sát trình tự diễn tiến của các biến cố lâm sàng xảy ra trong một hoặc nhiều quần thể. Tính năng này sử dụng chiến lược truy vấn thời gian thực và được thảo luận trong Chương 11.
 
-**Đặc điểm (Characterizations) là một khả năng phân tích cho phép bạn
-xem xét một hoặc nhiều nhóm thuần tập mà bạn đã định nghĩa và tóm tắt
-các đặc điểm về các quần thể bệnh nhân đó. Tính năng này sử dụng chiến
-lược truy vấn thời gian thực và được thảo luận trong Chương 11.**
+- **Tỷ suất mới mắc (Incidence Rates):** Là công cụ cho phép bạn ước tính tỷ suất mới mắc của các kết cục trong các quần thể mục tiêu đang quan tâm. Tính năng này sử dụng chiến lược truy vấn thời gian thực và được thảo luận trong Chương 11.
 
-**Lộ trình nhóm thuần tập (Cohort Pathways) là một công cụ phân tích
-cho phép bạn xem xét trình tự các sự kiện lâm sàng xảy ra trong một
-hoặc nhiều quần thể. Tính năng này sử dụng chiến lược truy vấn thời
-gian thực và được thảo luận trong Chương 11.**
+- **Hồ sơ cá thể (Profiles):** Là công cụ cho phép bạn khám phá dữ liệu quan sát theo thời gian (dữ liệu dọc) của từng bệnh nhân cụ thể nhằm tóm tắt diễn tiến lâm sàng của cá nhân đó. Tính năng này sử dụng chiến lược truy vấn thời gian thực.
 
-**Tỷ lệ mắc bệnh (Incidence Rates) là một công cụ cho phép bạn ước
-tính tỷ lệ mắc các kết quả trong các quần thể mục tiêu quan tâm. Tính
-năng này sử dụng chiến lược truy vấn thời gian thực và được thảo luận
-trong Chương 11.**
+- **Ước lượng hiệu quả ở cấp độ quần thể (Population Level Estimation):** Cho phép bạn thiết lập một nghiên cứu ước lượng hiệu quả ở cấp độ quần thể theo thiết kế đoàn hệ so sánh (comparative cohort design), qua đó thực hiện các phép so sánh giữa một hoặc nhiều đoàn hệ mục tiêu (target cohorts) và đoàn hệ đối chứng (comparator cohorts) trên một loạt kết cục. Tính năng này có thể được xem là triển khai chiến lược truy vấn thời gian thực vì không đòi hỏi người dùng viết mã lệnh, và được thảo luận trong Chương 12.
 
-**Hồ sơ (Profiles) là một công cụ cho phép bạn khám phá dữ liệu quan
-sát dọc của từng bệnh nhân để tóm tắt những gì đang xảy ra trong một
-cá nhân cụ thể. Tính năng này sử dụng chiến lược truy vấn thời gian
-thực.**
+- **Dự báo ở cấp độ bệnh nhân (Patient Level Prediction):** Cho phép bạn áp dụng các thuật toán học máy (machine learning) để thực hiện các phân tích dự báo ở cấp độ bệnh nhân, giúp dự báo xác suất xảy ra một kết cục trong bất kỳ nhóm phơi nhiễm mục tiêu nào. Tính năng này cũng có thể được xem là triển khai chiến lược truy vấn thời gian thực vì không yêu cầu lập trình, và được thảo luận trong Chương 13.
 
-**Ước tính cấp độ quần thể (Population Level Estimation) là khả năng
-cho phép bạn xác định một nghiên cứu ước tính tác động cấp độ quần thể
-sử dụng thiết kế nhóm thuần tập so sánh, nhờ đó các so sánh giữa một
-hoặc nhiều nhóm thuần tập mục tiêu và đối chứng có thể được khám phá
-cho một loạt các kết quả. Tính năng này có thể được coi là thực hiện
-chiến lược truy vấn thời gian thực, vì không cần mã hóa và được thảo
-luận trong Chương 12.**
+- **Tác vụ (Jobs):** Chọn mục menu Jobs để theo dõi trạng thái của các tiến trình đang chạy thông qua WebAPI. Các tác vụ này thường là những tiến trình xử lý mất nhiều thời gian như khởi tạo đoàn hệ hoặc tính toán báo cáo mô tả đặc trưng đoàn hệ.
 
-**Dự đoán cấp độ bệnh nhân (Patient Level Prediction) là khả năng cho
-phép bạn áp dụng các thuật toán học máy để thực hiện các phân tích dự
-đoán cấp độ bệnh nhân, nhờ đó bạn có thể dự đoán một kết quả trong bất
-kỳ phơi nhiễm mục tiêu nào. Tính năng này có thể được coi là thực hiện
-chiến lược truy vấn thời gian thực, vì không cần mã hóa và được thảo
-luận trong Chương 13.**
+- **Cấu hình (Configuration):** Chọn mục menu Configuration để xem xét các nguồn dữ liệu đã được thiết lập trong phần cấu hình nguồn.
 
-**Công việc (Jobs) Chọn mục menu Công việc để khám phá trạng thái của
-các tiến trình đang chạy thông qua WebAPI. Các công việc thường là các
-tiến trình chạy dài như tạo một nhóm thuần tập hoặc tính toán các báo
-cáo đặc điểm nhóm thuần tập.**
-
-**Cấu hình (Configuration) Chọn mục menu Cấu hình để xem xét các nguồn
-dữ liệu đã được cấu hình trong phần cấu hình nguồn.**
-
-**Phản hồi (Feedback) Liên kết Phản hồi sẽ đưa bạn đến nhật ký sự cố
-cho Atlas để bạn có thể ghi lại một sự cố mới hoặc tìm kiếm thông qua
-các sự cố hiện có. Nếu bạn có ý tưởng cho các tính năng mới hoặc cải
-tiến, đây cũng là nơi để lưu ý những điều này cho cộng đồng phát
-triển.**
+- **Phản hồi (Feedback):** Liên kết Feedback sẽ đưa bạn đến trang theo dõi vấn đề (issue log) của ATLAS để báo cáo lỗi mới hoặc tra cứu các vấn đề đã được ghi nhận. Nếu bạn có ý tưởng về tính năng mới hoặc cải tiến công cụ, đây cũng là nơi để đóng góp ý kiến cho cộng đồng phát triển.
 
 ### Bảo mật
 
-ATLAS và WebAPI cung cấp một mô hình bảo mật chi tiết để kiểm soát
-quyền truy cập vào các tính năng hoặc nguồn dữ liệu trong toàn bộ nền
-tảng. Hệ thống bảo mật được xây dựng tận dụng thư viện Apache Shiro.
-Thông tin bổ sung về hệ thống bảo mật có thể được tìm thấy trong
+ATLAS và WebAPI cung cấp một mô hình bảo mật phân quyền chi tiết nhằm kiểm soát quyền truy cập vào từng tính năng hoặc từng nguồn dữ liệu trong toàn bộ nền tảng. Hệ thống bảo mật này được xây dựng dựa trên thư viện Apache Shiro. Thông tin bổ sung về hệ thống bảo mật có thể được tìm thấy trên trang wiki bảo mật trực tuyến của WebAPI.[^3]
 
-wiki bảo mật WebAPI trực tuyến.3
+[^3]: <https://github.com/OHDSI/WebAPI/wiki/Security-Configuration>
 
-### Tài liệu
+### Tài liệu hướng dẫn
 
-Tài liệu cho ATLAS có thể được tìm thấy trực tuyến trong wiki kho lưu
-trữ ATLAS GitHub.4 Wiki này bao gồm thông tin về các tính năng ứng
-dụng khác nhau cũng như các liên kết đến các video hướng dẫn trực
-tuyến.
+Tài liệu hướng dẫn sử dụng ATLAS có thể được tra cứu trực tuyến tại trang wiki thuộc kho lưu trữ GitHub của ATLAS.[^4] Trang wiki này bao gồm thông tin chi tiết về các tính năng của ứng dụng cũng như liên kết đến các video hướng dẫn trực tuyến.
+
+[^4]: <https://github.com/OHDSI/ATLAS/wiki>
 
 ### Cách cài đặt
 
-Việc cài đặt ATLAS được thực hiện kết hợp với OHDSI WebAPI. Hướng dẫn
-cài đặt cho từng thành phần có sẵn trực tuyến trong Hướng dẫn thiết
-lập kho lưu trữ ATLAS GitHub5 và Hướng dẫn cài đặt kho lưu trữ WebAPI
-GitHub.6
+Việc cài đặt ATLAS được thực hiện kết hợp với OHDSI WebAPI. Hướng dẫn cài đặt chi tiết cho từng thành phần đều có sẵn trực tuyến tại Hướng dẫn thiết lập trên kho lưu trữ GitHub của ATLAS[^5] và Hướng dẫn cài đặt trên kho lưu trữ GitHub của WebAPI.[^6]
 
-## Thư viện phương pháp (Methods Library)
+[^5]: <https://github.com/OHDSI/Atlas/wiki/Atlas-Setup-Guide>
+[^6]: <https://github.com/OHDSI/WebAPI/wiki/WebAPI-Installation-Guide>
 
-Thư viện phương pháp OHDSI là tập hợp các gói R mã nguồn mở được hiển
-thị trong Hình 8.4.
+## Thư viện Phương pháp (Methods Library)
 
-Các gói này cung cấp các hàm R mà cùng nhau có thể được sử dụng để
-thực hiện một nghiên cứu quan sát hoàn chỉnh, bắt đầu từ dữ liệu trong
-CDM và dẫn đến các ước tính và các thống kê hỗ trợ, số liệu và bảng
-biểu. Các gói tương tác trực tiếp với dữ liệu quan sát trong CDM và có
-thể được sử dụng đơn giản để cung cấp khả năng tương thích đa nền tảng
-cho các phân tích tùy chỉnh hoàn toàn như được mô tả trong Chương 9,
-hoặc có thể cung cấp các phân tích chuẩn hóa nâng cao cho đặc điểm
-quần thể (Chương 11), ước tính tác động cấp độ quần thể (Chương 12) và
-dự đoán cấp độ bệnh nhân (Chương 13). Thư viện phương pháp hỗ trợ các
-phương pháp thực hành tốt nhất cho việc sử dụng dữ liệu quan sát và
-thiết kế nghiên cứu quan sát như đã học từ các nghiên cứu trước đây và
-đang diễn ra, chẳng hạn như tính minh bạch, khả năng tái lập, cũng như
-đo lường các đặc điểm vận hành của các phương pháp trong một bối cảnh
-cụ thể và hiệu chuẩn thực nghiệm các ước tính do các phương pháp đó
-tạo ra.
+[Thư viện Phương pháp OHDSI (OHDSI Methods Library)](https://ohdsi.github.io/MethodsLibrary/) là một bộ sưu tập các gói R mã nguồn mở được minh họa trong Hình 8.4.
 
-Thư viện phương pháp đã được sử dụng trong nhiều nghiên cứu lâm sàng
-đã công bố (Boland và cộng sự, 2017; Duke và cộng sự, 2017; Ramcharran
-và cộng sự, 2017; Weinstein và cộng sự, 2017; Wang và cộng sự, 2017;
-Ryan và cộng sự, 2017, 2018; Vashisht và cộng sự, 2018; Yuan và cộng
-sự, 2018; Johnston và cộng sự, 2019), cũng như các nghiên cứu phương
-pháp luận. (Schuemie và cộng sự, 2014, 2016; Reps và cộng sự, 2018;
-Tian và cộng sự, 2018; Schuemie và cộng sự, 2018a,b; Reps và cộng sự,
-2019) Tính hợp lệ của việc triển khai các phương pháp trong Thư viện
-phương pháp được mô tả trong Chương 17.
+![](media/image30.jpeg){width="5.109998906386702in" height="5.490624453193351in"}
+
+*Hình 8.4: Các gói phần mềm trong Thư viện Phương pháp OHDSI.*
+
+Các gói phần mềm này cung cấp các hàm R có thể kết hợp cùng nhau để thực hiện trọn vẹn một nghiên cứu quan sát hoàn chỉnh, bắt đầu từ dữ liệu thô trong CDM cho đến khi tạo ra các ước lượng thống kê cùng các chỉ số hỗ trợ, biểu đồ và bảng biểu. Các gói này tương tác trực tiếp với dữ liệu quan sát trong CDM, và có thể được sử dụng đơn giản để mang lại khả năng tương thích đa nền tảng cho các phân tích tùy chỉnh hoàn toàn (như mô tả trong Chương 9), hoặc cung cấp các quy trình phân tích chuẩn hóa chuyên sâu cho bài toán mô tả đặc trưng quần thể (Chương 11), ước lượng hiệu quả ở cấp độ quần thể (Chương 12) và dự báo ở cấp độ bệnh nhân (Chương 13). Thư viện Phương pháp hỗ trợ các thực hành tốt nhất (best practices) trong việc khai thác dữ liệu quan sát và thiết kế nghiên cứu quan sát được đúc kết từ các công trình nghiên cứu trước đây và hiện tại — chẳng hạn như đảm bảo tính minh bạch, tính tái lập, cũng như đo lường các đặc tính vận hành (operating characteristics) của phương pháp phân tích trong một bối cảnh cụ thể và thực hiện hiệu chuẩn thực nghiệm (empirical calibration) các ước lượng do phương pháp đó tạo ra.
+
+Thư viện Phương pháp đã được ứng dụng trong nhiều nghiên cứu lâm sàng đã công bố (Boland và cộng sự, 2017; Duke và cộng sự, 2017; Ramcharran và cộng sự, 2017; Weinstein và cộng sự, 2017; Wang và cộng sự, 2017; Ryan và cộng sự, 2017, 2018; Vashisht và cộng sự, 2018; Yuan và cộng sự, 2018; Johnston và cộng sự, 2019), cũng như trong các nghiên cứu về phương pháp luận (Schuemie và cộng sự, 2014, 2016; Reps và cộng sự, 2018; Tian và cộng sự, 2018; Schuemie và cộng sự, 2018a,b; Reps và cộng sự, 2019). Giá trị hợp lệ về mặt phần mềm của các phương pháp được triển khai trong Thư viện Phương pháp được trình bày tại Chương 17.
 
 ### Hỗ trợ phân tích quy mô lớn
 
-Một tính năng chính được kết hợp trong tất cả các gói là khả năng chạy
-hiệu quả nhiều phân tích. Ví dụ, khi thực hiện ước tính cấp độ quần
-thể, gói CohortMethod
+Một tính năng cốt lõi được tích hợp xuyên suốt trong tất cả các gói là khả năng vận hành hiệu quả hàng loạt phân tích cùng lúc. Ví dụ, khi thực hiện ước lượng hiệu quả ở cấp độ quần thể, gói `CohortMethod` cho phép tính toán các ước lượng độ lớn hiệu quả (effect-size estimates) cho nhiều cặp phơi nhiễm và kết cục với các thiết lập phân tích khác nhau; gói phần mềm sẽ tự động lựa chọn lộ trình tối ưu để tính toán toàn bộ các tập dữ liệu trung gian và tập dữ liệu đích cần thiết. Những bước có thể tái sử dụng — chẳng hạn như trích xuất các biến đồng hành (covariates) hoặc ước lượng một mô hình điểm xu hướng (propensity model) dùng chung cho một cặp đoàn hệ mục tiêu – đối chứng nhưng đánh giá trên nhiều kết cục khác nhau — sẽ chỉ cần thực thi duy nhất một lần. Ở những khâu khả thi, các phép tính sẽ được thực hiện song song để tận dụng tối đa tài nguyên tính toán của hệ thống.
 
-^3^<https://github.com/OHDSI/WebAPI/wiki/Security-Configuration>
-^4^<https://github.com/OHDSI/ATLAS/wiki>
-^5^<https://github.com/OHDSI/Atlas/wiki/Atlas-Setup-Guide>
-^6^<https://github.com/OHDSI/WebAPI/wiki/WebAPI-Installation-Guide>
-
-![](media/image30.jpeg){width="5.109998906386702in"
-height="5.490624453193351in"}
-
-Hình 8.4: Các gói trong Thư viện phương pháp OHDSI.
-
-cho phép tính toán các ước tính quy mô tác
-động cho nhiều phơi nhiễm và kết quả, sử dụng các cài đặt phân tích
-khác nhau và gói này sẽ tự động chọn cách tối ưu để tính toán tất cả
-các tập dữ liệu trung gian và cuối cùng cần thiết. Các bước có thể
-được tái sử dụng, chẳng hạn như trích xuất các biến đồng hành hoặc
-khớp một mô hình xu hướng được sử dụng cho một cặp mục tiêu-đối chứng
-nhưng nhiều kết quả, sẽ chỉ được thực thi một lần. Nếu có thể, các
-tính toán sẽ diễn ra song song để tối đa hóa việc sử dụng các tài
-nguyên tính toán.
-
-Hiệu quả tính toán này cho phép phân tích quy mô lớn, trả lời nhiều
-câu hỏi cùng một lúc và cũng rất cần thiết để bao gồm các giả thuyết
-kiểm soát (ví dụ: kiểm soát âm tính) để đo lường các đặc điểm vận hành
-của các phương pháp của chúng ta và thực hiện hiệu chuẩn thực nghiệm
-như được mô tả trong Chương 18.
+Hiệu năng tính toán vượt trội này mở đường cho việc thực hiện các phân tích quy mô lớn nhằm trả lời nhiều câu hỏi nghiên cứu cùng lúc, đồng thời đóng vai trò thiết yếu khi cần đưa vào các giả thuyết kiểm soát (control hypotheses, ví dụ: các nhóm chứng âm) để đo lường đặc tính vận hành của phương pháp nghiên cứu và tiến hành hiệu chuẩn thực nghiệm như được trình bày trong Chương 18.
 
 ### Hỗ trợ dữ liệu lớn
 
-Thư viện phương pháp cũng được thiết kế để chạy trên các cơ sở dữ liệu
-rất lớn và có thể thực hiện các tính toán liên quan đến lượng dữ liệu
-lớn. Điều này đạt được theo ba cách:
+Thư viện Phương pháp cũng được thiết kế để vận hành trên các cơ sở dữ liệu quy mô rất lớn và thực hiện các phép tính liên quan đến khối lượng dữ liệu khổng lồ. Khả năng này đạt được thông qua ba cơ chế:
 
-1.  Hầu hết việc thao tác dữ liệu được thực hiện trên máy chủ cơ sở dữ
-liệu. Một phân tích thường chỉ yêu cầu một phần nhỏ toàn bộ dữ liệu
-trong cơ sở dữ liệu và Thư viện phương pháp, thông qua các gói
-SqlRender và DatabaseConnector, cho phép các thao tác nâng cao được
-thực hiện trên máy chủ để tiền xử lý và trích xuất dữ liệu liên
-quan.
+1. Phần lớn các thao tác xử lý dữ liệu được thực hiện trực tiếp trên máy chủ cơ sở dữ liệu. Một phân tích thông thường chỉ cần đến một phần nhỏ trong toàn bộ cơ sở dữ liệu, và Thư viện Phương pháp — thông qua hai gói `SqlRender` và `DatabaseConnector` — cho phép thực hiện các phép biến đổi nâng cao ngay trên máy chủ để tiền xử lý và chỉ trích xuất những dữ liệu thực sự liên quan.
 
-2.  Các đối tượng dữ liệu cục bộ lớn được lưu trữ theo cách tiết kiệm bộ
-nhớ. Đối với dữ liệu được tải xuống máy cục bộ, Thư viện phương pháp
-sử dụng gói ff để lưu trữ và làm việc với các đối tượng dữ liệu lớn.
-Điều này cho phép chúng ta làm việc với dữ liệu lớn hơn nhiều so với
-bộ nhớ hiện có.
+2. Các đối tượng dữ liệu cục bộ có kích thước lớn được lưu trữ theo cơ chế tiết kiệm bộ nhớ. Đối với phần dữ liệu được tải về máy trạm cục bộ, Thư viện Phương pháp sử dụng gói [ff](https://cran.r-project.org/web/packages/ff) để lưu trữ trên ổ đĩa và thao tác với các đối tượng dữ liệu lớn. Nhờ đó, chúng ta có thể làm việc với khối lượng dữ liệu lớn hơn rất nhiều so với dung lượng bộ nhớ RAM hiện có.
 
-3.  Tính toán hiệu năng cao được áp dụng khi cần thiết. Ví dụ, gói
-Cyclops triển khai một công cụ hồi quy hiệu quả cao được sử dụng
-trong toàn bộ Thư viện phương pháp để thực hiện các hồi quy quy mô
-lớn (số lượng biến lớn, số lượng quan sát lớn) mà nếu không thì
-không thể thực hiện được.
+3. Áp dụng tính toán hiệu năng cao (high-performance computing) ở những khâu cần thiết. Ví dụ, gói [Cyclops](https://ohdsi.github.io/Cyclops/) triển khai một bộ máy tính toán hồi quy hiệu suất cao được sử dụng xuyên suốt trong Thư viện Phương pháp để giải các bài toán hồi quy quy mô lớn (số lượng biến số lớn, số lượng quan sát lớn) mà các công cụ thông thường không thể ước lượng nổi.
 
-### Tài liệu
+### Tài liệu hướng dẫn
 
-R cung cấp một cách tiêu chuẩn để lập tài liệu cho các gói. Mỗi gói có
-một hướng dẫn sử dụng gói ghi lại mọi hàm và tập dữ liệu có trong gói.
-Tất cả các hướng dẫn sử dụng gói đều có sẵn trực tuyến thông qua trang
-web Thư viện phương pháp7, thông qua các kho lưu trữ GitHub của gói và
-đối với những gói có sẵn thông qua CRAN, chúng có thể được tìm thấy
-trong CRAN. Hơn nữa, từ trong R, hướng dẫn sử dụng gói có thể được
-tham khảo bằng cách sử dụng dấu chấm hỏi. Ví dụ, sau khi tải gói
-DatabaseConnector, gõ lệnh
+Ngôn ngữ R cung cấp một chuẩn mực thống nhất để biên soạn tài liệu cho các gói phần mềm. Mỗi gói đều có một *cẩm nang hướng dẫn gói (package manual)* ghi lại chi tiết mọi hàm và tập dữ liệu có trong gói đó. Toàn bộ cẩm nang hướng dẫn đều được công bố trực tuyến trên trang web của Thư viện Phương pháp[^7], trên các kho lưu trữ GitHub tương ứng của từng gói, và trên hệ thống CRAN đối với những gói đã được phát hành qua CRAN. Hơn nữa, ngay trong môi trường R, người dùng có thể tra cứu tài liệu hướng dẫn bằng cách sử dụng dấu chấm hỏi (`?`). Ví dụ, sau khi nạp gói `DatabaseConnector`, việc gõ lệnh `?connect` sẽ hiển thị tài liệu hướng dẫn chi tiết về hàm `"connect"`.
 
-?connect sẽ hiển thị tài liệu về hàm "connect".
+[^7]: <https://ohdsi.github.io/MethodsLibrary>
 
-Ngoài hướng dẫn sử dụng gói, nhiều gói còn cung cấp các đoạn tài liệu
-(vignettes). Các đoạn tài liệu này là tài liệu dạng dài mô tả cách sử
-dụng một gói để thực hiện các tác vụ nhất định. Ví dụ, một đoạn tài
-liệu8 mô tả cách thực hiện nhiều phân tích một cách hiệu quả bằng cách
-sử dụng
+Bên cạnh cẩm nang tra cứu hàm, nhiều gói phần mềm còn cung cấp các *chuyên đề hướng dẫn thực hành (vignettes)*. Đây là những tài liệu chuyên sâu mô tả quy trình sử dụng một gói phần mềm để giải quyết các tác vụ hoàn chỉnh. Ví dụ, có một chuyên đề hướng dẫn[^8] trình bày chi tiết cách thực hiện đồng thời nhiều phân tích một cách hiệu quả bằng gói `CohortMethod`. Các chuyên đề hướng dẫn này cũng có thể được tìm thấy trên trang web của Thư viện Phương pháp, trên kho lưu trữ GitHub của từng gói, và trên CRAN đối với các gói có mặt trên CRAN.
 
-^7^<https://ohdsi.github.io/MethodsLibrary>
-^8^<https://ohdsi.github.io/CohortMethod/articles/MultipleAnalyses.html>
-
-gói CohortMethod. Các đoạn tài liệu cũng có thể được tìm thấy thông
-qua trang web Thư viện phương pháp, thông qua các kho lưu trữ GitHub
-của gói và đối với những gói có sẵn thông qua CRAN, chúng có thể được
-tìm thấy trong CRAN.
+[^8]: <https://ohdsi.github.io/CohortMethod/articles/MultipleAnalyses.html>
 
 ### Yêu cầu hệ thống
 
-Hai môi trường tính toán có liên quan khi thảo luận về các yêu cầu hệ
-thống: Máy chủ cơ sở dữ liệu và máy trạm phân tích.
+Có hai môi trường tính toán cần được xem xét khi thảo luận về yêu cầu hệ thống: máy chủ cơ sở dữ liệu (database server) và máy trạm phân tích (analytics workstation).
 
-Máy chủ cơ sở dữ liệu phải lưu trữ dữ liệu chăm sóc sức khỏe quan sát
-ở định dạng CDM. Thư viện phương pháp hỗ trợ nhiều hệ quản trị cơ sở
-dữ liệu bao gồm các hệ thống cơ sở dữ liệu truyền thống (PostgreSQL,
-Microsoft SQL Server và Oracle), kho dữ liệu song song (Microsoft APS,
-IBM Netezza và Amazon Redshift), cũng như các nền tảng Dữ liệu lớn
-(Hadoop thông qua Impala và Google BigQuery).
+Máy chủ cơ sở dữ liệu là nơi lưu trữ dữ liệu chăm sóc sức khỏe quan sát theo định dạng chuẩn CDM. Thư viện Phương pháp hỗ trợ một danh mục rộng rãi các hệ quản trị cơ sở dữ liệu, bao gồm các hệ cơ sở dữ liệu quan hệ truyền thống (PostgreSQL, Microsoft SQL Server và Oracle), các hệ thống kho dữ liệu xử lý song song (Microsoft APS, IBM Netezza và Amazon Redshift), cũng như các nền tảng Dữ liệu lớn (Hadoop thông qua Impala và Google BigQuery).
 
-Máy trạm phân tích là nơi Thư viện phương pháp được cài đặt và chạy.
-Đây có thể là một máy cục bộ, chẳng hạn như máy tính xách tay của ai
-đó, hoặc một máy chủ từ xa chạy RStudio Server. Trong mọi trường hợp,
-các yêu cầu là R phải được cài đặt, tốt nhất là cùng với RStudio. Thư
-viện phương pháp cũng yêu cầu phải cài đặt Java. Máy trạm phân tích
-cũng phải có khả năng kết nối với máy chủ cơ sở dữ liệu, cụ thể là bất
-kỳ tường lửa nào giữa chúng phải mở các cổng truy cập máy chủ cơ sở dữ
-liệu cho máy trạm. Một số phân tích có thể đòi hỏi nhiều tài nguyên
-tính toán, vì vậy việc có nhiều lõi xử lý và bộ nhớ dồi dào có thể
-giúp tăng tốc các phân tích. Chúng tôi khuyên bạn nên có ít nhất bốn
-lõi và 16 gigabyte bộ nhớ.
+Máy trạm phân tích là nơi cài đặt và vận hành Thư viện Phương pháp. Đây có thể là một máy tính cá nhân cục bộ (chẳng hạn máy tính xách tay của nhà nghiên cứu), hoặc một máy chủ từ xa chạy RStudio Server. Trong mọi trường hợp, yêu cầu bắt buộc là máy trạm phải được cài đặt R, và tốt nhất là đi kèm với RStudio. Thư viện Phương pháp cũng yêu cầu máy trạm phải cài đặt môi trường Java. Ngoài ra, máy trạm phân tích cần có khả năng kết nối mạng tới máy chủ cơ sở dữ liệu — cụ thể là bất kỳ tường lửa nào nằm giữa hai hệ thống đều phải mở cổng truy cập máy chủ cơ sở dữ liệu cho máy trạm. Một số tác vụ phân tích có thể tiêu tốn nhiều tài nguyên tính toán, do đó việc trang bị bộ vi xử lý đa nhân và dung lượng bộ nhớ RAM dồi dào sẽ giúp tăng tốc đáng kể quá trình chạy phân tích. Chúng tôi khuyến nghị cấu hình tối thiểu gồm 4 nhân xử lý (cores) và 16 GB bộ nhớ RAM.
 
 ### Cách cài đặt
 
-Dưới đây là các bước cài đặt môi trường cần thiết để chạy các gói R
-của OHDSI. Cần cài đặt bốn thứ:
+Dưới đây là các bước thiết lập môi trường cần thiết để vận hành các gói R của OHDSI. Có bốn thành phần phần mềm cần được cài đặt:
 
-1.  **R là một môi trường tính toán thống kê. Nó đi kèm với một giao
-diện người dùng cơ bản chủ yếu là giao diện dòng lệnh.**
+1. **R** là môi trường tính toán thống kê. Phần mềm này đi kèm với một giao diện người dùng cơ bản, chủ yếu hoạt động theo cơ chế dòng lệnh.
+2. **Rtools** là bộ công cụ cần thiết trên hệ điều hành Windows để biên dịch và xây dựng các gói R từ mã nguồn (source packages).
+3. **RStudio** là một môi trường phát triển tích hợp (IDE) giúp việc sử dụng R trở nên thuận tiện và trực quan hơn. RStudio bao gồm trình soạn thảo mã nguồn, công cụ gỡ lỗi và hiển thị biểu đồ trực quan. Bạn nên sử dụng RStudio để có trải nghiệm làm việc tốt nhất với R.
+4. **Java** là môi trường thực thi cần thiết để chạy một số thành phần bên trong các gói R của OHDSI, chẳng hạn như các trình điều khiển dùng để kết nối với cơ sở dữ liệu.
 
-2.  **Rtools là một tập hợp các chương trình cần thiết trên Windows để
-xây dựng các gói R từ mã nguồn.**
+Dưới đây, chúng tôi hướng dẫn chi tiết cách cài đặt từng thành phần này trên môi trường hệ điều hành Windows.
 
-3.  **RStudio là một IDE (Môi trường phát triển tích hợp) giúp sử dụng R
-dễ dàng hơn. Nó bao gồm trình soạn thảo mã, các công cụ gỡ lỗi và
-trực quan hóa. Vui lòng sử dụng nó để có trải nghiệm R tốt hơn.**
-
-4.  **Java là một môi trường tính toán cần thiết để chạy một số thành
-phần trong các gói R của OHDSI, ví dụ như những thành phần cần thiết
-để kết nối với cơ sở dữ liệu.**
-
-Dưới đây chúng tôi mô tả cách cài đặt từng thành phần này trong môi
-trường Windows.
-
-![In Windows, both R and Java come in 32-bit and 64-bits architectures.
-If you install R in both architectures, you **must** also install Java
-in both architectures. It is recommended to only install the 64-bit
-version of
-R.](media/image6.png){width="0.45499890638670165in"
-height="0.45499890638670165in"}
+::: {.callout-important title="Điểm quan trọng"}
+Trên hệ điều hành Windows, cả R và Java đều có hai phiên bản kiến trúc 32-bit và 64-bit. Nếu bạn cài đặt R ở cả hai kiến trúc, bạn **bắt buộc** phải cài đặt Java ở cả hai kiến trúc tương ứng. Chúng tôi khuyến nghị bạn chỉ nên cài đặt phiên bản R 64-bit.
+:::
 
 #### Cài đặt R
 
-1.  Truy cập https://cran.r-project.org/, nhấp vào "Download R for
-Windows", sau đó chọn "base", sau đó nhấp vào liên kết Tải xuống
-được chỉ ra trong Hình 8.5.
+1. Truy cập [https://cran.r-project.org/](https://cran.r-project.org/), nhấp vào liên kết "Download R for Windows", sau đó chọn "base", rồi nhấp vào liên kết tải xuống như minh họa trong Hình 8.5.
 
-![](media/image31.jpeg){width="5.294374453193351in"
-height="1.1735411198600174in"}
+![](media/image31.jpeg){width="5.294374453193351in" height="1.1735411198600174in"}
 
-Hình 8.5: Tải xuống R từ CRAN.
+*Hình 8.5: Tải xuống R từ CRAN.*
 
-2.  Sau khi quá trình tải xuống hoàn tất, hãy chạy trình cài đặt. Sử
-dụng các tùy chọn mặc định ở mọi nơi, với hai ngoại lệ: Thứ nhất,
-tốt hơn là không nên cài đặt vào thư mục tệp chương trình (program
-files). Thay vào đó, chỉ cần tạo R thành một thư mục con của ổ C của
-bạn như được hiển thị trong Hình 8.6. Thứ hai, để tránh các vấn đề
-do kiến trúc khác biệt giữa R và Java, hãy vô hiệu hóa kiến trúc
-32-bit như được hiển thị trong Hình 8.7.
+2. Sau khi tải xuống hoàn tất, hãy khởi chạy trình cài đặt. Giữ nguyên các tùy chọn mặc định ở tất cả các bước, ngoại trừ hai điểm lưu ý sau: Thứ nhất, không nên cài đặt R vào thư mục `Program Files`; thay vào đó, hãy cài đặt R vào một thư mục con trực tiếp trên ổ đĩa C như minh họa trong Hình 8.6. Thứ hai, để tránh xung đột do khác biệt kiến trúc giữa R và Java, hãy bỏ chọn phiên bản kiến trúc 32-bit như minh họa trong Hình 8.7.
 
-![](media/image32.png){width="4.275in"
-height="3.316666666666667in"}
+![](media/image32.png){width="4.275in" height="3.316666666666667in"}
 
-Hình 8.6: Cài đặt thư mục đích cho R. Sau khi hoàn tất, bạn sẽ có thể
-chọn R từ Menu Bắt đầu (Start Menu) của mình.
+*Hình 8.6: Thiết lập thư mục đích khi cài đặt R.*
 
-![](media/image33.png){width="4.274998906386702in"
-height="3.316666666666667in"}
+![](media/image33.png){width="4.274998906386702in" height="3.316666666666667in"}
 
-Hình 8.7: Vô hiệu hóa phiên bản 32-bit của R.
+*Hình 8.7: Bỏ chọn cài đặt phiên bản 32-bit của R.*
+
+Sau khi hoàn tất, bạn sẽ có thể mở R từ trình đơn Start Menu của Windows.
 
 #### Cài đặt Rtools
 
-1.  Truy cập https://cran.r-project.org/, nhấp vào "Download R for
-Windows", sau đó chọn "Rtools" và chọn phiên bản Rtools mới nhất để
-tải xuống.
+1. Truy cập [https://cran.r-project.org/](https://cran.r-project.org/), nhấp vào "Download R for Windows", tiếp tục chọn "Rtools" và chọn phiên bản Rtools mới nhất để tải xuống.
 
-2.  Sau khi tải xuống hoàn tất, hãy chạy trình cài đặt. Chọn các tùy
-chọn mặc định ở mọi nơi.
+2. Sau khi tải xuống hoàn tất, hãy chạy trình cài đặt và giữ nguyên các tùy chọn mặc định ở mọi bước.
 
 #### Cài đặt RStudio
 
-1.  Truy cập https://www.rstudio.com/, chọn "Download RStudio" (hoặc nút
-"Download" bên dưới "RStudio"), chọn phiên bản miễn phí và tải xuống
-trình cài đặt cho Windows như được hiển thị trong Hình 8.8.
+1. Truy cập [https://www.rstudio.com/](https://www.rstudio.com/), chọn "Download RStudio" (hoặc nút "Download" bên dưới mục "RStudio"), chọn phiên bản miễn phí (Free) và tải xuống bộ cài đặt dành cho Windows như hiển thị trong Hình 8.8.
 
-![](media/image34.jpeg){width="5.151666666666666in"
-height="1.3433333333333333in"}
+![](media/image34.jpeg){width="5.151666666666666in" height="1.3433333333333333in"}
 
-Hình 8.8: Tải xuống RStudio.
+*Hình 8.8: Tải xuống RStudio.*
 
-2.  Sau khi tải xuống, hãy khởi động trình cài đặt và sử dụng các tùy
-chọn mặc định ở mọi nơi.
+2. Sau khi tải xuống, hãy khởi chạy trình cài đặt và giữ nguyên các tùy chọn mặc định.
 
 #### Cài đặt Java
 
-1.  Truy cập https://java.com/en/download/manual.jsp và chọn trình cài
-đặt Windows 64-bit như được hiển thị trong Hình 8.9. Nếu bạn cũng đã
-cài đặt phiên bản R 32-bit, bạn cũng phải cài đặt phiên bản Java
-khác (32-bit).
+1. Truy cập [https://java.com/en/download/manual.jsp](https://java.com/en/download/manual.jsp) và chọn bộ cài đặt Windows 64-bit (`Windows Offline (64-bit)`) như minh họa trong Hình 8.9. Lưu ý: nếu bạn đã cài đặt cả phiên bản R 32-bit, bạn *bắt buộc* phải cài đặt thêm phiên bản Java 32-bit tương ứng.
 
-![](media/image35.jpeg){width="4.448332239720035in"
-height="1.2683333333333333in"}
+![](media/image35.jpeg){width="4.448332239720035in" height="1.2683333333333333in"}
 
-Hình 8.9: Tải xuống Java.
+*Hình 8.9: Tải xuống Java.*
 
-2.  Sau khi tải xuống, chỉ cần chạy trình cài đặt.
+2. Sau khi tải xuống, hãy chạy trình cài đặt theo hướng dẫn mặc định.
 
-#### Xác minh cài đặt
+#### Kiểm tra xác nhận cài đặt
 
-Bây giờ bạn đã sẵn sàng, nhưng chúng ta nên kiểm tra lại. Khởi động
-RStudio và gõ
+Bây giờ môi trường làm việc của bạn đã sẵn sàng, nhưng chúng ta nên thực hiện một bước kiểm tra để chắc chắn mọi thứ hoạt động tốt. Hãy khởi động RStudio và nhập các lệnh sau:
 
-**install.packages**(\"SqlRender\") **library**(SqlRender)
+```r
+install.packages("SqlRender")
+library(SqlRender)
+translate("SELECT TOP 10 * FROM person;", "postgresql")
+```
 
-**translate**(\"SELECT TOP 10 \* FROM person;\", \"postgresql\")
+```
+## [1] "SELECT * FROM person LIMIT 10;"
+```
 
-\## \[1\] \"CHỌN \* TỪ GIỚI HẠN người 10;\"
+Hàm này có sử dụng Java ở tầng dưới, vì vậy nếu kết quả trả về đúng như trên thì chúng ta biết chắc rằng cả R và Java đều đã được cài đặt thành công!
 
-Hàm này sử dụng Java, vì vậy nếu mọi thứ diễn ra tốt đẹp, chúng ta
-biết rằng cả R và Java đã được cài đặt chính xác!
+Một bài kiểm tra khác là xác nhận xem hệ thống có thể biên dịch các gói phần mềm từ mã nguồn hay không. Hãy chạy đoạn mã R dưới đây để cài đặt gói `CohortMethod` từ kho lưu trữ của OHDSI:
 
-Một thử nghiệm khác là xem liệu các gói nguồn có thể được xây dựng hay
-không. Chạy mã R sau để cài đặt gói CohortMethod từ kho lưu trữ GitHub
-của OHDSI:
+```r
+install.packages("drat")
+drat::addRepo("OHDSI")
+install.packages("CohortMethod")
+```
 
-**install.packages**(\"drat\") drat**::addRepo**(\"OHDSI\")
-**install.packages**(\"CohortMethod\")
+## Chiến lược triển khai hệ thống
 
-## Chiến lược triển khai
-
-Việc triển khai toàn bộ ngăn xếp công cụ OHDSI, bao gồm ATLAS và Thư
-viện phương pháp, trong một tổ chức là một nhiệm vụ khó khăn. Có nhiều
-thành phần với các phụ thuộc cần được xem xét và các cấu hình cần
-thiết lập. Vì lý do này, hai sáng kiến đã phát triển các chiến lược
-triển khai tích hợp cho phép toàn bộ ngăn xếp được cài đặt như một
-gói, sử dụng một số hình thức ảo hóa: Broadsea và Amazon Web Services
-(AWS).
-
-5.  *Chiến lược triển khai 119*
+Việc triển khai toàn bộ hệ sinh thái công cụ OHDSI — bao gồm ATLAS và Thư viện Phương pháp — trong hạ tầng công nghệ thông tin của một tổ chức có thể là một thách thức lớn. Hệ thống có nhiều thành phần đi kèm các gói phụ thuộc (dependencies) cần được tính đến và nhiều thông số cấu hình cần thiết lập chính xác. Vì lý do đó, hai sáng kiến đã được phát triển nhằm cung cấp các giải pháp triển khai tích hợp, cho phép cài đặt toàn bộ hệ thống công cụ như một gói duy nhất thông qua công nghệ ảo hóa: Broadsea và Amazon Web Services (AWS).
 
 ### Broadsea
 
-Broadsea9 sử dụng công nghệ container Docker.10 Các công cụ OHDSI được
-đóng gói cùng với các phụ thuộc thành một tệp nhị phân di động duy
-nhất gọi là Docker Image. Hình ảnh này sau đó có thể được chạy trên
-một dịch vụ công cụ Docker, tạo ra một máy ảo với tất cả phần mềm đã
-được cài đặt và sẵn sàng chạy. Các công cụ Docker có sẵn cho hầu hết
-các hệ điều hành, bao gồm Microsoft Windows, MacOS và Linux. Hình ảnh
-Docker Broadsea chứa các công cụ OHDSI chính, bao gồm Thư viện phương
-pháp và ATLAS.
+Broadsea[^9] ứng dụng công nghệ container của Docker.[^10] Toàn bộ các công cụ OHDSI cùng các thư viện phụ thuộc được đóng gói thành một tệp ảnh nhị phân di động duy nhất gọi là Docker Image. Tệp ảnh này sau đó có thể được khởi chạy trên dịch vụ Docker Engine, tạo ra một môi trường ảo hóa với đầy đủ phần mềm đã được cài đặt sẵn và sẵn sàng vận hành. Docker Engine hiện hỗ trợ hầu hết các hệ điều hành phổ biến, bao gồm Microsoft Windows, macOS và Linux. Tệp ảnh Docker của Broadsea tích hợp sẵn các công cụ cốt lõi của OHDSI, bao gồm cả Thư viện Phương pháp và nền tảng ATLAS.
+
+[^9]: <https://github.com/OHDSI/Broadsea>
+[^10]: <https://www.docker.com/>
 
 ### Amazon AWS
 
-Amazon đã chuẩn bị hai môi trường có thể được khởi tạo trong môi
-trường điện toán đám mây AWS chỉ với một cú nhấp chuột:
-OHDSI-in-a-Box11 và OHDSIonAWS.12
+Amazon đã xây dựng sẵn hai môi trường mẫu có thể được khởi tạo nhanh chóng trên hạ tầng điện toán đám mây AWS chỉ với một cú nhấp chuột: OHDSI-in-a-Box[^11] và OHDSIonAWS.[^12]
 
-OHDSI-in-a-Box được tạo riêng làm môi trường học tập và được sử dụng
-trong hầu hết các hướng dẫn do cộng đồng OHDSI cung cấp. Nó bao gồm
-nhiều công cụ OHDSI, các tập dữ liệu mẫu, RStudio và các phần mềm hỗ
-trợ khác trong một máy ảo Windows chi phí thấp duy nhất. Một cơ sở dữ
-liệu PostgreSQL được sử dụng để lưu trữ CDM và cũng để lưu trữ các kết
-quả trung gian từ ATLAS. Các công cụ ánh xạ dữ liệu OMOP CDM và ETL
-cũng được bao gồm trong OHDSI-in-a-Box. Kiến trúc cho OHDSI-in-a-Box
-được mô tả trong Hình 8.10.
+[^11]: <https://github.com/OHDSI/OHDSI-in-a-Box>
+[^12]: <https://github.com/OHDSI/OHDSIonAWS>
 
-![](media/image36.jpeg){width="5.325728346456693in"
-height="1.379582239720035in"}
+OHDSI-in-a-Box được thiết kế chuyên biệt làm môi trường học tập và thực hành, đồng thời được sử dụng trong hầu hết các khóa tập huấn do cộng đồng OHDSI tổ chức. Môi trường này tích hợp sẵn nhiều công cụ OHDSI, các tập dữ liệu mẫu, RStudio cùng các phần mềm bổ trợ khác bên trong một máy ảo Windows chi phí thấp duy nhất. Hệ quản trị cơ sở dữ liệu PostgreSQL được sử dụng để lưu trữ dữ liệu CDM cũng như các kết quả trung gian từ ATLAS. Các công cụ ánh xạ dữ liệu và xây dựng quy trình ETL sang OMOP CDM cũng được cài đặt sẵn trong OHDSI-in-a-Box. Kiến trúc của OHDSI-in-a-Box được minh họa trong Hình 8.10.
 
-Hình 8.10: Kiến trúc Amazon Web Services cho OHDSI-in-a-Box.
+![](media/image36.jpeg){width="5.325728346456693in" height="1.379582239720035in"}
 
-OHDSIonAWS là một kiến trúc tham chiếu cho các môi trường OHDSI cấp
-doanh nghiệp, đa người dùng, có thể mở rộng và chịu lỗi, có thể được
-các tổ chức sử dụng để thực hiện phân tích dữ liệu của họ. Nó bao gồm
-một số tập dữ liệu mẫu và cũng có thể tự động tải dữ liệu chăm sóc sức
-khỏe thực tế của tổ chức bạn. Dữ liệu được đặt trong nền tảng cơ sở dữ
-liệu Amazon Redshift, được các công cụ OHDSI hỗ trợ. Các kết quả trung
-gian của ATLAS được lưu trữ trong cơ sở dữ liệu PostgreSQL. Ở giao
-diện người dùng, người dùng có quyền truy cập vào ATLAS và RStudio
-thông qua giao diện web (tận dụng RStudio Server). Trong RStudio, Thư
-viện phương pháp OHDSI đã được cài đặt và có thể được sử dụng để kết
-nối với các cơ sở dữ liệu. Tự động hóa để triển khai OHDSIonAWS là mã
-nguồn mở và có thể được tùy chỉnh để bao gồm
+*Hình 8.10: Kiến trúc Amazon Web Services cho OHDSI-in-a-Box.*
 
-^9^<https://github.com/OHDSI/Broadsea> ^10^<https://www.docker.com/>
-^11^<https://github.com/OHDSI/OHDSI-in-a-Box>
-^12^<https://github.com/OHDSI/OHDSIonAWS>
+OHDSIonAWS là một kiến trúc tham chiếu hướng tới các môi trường OHDSI cấp doanh nghiệp — hỗ trợ đa người dùng, có khả năng mở rộng linh hoạt (scalable) và chịu lỗi cao (fault tolerant) — giúp các tổ chức triển khai hoạt động phân tích dữ liệu quy mô lớn của mình. Hệ thống này bao gồm một số tập dữ liệu mẫu và cũng có thể tự động nạp dữ liệu chăm sóc sức khỏe thực tế của tổ chức bạn. Dữ liệu được lưu trữ trên nền tảng kho dữ liệu đám mây Amazon Redshift vốn được các công cụ OHDSI hỗ trợ đầy đủ. Các kết quả trung gian của ATLAS được lưu trữ trong một cơ sở dữ liệu PostgreSQL. Ở tầng giao diện người dùng (front end), các nhà nghiên cứu có thể truy cập vào ATLAS và RStudio thông qua trình duyệt web (sử dụng RStudio Server). Bên trong RStudio, Thư viện Phương pháp OHDSI đã được cài đặt sẵn và có thể dùng để kết nối trực tiếp tới các cơ sở dữ liệu. Toàn bộ mã lệnh tự động hóa việc triển khai OHDSIonAWS đều là mã nguồn mở và có thể tùy biến để tích hợp các công cụ quản trị cũng như quy chuẩn bảo mật của từng tổ chức. Kiến trúc của OHDSIonAWS được mô tả trong Hình 8.11.
 
-các công cụ quản lý và các phương pháp thực hành tốt nhất của tổ chức
-bạn. Kiến trúc cho OHDSIonAWS được mô tả trong Hình 8.11.
+![](media/image37.jpeg){width="5.218748906386701in" height="2.536457786526684in"}
 
-![](media/image37.jpeg){width="5.218748906386701in"
-height="2.536457786526684in"}
-
-Hình 8.11: Kiến trúc Amazon Web Services cho OHDSIonAWS.
+*Hình 8.11: Kiến trúc Amazon Web Services cho OHDSIonAWS.*
 
 ## Tóm tắt
 
-![](media/image4.png){width="0.4455205599300088in"
-height="0.4644783464566929in" .book-icon}
-
-- We can perform analyses against data in the CDM by
-
-- writing custom code
-
-- writing code that uses the R packages in the OHDSI Methods Library
-
-- using the interactive analysis platform ATLAS
-
-- OHDSI tools use different analysis strategies
-
-- Single studies
-
-- Real-time queries
-
-- Large-scale analytics
-
-- The majority of OHDSI analytics tool are embedded in
-
-- The interactive analysis platform ATLAS
-
-- The OHDSI Methods Library R packages
-
-- Several strategies exist facilitating the deployment of the OHDSI
-tools.
-
-[]{#_bookmark224 .anchor}Chương 9
-
+::: {.callout-tip title="Tóm tắt chương"}
+- Chúng ta có thể thực hiện các phân tích trên dữ liệu chuẩn hóa theo CDM bằng cách:
+  - Viết mã lệnh tùy chỉnh (custom code)
+  - Viết mã lệnh sử dụng các gói R trong Thư viện Phương pháp OHDSI (OHDSI Methods Library)
+  - Sử dụng nền tảng phân tích tương tác ATLAS
+- Các công cụ của OHDSI áp dụng nhiều chiến lược phân tích khác nhau:
+  - Nghiên cứu đơn lẻ (Single studies)
+  - Truy vấn thời gian thực (Real-time queries)
+  - Phân tích quy mô lớn (Large-scale analytics)
+- Phần lớn các công cụ phân tích của OHDSI được tích hợp trong:
+  - Nền tảng phân tích tương tác ATLAS
+  - Các gói R thuộc Thư viện Phương pháp OHDSI
+- Có nhiều giải pháp kiến trúc giúp đơn giản hóa việc triển khai đồng bộ hệ sinh thái công cụ OHDSI.
+:::

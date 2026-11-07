@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.554">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Sách OHDSI (The Book of OHDSI) - Phụ lục B: Các đối chứng âm tính</title>
+<title>Sách OHDSI (The Book of OHDSI) - Phụ lục B: Danh mục kết cục chứng âm (Negative Controls)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -91,17 +57,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-no-results-text": "Không tìm thấy kết quả",
+    "search-matching-documents-text": "kết quả phù hợp",
+    "search-copy-link-title": "Sao chép liên kết tìm kiếm",
+    "search-hide-matches-text": "Ẩn các kết quả khác",
+    "search-more-match-text": "kết quả khác trong chương này",
+    "search-more-matches-text": "kết quả khác trong chương này",
+    "search-clear-button-title": "Xóa",
+    "search-text-placeholder": "Tìm kiếm trong sách...",
+    "search-detached-cancel-button-title": "Hủy",
+    "search-submit-button-title": "Tìm",
+    "search-label": "Tìm kiếm"
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
@@ -116,11 +82,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Ẩn / hiện thanh điều hướng" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./20_glossary.html">Phần VI — Phụ lục &amp; Tài liệu tham khảo</a></li><li class="breadcrumb-item"><a href="./22_negative_controls.html"><span class="chapter-title">Phụ lục B: Các đối chứng âm tính</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./20_glossary.html">Phần VI — Phụ lục &amp; Tài liệu tham khảo</a></li><li class="breadcrumb-item"><a href="./22_negative_controls.html"><span class="chapter-title">Phụ lục B: Danh mục kết cục chứng âm (Negative Controls)</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Ẩn / hiện thanh điều hướng" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -136,21 +102,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Sách OHDSI (The Book of OHDSI)</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+    <a href="https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Chuyển chế độ Sáng / Tối"><i class="bi"></i></a>
 </div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Tìm kiếm"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lời tựa &amp; Giới thiệu</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lời tựa &amp; Giới thiệu</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -169,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_where_to_begin.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 2: Nơi bắt đầu</span></a>
+  <a href="./02_where_to_begin.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 2: Bắt đầu từ đâu</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -182,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
- <span class="menu-text">Phần II — Chuẩn hóa Dữ liệu</span></a>
+ <span class="menu-text">Phần II — Biểu diễn Dữ liệu Thống nhất</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -195,12 +162,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_vocabularies.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 5: Từ vựng Chuẩn hóa</span></a>
+  <a href="./05_vocabularies.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 5: Bộ Từ vựng Chuẩn hóa</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_etl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 6: Trích xuất - Chuyển đổi - Nạp (ETL)</span></a>
+  <a href="./06_etl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 6: Trích xuất – Chuyển đổi – Nạp dữ liệu (ETL)</span></a>
   </div>
 </li>
       </ul>
@@ -216,12 +183,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07_use_cases.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 7: Các trường hợp sử dụng phân tích</span></a>
+  <a href="./07_use_cases.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 7: Các bài toán ứng dụng phân tích dữ liệu</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08_tools.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 8: Công cụ phân tích OHDSI</span></a>
+  <a href="./08_tools.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 8: Hệ sinh thái công cụ phân tích OHDSI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -231,22 +198,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./10_cohort_definitions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 10: Định nghĩa nhóm thuần tập</span></a>
+  <a href="./10_cohort_definitions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 10: Định nghĩa đoàn hệ (Cohort)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./11_characterization.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 11: Đặc điểm hóa</span></a>
+  <a href="./11_characterization.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 11: Mô tả đặc trưng lâm sàng (Characterization)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./12_population_level_estimation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 12: Ước tính cấp độ quần thể</span></a>
+  <a href="./12_population_level_estimation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 12: Ước lượng hiệu quả ở cấp độ quần thể</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./13_patient_level_prediction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 13: Dự đoán cấp độ bệnh nhân</span></a>
+  <a href="./13_patient_level_prediction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 13: Dự báo ở cấp độ bệnh nhân</span></a>
   </div>
 </li>
       </ul>
@@ -267,17 +234,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./15_clinical_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 15: Tính hợp lệ lâm sàng</span></a>
+  <a href="./15_clinical_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 15: Giá trị hợp lệ lâm sàng</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./16_software_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 16: Tính hợp lệ của phần mềm</span></a>
+  <a href="./16_software_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 16: Giá trị hợp lệ của phần mềm</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./17_method_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 17: Tính hợp lệ của phương pháp</span></a>
+  <a href="./17_method_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 17: Giá trị hợp lệ của phương pháp</span></a>
   </div>
 </li>
       </ul>
@@ -285,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
- <span class="menu-text">Phần V — Các nghiên cứu OHDSI</span></a>
+ <span class="menu-text">Phần V — Nghiên cứu trong Mạng lưới OHDSI</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -293,12 +260,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./18_study_steps.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 18: Các bước nghiên cứu</span></a>
+  <a href="./18_study_steps.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 18: Quy trình thực hiện một nghiên cứu</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./19_network_studies.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 19: Nghiên cứu mạng lưới OHDSI</span></a>
+  <a href="./19_network_studies.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 19: Nghiên cứu mạng lưới đa trung tâm OHDSI</span></a>
   </div>
 </li>
       </ul>
@@ -314,32 +281,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./20_glossary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bảng thuật ngữ</span></a>
+  <a href="./20_glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bảng thuật ngữ chuẩn hóa (Glossary)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./21_cohort_definitions_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục A: Định nghĩa nhóm thuần tập</span></a>
+  <a href="./21_cohort_definitions_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục A: Chi tiết định nghĩa đoàn hệ</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./22_negative_controls.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Phụ lục B: Các đối chứng âm tính</span></a>
+  <a href="./22_negative_controls.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Phụ lục B: Danh mục kết cục chứng âm (Negative Controls)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./23_protocol_template.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục C: Mẫu giao thức</span></a>
+  <a href="./23_protocol_template.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục C: Mẫu đề cương nghiên cứu (Protocol Template)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./24_hints.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục D: Gợi ý trả lời</span></a>
+  <a href="./24_hints.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục D: Đáp án và gợi ý bài tập</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./25_references_and_index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Thư mục tài liệu tham khảo &amp; Chỉ mục</span></a>
+  <a href="./25_references_and_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tài liệu tham khảo &amp; Chỉ mục</span></a>
   </div>
 </li>
       </ul>
@@ -350,23 +319,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
-    <h2 id="toc-title">Nội dung chính</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">Nội dung trong chương</h2>
    
   <ul>
-  <li><a href="#các-đối-chứng-âm-tính" id="toc-các-đối-chứng-âm-tính" class="nav-link active" data-scroll-target="#các-đối-chứng-âm-tính">Các đối chứng âm tính</a>
-  <ul>
-  <li><a href="#acei-và-thz" id="toc-acei-và-thz" class="nav-link" data-scroll-target="#acei-và-thz">ACEi và THZ</a></li>
-  </ul></li>
+  <li><a href="#thuốc-ức-chế-men-chuyển-acei-và-thuốc-lợi-tiểu-nhóm-thiazide-thz" id="toc-thuốc-ức-chế-men-chuyển-acei-và-thuốc-lợi-tiểu-nhóm-thiazide-thz" class="nav-link active" data-scroll-target="#thuốc-ức-chế-men-chuyển-acei-và-thuốc-lợi-tiểu-nhóm-thiazide-thz">Thuốc ức chế men chuyển (ACEi) và Thuốc lợi tiểu nhóm Thiazide (THZ)</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi/edit/main/22_negative_controls.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi/edit/main/22_negative_controls.qmd" class="toc-action"><i class="bi bi-github"></i>Chỉnh sửa trang này</a></li><li><a href="https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi/issues/new" class="toc-action"><i class="bi empty"></i>Báo lỗi nội dung / dịch thuật</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./20_glossary.html">Phần VI — Phụ lục &amp; Tài liệu tham khảo</a></li><li class="breadcrumb-item"><a href="./22_negative_controls.html"><span class="chapter-title">Phụ lục B: Các đối chứng âm tính</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./20_glossary.html">Phần VI — Phụ lục &amp; Tài liệu tham khảo</a></li><li class="breadcrumb-item"><a href="./22_negative_controls.html"><span class="chapter-title">Phụ lục B: Danh mục kết cục chứng âm (Negative Controls)</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">Phụ lục B: Các đối chứng âm tính</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title"><span class="chapter-title">Phụ lục B: Danh mục kết cục chứng âm (Negative Controls)</span></h1>
 </div>
 
 
@@ -383,63 +349,408 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="các-đối-chứng-âm-tính" class="level1">
-<h1>Các đối chứng âm tính</h1>
-<p>Phụ lục này chứa các đối chứng âm tính được sử dụng trong nhiều chương của cuốn sách.</p>
-<section id="acei-và-thz" class="level2">
-<h2 class="anchored" data-anchor-id="acei-và-thz">ACEi và THZ</h2>
-<p>Bảng C.1: Các kết cục đối chứng âm tính khi so sánh các thuốc ức chế men chuyển (ACEi) với thuốc lợi tiểu thiazide và các thuốc tương tự thiazide (THZ).</p>
-<p>ID khái niệm Tên khái niệm</p>
-<p>434165 Phết cổ tử cung bất thường 436409 Đồng tử bất thường</p>
-<p>199192 Trầy xước và/hoặc bỏng do ma sát ở thân mình không kèm nhiễm trùng 4088290 Thiếu vú</p>
-<p>4092879 Thiếu thận</p>
-<p>44783954 Trào ngược axit</p>
-<p>75911 Vẹo ngón cái mắc phải 137951 Dày sừng mắc phải 77965 Ngón tay lò xo mắc phải 376707 Viêm kết mạc cấp tính</p>
-<p>4103640 Cụt bàn chân 73241 Polyp hậu môn và trực tràng 133655 Bỏng cẳng tay 73560 Gai xương gót</p>
-<p>434327 Lạm dụng cần sa</p>
-<p>4213540 Rối loạn chức năng thân cổ 140842 Thay đổi cấu trúc da 81378 Nhuyễn sụn bánh chè 432303 Lạm dụng cocaine</p>
-<p>4201390 Hiện diện lỗ mở thông đại tràng</p>
-<p>ID khái niệm Tên khái niệm</p>
-<p>46269889 Biến chứng do bệnh Crohn 134438 Viêm da tiếp xúc</p>
-<p>78619 Dập nát đầu gối 201606 Bệnh Crohn 76786 Trật khớp gối</p>
-<p>4115402 Khó ngủ</p>
-<p>45757370 Mất cân đối vú sau tái tạo 433111 Ảnh hưởng của việc đói</p>
-<p>433527 Lạc nội mạc tử cung</p>
-<p>4170770 Nang thượng bì 4092896 Phân bất thường 259995 Dị vật trong lỗ tự nhiên 40481632 Nang hoạt dịch</p>
-<p>4166231 Tiền sử di truyền</p>
-<p>433577 Ngón chân hình búa</p>
-<p>4231770 Huyết khối di truyền</p>
-<p>440329 Zona không biến chứng 4012570 Hành vi tình dục nguy cơ cao</p>
-<p>4012934 Đồng niệu cystine</p>
-<p>441788 Nhiễm virus u nhú ở người (HPV) 4201717 Hiện diện lỗ mở thông hồi tràng</p>
-<p>374375 Nút ráy tai</p>
-<p>4344500 Hội chứng chèn ép vùng vai 139099 Móng chọc thịt</p>
-<p>444132 Chấn thương đầu gối 196168 Kinh nguyệt không đều</p>
-<p>432593 Kwashiorkor (suy dinh dưỡng thể phù)</p>
-<p>434203 Di chứng của dập nát</p>
-<p>438329 Di chứng của tai nạn xe cơ giới 195873 Khí hư</p>
-<p>4083487 Drusen võng mạc</p>
-<p>4103703 Đi ngoài phân đen</p>
-<p>4209423 Lệ thuộc nicotine 377572 Ảnh hưởng của tiếng ồn đến tai trong</p>
-<p>40480893 Phản ứng xét nghiệm tuberculin không đặc hiệu 136368 Bướu giáp đa nhân không độc 140648 Nấm móng do nấm da 438130 Lạm dụng thuốc phiện</p>
-<p>4091513 Trung tiện</p>
-<p>4202045 Hội chứng mệt mỏi sau virus 373478 Viễn thị</p>
-<p>46286594 Vấn đề liên quan đến lối sống 439790 Đau tâm lý</p>
-<ol type="1">
-<li><em>ACEi và THZ 405</em></li>
-</ol>
-<p>ID khái niệm Tên khái niệm 81634 Vú sa trễ</p>
-<p>380706 Loạn thị đều</p>
-<p>141932 Dày sừng tuổi già</p>
-<p>36713918 Rối loạn chức năng cơ thể vùng thắt lưng 443172 Dị vật ở mặt, không có vết thương hở lớn 81151 Bong gân cổ chân</p>
-<p>72748 Căng cơ bao chóp xoay 378427 Thiếu hụt màng phim nước mắt</p>
-<p>437264 Hội chứng lệ thuộc thuốc lá 194083 Viêm âm đạo và viêm âm hộ 140641 Mụn cóc thông thường</p>
-<p>440193 Bàn tay rủ 4115367 Đau khớp cổ tay</p>
+<p>Phụ lục này liệt kê danh mục các kết cục chứng âm (<em>negative control outcomes</em>) được sử dụng trong các ví dụ thực hành xuyên suốt nhiều chương của cuốn sách.</p>
+<section id="thuốc-ức-chế-men-chuyển-acei-và-thuốc-lợi-tiểu-nhóm-thiazide-thz" class="level2">
+<h2 class="anchored" data-anchor-id="thuốc-ức-chế-men-chuyển-acei-và-thuốc-lợi-tiểu-nhóm-thiazide-thz">Thuốc ức chế men chuyển (ACEi) và Thuốc lợi tiểu nhóm Thiazide (THZ)</h2>
+<p>Bảng B.1: Danh sách 76 kết cục chứng âm (<em>negative control outcomes</em>) được sử dụng khi so sánh nhóm thuốc ức chế men chuyển angiotensin (ACEi) với nhóm thuốc lợi tiểu thiazide và tương tự thiazide (THZ).</p>
+<table class="table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 30%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Mã khái niệm (<code>Concept ID</code>)</th>
+<th>Tên khái niệm (Tiếng Việt)</th>
+<th>Tên khái niệm gốc (<code>Concept Name</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">434165</td>
+<td>Phết tế bào cổ tử cung bất thường</td>
+<td>Abnormal cervical smear</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">436409</td>
+<td>Đồng tử bất thường</td>
+<td>Abnormal pupil</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">199192</td>
+<td>Trầy xước và/hoặc bỏng do ma sát ở vùng thân mình không kèm nhiễm trùng</td>
+<td>Abrasion and/or friction burn of trunk without infection</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4088290</td>
+<td>Khuyết vú (không có tuyến vú)</td>
+<td>Absence of breast</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4092879</td>
+<td>Khuyết thận (không có thận)</td>
+<td>Absent kidney</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">44783954</td>
+<td>Trào ngược axit dạ dày</td>
+<td>Acid reflux</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">75911</td>
+<td>Biến dạng vẹo ngón chân cái mắc phải (<em>Hallux valgus</em>)</td>
+<td>Acquired hallux valgus</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">137951</td>
+<td>Dày sừng mắc phải</td>
+<td>Acquired keratoderma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">77965</td>
+<td>Ngón tay cò súng (ngón tay lò xo) mắc phải</td>
+<td>Acquired trigger finger</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">376707</td>
+<td>Viêm kết mạc cấp tính</td>
+<td>Acute conjunctivitis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4103640</td>
+<td>Cụt bàn chân</td>
+<td>Amputated foot</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">73241</td>
+<td>Polyp ống hậu môn và trực tràng</td>
+<td>Anal and rectal polyp</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">133655</td>
+<td>Bỏng vùng cẳng tay</td>
+<td>Burn of forearm</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">73560</td>
+<td>Gai xương gót</td>
+<td>Calcaneal spur</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">434327</td>
+<td>Lạm dụng cần sa</td>
+<td>Cannabis abuse</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4213540</td>
+<td>Rối loạn chức năng cơ – xương vùng cổ</td>
+<td>Cervical somatic dysfunction</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">140842</td>
+<td>Thay đổi cấu trúc bề mặt da</td>
+<td>Changes in skin texture</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">81378</td>
+<td>Nhuyễn sụn xương bánh chè</td>
+<td>Chondromalacia of patella</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">432303</td>
+<td>Lạm dụng cocaine</td>
+<td>Cocaine abuse</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4201390</td>
+<td>Có hậu môn nhân tạo đại tràng (<em>Colostomy</em>)</td>
+<td>Colostomy present</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">46269889</td>
+<td>Biến chứng do bệnh Crohn</td>
+<td>Complication due to Crohn’s disease</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">134438</td>
+<td>Viêm da tiếp xúc</td>
+<td>Contact dermatitis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">78619</td>
+<td>Đụng dập vùng khớp gối</td>
+<td>Contusion of knee</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">201606</td>
+<td>Bệnh Crohn</td>
+<td>Crohn’s disease</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">76786</td>
+<td>Tổn thương cấu trúc bên trong khớp gối</td>
+<td>Derangement of knee</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4115402</td>
+<td>Khó ngủ</td>
+<td>Difficulty sleeping</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">45757370</td>
+<td>Mất cân đối tuyến vú sau phẫu thuật tái tạo</td>
+<td>Disproportion of reconstructed breast</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">433111</td>
+<td>Tác động của tình trạng đói</td>
+<td>Effects of hunger</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">433527</td>
+<td>Lạc nội mạc tử cung</td>
+<td>Endometriosis</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4170770</td>
+<td>Nang thượng bì (<em>Epidermoid cyst</em>)</td>
+<td>Epidermoid cyst</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4092896</td>
+<td>Thành phần phân bất thường</td>
+<td>Feces contents abnormal</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">259995</td>
+<td>Dị vật trong hốc tự nhiên của cơ thể</td>
+<td>Foreign body in orifice</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">40481632</td>
+<td>Nang hoạt dịch (<em>Ganglion cyst</em>)</td>
+<td>Ganglion cyst</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4166231</td>
+<td>Khuynh hướng di truyền</td>
+<td>Genetic predisposition</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">433577</td>
+<td>Biến dạng ngón chân hình búa (<em>Hammer toe</em>)</td>
+<td>Hammer toe</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4231770</td>
+<td>Tăng đông máu di truyền (<em>Hereditary thrombophilia</em>)</td>
+<td>Hereditary thrombophilia</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440329</td>
+<td>Bệnh Zona (<em>Herpes zoster</em>) không biến chứng</td>
+<td>Herpes zoster without complication</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4012570</td>
+<td>Hành vi tình dục nguy cơ cao</td>
+<td>High risk sexual behavior</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4012934</td>
+<td>Homocystin niệu</td>
+<td>Homocystinuria</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">441788</td>
+<td>Nhiễm vi-rút u nhú ở người (<em>HPV</em>)</td>
+<td>Human papilloma virus infection</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4201717</td>
+<td>Có lỗ mở thông hồi tràng (<em>Ileostomy</em>)</td>
+<td>Ileostomy present</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">374375</td>
+<td>Nút ráy tai</td>
+<td>Impacted cerumen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4344500</td>
+<td>Hội chứng chèn ép dưới mỏm cùng vai</td>
+<td>Impingement syndrome of shoulder region</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">139099</td>
+<td>Móng quặp (móng chọc thịt)</td>
+<td>Ingrowing nail</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">444132</td>
+<td>Chấn thương vùng đầu gối</td>
+<td>Injury of knee</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">196168</td>
+<td>Kinh nguyệt không đều</td>
+<td>Irregular periods</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">432593</td>
+<td>Suy dinh dưỡng thể phù (<em>Kwashiorkor</em>)</td>
+<td>Kwashiorkor</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">434203</td>
+<td>Di chứng của chấn thương đụng dập</td>
+<td>Late effect of contusion</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">438329</td>
+<td>Di chứng của tai nạn giao thông cơ giới</td>
+<td>Late effect of motor vehicle accident</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">195873</td>
+<td>Huyết trắng / Khí hư (<em>Leukorrhea</em>)</td>
+<td>Leukorrhea</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4083487</td>
+<td>Thoái hóa điểm vàng thể Drusen (<em>Macular drusen</em>)</td>
+<td>Macular drusen</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4103703</td>
+<td>Đi ngoài phân đen (<em>Melena</em>)</td>
+<td>Melena</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4209423</td>
+<td>Lệ thuộc nicotine</td>
+<td>Nicotine dependence</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">377572</td>
+<td>Tổn thương tai trong do tiếng ồn</td>
+<td>Noise effects on inner ear</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">40480893</td>
+<td>Phản ứng xét nghiệm Tuberculin không đặc hiệu</td>
+<td>Nonspecific tuberculin test reaction</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">136368</td>
+<td>Bướu giáp đa nhân không nhiễm độc</td>
+<td>Non-toxic multinodular goiter</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">140648</td>
+<td>Nấm móng do vi nấm sợi (<em>Dermatophyte</em>)</td>
+<td>Onychomycosis due to dermatophyte</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">438130</td>
+<td>Lạm dụng chất dạng thuốc phiện (<em>Opioid</em>)</td>
+<td>Opioid abuse</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4091513</td>
+<td>Trung tiện</td>
+<td>Passing flatus</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4202045</td>
+<td>Hội chứng mệt mỏi sau nhiễm vi-rút</td>
+<td>Postviral fatigue syndrome</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">373478</td>
+<td>Lão thị (<em>Presbyopia</em>)</td>
+<td>Presbyopia</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">46286594</td>
+<td>Vấn đề liên quan đến lối sống</td>
+<td>Problem related to lifestyle</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">439790</td>
+<td>Đau có nguồn gốc tâm lý (<em>Psychalgia</em>)</td>
+<td>Psychalgia</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">81634</td>
+<td>Sa trễ tuyến vú</td>
+<td>Ptotic breast</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">380706</td>
+<td>Loạn thị đều</td>
+<td>Regular astigmatism</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">141932</td>
+<td>Dày sừng tuổi già</td>
+<td>Senile hyperkeratosis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">36713918</td>
+<td>Rối loạn chức năng cơ – xương vùng thắt lưng</td>
+<td>Somatic dysfunction of lumbar region</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">443172</td>
+<td>Dằm/dị vật nông vùng mặt không kèm vết thương hở lớn</td>
+<td>Splinter of face, without major open wound</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">81151</td>
+<td>Bong gân khớp cổ chân</td>
+<td>Sprain of ankle</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">72748</td>
+<td>Căng giãn bao khớp chóp xoay vai</td>
+<td>Strain of rotator cuff capsule</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">378427</td>
+<td>Thiếu hụt màng phim nước mắt (khô mắt)</td>
+<td>Tear film insufficiency</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">437264</td>
+<td>Hội chứng lệ thuộc thuốc lá</td>
+<td>Tobacco dependence syndrome</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">194083</td>
+<td>Viêm âm đạo và viêm âm hộ – âm đạo</td>
+<td>Vaginitis and vulvovaginitis</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">140641</td>
+<td>Mụn cóc thông thường (<em>Verruca vulgaris</em>)</td>
+<td>Verruca vulgaris</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">440193</td>
+<td>Liệt rủ cổ tay (<em>Wristdrop</em>)</td>
+<td>Wristdrop</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4115367</td>
+<td>Đau khớp cổ tay</td>
+<td>Wrist joint pain</td>
+</tr>
+</tbody>
+</table>
 
 
-<!-- -->
-
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -641,12 +952,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Đã sao chép!");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Đã sao chép!");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
@@ -666,57 +977,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1056,140 +1316,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./21_cohort_definitions_appendix.html" class="pagination-link" aria-label="Phụ lục A: Định nghĩa nhóm thuần tập">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Phụ lục A: Định nghĩa nhóm thuần tập</span></span>
+      <a href="./21_cohort_definitions_appendix.html" class="pagination-link" aria-label="Phụ lục A: Chi tiết định nghĩa đoàn hệ">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Phụ lục A: Chi tiết định nghĩa đoàn hệ</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./23_protocol_template.html" class="pagination-link" aria-label="Phụ lục C: Mẫu giao thức">
-        <span class="nav-page-text"><span class="chapter-title">Phụ lục C: Mẫu giao thức</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./23_protocol_template.html" class="pagination-link" aria-label="Phụ lục C: Mẫu đề cương nghiên cứu (Protocol Template)">
+        <span class="nav-page-text"><span class="chapter-title">Phụ lục C: Mẫu đề cương nghiên cứu (Protocol Template)</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Phụ lục B: Các đối chứng âm tính"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu"># Các đối chứng âm tính</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Phụ lục này chứa các đối chứng âm tính được</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>sử dụng trong nhiều chương của cuốn sách.</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## ACEi và THZ</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Bảng C.1: Các kết cục đối chứng âm tính khi so sánh các thuốc ức chế</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>men chuyển (ACEi) với thuốc lợi tiểu thiazide và các thuốc tương tự</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>thiazide (THZ).</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>ID khái niệm Tên khái niệm</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>434165 Phết cổ tử cung bất thường 436409 Đồng tử bất thường</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>199192 Trầy xước và/hoặc bỏng do ma sát ở thân mình không kèm nhiễm</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>trùng 4088290 Thiếu vú</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>4092879 Thiếu thận</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>44783954 Trào ngược axit</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>75911 Vẹo ngón cái mắc phải 137951 Dày sừng mắc phải 77965 Ngón tay lò</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>xo mắc phải 376707 Viêm kết mạc cấp tính</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>4103640 Cụt bàn chân 73241 Polyp hậu môn và trực tràng 133655 Bỏng</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>cẳng tay 73560 Gai xương gót</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>434327 Lạm dụng cần sa</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>4213540 Rối loạn chức năng thân cổ 140842 Thay đổi cấu trúc da 81378</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>Nhuyễn sụn bánh chè 432303 Lạm dụng cocaine</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>4201390 Hiện diện lỗ mở thông đại tràng</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>ID khái niệm Tên khái niệm</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>46269889 Biến chứng do bệnh Crohn 134438 Viêm da tiếp xúc</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>78619 Dập nát đầu gối 201606 Bệnh Crohn 76786 Trật khớp gối</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>4115402 Khó ngủ</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>45757370 Mất cân đối vú sau tái tạo 433111 Ảnh hưởng của việc đói</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>433527 Lạc nội mạc tử cung</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>4170770 Nang thượng bì 4092896 Phân bất thường 259995 Dị vật trong lỗ</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>tự nhiên 40481632 Nang hoạt dịch</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>4166231 Tiền sử di truyền</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>433577 Ngón chân hình búa</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>4231770 Huyết khối di truyền</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>440329 Zona không biến chứng 4012570 Hành vi tình dục nguy cơ cao</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>4012934 Đồng niệu cystine</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>441788 Nhiễm virus u nhú ở người (HPV) 4201717 Hiện diện lỗ mở thông</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>hồi tràng</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>374375 Nút ráy tai</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>4344500 Hội chứng chèn ép vùng vai 139099 Móng chọc thịt</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>444132 Chấn thương đầu gối 196168 Kinh nguyệt không đều</span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>432593 Kwashiorkor (suy dinh dưỡng thể phù)</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>434203 Di chứng của dập nát</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>438329 Di chứng của tai nạn xe cơ giới 195873 Khí hư</span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>4083487 Drusen võng mạc</span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>4103703 Đi ngoài phân đen</span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>4209423 Lệ thuộc nicotine 377572 Ảnh hưởng của tiếng ồn đến tai trong</span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>40480893 Phản ứng xét nghiệm tuberculin không đặc hiệu 136368 Bướu</span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>giáp đa nhân không độc 140648 Nấm móng do nấm da 438130 Lạm dụng thuốc</span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>phiện</span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>4091513 Trung tiện</span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>4202045 Hội chứng mệt mỏi sau virus 373478 Viễn thị</span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>46286594 Vấn đề liên quan đến lối sống 439790 Đau tâm lý</span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>*ACEi và THZ 405*</span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>ID khái niệm Tên khái niệm 81634 Vú sa trễ</span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>380706 Loạn thị đều</span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>141932 Dày sừng tuổi già</span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>36713918 Rối loạn chức năng cơ thể vùng thắt lưng 443172 Dị vật ở mặt,</span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>không có vết thương hở lớn 81151 Bong gân cổ chân</span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>72748 Căng cơ bao chóp xoay 378427 Thiếu hụt màng phim nước mắt</span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>437264 Hội chứng lệ thuộc thuốc lá 194083 Viêm âm đạo và viêm âm hộ</span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>140641 Mụn cóc thông thường</span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>440193 Bàn tay rủ 4115367 Đau khớp cổ tay</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Sách OHDSI (The Book of OHDSI - Bản tiếng Việt)</p>
+<p>Sách OHDSI — Ấn bản Tiếng Việt (The Book of OHDSI)</p>
 </div>   
     <div class="nav-footer-center">
-<p>🚧 Đang trong quá trình phát triển — OHDSI Vietnam Chapter</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi/edit/main/22_negative_controls.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<p>Cộng đồng OHDSI Việt Nam (OHDSI Vietnam Chapter) · Giấy phép CC0 1.0</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi/edit/main/22_negative_controls.qmd" class="toc-action"><i class="bi bi-github"></i>Chỉnh sửa trang này</a></li><li><a href="https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi/issues/new" class="toc-action"><i class="bi empty"></i>Báo lỗi nội dung / dịch thuật</a></li></ul></div></div>
     <div class="nav-footer-right">
-<p>Quarto Book</p>
+<p>Xây dựng với Quarto</p>
 </div>
   </div>
 </footer>

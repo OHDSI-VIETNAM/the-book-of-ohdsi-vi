@@ -1,76 +1,39 @@
----
-title: "Phụ lục C: Mẫu giao thức"
----
+# Phụ lục C: Mẫu đề cương nghiên cứu (Protocol Template)
 
-# Mẫu giao thức
+Dưới đây là cấu trúc chuẩn của một Đề cương nghiên cứu (*Study Protocol*) trong mạng lưới OHDSI:
 
-1.  Mục lục
-
-2.  Danh mục từ viết tắt
-
-3.  Tóm tắt
-
-4.  Các sửa đổi và cập nhật
-
-5.  Các cột mốc quan trọng
-
-6.  Cơ sở lý luận và bối cảnh
-
-7.  Mục tiêu nghiên cứu
-
-- Giả thuyết chính
-
-- Giả thuyết phụ
-
-- Mục tiêu chính
-
-- Mục tiêu phụ
-
-8.  Phương pháp nghiên cứu
-
-- Thiết kế nghiên cứu
-
-- (Các) nguồn dữ liệu
-
-- Đối tượng nghiên cứu
-
-- Các yếu tố phơi nhiễm
-
-- Các kết cục
-
-- Các biến đồng thời
-
-9.  Kế hoạch phân tích dữ liệu
-
-- Tính toán thời gian có nguy cơ
-
-- Đặc tả mô hình
-
-- Gộp các ước tính hiệu quả giữa các cơ sở dữ liệu
-
-- Các phân tích cần thực hiện
-
-- Đầu ra
-
-- Đánh giá bằng chứng
-
-10. Chẩn đoán nghiên cứu
-
-- Cỡ mẫu và sức mạnh nghiên cứu
-
-- Tính so sánh của nhóm thuần tập
-
-- Đánh giá sai số hệ thống
-
-11. Điểm mạnh và hạn chế của các phương pháp nghiên cứu
-
-12. Bảo vệ đối tượng con người
-
-13. Quản lý và báo cáo các biến cố bất lợi và phản ứng bất lợi
-
-14. Kế hoạch phổ biến và truyền thông kết quả nghiên cứu
-
-15. Phụ lục&#58; Các đối chứng âm tính
-
-16. Tài liệu tham khảo
-
+1. **Mục lục** (*Table of contents*)
+2. **Danh mục chữ viết tắt** (*List of abbreviations*)
+3. **Tóm tắt nghiên cứu** (*Abstract*)
+4. **Lịch sử sửa đổi và cập nhật** (*Amendments and Updates*)
+5. **Các cột mốc thực hiện** (*Milestones*)
+6. **Cơ sở lý luận và bối cảnh nghiên cứu** (*Rationale and Background*)
+7. **Mục tiêu và giả thuyết nghiên cứu** (*Study Objectives*)
+   - Giả thuyết nghiên cứu chính (*Primary Hypotheses*)
+   - Giả thuyết nghiên cứu phụ (*Secondary Hypotheses*)
+   - Mục tiêu chính (*Primary Objectives*)
+   - Mục tiêu phụ (*Secondary Objectives*)
+8. **Phương pháp nghiên cứu** (*Research Methods*)
+   - Thiết kế nghiên cứu (*Study Design*)
+   - Các nguồn dữ liệu (*Data Source(s)*)
+   - Quần thể nghiên cứu (*Study Population*)
+   - Các yếu tố phơi nhiễm / Đoàn hệ mục tiêu và đối chứng (*Exposures*)
+   - Các kết cục lâm sàng (*Outcomes*)
+   - Các biến đồng thời / Hiệp biến (*Covariates*)
+9. **Kế hoạch phân tích dữ liệu** (*Data Analysis Plan*)
+   - Xác định khoảng thời gian có nguy cơ (*Calculation of time-at-risk*)
+   - Đặc tả mô hình thống kê (*Model Specification*)
+   - Gộp các ước lượng hiệu quả giữa các cơ sở dữ liệu (*Pooling effect estimates across databases*)
+   - Danh mục các phân tích thực hiện (*Analyses to perform*)
+   - Đầu ra dự kiến (*Output*)
+   - Quy trình đánh giá bằng chứng (*Evidence Evaluation*)
+10. **Chẩn đoán nghiên cứu** (*Study Diagnostics*)
+    - Cỡ mẫu và lực thống kê của nghiên cứu (*Sample Size and Study Power*)
+    - Tính tương đồng và khả năng so sánh giữa các đoàn hệ (*Cohort Comparability*)
+    - Đánh giá sai số hệ thống và hiệu chuẩn thực nghiệm (*Systematic Error Assessment*)
+11. **Điểm mạnh và hạn chế của phương pháp nghiên cứu** (*Strengths and Limitations of the Research Methods*)
+12. **Bảo vệ đối tượng nghiên cứu là con người** (*Protection of Human Subjects*)
+13. **Quản lý và báo cáo các biến cố bất lợi và phản ứng có hại** (*Management and Reporting of Adverse Events and Adverse Reactions*)
+14. **Kế hoạch công bố và truyền thông kết quả nghiên cứu** (*Plans for Disseminating and Communicating Study Results*)
+15. **Phụ lục: Danh mục chứng âm** (*Appendix: Negative controls*)
+16. **Tài liệu tham khảo** (*References*)

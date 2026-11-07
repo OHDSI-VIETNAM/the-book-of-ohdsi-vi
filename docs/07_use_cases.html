@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.554">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Sách OHDSI (The Book of OHDSI) - Chương 7: Các trường hợp sử dụng phân tích dữ liệu</title>
+<title>Sách OHDSI (The Book of OHDSI) - Chương 7: Các bài toán ứng dụng phân tích dữ liệu</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -91,17 +57,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-no-results-text": "Không tìm thấy kết quả",
+    "search-matching-documents-text": "kết quả phù hợp",
+    "search-copy-link-title": "Sao chép liên kết tìm kiếm",
+    "search-hide-matches-text": "Ẩn các kết quả khác",
+    "search-more-match-text": "kết quả khác trong chương này",
+    "search-more-matches-text": "kết quả khác trong chương này",
+    "search-clear-button-title": "Xóa",
+    "search-text-placeholder": "Tìm kiếm trong sách...",
+    "search-detached-cancel-button-title": "Hủy",
+    "search-submit-button-title": "Tìm",
+    "search-label": "Tìm kiếm"
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
@@ -116,11 +82,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Ẩn / hiện thanh điều hướng" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07_use_cases.html">Phần III — Phân tích Dữ liệu</a></li><li class="breadcrumb-item"><a href="./07_use_cases.html"><span class="chapter-title">Chương 7: Các trường hợp sử dụng phân tích</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07_use_cases.html">Phần III — Phân tích Dữ liệu</a></li><li class="breadcrumb-item"><a href="./07_use_cases.html"><span class="chapter-title">Chương 7: Các bài toán ứng dụng phân tích dữ liệu</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Ẩn / hiện thanh điều hướng" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -136,21 +102,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Sách OHDSI (The Book of OHDSI)</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+    <a href="https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Chuyển chế độ Sáng / Tối"><i class="bi"></i></a>
 </div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Tìm kiếm"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lời tựa &amp; Giới thiệu</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lời tựa &amp; Giới thiệu</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -169,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_where_to_begin.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 2: Nơi bắt đầu</span></a>
+  <a href="./02_where_to_begin.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 2: Bắt đầu từ đâu</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -182,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
- <span class="menu-text">Phần II — Chuẩn hóa Dữ liệu</span></a>
+ <span class="menu-text">Phần II — Biểu diễn Dữ liệu Thống nhất</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -195,12 +162,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_vocabularies.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 5: Từ vựng Chuẩn hóa</span></a>
+  <a href="./05_vocabularies.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 5: Bộ Từ vựng Chuẩn hóa</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_etl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 6: Trích xuất - Chuyển đổi - Nạp (ETL)</span></a>
+  <a href="./06_etl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 6: Trích xuất – Chuyển đổi – Nạp dữ liệu (ETL)</span></a>
   </div>
 </li>
       </ul>
@@ -216,12 +183,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07_use_cases.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Chương 7: Các trường hợp sử dụng phân tích</span></a>
+  <a href="./07_use_cases.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Chương 7: Các bài toán ứng dụng phân tích dữ liệu</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08_tools.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 8: Công cụ phân tích OHDSI</span></a>
+  <a href="./08_tools.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 8: Hệ sinh thái công cụ phân tích OHDSI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -231,22 +198,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./10_cohort_definitions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 10: Định nghĩa nhóm thuần tập</span></a>
+  <a href="./10_cohort_definitions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 10: Định nghĩa đoàn hệ (Cohort)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./11_characterization.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 11: Đặc điểm hóa</span></a>
+  <a href="./11_characterization.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 11: Mô tả đặc trưng lâm sàng (Characterization)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./12_population_level_estimation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 12: Ước tính cấp độ quần thể</span></a>
+  <a href="./12_population_level_estimation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 12: Ước lượng hiệu quả ở cấp độ quần thể</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./13_patient_level_prediction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 13: Dự đoán cấp độ bệnh nhân</span></a>
+  <a href="./13_patient_level_prediction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 13: Dự báo ở cấp độ bệnh nhân</span></a>
   </div>
 </li>
       </ul>
@@ -267,17 +234,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./15_clinical_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 15: Tính hợp lệ lâm sàng</span></a>
+  <a href="./15_clinical_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 15: Giá trị hợp lệ lâm sàng</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./16_software_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 16: Tính hợp lệ của phần mềm</span></a>
+  <a href="./16_software_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 16: Giá trị hợp lệ của phần mềm</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./17_method_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 17: Tính hợp lệ của phương pháp</span></a>
+  <a href="./17_method_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 17: Giá trị hợp lệ của phương pháp</span></a>
   </div>
 </li>
       </ul>
@@ -285,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
- <span class="menu-text">Phần V — Các nghiên cứu OHDSI</span></a>
+ <span class="menu-text">Phần V — Nghiên cứu trong Mạng lưới OHDSI</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -293,12 +260,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./18_study_steps.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 18: Các bước nghiên cứu</span></a>
+  <a href="./18_study_steps.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 18: Quy trình thực hiện một nghiên cứu</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./19_network_studies.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 19: Nghiên cứu mạng lưới OHDSI</span></a>
+  <a href="./19_network_studies.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 19: Nghiên cứu mạng lưới đa trung tâm OHDSI</span></a>
   </div>
 </li>
       </ul>
@@ -314,32 +281,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./20_glossary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bảng thuật ngữ</span></a>
+  <a href="./20_glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bảng thuật ngữ chuẩn hóa (Glossary)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./21_cohort_definitions_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục A: Định nghĩa nhóm thuần tập</span></a>
+  <a href="./21_cohort_definitions_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục A: Chi tiết định nghĩa đoàn hệ</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./22_negative_controls.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục B: Các đối chứng âm tính</span></a>
+  <a href="./22_negative_controls.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục B: Danh mục kết cục chứng âm (Negative Controls)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./23_protocol_template.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục C: Mẫu giao thức</span></a>
+  <a href="./23_protocol_template.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục C: Mẫu đề cương nghiên cứu (Protocol Template)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./24_hints.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục D: Gợi ý trả lời</span></a>
+  <a href="./24_hints.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục D: Đáp án và gợi ý bài tập</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./25_references_and_index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Thư mục tài liệu tham khảo &amp; Chỉ mục</span></a>
+  <a href="./25_references_and_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tài liệu tham khảo &amp; Chỉ mục</span></a>
   </div>
 </li>
       </ul>
@@ -350,38 +319,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
-    <h2 id="toc-title">Nội dung chính</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">Nội dung trong chương</h2>
    
   <ul>
-  <li><a href="#các-trường-hợp-sử-dụng-phân-tích-dữ-liệu" id="toc-các-trường-hợp-sử-dụng-phân-tích-dữ-liệu" class="nav-link active" data-scroll-target="#các-trường-hợp-sử-dụng-phân-tích-dữ-liệu">Các trường hợp sử dụng phân tích dữ liệu</a>
-  <ul>
-  <li><a href="#đặc-điểm-hóa" id="toc-đặc-điểm-hóa" class="nav-link" data-scroll-target="#đặc-điểm-hóa">Đặc điểm hóa</a></li>
-  <li><a href="#ước-tính-cấp-độ-quần-thể" id="toc-ước-tính-cấp-độ-quần-thể" class="nav-link" data-scroll-target="#ước-tính-cấp-độ-quần-thể">Ước tính cấp độ quần thể</a></li>
-  <li><a href="#dự-đoán-cấp-độ-bệnh-nhân" id="toc-dự-đoán-cấp-độ-bệnh-nhân" class="nav-link" data-scroll-target="#dự-đoán-cấp-độ-bệnh-nhân">Dự đoán cấp độ bệnh nhân</a></li>
-  <li><a href="#các-trường-hợp-sử-dụng-ví-dụ-trong-tăng-huyết-áp" id="toc-các-trường-hợp-sử-dụng-ví-dụ-trong-tăng-huyết-áp" class="nav-link" data-scroll-target="#các-trường-hợp-sử-dụng-ví-dụ-trong-tăng-huyết-áp">Các trường hợp sử dụng ví dụ trong tăng huyết áp</a>
+  <li><a href="#mô-tả-đặc-trưng-lâm-sàng" id="toc-mô-tả-đặc-trưng-lâm-sàng" class="nav-link active" data-scroll-target="#mô-tả-đặc-trưng-lâm-sàng">Mô tả đặc trưng lâm sàng</a></li>
+  <li><a href="#ước-lượng-hiệu-quả-ở-cấp-độ-quần-thể" id="toc-ước-lượng-hiệu-quả-ở-cấp-độ-quần-thể" class="nav-link" data-scroll-target="#ước-lượng-hiệu-quả-ở-cấp-độ-quần-thể">Ước lượng hiệu quả ở cấp độ quần thể</a></li>
+  <li><a href="#dự-báo-ở-cấp-độ-bệnh-nhân" id="toc-dự-báo-ở-cấp-độ-bệnh-nhân" class="nav-link" data-scroll-target="#dự-báo-ở-cấp-độ-bệnh-nhân">Dự báo ở cấp độ bệnh nhân</a></li>
+  <li><a href="#ví-dụ-các-bài-toán-ứng-dụng-trong-bệnh-tăng-huyết-áp" id="toc-ví-dụ-các-bài-toán-ứng-dụng-trong-bệnh-tăng-huyết-áp" class="nav-link" data-scroll-target="#ví-dụ-các-bài-toán-ứng-dụng-trong-bệnh-tăng-huyết-áp">Ví dụ các bài toán ứng dụng trong bệnh tăng huyết áp</a>
   <ul class="collapse">
-  <li><a href="#các-câu-hỏi-đặc-điểm-hóa" id="toc-các-câu-hỏi-đặc-điểm-hóa" class="nav-link" data-scroll-target="#các-câu-hỏi-đặc-điểm-hóa">Các câu hỏi đặc điểm hóa</a></li>
-  <li><a href="#câu-hỏi-ước-tính-cấp-độ-quần-thể" id="toc-câu-hỏi-ước-tính-cấp-độ-quần-thể" class="nav-link" data-scroll-target="#câu-hỏi-ước-tính-cấp-độ-quần-thể">Câu hỏi ước tính cấp độ quần thể</a></li>
-  <li><a href="#câu-hỏi-dự-đoán-cấp-độ-bệnh-nhân" id="toc-câu-hỏi-dự-đoán-cấp-độ-bệnh-nhân" class="nav-link" data-scroll-target="#câu-hỏi-dự-đoán-cấp-độ-bệnh-nhân">Câu hỏi dự đoán cấp độ bệnh nhân</a></li>
+  <li><a href="#các-câu-hỏi-mô-tả-đặc-trưng-lâm-sàng" id="toc-các-câu-hỏi-mô-tả-đặc-trưng-lâm-sàng" class="nav-link" data-scroll-target="#các-câu-hỏi-mô-tả-đặc-trưng-lâm-sàng">Các câu hỏi mô tả đặc trưng lâm sàng</a></li>
+  <li><a href="#câu-hỏi-ước-lượng-hiệu-quả-ở-cấp-độ-quần-thể" id="toc-câu-hỏi-ước-lượng-hiệu-quả-ở-cấp-độ-quần-thể" class="nav-link" data-scroll-target="#câu-hỏi-ước-lượng-hiệu-quả-ở-cấp-độ-quần-thể">Câu hỏi ước lượng hiệu quả ở cấp độ quần thể</a></li>
+  <li><a href="#câu-hỏi-dự-báo-ở-cấp-độ-bệnh-nhân" id="toc-câu-hỏi-dự-báo-ở-cấp-độ-bệnh-nhân" class="nav-link" data-scroll-target="#câu-hỏi-dự-báo-ở-cấp-độ-bệnh-nhân">Câu hỏi dự báo ở cấp độ bệnh nhân</a></li>
   </ul></li>
   <li><a href="#các-hạn-chế-của-nghiên-cứu-quan-sát" id="toc-các-hạn-chế-của-nghiên-cứu-quan-sát" class="nav-link" data-scroll-target="#các-hạn-chế-của-nghiên-cứu-quan-sát">Các hạn chế của nghiên cứu quan sát</a>
   <ul class="collapse">
   <li><a href="#dữ-liệu-sai-lệch" id="toc-dữ-liệu-sai-lệch" class="nav-link" data-scroll-target="#dữ-liệu-sai-lệch">Dữ liệu sai lệch</a></li>
-  <li><a href="#dữ-liệu-bị-thiếu" id="toc-dữ-liệu-bị-thiếu" class="nav-link" data-scroll-target="#dữ-liệu-bị-thiếu">Dữ liệu bị thiếu</a></li>
+  <li><a href="#dữ-liệu-bị-khuyết-thiếu" id="toc-dữ-liệu-bị-khuyết-thiếu" class="nav-link" data-scroll-target="#dữ-liệu-bị-khuyết-thiếu">Dữ liệu bị khuyết thiếu</a></li>
   </ul></li>
   <li><a href="#tóm-tắt" id="toc-tóm-tắt" class="nav-link" data-scroll-target="#tóm-tắt">Tóm tắt</a></li>
   <li><a href="#bài-tập" id="toc-bài-tập" class="nav-link" data-scroll-target="#bài-tập">Bài tập</a></li>
-  </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi/edit/main/07_use_cases.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi/edit/main/07_use_cases.qmd" class="toc-action"><i class="bi bi-github"></i>Chỉnh sửa trang này</a></li><li><a href="https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi/issues/new" class="toc-action"><i class="bi empty"></i>Báo lỗi nội dung / dịch thuật</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07_use_cases.html">Phần III — Phân tích Dữ liệu</a></li><li class="breadcrumb-item"><a href="./07_use_cases.html"><span class="chapter-title">Chương 7: Các trường hợp sử dụng phân tích</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07_use_cases.html">Phần III — Phân tích Dữ liệu</a></li><li class="breadcrumb-item"><a href="./07_use_cases.html"><span class="chapter-title">Chương 7: Các bài toán ứng dụng phân tích dữ liệu</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">Chương 7: Các trường hợp sử dụng phân tích dữ liệu</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title"><span class="chapter-title">Chương 7: Các bài toán ứng dụng phân tích dữ liệu</span></h1>
 </div>
 
 
@@ -398,174 +364,202 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="các-trường-hợp-sử-dụng-phân-tích-dữ-liệu" class="level1">
-<h1>Các trường hợp sử dụng phân tích dữ liệu</h1>
 <p><em>Chủ biên chương: David Madigan</em></p>
-<p>Sự hợp tác OHDSI tập trung vào việc tạo ra bằng chứng đáng tin cậy từ dữ liệu chăm sóc sức khỏe thực tế, thường ở dạng cơ sở dữ liệu yêu cầu thanh toán hoặc cơ sở dữ liệu hồ sơ sức khỏe điện tử. Các trường hợp sử dụng mà OHDSI tập trung vào thuộc ba danh mục chính:</p>
+<p>Mạng lưới hợp tác OHDSI tập trung vào việc tạo ra bằng chứng đáng tin cậy từ dữ liệu chăm sóc sức khỏe đời thực (real-world healthcare data), thường ở dạng cơ sở dữ liệu yêu cầu thanh toán bảo hiểm (claims databases) hoặc cơ sở dữ liệu hồ sơ bệnh án điện tử (EHR). Các bài toán ứng dụng (use cases) mà OHDSI tập trung giải quyết thuộc ba nhóm chính:</p>
 <ul>
-<li><p>Đặc điểm hóa</p></li>
-<li><p>Ước tính cấp độ quần thể</p></li>
-<li><p>Dự đoán cấp độ bệnh nhân</p></li>
+<li>Mô tả đặc trưng lâm sàng (Characterization)</li>
+<li>Ước lượng hiệu quả ở cấp độ quần thể (Population-level estimation)</li>
+<li>Dự báo ở cấp độ bệnh nhân (Patient-level prediction)</li>
 </ul>
-<p>Chúng tôi mô tả chi tiết những điều này dưới đây. Lưu ý, đối với tất cả các trường hợp sử dụng, bằng chứng chúng tôi tạo ra kế thừa các hạn chế của dữ liệu; chúng tôi thảo luận chi tiết về những hạn chế này trong phần sách về Chất lượng bằng chứng (Chương 14 - 18)</p>
-<section id="đặc-điểm-hóa" class="level2">
-<h2 class="anchored" data-anchor-id="đặc-điểm-hóa">Đặc điểm hóa</h2>
-<p>Đặc điểm hóa cố gắng trả lời câu hỏi Điều gì đã xảy ra với họ?</p>
-<p>Chúng tôi có thể sử dụng dữ liệu để cung cấp câu trả lời cho các câu hỏi về đặc điểm của những người trong một nhóm thuần tập hoặc toàn bộ cơ sở dữ liệu, thực hành chăm sóc sức khỏe và nghiên cứu cách những điều này thay đổi theo thời gian.</p>
-<p>Dữ liệu có thể cung cấp câu trả lời cho các câu hỏi như:</p>
+<p>Chúng tôi sẽ trình bày chi tiết từng nhóm bài toán dưới đây. Lưu ý rằng đối với tất cả các bài toán ứng dụng, bằng chứng được tạo ra đều kế thừa những hạn chế cố hữu của dữ liệu nguồn; chúng tôi thảo luận sâu về những hạn chế này trong phần sách về Chất lượng bằng chứng (Chương 14 – 18).</p>
+<section id="mô-tả-đặc-trưng-lâm-sàng" class="level2">
+<h2 class="anchored" data-anchor-id="mô-tả-đặc-trưng-lâm-sàng">Mô tả đặc trưng lâm sàng</h2>
+<p>Mô tả đặc trưng lâm sàng (characterization) hướng tới việc trả lời câu hỏi:</p>
+<blockquote class="blockquote">
+<p>Điều gì đã xảy ra với họ?</p>
+</blockquote>
+<p>Chúng ta có thể sử dụng dữ liệu để trả lời các câu hỏi về đặc điểm của những cá thể trong một đoàn hệ (nhóm thuần tập – cohort) hoặc trong toàn bộ cơ sở dữ liệu, về thực hành chăm sóc sức khỏe, cũng như nghiên cứu cách thức những yếu tố này thay đổi theo thời gian.</p>
+<p>Dữ liệu có thể cung cấp câu trả lời cho những câu hỏi như:</p>
 <ul>
-<li><p>Đối với bệnh nhân mới được chẩn đoán rung nhĩ, có bao nhiêu người nhận được đơn thuốc warfarin?</p></li>
-<li><p>Độ tuổi trung bình của bệnh nhân trải qua phẫu thuật thay khớp háng là bao nhiêu?</p></li>
-<li><p>Tỷ lệ mắc bệnh viêm phổi ở bệnh nhân trên 65 tuổi là bao nhiêu? Các câu hỏi đặc điểm hóa điển hình được xây dựng như sau:</p></li>
-<li><p>Có bao nhiêu bệnh nhân…?</p></li>
-<li><p>Bao lâu thì…?</p></li>
-<li><p>Tỷ lệ bệnh nhân… là bao nhiêu?</p></li>
-<li><p>Sự phân bố các giá trị xét nghiệm… là gì?</p></li>
-<li><p>Mức HbA1c cho bệnh nhân với… là bao nhiêu?</p></li>
-<li><p>Các giá trị xét nghiệm cho bệnh nhân… là gì?</p></li>
-<li><p>Thời gian phơi nhiễm trung vị cho bệnh nhân dùng…. là bao nhiêu?</p></li>
-<li><p>Các xu hướng theo thời gian trong… là gì?</p></li>
-<li><p>Những loại thuốc khác mà những bệnh nhân này đang sử dụng là gì?</p></li>
-<li><p>Các liệu pháp đi kèm là gì?</p></li>
-<li><p>Chúng ta có đủ các trường hợp… không?</p></li>
-<li><p>Liệu có khả thi để nghiên cứu X không…?</p></li>
-<li><p>Nhân khẩu học của… là gì?</p></li>
-<li><p>Các yếu tố nguy cơ của… là gì? (nếu xác định một yếu tố nguy cơ cụ thể, có thể là ước tính, không phải dự đoán)</p></li>
-<li><p>Các yếu tố dự báo của… là gì? Và đầu ra mong muốn là:</p></li>
-<li><p>Số lượng hoặc tỷ lệ phần trăm</p></li>
-<li><p>Các mức trung bình</p></li>
-<li><p>Thống kê mô tả</p></li>
-<li><p>Tỷ lệ mắc bệnh</p></li>
-<li><p>Tỷ lệ hiện mắc</p></li>
-<li><p>Nhóm thuần tập</p></li>
-<li><p>Kiểu hình dựa trên quy tắc</p></li>
-<li><p>Sử dụng thuốc</p></li>
-<li><p>Lịch sử tự nhiên của bệnh</p></li>
-<li><p>Sự tuân thủ</p></li>
-<li><p>Hồ sơ bệnh đồng mắc</p></li>
-<li><p>Các con đường điều trị</p></li>
-<li><p>Dòng điều trị</p></li>
+<li>Đối với những bệnh nhân mới được chẩn đoán rung nhĩ, có bao nhiêu người được kê đơn thuốc warfarin?</li>
+<li>Độ tuổi trung bình của những bệnh nhân trải qua phẫu thuật thay khớp háng là bao nhiêu?</li>
+<li>Tỷ suất mới mắc (incidence rate) bệnh viêm phổi ở những bệnh nhân trên 65 tuổi là bao nhiêu?</li>
+</ul>
+<p>Các câu hỏi mô tả đặc trưng lâm sàng điển hình thường được diễn đạt dưới dạng:</p>
+<ul>
+<li>Có bao nhiêu bệnh nhân…?</li>
+<li>Tần suất xảy ra của… là bao nhiêu?</li>
+<li>Tỷ lệ bệnh nhân… là bao nhiêu?</li>
+<li>Phân phối các giá trị xét nghiệm của… như thế nào?</li>
+<li>Nồng độ HbA1c ở những bệnh nhân mắc… là bao nhiêu?</li>
+<li>Các giá trị xét nghiệm của những bệnh nhân… là gì?</li>
+<li>Thời gian phơi nhiễm trung vị của những bệnh nhân sử dụng… là bao lâu?</li>
+<li>Xu hướng biến đổi theo thời gian của… diễn ra như thế nào?</li>
+<li>Những loại thuốc nào khác mà các bệnh nhân này đang sử dụng?</li>
+<li>Các liệu pháp điều trị đi kèm (concomitant therapies) là gì?</li>
+<li>Chúng ta có đủ số lượng ca bệnh… hay không?</li>
+<li>Việc nghiên cứu vấn đề X có khả thi hay không…?</li>
+<li>Đặc điểm nhân khẩu học của… là gì?</li>
+<li>Các yếu tố nguy cơ của… là gì? (nếu nhằm xác định tác động của một yếu tố nguy cơ cụ thể thì có thể thuộc bài toán ước lượng, chứ không phải dự báo)</li>
+<li>Các yếu tố dự báo (predictors) của… là gì?</li>
+</ul>
+<p>Và kết quả đầu ra mong muốn thường là:</p>
+<ul>
+<li>Số đếm hoặc tỷ lệ phần trăm</li>
+<li>Các giá trị trung bình</li>
+<li>Thống kê mô tả</li>
+<li>Tỷ suất mới mắc (Incidence rate)</li>
+<li>Tỷ lệ hiện mắc (Prevalence)</li>
+<li>Đoàn hệ / nhóm thuần tập (Cohort)</li>
+<li>Kiểu hình dựa trên quy tắc (Rule-based phenotype)</li>
+<li>Tình hình sử dụng thuốc (Drug utilization)</li>
+<li>Diễn tiến tự nhiên của bệnh (Disease natural history)</li>
+<li>Mức độ tuân thủ điều trị (Adherence)</li>
+<li>Hồ sơ bệnh đồng mắc (Co-morbidity profile)</li>
+<li>Lộ trình điều trị (Treatment pathways)</li>
+<li>Phác đồ / bước điều trị (Line of therapy)</li>
 </ul>
 </section>
-<section id="ước-tính-cấp-độ-quần-thể" class="level2">
-<h2 class="anchored" data-anchor-id="ước-tính-cấp-độ-quần-thể">Ước tính cấp độ quần thể</h2>
-<p>Ở một mức độ hạn chế, dữ liệu có thể hỗ trợ các suy luận nhân quả về tác động của các can thiệp chăm sóc sức khỏe, trả lời câu hỏi</p>
+<section id="ước-lượng-hiệu-quả-ở-cấp-độ-quần-thể" class="level2">
+<h2 class="anchored" data-anchor-id="ước-lượng-hiệu-quả-ở-cấp-độ-quần-thể">Ước lượng hiệu quả ở cấp độ quần thể</h2>
+<p>Ở một mức độ nhất định, dữ liệu quan sát có thể hỗ trợ suy luận nhân quả về tác động của các can thiệp y tế, nhằm trả lời câu hỏi:</p>
+<blockquote class="blockquote">
 <p>Các tác động nhân quả là gì?</p>
-<p>Chúng tôi muốn hiểu các tác động nhân quả để hiểu hậu quả của các hành động. Ví dụ, nếu chúng tôi quyết định thực hiện một phương pháp điều trị nào đó, điều đó thay đổi những gì xảy ra với chúng tôi trong tương lai như thế nào?</p>
-<p>Dữ liệu có thể cung cấp câu trả lời cho các câu hỏi như:</p>
+</blockquote>
+<p>Chúng ta muốn tìm hiểu các tác động nhân quả để nắm được hệ quả của các hành động can thiệp. Ví dụ, nếu chúng ta quyết định áp dụng một phương pháp điều trị nào đó, quyết định ấy sẽ làm thay đổi những gì xảy ra với bệnh nhân trong tương lai như thế nào?</p>
+<p>Dữ liệu có thể cung cấp câu trả lời cho những câu hỏi như:</p>
 <ul>
-<li>Đối với bệnh nhân mới được chẩn đoán rung nhĩ, trong năm đầu tiên sau khi bắt đầu</li>
+<li>Đối với bệnh nhân mới được chẩn đoán rung nhĩ, trong năm đầu tiên sau khi khởi trị, liệu warfarin có gây ra nhiều biến cố xuất huyết nghiêm trọng hơn so với dabigatran hay không?</li>
+<li>Tác động nhân quả của metformin lên biến cố tiêu chảy có thay đổi theo độ tuổi hay không?</li>
 </ul>
-<ol start="3" type="1">
-<li><em>Dự đoán cấp độ bệnh nhân 103</em></li>
-</ol>
-<p>điều trị, warfarin có gây ra nhiều biến cố chảy máu nghiêm trọng hơn dabigatran không?</p>
+<p>Các câu hỏi ước lượng hiệu quả ở cấp độ quần thể điển hình thường được đặt ra như sau:</p>
 <ul>
-<li><p>Tác động nhân quả của metformin đối với tiêu chảy có thay đổi theo độ tuổi không? Các câu hỏi ước tính tác động cấp độ quần thể điển hình được xây dựng như sau:</p></li>
-<li><p>Tác động của… là gì?</p></li>
-<li><p>Điều gì sẽ xảy ra nếu tôi thực hiện can thiệp…?</p></li>
-<li><p>Phương pháp điều trị nào hiệu quả hơn?</p></li>
-<li><p>Nguy cơ của X đối với Y là bao nhiêu?</p></li>
-<li><p>Thời gian đến khi xảy ra biến cố của… là bao nhiêu? Và đầu ra mong muốn là:</p></li>
-<li><p>Nguy cơ tương đối</p></li>
-<li><p>Tỷ lệ nguy hiểm</p></li>
-<li><p>Tỷ lệ chênh lệch</p></li>
-<li><p>Tác động điều trị trung bình</p></li>
-<li><p>Tác động nhân quả</p></li>
-<li><p>Sự liên quan</p></li>
-<li><p>Sự tương quan</p></li>
-<li><p>Giám sát an toàn</p></li>
-<li><p>Hiệu quả so sánh</p></li>
+<li>Tác động của… là gì?</li>
+<li>Điều gì sẽ xảy ra nếu thực hiện can thiệp…?</li>
+<li>Phương pháp điều trị nào mang lại hiệu quả tốt hơn?</li>
+<li>Nguy cơ của X đối với Y là bao nhiêu?</li>
+<li>Thời gian đến khi xảy ra biến cố (time-to-event) của… là bao lâu?</li>
+</ul>
+<p>Và kết quả đầu ra mong muốn là:</p>
+<ul>
+<li>Nguy cơ tương đối (Relative risk)</li>
+<li>Tỷ số nguy cơ (Hazard ratio)</li>
+<li>Tỷ số chênh (Odds ratio)</li>
+<li>Hiệu quả điều trị trung bình (Average treatment effect)</li>
+<li>Tác động nhân quả (Causal effect)</li>
+<li>Mối liên hệ (Association)</li>
+<li>Mối tương quan (Correlation)</li>
+<li>Giám sát an toàn thuốc (Safety surveillance)</li>
+<li>Hiệu quả so sánh (Comparative effectiveness)</li>
 </ul>
 </section>
-<section id="dự-đoán-cấp-độ-bệnh-nhân" class="level2">
-<h2 class="anchored" data-anchor-id="dự-đoán-cấp-độ-bệnh-nhân">Dự đoán cấp độ bệnh nhân</h2>
-<p>Dựa trên lịch sử sức khỏe bệnh nhân được thu thập trong cơ sở dữ liệu, chúng tôi có thể đưa ra các dự đoán cấp độ bệnh nhân về các biến cố sức khỏe trong tương lai, trả lời câu hỏi</p>
+<section id="dự-báo-ở-cấp-độ-bệnh-nhân" class="level2">
+<h2 class="anchored" data-anchor-id="dự-báo-ở-cấp-độ-bệnh-nhân">Dự báo ở cấp độ bệnh nhân</h2>
+<p>Dựa trên lịch sử sức khỏe của bệnh nhân được thu thập trong cơ sở dữ liệu, chúng ta có thể đưa ra các dự báo ở cấp độ từng bệnh nhân về những biến cố sức khỏe trong tương lai, nhằm trả lời câu hỏi:</p>
+<blockquote class="blockquote">
 <p>Điều gì sẽ xảy ra với tôi?</p>
-<p>Dữ liệu có thể cung cấp câu trả lời cho các câu hỏi như:</p>
+</blockquote>
+<p>Dữ liệu có thể cung cấp câu trả lời cho những câu hỏi như:</p>
 <ul>
-<li><p>Đối với một bệnh nhân cụ thể mới được chẩn đoán mắc chứng rối loạn trầm cảm nặng, xác suất bệnh nhân sẽ tự tử trong năm đầu tiên sau khi chẩn đoán là bao nhiêu?</p></li>
-<li><p>Đối với một bệnh nhân cụ thể mới được chẩn đoán rung nhĩ, trong năm đầu tiên sau khi bắt đầu điều trị bằng warfarin, xác suất bệnh nhân bị đột quỵ do thiếu máu cục bộ là bao nhiêu?</p></li>
+<li>Đối với một bệnh nhân cụ thể mới được chẩn đoán mắc rối loạn trầm cảm chủ yếu, xác suất bệnh nhân đó có hành vi tự sát trong năm đầu tiên sau chẩn đoán là bao nhiêu?</li>
+<li>Đối với một bệnh nhân cụ thể mới được chẩn đoán rung nhĩ, trong năm đầu tiên sau khi khởi trị bằng warfarin, xác suất bệnh nhân đó bị đột quỵ thiếu máu cục bộ là bao nhiêu?</li>
 </ul>
-<p>Các câu hỏi dự đoán cấp độ bệnh nhân điển hình được xây dựng như sau:</p>
+<p>Các câu hỏi dự báo ở cấp độ bệnh nhân điển hình thường được diễn đạt như sau:</p>
 <ul>
-<li><p>Cơ hội để bệnh nhân này… là bao nhiêu?</p></li>
-<li><p>Ai là ứng viên cho…?</p></li>
-<li><p>Xác suất cho một cá nhân</p></li>
-<li><p>Mô hình dự đoán</p></li>
-<li><p>Các nhóm nguy cơ cao/thấp</p></li>
-<li><p>Kiểu hình xác suất</p></li>
+<li>Khả năng bệnh nhân này sẽ… là bao nhiêu?</li>
+<li>Những ai là đối tượng phù hợp cho…?</li>
 </ul>
-<p>Ước tính cấp độ quần thể và dự đoán cấp độ bệnh nhân chồng chéo ở một mức độ nhất định. Ví dụ, một trường hợp sử dụng quan trọng của dự đoán là dự đoán kết quả cho một bệnh nhân cụ thể nếu thuốc A được kê đơn và cũng dự đoán cùng kết quả đó nếu thuốc B được kê đơn. Hãy giả sử rằng trong thực tế, chỉ một trong những loại thuốc này được kê đơn (giả sử là thuốc A) nên chúng ta có thể thấy liệu kết quả sau khi điều trị bằng A có thực sự xảy ra hay không. Vì thuốc B không được kê đơn, kết quả sau khi điều trị bằng B, mặc dù có thể dự đoán được, là “phản thực tế” vì nó không bao giờ được quan sát thấy. Mỗi nhiệm vụ dự đoán này thuộc về dự đoán cấp độ bệnh nhân. Tuy nhiên, sự khác biệt giữa (hoặc tỷ lệ của) hai kết quả là một tác động nhân quả cấp đơn vị, và nên được ước tính bằng cách sử dụng các phương pháp ước tính tác động nhân quả thay thế.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="media/image6.png" style="width:0.455in;height:0.455in" class="figure-img"></p>
-<figcaption>People have a natural tendency to erroneously interpret predictive models as if they are causal models. But a predictive model can only show correlation, never cau-sation. For example, diabetic drug use might be a strong predictor for myocardial infarction (MI) because diabetes is a strong risk factor for MI. However, that does not mean that stopping the diabetic drugs will prevent MI!</figcaption>
-</figure>
+<p>Và kết quả đầu ra mong muốn là:</p>
+<ul>
+<li>Xác suất xảy ra biến cố cho một cá nhân cụ thể</li>
+<li>Mô hình dự báo (Prediction model)</li>
+<li>Phân tầng các nhóm nguy cơ cao / thấp</li>
+<li>Kiểu hình xác suất (Probabilistic phenotype)</li>
+</ul>
+<p>Ước lượng hiệu quả ở cấp độ quần thể và dự báo ở cấp độ bệnh nhân có sự giao thoa ở một mức độ nhất định. Ví dụ, một bài toán ứng dụng quan trọng của dự báo là dự báo kết cục cho một bệnh nhân cụ thể nếu được kê đơn thuốc A, đồng thời dự báo cùng kết cục đó nếu bệnh nhân được kê đơn thuốc B. Giả sử trong thực tế chỉ có một trong hai loại thuốc này được kê đơn (chẳng hạn thuốc A), nhờ đó chúng ta quan sát được liệu kết cục sau khi điều trị bằng thuốc A có thực sự xảy ra hay không. Vì thuốc B không được kê đơn, kết cục sau khi điều trị bằng thuốc B — dù vẫn có thể dự báo được — mang tính “phản thực tế” (counterfactual) vì nó không bao giờ được quan sát trên thực tế. Mỗi tác vụ dự báo riêng lẻ này thuộc về bài toán dự báo ở cấp độ bệnh nhân. Tuy nhiên, sự khác biệt (hoặc tỷ số) giữa hai kết cục lại là một tác động <em>nhân quả</em> ở cấp độ cá thể, và cần được ước lượng bằng các phương pháp ước lượng tác động nhân quả.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Điểm quan trọng">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Điểm quan trọng
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Con người có xu hướng tự nhiên diễn giải sai các mô hình dự báo như thể chúng là các mô hình nhân quả. Tuy nhiên, một mô hình dự báo chỉ có thể cho thấy mối tương quan (correlation), chứ không bao giờ chứng minh được quan hệ nhân quả (causation). Ví dụ, việc sử dụng thuốc điều trị đái tháo đường có thể là một yếu tố dự báo mạnh cho nhồi máu cơ tim (MI) vì bản thân bệnh đái tháo đường là một yếu tố nguy cơ mạnh dẫn đến MI. Tuy nhiên, điều đó hoàn toàn không có nghĩa là việc ngừng thuốc đái tháo đường sẽ giúp ngăn ngừa MI!</p>
+</div>
 </div>
 </section>
-<section id="các-trường-hợp-sử-dụng-ví-dụ-trong-tăng-huyết-áp" class="level2">
-<h2 class="anchored" data-anchor-id="các-trường-hợp-sử-dụng-ví-dụ-trong-tăng-huyết-áp">Các trường hợp sử dụng ví dụ trong tăng huyết áp</h2>
-<p>Bạn là một nhà nghiên cứu quan tâm đến việc nghiên cứu tác động của liệu pháp đơn trị liệu bằng thuốc ức chế ACE so với liệu pháp đơn trị liệu bằng thuốc lợi tiểu thiazide đối với các kết quả là nhồi máu cơ tim cấp và phù mạch như là phương pháp điều trị đầu tay cho bệnh tăng huyết áp. Bạn hiểu rằng dựa trên tài liệu OHDSI, bạn đang đặt một câu hỏi ước tính tác động cấp độ quần thể nhưng trước hết, bạn cần làm bài tập về nhà về cách đặc điểm hóa phương pháp điều trị cụ thể mà bạn quan tâm này.</p>
-<section id="các-câu-hỏi-đặc-điểm-hóa" class="level3">
-<h3 class="anchored" data-anchor-id="các-câu-hỏi-đặc-điểm-hóa">Các câu hỏi đặc điểm hóa</h3>
-<p>Nhồi máu cơ tim cấp là một biến chứng tim mạch có thể xảy ra ở bệnh nhân bị huyết áp cao, vì vậy phương pháp điều trị hiệu quả cho tăng huyết áp sẽ làm giảm nguy cơ này. Phù mạch là một tác dụng phụ đã biết của thuốc ức chế ACE, hiếm gặp nhưng có khả năng nghiêm trọng. Bạn bắt đầu bằng cách tạo các nhóm thuần tập (xem Chương 10) cho các phơi nhiễm mà bạn quan tâm (những người mới dùng thuốc ức chế ACE và những người mới dùng thuốc lợi tiểu thiazide). Bạn thực hiện một phân tích đặc điểm hóa (xem Chương 11) để tóm tắt các đặc điểm cơ bản của các quần thể phơi nhiễm này, bao gồm nhân khẩu học, các tình trạng bệnh đồng mắc và các thuốc dùng kèm. Bạn thực hiện một phân tích đặc điểm hóa khác để ước tính tỷ lệ mắc các kết quả được chọn trong các quần thể phơi nhiễm này. Ở đây, bạn hỏi ‘bao lâu thì 1) nhồi máu cơ tim cấp và 2) phù mạch xảy ra trong thời gian phơi nhiễm với thuốc ức chế ACE và thuốc lợi tiểu thiazide?’ Những đặc điểm hóa này cho phép chúng ta đánh giá tính khả thi của việc thực hiện một nghiên cứu ước tính cấp độ quần thể, đánh giá xem hai nhóm điều trị có thể so sánh được hay không và xác định các ‘yếu tố nguy cơ’ có thể dự đoán lựa chọn điều trị mà bệnh nhân đã thực hiện.</p>
-<p><em>7.5. Các hạn chế của nghiên cứu quan sát 105</em></p>
+<section id="ví-dụ-các-bài-toán-ứng-dụng-trong-bệnh-tăng-huyết-áp" class="level2">
+<h2 class="anchored" data-anchor-id="ví-dụ-các-bài-toán-ứng-dụng-trong-bệnh-tăng-huyết-áp">Ví dụ các bài toán ứng dụng trong bệnh tăng huyết áp</h2>
+<p>Giả sử bạn là một nhà nghiên cứu quan tâm đến việc tìm hiểu tác động của đơn trị liệu bằng thuốc ức chế men chuyển (ACE inhibitor) so với đơn trị liệu bằng thuốc lợi tiểu thiazide đối với hai kết cục là nhồi máu cơ tim cấp (AMI) và phù mạch (angioedema) khi dùng làm phác đồ điều trị đầu tay cho bệnh tăng huyết áp. Dựa trên tài liệu của OHDSI, bạn hiểu rằng mình đang đặt ra một câu hỏi ước lượng hiệu quả ở cấp độ quần thể, nhưng trước hết, bạn cần thực hiện các bước chuẩn bị để mô tả đặc trưng lâm sàng của các phương pháp điều trị đang quan tâm.</p>
+<section id="các-câu-hỏi-mô-tả-đặc-trưng-lâm-sàng" class="level3">
+<h3 class="anchored" data-anchor-id="các-câu-hỏi-mô-tả-đặc-trưng-lâm-sàng">Các câu hỏi mô tả đặc trưng lâm sàng</h3>
+<p>Nhồi máu cơ tim cấp là một biến chứng tim mạch có thể xảy ra ở bệnh nhân tăng huyết áp, do đó một phác đồ điều trị tăng huyết áp hiệu quả cần làm giảm nguy cơ này. Phù mạch là một tác dụng không mong muốn đã biết của thuốc ức chế men chuyển — tuy hiếm gặp nhưng có khả năng diễn tiến nghiêm trọng. Bạn bắt đầu bằng việc thiết lập các đoàn hệ (nhóm thuần tập, xem Chương 10) cho các phơi nhiễm đang quan tâm (những người mới bắt đầu sử dụng thuốc ức chế men chuyển và những người mới bắt đầu sử dụng thuốc lợi tiểu thiazide). Tiếp theo, bạn thực hiện một phân tích mô tả đặc trưng lâm sàng (xem Chương 11) nhằm tóm tắt các đặc điểm nền (baseline characteristics) của các quần thể phơi nhiễm này, bao gồm đặc điểm nhân khẩu học, các bệnh lý đồng mắc và các thuốc sử dụng kèm. Bạn thực hiện thêm một phân tích mô tả đặc trưng lâm sàng khác để ước tính tỷ suất mới mắc của các kết cục được chọn trong những quần thể phơi nhiễm này. Tại đây, bạn đặt câu hỏi: “Tần suất xuất hiện của 1) nhồi máu cơ tim cấp và 2) phù mạch trong giai đoạn phơi nhiễm với thuốc ức chế men chuyển và thuốc lợi tiểu thiazide là bao nhiêu?”. Những phân tích mô tả đặc trưng này cho phép chúng ta đánh giá tính khả thi của việc tiến hành một nghiên cứu ước lượng hiệu quả ở cấp độ quần thể, xem xét liệu hai nhóm điều trị có thể so sánh được với nhau hay không, và xác định các “yếu tố nguy cơ” có thể dự báo lựa chọn điều trị của bệnh nhân.</p>
 </section>
-<section id="câu-hỏi-ước-tính-cấp-độ-quần-thể" class="level3">
-<h3 class="anchored" data-anchor-id="câu-hỏi-ước-tính-cấp-độ-quần-thể">Câu hỏi ước tính cấp độ quần thể</h3>
-<p>Nghiên cứu ước tính tác động cấp độ quần thể (xem Chương 12) ước tính nguy cơ tương đối của việc sử dụng thuốc ức chế ACE so với thuốc lợi tiểu thiazide đối với các kết quả là AMI và phù mạch. Ở đây, bạn đánh giá thêm thông qua các chẩn đoán nghiên cứu và các đối chứng âm tính xem liệu chúng ta có thể tạo ra một ước tính đáng tin cậy về tác động điều trị trung bình hay không.</p>
+<section id="câu-hỏi-ước-lượng-hiệu-quả-ở-cấp-độ-quần-thể" class="level3">
+<h3 class="anchored" data-anchor-id="câu-hỏi-ước-lượng-hiệu-quả-ở-cấp-độ-quần-thể">Câu hỏi ước lượng hiệu quả ở cấp độ quần thể</h3>
+<p>Nghiên cứu ước lượng hiệu quả ở cấp độ quần thể (xem Chương 12) ước tính nguy cơ tương đối của việc sử dụng thuốc ức chế men chuyển so với thuốc lợi tiểu thiazide đối với hai kết cục là nhồi máu cơ tim cấp (AMI) và phù mạch. Tại bước này, bạn đánh giá sâu hơn thông qua các chẩn đoán thẩm định thiết kế nghiên cứu (study diagnostics) và các nhóm chứng âm (negative controls) để xác định liệu chúng ta có thể đưa ra một ước lượng đáng tin cậy về hiệu quả điều trị trung bình hay không.</p>
 </section>
-<section id="câu-hỏi-dự-đoán-cấp-độ-bệnh-nhân" class="level3">
-<h3 class="anchored" data-anchor-id="câu-hỏi-dự-đoán-cấp-độ-bệnh-nhân">Câu hỏi dự đoán cấp độ bệnh nhân</h3>
-<p>Độc lập với việc liệu có tác động nhân quả của các phơi nhiễm hay không, bạn cũng quan tâm đến việc cố gắng xác định bệnh nhân nào có nguy cơ cao nhất đối với các kết quả. Đây là một vấn đề dự đoán cấp độ bệnh nhân (xem Chương 13). Ở đây, bạn phát triển một mô hình dự đoán đánh giá: trong số các bệnh nhân mới sử dụng thuốc ức chế ACE, bệnh nhân nào có nguy cơ cao nhất phát triển nhồi máu cơ tim cấp trong 1 năm sau khi bắt đầu điều trị. Mô hình cho phép chúng ta dự đoán, đối với một bệnh nhân vừa được kê đơn ACE lần đầu tiên, dựa trên các biến cố quan sát được từ lịch sử y tế của họ, cơ hội họ trải qua AMI trong 1 năm tới là bao nhiêu.</p>
+<section id="câu-hỏi-dự-báo-ở-cấp-độ-bệnh-nhân" class="level3">
+<h3 class="anchored" data-anchor-id="câu-hỏi-dự-báo-ở-cấp-độ-bệnh-nhân">Câu hỏi dự báo ở cấp độ bệnh nhân</h3>
+<p>Độc lập với việc liệu các phơi nhiễm có tác động nhân quả hay không, bạn cũng quan tâm đến việc xác định những bệnh nhân nào có nguy cơ gặp kết cục cao nhất. Đây là bài toán dự báo ở cấp độ bệnh nhân (xem Chương 13). Tại đây, bạn xây dựng một mô hình dự báo nhằm đánh giá: trong số những bệnh nhân mới bắt đầu sử dụng thuốc ức chế men chuyển, những bệnh nhân nào có nguy cơ cao nhất bị nhồi máu cơ tim cấp trong vòng 1 năm sau khi khởi trị. Mô hình này cho phép chúng ta dự báo đối với một bệnh nhân vừa được kê đơn thuốc ức chế men chuyển lần đầu tiên, dựa trên các biến cố quan sát được từ tiền sử y khoa của họ, xác suất họ gặp biến cố nhồi máu cơ tim cấp trong 1 năm tới là bao nhiêu.</p>
 </section>
 </section>
 <section id="các-hạn-chế-của-nghiên-cứu-quan-sát" class="level2">
 <h2 class="anchored" data-anchor-id="các-hạn-chế-của-nghiên-cứu-quan-sát">Các hạn chế của nghiên cứu quan sát</h2>
-<p>Có nhiều câu hỏi quan trọng về chăm sóc sức khỏe mà các cơ sở dữ liệu OHDSI không thể cung cấp câu trả lời. Những câu hỏi này bao gồm:</p>
+<p>Có nhiều câu hỏi quan trọng trong chăm sóc sức khỏe mà các cơ sở dữ liệu OHDSI không thể cung cấp câu trả lời. Những câu hỏi này bao gồm:</p>
 <ul>
-<li><p>Các tác động nhân quả của các can thiệp so với giả dược. Đôi khi, có thể xem xét tác động nhân quả của một phương pháp điều trị so với việc không điều trị, nhưng không phải so với điều trị bằng giả dược.</p></li>
-<li><p>Bất cứ điều gì liên quan đến thuốc không kê đơn.</p></li>
-<li><p>Nhiều kết quả và các biến số khác được ghi lại một cách thưa thớt hoặc thậm chí không có. Những yếu tố này bao gồm tỷ lệ tử vong, kết quả hành vi, lối sống và tình trạng kinh tế xã hội.</p></li>
-<li><p>Vì bệnh nhân thường chỉ tiếp cận hệ thống chăm sóc sức khỏe khi họ không khỏe, nên việc đo lường lợi ích của các phương pháp điều trị có thể trở nên khó nắm bắt.</p></li>
+<li>Tác động nhân quả của các can thiệp khi so sánh với giả dược (placebo). Đôi khi chúng ta có thể xem xét tác động nhân quả của một phương pháp điều trị so với việc không điều trị, nhưng không thể so sánh với việc điều trị bằng giả dược.</li>
+<li>Bất kỳ vấn đề nào liên quan đến các thuốc không kê đơn (over-the-counter medications).</li>
+<li>Nhiều kết cục và biến số khác được ghi nhận rất thưa thớt hoặc thậm chí không được ghi nhận, bao gồm tử vong, các kết cục hành vi, lối sống và tình trạng kinh tế – xã hội.</li>
+<li>Vì bệnh nhân thường chỉ tiếp xúc với hệ thống y tế khi họ gặp vấn đề sức khỏe, việc đo lường lợi ích thực sự của các phương pháp điều trị có thể trở nên rất khó khăn.</li>
 </ul>
 <section id="dữ-liệu-sai-lệch" class="level3">
 <h3 class="anchored" data-anchor-id="dữ-liệu-sai-lệch">Dữ liệu sai lệch</h3>
-<p>Dữ liệu lâm sàng được ghi lại trong các cơ sở dữ liệu OHDSI có thể sai lệch so với thực tế lâm sàng. Ví dụ, hồ sơ của một bệnh nhân có thể bao gồm mã nhồi máu cơ tim mặc dù bệnh nhân đó chưa bao giờ bị nhồi máu cơ tim. Tương tự, một giá trị xét nghiệm có thể bị sai hoặc một mã thủ thuật không chính xác có thể xuất hiện trong cơ sở dữ liệu. Chương 15 và 16 thảo luận về một số vấn đề này và các phương pháp thực hành tốt nhằm xác định và điều chỉnh càng nhiều vấn đề loại này càng tốt. Tuy nhiên, dữ liệu sai lệch vẫn tồn tại ở một mức độ nào đó và có thể làm suy yếu tính hợp lệ của các phân tích tiếp theo. Một lượng lớn tài liệu tập trung vào việc điều chỉnh các suy luận thống kê để giải quyết các sai sót trong dữ liệu - xem ví dụ: Fuller (2009).</p>
+<p>Dữ liệu lâm sàng được ghi nhận trong các cơ sở dữ liệu OHDSI có thể sai lệch so với thực tế lâm sàng. Ví dụ, hồ sơ của một bệnh nhân có thể chứa mã chẩn đoán nhồi máu cơ tim mặc dù bệnh nhân đó chưa từng bị nhồi máu cơ tim. Tương tự, một kết quả xét nghiệm có thể bị sai sót hoặc một mã thủ thuật không chính xác có thể xuất hiện trong cơ sở dữ liệu. Chương 15 và Chương 16 thảo luận về một số vấn đề này cùng các thực hành tốt nhằm phát hiện và hiệu chỉnh nhiều nhất có thể những sai sót thuộc loại này. Tuy nhiên, dữ liệu sai lệch vẫn không tránh khỏi việc tồn tại ở một mức độ nhất định và có thể làm suy giảm giá trị hợp lệ (validity) của các phân tích tiếp theo. Nhiều công trình y văn đã tập trung vào việc hiệu chỉnh các suy luận thống kê để xử lý sai số trong dữ liệu — xem ví dụ: Fuller (2009).</p>
 </section>
-<section id="dữ-liệu-bị-thiếu" class="level3">
-<h3 class="anchored" data-anchor-id="dữ-liệu-bị-thiếu">Dữ liệu bị thiếu</h3>
-<p>Sự thiếu hụt dữ liệu trong các cơ sở dữ liệu OHDSI đặt ra những thách thức tinh vi. Một sự kiện sức khỏe (ví dụ: đơn thuốc, giá trị xét nghiệm, v.v.) lẽ ra phải được ghi lại trong cơ sở dữ liệu nhưng lại không có, thì được coi là “bị thiếu”. Tài liệu thống kê phân biệt giữa các loại thiếu hụt như “thiếu hoàn toàn ngẫu nhiên”, “thiếu ngẫu nhiên” và “thiếu không ngẫu nhiên”, và các phương pháp có độ phức tạp ngày càng tăng đang cố gắng giải quyết các loại này. Perkins và cộng sự (2017) cung cấp một phần giới thiệu hữu ích về chủ đề này.</p>
+<section id="dữ-liệu-bị-khuyết-thiếu" class="level3">
+<h3 class="anchored" data-anchor-id="dữ-liệu-bị-khuyết-thiếu">Dữ liệu bị khuyết thiếu</h3>
+<p>Tình trạng khuyết thiếu dữ liệu (missing data) trong các cơ sở dữ liệu OHDSI đặt ra những thách thức tinh vi. Một sự kiện y tế (ví dụ: đơn thuốc, kết quả xét nghiệm, v.v.) lẽ ra phải được ghi nhận vào cơ sở dữ liệu nhưng lại không xuất hiện thì được coi là “bị khuyết thiếu”. Y văn thống kê phân biệt giữa các cơ chế khuyết thiếu dữ liệu như “khuyết thiếu hoàn toàn ngẫu nhiên” (missing completely at random – MCAR), “khuyết thiếu ngẫu nhiên” (missing at random – MAR) và “khuyết thiếu không ngẫu nhiên” (missing not at random – MNAR), cùng với các phương pháp có độ phức tạp ngày càng cao nhằm giải quyết từng loại khuyết thiếu này. Perkins và cộng sự (2017) đã cung cấp một tài liệu giới thiệu rất hữu ích về chủ đề này.</p>
 </section>
 </section>
 <section id="tóm-tắt" class="level2">
 <h2 class="anchored" data-anchor-id="tóm-tắt">Tóm tắt</h2>
-<p><img src="media/image4.png" class="book-icon" style="width:0.44552in;height:0.46448in"></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tóm tắt chương">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tóm tắt chương
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><p>In observational research we distinguish three large categories of uses cases.</p></li>
-<li><p><strong>Characterization</strong> aims to answer the questions “What happened to them?”</p></li>
-<li><p><strong>Population-level estimation</strong> attempts to answer the question “What are the causal effects?”</p></li>
-<li><p><strong>Patient-level prediction</strong> tries to answer “What will happen to me?”</p></li>
-<li><p>Prediction models are not causal models; There is no reason to believe that intervening on a strong predictor will impact the outcome.</p></li>
-<li><p>There are questions that cannot be answered using observational healthcare data.</p></li>
+<li>Trong nghiên cứu quan sát, chúng ta phân biệt ba nhóm bài toán ứng dụng lớn:</li>
+<li><strong>Mô tả đặc trưng lâm sàng (Characterization)</strong> hướng tới việc trả lời câu hỏi <em>“Điều gì đã xảy ra với họ?”</em>.</li>
+<li><strong>Ước lượng hiệu quả ở cấp độ quần thể (Population-level estimation)</strong> tìm cách trả lời câu hỏi <em>“Các tác động nhân quả là gì?”</em>.</li>
+<li><strong>Dự báo ở cấp độ bệnh nhân (Patient-level prediction)</strong> cố gắng trả lời câu hỏi <em>“Điều gì sẽ xảy ra với tôi?”</em>.</li>
+<li>Mô hình dự báo không phải là mô hình nhân quả; không có cơ sở nào để tin rằng việc can thiệp vào một yếu tố dự báo mạnh sẽ làm thay đổi kết cục.</li>
+<li>Có những câu hỏi nghiên cứu không thể trả lời được bằng dữ liệu chăm sóc sức khỏe quan sát.</li>
 </ul>
+</div>
+</div>
 </section>
 <section id="bài-tập" class="level2">
 <h2 class="anchored" data-anchor-id="bài-tập">Bài tập</h2>
-<p><strong>Bài tập 7.1. Những câu hỏi này thuộc các danh mục trường hợp sử dụng nào?</strong></p>
+<p><strong>Bài tập 7.1. Những câu hỏi dưới đây thuộc nhóm bài toán ứng dụng nào?</strong></p>
 <ol type="1">
-<li><p>Tính tỷ lệ xuất huyết tiêu hóa (GI) ở những bệnh nhân mới tiếp xúc với NSAID.</p></li>
-<li><p>Tính xác suất một bệnh nhân cụ thể bị xuất huyết tiêu hóa trong năm tới, dựa trên các đặc điểm cơ bản của họ.</p></li>
-<li><p>Ước tính nguy cơ gia tăng xuất huyết tiêu hóa do diclofenac so với celecoxib.</p></li>
+<li><p>Tính tỷ suất xuất huyết tiêu hóa (GI bleeding) ở những bệnh nhân mới phơi nhiễm với thuốc kháng viêm không steroid (NSAID).</p></li>
+<li><p>Tính xác suất một bệnh nhân cụ thể bị xuất huyết tiêu hóa trong năm tới, dựa trên các đặc điểm nền của bệnh nhân đó.</p></li>
+<li><p>Ước lượng mức tăng nguy cơ xuất huyết tiêu hóa do diclofenac gây ra khi so sánh với celecoxib.</p></li>
 </ol>
-<p><strong>Bài tập 7.2. Bạn muốn ước tính nguy cơ gia tăng xuất huyết tiêu hóa do diclofenac so với không tiếp xúc (giả dược). Điều này có thể thực hiện được bằng cách sử dụng dữ liệu chăm sóc sức khỏe quan sát không?</strong></p>
-<p>Các câu trả lời gợi ý có thể được tìm thấy trong Phụ lục E.4.</p>
+<p><strong>Bài tập 7.2. Bạn muốn ước lượng mức tăng nguy cơ xuất huyết tiêu hóa do diclofenac so với không phơi nhiễm (giả dược). Nghiên cứu này có thể thực hiện được bằng dữ liệu chăm sóc sức khỏe quan sát hay không?</strong></p>
+<p>Câu trả lời gợi ý có thể được tìm thấy trong Phụ lục E.4.</p>
 
 
-<!-- -->
-
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -767,12 +761,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Đã sao chép!");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Đã sao chép!");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
@@ -792,57 +786,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1182,383 +1125,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./06_etl.html" class="pagination-link" aria-label="Chương 6: Trích xuất - Chuyển đổi - Nạp (ETL)">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Chương 6: Trích xuất - Chuyển đổi - Nạp (ETL)</span></span>
+      <a href="./06_etl.html" class="pagination-link" aria-label="Chương 6: Trích xuất – Chuyển đổi – Nạp dữ liệu (ETL)">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Chương 6: Trích xuất – Chuyển đổi – Nạp dữ liệu (ETL)</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./08_tools.html" class="pagination-link" aria-label="Chương 8: Công cụ phân tích OHDSI">
-        <span class="nav-page-text"><span class="chapter-title">Chương 8: Công cụ phân tích OHDSI</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./08_tools.html" class="pagination-link" aria-label="Chương 8: Hệ sinh thái công cụ phân tích OHDSI">
+        <span class="nav-page-text"><span class="chapter-title">Chương 8: Hệ sinh thái công cụ phân tích OHDSI</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Chương 7: Các trường hợp sử dụng phân tích dữ liệu"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu"># Các trường hợp sử dụng phân tích dữ liệu</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>*Chủ biên chương: David Madigan*</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Sự hợp tác OHDSI tập trung vào việc tạo ra bằng chứng đáng tin cậy từ</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>dữ liệu chăm sóc sức khỏe thực tế, thường ở dạng cơ sở dữ liệu yêu cầu</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>thanh toán hoặc cơ sở dữ liệu hồ sơ sức khỏe điện tử. Các trường hợp</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sử dụng mà OHDSI tập trung vào thuộc ba danh mục chính:</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Đặc điểm hóa</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Ước tính cấp độ quần thể</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Dự đoán cấp độ bệnh nhân</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>Chúng tôi mô tả chi tiết những điều này dưới đây. Lưu ý, đối với tất</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>cả các trường hợp sử dụng, bằng chứng chúng tôi tạo ra kế thừa các hạn</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>chế của dữ liệu; chúng tôi thảo luận chi tiết về những hạn chế này</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>trong phần sách về Chất lượng bằng chứng (Chương 14 -</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>18)</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Đặc điểm hóa</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>Đặc điểm hóa cố gắng trả lời câu hỏi Điều gì đã xảy ra với họ?</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>Chúng tôi có thể sử dụng dữ liệu để cung cấp câu trả lời cho các câu</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>hỏi về đặc điểm của những người trong một nhóm thuần tập hoặc toàn bộ</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>cơ sở dữ liệu, thực hành chăm sóc sức khỏe và nghiên cứu cách những</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>điều này thay đổi theo thời gian.</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>Dữ liệu có thể cung cấp câu trả lời cho các câu hỏi như:</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Đối với bệnh nhân mới được chẩn đoán rung nhĩ, có bao nhiêu người nhận</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>được đơn thuốc warfarin?</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Độ tuổi trung bình của bệnh nhân trải qua phẫu thuật thay khớp háng là</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>bao nhiêu?</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tỷ lệ mắc bệnh viêm phổi ở bệnh nhân trên 65 tuổi là bao nhiêu? Các</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>câu hỏi đặc điểm hóa điển hình được xây dựng như sau<span class="dv">&amp;#58;</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Có bao nhiêu bệnh nhân...?</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bao lâu thì...?</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tỷ lệ bệnh nhân... là bao nhiêu?</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sự phân bố các giá trị xét nghiệm... là gì?</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Mức HbA1c cho bệnh nhân với... là bao nhiêu?</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Các giá trị xét nghiệm cho bệnh nhân... là gì?</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Thời gian phơi nhiễm trung vị cho bệnh nhân dùng.... là bao nhiêu?</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Các xu hướng theo thời gian trong... là gì?</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Những loại thuốc khác mà những bệnh nhân này đang sử dụng là gì?</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Các liệu pháp đi kèm là gì?</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Chúng ta có đủ các trường hợp... không?</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Liệu có khả thi để nghiên cứu X không...?</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nhân khẩu học của... là gì?</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Các yếu tố nguy cơ của... là gì? (nếu xác định một yếu tố nguy cơ cụ</span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>thể, có thể là ước tính, không phải dự đoán)</span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Các yếu tố dự báo của... là gì? Và đầu ra mong muốn là<span class="dv">&amp;#58;</span></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Số lượng hoặc tỷ lệ phần trăm</span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Các mức trung bình</span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Thống kê mô tả</span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tỷ lệ mắc bệnh</span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tỷ lệ hiện mắc</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nhóm thuần tập</span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Kiểu hình dựa trên quy tắc</span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sử dụng thuốc</span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Lịch sử tự nhiên của bệnh</span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sự tuân thủ</span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Hồ sơ bệnh đồng mắc</span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Các con đường điều trị</span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Dòng điều trị</span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="fu">## Ước tính cấp độ quần thể</span></span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>Ở một mức độ hạn chế, dữ liệu có thể hỗ trợ các suy luận nhân quả về</span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>tác động của các can thiệp chăm sóc sức khỏe, trả lời câu hỏi</span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>Các tác động nhân quả là gì?</span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>Chúng tôi muốn hiểu các tác động nhân quả để hiểu hậu quả của các hành</span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>động. Ví dụ, nếu chúng tôi quyết định thực hiện một phương pháp điều</span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>trị nào đó, điều đó thay đổi những gì xảy ra với chúng tôi trong tương</span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>lai như thế nào?</span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>Dữ liệu có thể cung cấp câu trả lời cho các câu hỏi như:</span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Đối với bệnh nhân mới được chẩn đoán rung nhĩ, trong năm đầu tiên sau</span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>khi bắt đầu</span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>*Dự đoán cấp độ bệnh nhân 103*</span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>điều trị, warfarin có gây ra nhiều biến cố chảy máu nghiêm trọng hơn</span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>dabigatran không?</span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tác động nhân quả của metformin đối với tiêu chảy có thay đổi theo độ</span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>tuổi không? Các câu hỏi ước tính tác động cấp độ quần thể điển hình</span>
-<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>được xây dựng như sau<span class="dv">&amp;#58;</span></span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tác động của... là gì?</span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Điều gì sẽ xảy ra nếu tôi thực hiện can thiệp...?</span>
-<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Phương pháp điều trị nào hiệu quả hơn?</span>
-<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nguy cơ của X đối với Y là bao nhiêu?</span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Thời gian đến khi xảy ra biến cố của... là bao nhiêu? Và đầu ra mong</span>
-<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>muốn là<span class="dv">&amp;#58;</span></span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nguy cơ tương đối</span>
-<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tỷ lệ nguy hiểm</span>
-<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tỷ lệ chênh lệch</span>
-<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tác động điều trị trung bình</span>
-<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tác động nhân quả</span>
-<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sự liên quan</span>
-<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Sự tương quan</span>
-<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Giám sát an toàn</span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Hiệu quả so sánh</span>
-<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dự đoán cấp độ bệnh nhân</span></span>
-<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>Dựa trên lịch sử sức khỏe bệnh nhân được thu thập trong cơ sở dữ liệu,</span>
-<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a>chúng tôi có thể đưa ra các dự đoán cấp độ bệnh nhân về các biến cố</span>
-<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>sức khỏe trong tương lai, trả lời câu hỏi</span>
-<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>Điều gì sẽ xảy ra với tôi?</span>
-<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>Dữ liệu có thể cung cấp câu trả lời cho các câu hỏi như:</span>
-<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Đối với một bệnh nhân cụ thể mới được chẩn đoán mắc chứng rối loạn</span>
-<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a>trầm cảm nặng, xác suất bệnh nhân sẽ tự tử trong năm đầu tiên sau khi</span>
-<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a>chẩn đoán là bao nhiêu?</span>
-<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Đối với một bệnh nhân cụ thể mới được chẩn đoán rung nhĩ, trong năm</span>
-<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>đầu tiên sau khi bắt đầu điều trị bằng warfarin, xác suất bệnh nhân bị</span>
-<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>đột quỵ do thiếu máu cục bộ là bao nhiêu?</span>
-<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>Các câu hỏi dự đoán cấp độ bệnh nhân điển hình được xây dựng như sau:</span>
-<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Cơ hội để bệnh nhân này... là bao nhiêu?</span>
-<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Ai là ứng viên cho...?</span>
-<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Xác suất cho một cá nhân</span>
-<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Mô hình dự đoán</span>
-<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Các nhóm nguy cơ cao/thấp</span>
-<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Kiểu hình xác suất</span>
-<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a>Ước tính cấp độ quần thể và dự đoán cấp độ bệnh nhân chồng chéo ở một</span>
-<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a>mức độ nhất định. Ví dụ, một trường hợp sử dụng quan trọng của dự đoán</span>
-<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a>là dự đoán kết quả cho một bệnh nhân cụ thể nếu thuốc A được kê đơn và</span>
-<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>cũng dự đoán cùng kết quả đó nếu thuốc B được kê đơn. Hãy giả sử rằng</span>
-<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>trong thực tế, chỉ một trong những loại thuốc này được kê đơn (giả sử</span>
-<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>là thuốc A) nên chúng ta có thể thấy liệu kết quả sau khi điều trị</span>
-<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>bằng A có thực sự xảy ra hay không. Vì thuốc B không được kê đơn, kết</span>
-<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a>quả sau khi điều trị bằng B, mặc dù có thể dự đoán được, là "phản thực</span>
-<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>tế" vì nó không bao giờ được quan sát thấy. Mỗi nhiệm vụ dự đoán này</span>
-<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>thuộc về dự đoán cấp độ bệnh nhân. Tuy nhiên, sự khác biệt giữa (hoặc</span>
-<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>tỷ lệ của) hai kết quả là một tác động nhân quả cấp đơn vị, và nên</span>
-<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a>được ước tính bằng cách sử dụng các phương pháp ước tính tác động nhân</span>
-<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>quả thay thế.</span>
-<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>![People have a natural tendency to erroneously interpret predictive</span>
-<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a>models as if they are causal models. But a predictive model can only</span>
-<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a>show correlation, never cau-sation. For example, diabetic drug use might</span>
-<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>be a strong predictor for myocardial infarction (MI) because diabetes is</span>
-<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>a strong risk factor for MI. However, that does not mean that stopping</span>
-<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>the diabetic drugs will prevent</span>
-<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>MI!](media/image6.png){width="0.45499890638670165in"</span>
-<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>height="0.45499890638670165in"}</span>
-<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a><span class="fu">## Các trường hợp sử dụng ví dụ trong tăng huyết áp</span></span>
-<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a>Bạn là một nhà nghiên cứu quan tâm đến việc nghiên cứu tác động của</span>
-<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a>liệu pháp đơn trị liệu bằng thuốc ức chế ACE so với liệu pháp đơn trị</span>
-<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>liệu bằng thuốc lợi tiểu thiazide đối với các kết quả là nhồi máu cơ</span>
-<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a>tim cấp và phù mạch như là phương pháp điều trị đầu tay cho bệnh tăng</span>
-<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>huyết áp. Bạn hiểu rằng dựa trên tài liệu OHDSI, bạn đang đặt một câu</span>
-<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>hỏi ước tính tác động cấp độ quần thể nhưng trước hết, bạn cần làm bài</span>
-<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a>tập về nhà về cách đặc điểm hóa phương pháp điều trị cụ thể mà bạn</span>
-<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a>quan tâm này.</span>
-<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a><span class="fu">### Các câu hỏi đặc điểm hóa</span></span>
-<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a>Nhồi máu cơ tim cấp là một biến chứng tim mạch có thể xảy ra ở bệnh</span>
-<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a>nhân bị huyết áp cao, vì vậy phương pháp điều trị hiệu quả cho tăng</span>
-<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a>huyết áp sẽ làm giảm nguy cơ này. Phù mạch là một tác dụng phụ đã biết</span>
-<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>của thuốc ức chế ACE, hiếm gặp nhưng có khả năng nghiêm trọng. Bạn bắt</span>
-<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a>đầu bằng cách tạo các nhóm thuần tập (xem Chương 10) cho các phơi</span>
-<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a>nhiễm mà bạn quan tâm (những người mới dùng thuốc ức chế ACE và những</span>
-<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a>người mới dùng thuốc lợi tiểu thiazide). Bạn thực hiện một phân tích</span>
-<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a>đặc điểm hóa (xem Chương 11) để tóm tắt các đặc điểm cơ bản của các</span>
-<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>quần thể phơi nhiễm này, bao gồm nhân khẩu học, các tình trạng bệnh</span>
-<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>đồng mắc và các thuốc dùng kèm. Bạn thực hiện một phân tích đặc điểm</span>
-<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a>hóa khác để ước tính tỷ lệ mắc các kết quả được chọn trong các quần</span>
-<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a>thể phơi nhiễm này. Ở đây, bạn hỏi 'bao lâu thì 1) nhồi máu cơ tim cấp</span>
-<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a>và 2) phù mạch xảy ra trong thời gian phơi nhiễm với thuốc ức chế ACE</span>
-<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a>và thuốc lợi tiểu thiazide?' Những đặc điểm hóa này cho phép chúng ta</span>
-<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a>đánh giá tính khả thi của việc thực hiện một nghiên cứu ước tính cấp</span>
-<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>độ quần thể, đánh giá xem hai nhóm điều trị có thể so sánh được hay</span>
-<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a>không và xác định các 'yếu tố nguy cơ' có thể dự đoán lựa chọn điều</span>
-<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a>trị mà bệnh nhân đã thực hiện.</span>
-<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a>*7.5. Các hạn chế của nghiên cứu quan sát 105*</span>
-<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a><span class="fu">### Câu hỏi ước tính cấp độ quần thể</span></span>
-<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a>Nghiên cứu ước tính tác động cấp độ quần thể (xem Chương 12) ước tính</span>
-<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a>nguy cơ tương đối của việc sử dụng thuốc ức chế ACE so với thuốc lợi</span>
-<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a>tiểu thiazide đối với các kết quả là AMI và phù mạch. Ở đây, bạn đánh</span>
-<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a>giá thêm thông qua các chẩn đoán nghiên cứu và các đối chứng âm tính</span>
-<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a>xem liệu chúng ta có thể tạo ra một ước tính đáng tin cậy về tác động</span>
-<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a>điều trị trung bình hay không.</span>
-<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a><span class="fu">### Câu hỏi dự đoán cấp độ bệnh nhân</span></span>
-<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>Độc lập với việc liệu có tác động nhân quả của các phơi nhiễm hay</span>
-<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a>không, bạn cũng quan tâm đến việc cố gắng xác định bệnh nhân nào có</span>
-<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>nguy cơ cao nhất đối với các kết quả. Đây là một vấn đề dự đoán cấp độ</span>
-<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a>bệnh nhân (xem Chương 13). Ở đây, bạn phát triển một mô hình dự đoán</span>
-<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a>đánh giá: trong số các bệnh nhân mới sử dụng thuốc ức chế ACE, bệnh</span>
-<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>nhân nào có nguy cơ cao nhất phát triển nhồi máu cơ tim cấp trong 1</span>
-<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a>năm sau khi bắt đầu điều trị. Mô hình cho phép chúng ta dự đoán, đối</span>
-<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a>với một bệnh nhân vừa được kê đơn ACE lần đầu tiên, dựa trên các biến</span>
-<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a>cố quan sát được từ lịch sử y tế của họ, cơ hội họ trải qua AMI trong</span>
-<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a>1 năm tới là bao nhiêu.</span>
-<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a><span class="fu">## Các hạn chế của nghiên cứu quan sát</span></span>
-<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a>Có nhiều câu hỏi quan trọng về chăm sóc sức khỏe mà các cơ sở dữ liệu</span>
-<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a>OHDSI không thể cung cấp câu trả lời. Những câu hỏi này bao gồm:</span>
-<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Các tác động nhân quả của các can thiệp so với giả dược. Đôi khi, có</span>
-<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a>thể xem xét tác động nhân quả của một phương pháp điều trị so với việc</span>
-<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a>không điều trị, nhưng không phải so với điều trị bằng giả dược.</span>
-<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Bất cứ điều gì liên quan đến thuốc không kê đơn.</span>
-<span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Nhiều kết quả và các biến số khác được ghi lại một cách thưa thớt hoặc</span>
-<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a>thậm chí không có. Những yếu tố này bao gồm tỷ lệ tử vong, kết quả</span>
-<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a>hành vi, lối sống và tình trạng kinh tế xã hội.</span>
-<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Vì bệnh nhân thường chỉ tiếp cận hệ thống chăm sóc sức khỏe khi họ</span>
-<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a>không khỏe, nên việc đo lường lợi ích của các phương pháp điều trị có</span>
-<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a>thể trở nên khó nắm bắt.</span>
-<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dữ liệu sai lệch</span></span>
-<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a>Dữ liệu lâm sàng được ghi lại trong các cơ sở dữ liệu OHDSI có thể sai</span>
-<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a>lệch so với thực tế lâm sàng. Ví dụ, hồ sơ của một bệnh nhân có thể</span>
-<span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a>bao gồm mã nhồi máu cơ tim mặc dù bệnh nhân đó chưa bao giờ bị nhồi</span>
-<span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a>máu cơ tim. Tương tự, một giá trị xét nghiệm có thể bị sai hoặc một mã</span>
-<span id="cb1-294"><a href="#cb1-294" aria-hidden="true" tabindex="-1"></a>thủ thuật không chính xác có thể xuất hiện trong cơ sở dữ liệu. Chương</span>
-<span id="cb1-295"><a href="#cb1-295" aria-hidden="true" tabindex="-1"></a>15 và 16 thảo luận về một số vấn đề này và các phương pháp thực hành</span>
-<span id="cb1-296"><a href="#cb1-296" aria-hidden="true" tabindex="-1"></a>tốt nhằm xác định và điều chỉnh càng nhiều vấn đề loại này càng tốt.</span>
-<span id="cb1-297"><a href="#cb1-297" aria-hidden="true" tabindex="-1"></a>Tuy nhiên, dữ liệu sai lệch vẫn tồn tại ở một mức độ nào đó và có thể</span>
-<span id="cb1-298"><a href="#cb1-298" aria-hidden="true" tabindex="-1"></a>làm suy yếu tính hợp lệ của các phân tích tiếp theo. Một lượng lớn tài</span>
-<span id="cb1-299"><a href="#cb1-299" aria-hidden="true" tabindex="-1"></a>liệu tập trung vào việc điều chỉnh các suy luận thống kê để giải quyết</span>
-<span id="cb1-300"><a href="#cb1-300" aria-hidden="true" tabindex="-1"></a>các sai sót trong dữ liệu - xem ví dụ: Fuller (2009).</span>
-<span id="cb1-301"><a href="#cb1-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-302"><a href="#cb1-302" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dữ liệu bị thiếu</span></span>
-<span id="cb1-303"><a href="#cb1-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-304"><a href="#cb1-304" aria-hidden="true" tabindex="-1"></a>Sự thiếu hụt dữ liệu trong các cơ sở dữ liệu OHDSI đặt ra những thách</span>
-<span id="cb1-305"><a href="#cb1-305" aria-hidden="true" tabindex="-1"></a>thức tinh vi. Một sự kiện sức khỏe (ví dụ: đơn thuốc, giá trị xét</span>
-<span id="cb1-306"><a href="#cb1-306" aria-hidden="true" tabindex="-1"></a>nghiệm, v.v.) lẽ ra phải được ghi lại trong cơ sở dữ liệu nhưng lại</span>
-<span id="cb1-307"><a href="#cb1-307" aria-hidden="true" tabindex="-1"></a>không có, thì được coi là "bị thiếu". Tài liệu thống kê phân biệt giữa</span>
-<span id="cb1-308"><a href="#cb1-308" aria-hidden="true" tabindex="-1"></a>các loại thiếu hụt như "thiếu hoàn toàn ngẫu nhiên", "thiếu ngẫu</span>
-<span id="cb1-309"><a href="#cb1-309" aria-hidden="true" tabindex="-1"></a>nhiên" và "thiếu không ngẫu nhiên", và các phương pháp có độ phức tạp</span>
-<span id="cb1-310"><a href="#cb1-310" aria-hidden="true" tabindex="-1"></a>ngày càng tăng đang cố gắng giải quyết các loại này. Perkins và cộng</span>
-<span id="cb1-311"><a href="#cb1-311" aria-hidden="true" tabindex="-1"></a>sự (2017) cung cấp một phần giới thiệu hữu ích về chủ đề</span>
-<span id="cb1-312"><a href="#cb1-312" aria-hidden="true" tabindex="-1"></a>này.</span>
-<span id="cb1-313"><a href="#cb1-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-314"><a href="#cb1-314" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tóm tắt</span></span>
-<span id="cb1-315"><a href="#cb1-315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a><span class="al">![](media/image4.png)</span>{width="0.4455205599300088in"</span>
-<span id="cb1-317"><a href="#cb1-317" aria-hidden="true" tabindex="-1"></a>height="0.4644783464566929in" .book-icon}</span>
-<span id="cb1-318"><a href="#cb1-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-319"><a href="#cb1-319" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>In observational research we distinguish three large categories of</span>
-<span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a>uses cases.</span>
-<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Characterization** aims to answer the questions "What happened to</span>
-<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a>them?"</span>
-<span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-325"><a href="#cb1-325" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Population-level estimation** attempts to answer the question "What</span>
-<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a>are the causal effects?"</span>
-<span id="cb1-327"><a href="#cb1-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Patient-level prediction** tries to answer "What will happen to me?"</span>
-<span id="cb1-329"><a href="#cb1-329" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-330"><a href="#cb1-330" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Prediction models are not causal models; There is no reason to believe</span>
-<span id="cb1-331"><a href="#cb1-331" aria-hidden="true" tabindex="-1"></a>that intervening on a strong predictor will impact the outcome.</span>
-<span id="cb1-332"><a href="#cb1-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-333"><a href="#cb1-333" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>There are questions that cannot be answered using observational</span>
-<span id="cb1-334"><a href="#cb1-334" aria-hidden="true" tabindex="-1"></a>healthcare data.</span>
-<span id="cb1-335"><a href="#cb1-335" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-336"><a href="#cb1-336" aria-hidden="true" tabindex="-1"></a><span class="fu">## Bài tập</span></span>
-<span id="cb1-337"><a href="#cb1-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-338"><a href="#cb1-338" aria-hidden="true" tabindex="-1"></a>**Bài tập 7.1. Những câu hỏi này thuộc các danh mục trường hợp sử dụng</span>
-<span id="cb1-339"><a href="#cb1-339" aria-hidden="true" tabindex="-1"></a>nào?**</span>
-<span id="cb1-340"><a href="#cb1-340" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-341"><a href="#cb1-341" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Tính tỷ lệ xuất huyết tiêu hóa (GI) ở những bệnh nhân mới tiếp xúc</span>
-<span id="cb1-342"><a href="#cb1-342" aria-hidden="true" tabindex="-1"></a>với NSAID.</span>
-<span id="cb1-343"><a href="#cb1-343" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-344"><a href="#cb1-344" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Tính xác suất một bệnh nhân cụ thể bị xuất huyết tiêu hóa trong năm</span>
-<span id="cb1-345"><a href="#cb1-345" aria-hidden="true" tabindex="-1"></a>tới, dựa trên các đặc điểm cơ bản của họ.</span>
-<span id="cb1-346"><a href="#cb1-346" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-347"><a href="#cb1-347" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Ước tính nguy cơ gia tăng xuất huyết tiêu hóa do diclofenac so với</span>
-<span id="cb1-348"><a href="#cb1-348" aria-hidden="true" tabindex="-1"></a>celecoxib.</span>
-<span id="cb1-349"><a href="#cb1-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-350"><a href="#cb1-350" aria-hidden="true" tabindex="-1"></a>**Bài tập 7.2. Bạn muốn ước tính nguy cơ gia tăng xuất huyết tiêu hóa</span>
-<span id="cb1-351"><a href="#cb1-351" aria-hidden="true" tabindex="-1"></a>do diclofenac so với không tiếp xúc (giả dược). Điều này có thể thực</span>
-<span id="cb1-352"><a href="#cb1-352" aria-hidden="true" tabindex="-1"></a>hiện được bằng cách sử dụng dữ liệu chăm sóc sức khỏe quan sát</span>
-<span id="cb1-353"><a href="#cb1-353" aria-hidden="true" tabindex="-1"></a>không?**</span>
-<span id="cb1-354"><a href="#cb1-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-355"><a href="#cb1-355" aria-hidden="true" tabindex="-1"></a>Các câu trả lời gợi ý có thể được tìm thấy trong Phụ lục E.4.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Sách OHDSI (The Book of OHDSI - Bản tiếng Việt)</p>
+<p>Sách OHDSI — Ấn bản Tiếng Việt (The Book of OHDSI)</p>
 </div>   
     <div class="nav-footer-center">
-<p>🚧 Đang trong quá trình phát triển — OHDSI Vietnam Chapter</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi/edit/main/07_use_cases.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<p>Cộng đồng OHDSI Việt Nam (OHDSI Vietnam Chapter) · Giấy phép CC0 1.0</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi/edit/main/07_use_cases.qmd" class="toc-action"><i class="bi bi-github"></i>Chỉnh sửa trang này</a></li><li><a href="https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi/issues/new" class="toc-action"><i class="bi empty"></i>Báo lỗi nội dung / dịch thuật</a></li></ul></div></div>
     <div class="nav-footer-right">
-<p>Quarto Book</p>
+<p>Xây dựng với Quarto</p>
 </div>
   </div>
 </footer>

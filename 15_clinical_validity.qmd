@@ -1,1012 +1,305 @@
----
-title: "Chương 15: Tính hợp lệ lâm sàng"
----
+# Chương 15: Giá trị hợp lệ lâm sàng
 
-# Tính hợp lệ lâm sàng
+*Chủ biên chương: Joel Swerdel, Seng Chan You, Ray Chen & Patrick Ryan*
 
-*Chủ biên chương: Joel Swerdel, Seng Chan You, Ray Chen & Patrick
-Ryan*
+> Khả năng biến đổi vật chất thành năng lượng cũng giống như việc bắn chim trong bóng tối ở một xứ sở chỉ có lác đác vài con chim. — *Einstein, 1935*
 
-Khả năng biến vật chất thành năng lượng giống như việc bắn chim trong
-bóng tối ở một đất nước chỉ có vài con chim. Einstein, 1935
-
-Tầm nhìn của OHDSI là "Một thế giới nơi nghiên cứu quan sát tạo ra sự
-hiểu biết toàn diện về sức khỏe và bệnh tật." Các thiết kế hồi cứu
-cung cấp một phương tiện cho nghiên cứu sử dụng dữ liệu hiện có nhưng
-có thể chứa đầy các mối đe dọa đối với các khía cạnh khác nhau của
-tính hợp lệ như đã thảo luận trong Chương 14. Không dễ để tách biệt
-tính hợp lệ lâm sàng khỏi chất lượng dữ liệu và phương pháp thống kê,
-nhưng tại đây chúng tôi sẽ tập trung vào ba khía cạnh về tính hợp lệ
-lâm sàng: Đặc điểm của các cơ sở dữ liệu chăm sóc sức khỏe, Xác nhận
-nhóm thuần tập và Tính khái quát của bằng chứng. Hãy quay lại ví dụ về
-ước tính cấp độ quần thể (Chương 12). Chúng tôi đã cố gắng trả lời câu
-hỏi "Liệu thuốc ức chế ACE có gây phù mạch so với thuốc lợi tiểu
-thiazide hoặc thuốc giống thiazide không?" Trong ví dụ đó, chúng tôi
-đã chứng minh rằng thuốc ức chế ACE gây phù mạch nhiều hơn so với
-thuốc lợi tiểu thiazide hoặc thuốc giống thiazide. Chương này dành
-riêng để trả lời câu hỏi: "Phân tích được thực hiện khớp với ý định
-lâm sàng ở mức độ nào?"
+Tầm nhìn của OHDSI là "Một thế giới nơi nghiên cứu quan sát tạo ra sự hiểu biết toàn diện về sức khỏe và bệnh tật." Các thiết kế nghiên cứu hồi cứu cung cấp phương tiện để nghiên cứu dựa trên dữ liệu sẵn có nhưng có thể tiềm ẩn nhiều mối đe dọa đối với các khía cạnh khác nhau của giá trị hợp lệ như đã thảo luận trong Chương 14. Không dễ để tách bạch hoàn toàn giá trị hợp lệ lâm sàng (clinical validity) khỏi chất lượng dữ liệu và phương pháp luận thống kê, nhưng trong chương này chúng tôi sẽ tập trung vào ba khía cạnh cốt lõi của giá trị hợp lệ lâm sàng: Đặc điểm của các cơ sở dữ liệu chăm sóc sức khỏe, Xác thực đoàn hệ (cohort validation), và Tính khái quát hóa của bằng chứng. Hãy quay lại ví dụ về ước tính hiệu quả ở cấp độ quần thể (Chương 12). Chúng ta đã tìm cách trả lời câu hỏi: "Liệu thuốc ức chế men chuyển (ACE inhibitors) có gây phù mạch nhiều hơn so với thuốc lợi tiểu thiazide hoặc giống thiazide hay không?" Trong ví dụ đó, chúng ta đã chứng minh rằng thuốc ức chế ACE gây ra nhiều trường hợp phù mạch hơn so với thuốc lợi tiểu thiazide hoặc giống thiazide. Chương này dành riêng để trả lời câu hỏi: "Phân tích đã thực hiện phản ánh đúng ý định lâm sàng ở mức độ nào?"
 
 ## Đặc điểm của các cơ sở dữ liệu chăm sóc sức khỏe
 
-Có khả năng những gì chúng tôi tìm thấy là mối quan hệ giữa việc kê
-đơn thuốc ức chế ACE và phù mạch thay vì mối quan hệ giữa việc sử dụng
-thuốc ức chế ACE và phù mạch. Chúng tôi đã thảo luận về chất lượng dữ
-liệu trong chương trước (15). Chất lượng của cơ sở dữ liệu được chuyển
-đổi sang Mô hình dữ liệu chung (CDM) không thể vượt quá cơ sở dữ liệu
-gốc. Tại đây, chúng tôi đang giải quyết các đặc điểm của hầu hết các
-cơ sở dữ liệu sử dụng dịch vụ chăm sóc sức khỏe. Nhiều cơ sở dữ liệu
-được sử dụng trong OHDSI bắt nguồn từ dữ liệu yêu cầu thanh toán hành
-chính hoặc hồ sơ sức khỏe điện tử (EHR). Dữ liệu yêu cầu thanh toán và
-EHR có các quy trình thu thập dữ liệu khác nhau, không có quy trình
-nào lấy nghiên cứu làm mục đích chính. Các yếu tố dữ liệu từ hồ sơ yêu
-cầu thanh toán được thu thập cho mục đích hoàn trả, giao dịch tài
-chính giữa các bác sĩ lâm sàng
+Có khả năng những gì chúng ta tìm thấy thực chất là mối liên hệ giữa việc **kê đơn** thuốc ức chế ACE và phù mạch hơn là mối liên hệ giữa việc **sử dụng thực tế** thuốc ức chế ACE và phù mạch. Chúng ta đã thảo luận về chất lượng dữ liệu trong Chương 14. Chất lượng của cơ sở dữ liệu sau khi chuyển đổi sang Mô hình Dữ liệu Chung (CDM) không thể vượt quá chất lượng của cơ sở dữ liệu gốc. Tại đây, chúng ta xem xét đặc điểm bản chất của hầu hết các cơ sở dữ liệu sử dụng dịch vụ chăm sóc sức khỏe. Phần lớn các cơ sở dữ liệu dùng trong OHDSI bắt nguồn từ dữ liệu yêu cầu thanh toán bảo hiểm hành chính (administrative claims) hoặc hồ sơ bệnh án điện tử (EHR). Dữ liệu yêu cầu thanh toán và EHR có quy trình thu thập dữ liệu khác nhau, và không quy trình nào lấy nghiên cứu khoa học làm mục đích chính. Các trường dữ liệu trong hồ sơ yêu cầu thanh toán được ghi nhận nhằm phục vụ mục đích bồi hoàn chi phí và giao dịch tài chính giữa cơ sở y tế với bên chi trả bảo hiểm, sao cho các dịch vụ y tế cung cấp cho bệnh nhân có đủ căn cứ giải trình để các bên có trách nhiệm thống nhất thanh toán. Trong khi đó, các trường dữ liệu trong hồ sơ EHR được thu thập để hỗ trợ hoạt động khám chữa bệnh lâm sàng và vận hành hành chính, nên chúng thường chỉ phản ánh những thông tin mà nhân viên y tế trong một hệ thống y tế nhất định cho là cần thiết để ghi nhận dịch vụ hiện tại và cung cấp bối cảnh cho việc theo dõi điều trị dự kiến ngay trong hệ thống y tế đó. Chúng có thể không phản ánh toàn bộ tiền sử y khoa của bệnh nhân và thường không tích hợp được dữ liệu xuyên suốt qua nhiều hệ thống y tế khác nhau.
 
-và người chi trả, theo đó các dịch vụ cung cấp cho bệnh nhân bởi các
-nhà cung cấp được biện minh đầy đủ để đạt được thỏa thuận về các khoản
-thanh toán bởi các bên chịu trách nhiệm. Các yếu tố dữ liệu trong hồ
-sơ EHR được thu thập để hỗ trợ chăm sóc lâm sàng và các hoạt động hành
-chính, và chúng thường chỉ phản ánh thông tin mà các nhà cung cấp
-trong một hệ thống y tế nhất định cảm thấy cần thiết để ghi lại dịch
-vụ hiện tại và cung cấp bối cảnh cần thiết cho việc chăm sóc theo dõi
-dự kiến trong hệ thống y tế của họ. Chúng có thể không đại diện cho
-toàn bộ lịch sử y tế của bệnh nhân và có thể không tích hợp dữ liệu từ
-khắp các hệ thống y tế.
+Để tạo ra bằng chứng đáng tin cậy từ dữ liệu quan sát, nhà nghiên cứu cần hiểu rõ hành trình mà dữ liệu đi qua kể từ thời điểm bệnh nhân tìm đến dịch vụ chăm sóc y tế cho đến thời điểm dữ liệu phản ánh quá trình chăm sóc đó được đưa vào phân tích. Chẳng hạn, "phơi nhiễm thuốc (drug exposure)" có thể được suy luận từ nhiều nguồn dữ liệu quan sát khác nhau, bao gồm đơn thuốc do bác sĩ kê, hồ sơ cấp phát thuốc tại nhà thuốc, y lệnh thực hiện thuốc nội viện, hoặc tiền sử dùng thuốc do bệnh nhân tự khai báo. Nguồn gốc dữ liệu ảnh hưởng trực tiếp đến mức độ tin cậy của suy luận về việc bệnh nhân nào đã dùng hay không dùng thuốc, cũng như thời điểm bắt đầu và thời lượng sử dụng. Quy trình thu thập dữ liệu có thể dẫn đến việc ước tính thấp mức độ phơi nhiễm (chẳng hạn khi thuốc mẫu phát miễn phí hoặc thuốc không kê đơn không được ghi nhận), hoặc ước tính cao quá mức độ phơi nhiễm (chẳng hạn khi bệnh nhân được kê đơn nhưng không mua thuốc, hoặc nhận thuốc nhưng không tuân thủ dùng thuốc). Việc thấu hiểu các sai lệch tiềm ẩn trong quá trình xác định phơi nhiễm và kết cục — và lý tưởng hơn là định lượng cũng như hiệu chỉnh các sai số đo lường này — sẽ giúp củng cố niềm tin của chúng ta vào giá trị hợp lệ của bằng chứng rút ra từ dữ liệu sẵn có.
 
-Để tạo ra bằng chứng đáng tin cậy từ dữ liệu quan sát, nhà nghiên cứu
-cần hiểu hành trình mà dữ liệu trải qua từ thời điểm bệnh nhân tìm
-kiếm sự chăm sóc cho đến thời điểm dữ liệu phản ánh sự chăm sóc đó
-được sử dụng trong phân tích. Ví dụ, "phơi nhiễm thuốc" có thể được
-suy ra từ nhiều nguồn dữ liệu quan sát khác nhau, bao gồm đơn thuốc do
-bác sĩ lâm sàng viết, hồ sơ cấp phát thuốc tại nhà thuốc, các thủ
-thuật quản lý tại bệnh viện hoặc lịch sử dùng thuốc do bệnh nhân tự
-báo cáo. Nguồn dữ liệu có thể ảnh hưởng đến mức độ tin cậy của chúng
-ta vào suy luận về việc bệnh nhân nào đã hoặc không sử dụng thuốc,
-cũng như khi nào và trong bao lâu. Quy trình thu thập dữ liệu có thể
-dẫn đến đánh giá thấp mức độ phơi nhiễm, chẳng hạn như nếu các mẫu
-thuốc miễn phí hoặc thuốc không kê đơn không được ghi lại, hoặc đánh
-giá quá cao mức độ phơi nhiễm, chẳng hạn như nếu bệnh nhân không mua
-đơn thuốc đã viết hoặc không tuân thủ việc sử dụng thuốc được cấp
-phát. Hiểu được các sai lệch tiềm ẩn trong việc xác định phơi nhiễm và
-kết cục, và lý tưởng hơn là định lượng và điều chỉnh các sai số đo
-lường này, có thể cải thiện sự tin cậy của chúng ta vào tính hợp lệ
-của bằng chứng rút ra từ dữ liệu sẵn có.
+## Xác thực đoàn hệ (Xác thực kiểu hình)
 
-## Xác nhận nhóm thuần tập
+Hripcsak và Albers (2017) mô tả rằng: "Kiểu hình (phenotype) là đặc tả về một trạng thái có thể quan sát được và có khả năng biến đổi của một sinh vật, phân biệt với kiểu gen (genotype) vốn bắt nguồn từ cấu trúc di truyền của sinh vật đó. Thuật ngữ kiểu hình có thể được áp dụng cho các đặc điểm của bệnh nhân được suy ra từ dữ liệu hồ sơ bệnh án điện tử (EHR). Các nhà nghiên cứu đã thực hiện việc xác định kiểu hình trên EHR (EHR phenotyping) ngay từ buổi đầu của ngành tin học y sinh, dựa trên cả dữ liệu có cấu trúc lẫn dữ liệu văn bản tường thuật. Mục tiêu là rút ra kết luận về một khái niệm lâm sàng đích dựa trên dữ liệu EHR thô, dữ liệu yêu cầu thanh toán bảo hiểm hoặc các dữ liệu lâm sàng liên quan khác. Các thuật toán xác định kiểu hình (phenotype algorithms) — tức các thuật toán nhận diện hoặc mô tả đặc trưng kiểu hình — có thể được xây dựng bởi các chuyên gia lâm sàng và kỹ sư tri thức, bao gồm cả các nghiên cứu gần đây về kỹ thuật tri thức hoặc thông qua các phương pháp học máy đa dạng... nhằm tạo ra những biểu diễn dữ liệu mới."
 
-Hripcsak và Albers (2017) mô tả rằng "kiểu hình là một đặc điểm kỹ
-thuật của một trạng thái có thể quan sát được và có khả năng thay đổi
-của một sinh vật, khác với kiểu gen, vốn bắt nguồn từ cấu trúc di
-truyền của sinh vật. Thuật ngữ kiểu hình có thể được áp dụng cho các
-đặc điểm của bệnh nhân được suy ra từ dữ liệu hồ sơ sức khỏe điện tử
-(EHR). Các nhà nghiên cứu đã thực hiện kiểu hình hóa EHR từ khi bắt
-đầu tin học y tế, từ cả dữ liệu có cấu trúc và dữ liệu tường thuật.
-Mục tiêu là rút ra kết luận về một khái niệm mục tiêu dựa trên dữ liệu
-EHR thô, dữ liệu yêu cầu thanh toán hoặc các dữ liệu liên quan lâm
-sàng khác. Các thuật toán kiểu hình -- tức là các thuật toán xác định
-hoặc đặc trưng hóa kiểu hình -- có thể được tạo ra bởi các chuyên gia
-lĩnh vực và kỹ sư tri thức, bao gồm nghiên cứu gần đây về kỹ thuật tri
-thức hoặc thông qua các hình thức học máy đa dạng... để tạo ra các
-biểu diễn mới về dữ liệu."
+Mô tả này làm nổi bật ba thuộc tính quan trọng cần ghi nhớ khi xem xét giá trị hợp lệ lâm sàng: 1) khẳng định rõ rằng chúng ta đang nói về một trạng thái có thể quan sát được (và do đó có khả năng được ghi nhận trong dữ liệu quan sát); 2) đưa yếu tố thời gian vào đặc tả kiểu hình (vì trạng thái sức khỏe của một người có thể thay đổi theo thời gian); và 3) phân biệt rõ giữa *kiểu hình* (ý định lâm sàng mong muốn) với *thuật toán kiểu hình* (cách thức triển khai thực tế để nắm bắt ý định mong muốn đó).
 
-Mô tả này làm nổi bật một số thuộc tính hữu ích cần củng cố khi xem
-xét tính hợp lệ lâm sàng: 1) nó làm rõ rằng chúng ta đang nói về một
-thứ gì đó có thể quan sát được (và do đó có thể được thu thập trong dữ
-liệu quan sát của chúng ta); 2) nó bao gồm khái niệm thời gian trong
-đặc điểm kỹ thuật kiểu hình (vì trạng thái của một người có thể thay
-đổi); 3) nó phân biệt giữa kiểu hình như ý định mong muốn và thuật
-toán kiểu hình, là việc triển khai ý định mong muốn đó.
+OHDSI sử dụng thuật ngữ "đoàn hệ (cohort)" để định nghĩa một tập hợp những người thỏa mãn một hoặc nhiều tiêu chí thu nhận trong một khoảng thời gian nhất định. Một "định nghĩa đoàn hệ (cohort definition)" biểu diễn quy tắc logic cần thiết để khởi tạo một đoàn hệ trên một cơ sở dữ liệu quan sát. Theo nghĩa này, định nghĩa đoàn hệ (hay thuật toán kiểu hình) được sử dụng để tạo ra một đoàn hệ nhằm đại diện cho kiểu hình — tức những người thực sự mang trạng thái lâm sàng quan sát được mà chúng ta quan tâm.
 
-OHDSI đã áp dụng thuật ngữ "nhóm thuần tập" (cohort) để xác định tập
-hợp những người đáp ứng một hoặc nhiều
+Hầu hết các loại hình phân tích quan sát, bao gồm mô tả đặc điểm lâm sàng, ước tính hiệu quả ở cấp độ quần thể và dự đoán ở cấp độ bệnh nhân, đều đòi hỏi phải thiết lập một hoặc nhiều đoàn hệ như một phần của quy trình nghiên cứu. Để đánh giá giá trị hợp lệ của bằng chứng do các phân tích này tạo ra, chúng ta phải đặt câu hỏi sau cho từng đoàn hệ: *những người được nhận diện vào đoàn hệ dựa trên định nghĩa đoàn hệ và dữ liệu quan sát sẵn có phản ánh chính xác đến mức nào những người thực sự mang kiểu hình đó?*
 
-2.  *Xác nhận nhóm thuần tập 309*
+Quay trở lại ví dụ ước tính hiệu quả ở cấp độ quần thể (Chương 12): "Liệu thuốc ức chế ACE có gây phù mạch nhiều hơn so với thuốc lợi tiểu thiazide hoặc giống thiazide hay không?", chúng ta phải định nghĩa ba đoàn hệ: đoàn hệ mục tiêu gồm những người mới bắt đầu sử dụng thuốc ức chế ACE, đoàn hệ đối chứng gồm những người mới bắt đầu sử dụng thuốc lợi tiểu thiazide, và đoàn hệ kết cục gồm những người khởi phát phù mạch. Chúng ta tự tin đến mức nào rằng toàn bộ việc sử dụng thuốc ức chế ACE hoặc thuốc lợi tiểu thiazide đều được ghi nhận đầy đủ, sao cho "người dùng mới" có thể được xác định chính xác bằng lần phơi nhiễm đầu tiên quan sát được mà không phải lo ngại về việc bệnh nhân đã từng dùng thuốc trước đó nhưng không được ghi nhận? Chúng ta có thể yên tâm suy luận rằng những người có bản ghi phơi nhiễm thuốc ức chế ACE thực sự đã dùng thuốc, còn những người không có bản ghi phơi nhiễm thuốc thực sự không dùng thuốc hay không? Có sự không chắc chắn nào trong việc xác định khoảng thời gian một người ở trạng thái "đang sử dụng thuốc ức chế ACE", cả khi suy luận thời điểm gia nhập đoàn hệ lúc bắt đầu dùng thuốc lẫn thời điểm rời đoàn hệ lúc ngừng thuốc hay không? Những người có bản ghi tình trạng bệnh lý "Phù mạch" có thực sự trải qua tình trạng sưng nề cấp tính dưới da, phân biệt rõ với các phản ứng dị ứng da liễu khác hay không? Tỷ lệ bệnh nhân bị phù mạch thực sự đi khám y tế để từ đó sinh ra dữ liệu quan sát giúp nhận diện các ca lâm sàng này theo định nghĩa đoàn hệ là bao nhiêu? Khả năng phân biệt giữa các biến cố phù mạch nghi do thuốc với các biến cố phù mạch do nguyên nhân khác (như dị ứng thức ăn hoặc nhiễm vi-rút) tốt đến mức nào? Thời điểm khởi phát bệnh có được ghi nhận đủ chính xác để chúng ta tự tin xác lập mối liên hệ thời gian giữa tình trạng phơi nhiễm và tỷ lệ mới mắc kết cục hay không? Việc trả lời những câu hỏi như vậy chính là trọng tâm của giá trị hợp lệ lâm sàng.
 
-tiêu chí đưa vào trong một khoảng thời gian. Một "định nghĩa nhóm
-thuần tập" đại diện cho logic cần thiết để khởi tạo một nhóm thuần tập
-dựa trên một cơ sở dữ liệu quan sát. Theo nghĩa này, định nghĩa nhóm
-thuần tập (hoặc thuật toán kiểu hình) được sử dụng để tạo ra một nhóm
-thuần tập, nhằm đại diện cho kiểu hình, là những người thuộc trạng
-thái lâm sàng có thể quan sát được mà chúng ta quan tâm.
+Trong chương này, chúng ta sẽ thảo luận các phương pháp xác thực định nghĩa đoàn hệ (xác thực kiểu hình — phenotype validation). Trước hết, chúng tôi trình bày các chỉ số dùng để đo lường giá trị hợp lệ của một định nghĩa đoàn hệ. Tiếp theo, chúng tôi mô tả hai phương pháp ước tính các chỉ số này: 1) thẩm định lâm sàng thông qua xác minh hồ sơ nguồn (source record verification), và 2) PheValuator — một phương pháp bán tự động sử dụng mô hình dự đoán chẩn đoán.
 
-Hầu hết các loại phân tích quan sát, bao gồm đặc điểm lâm sàng, ước
-tính hiệu quả cấp độ quần thể và dự đoán cấp độ bệnh nhân, yêu cầu một
-hoặc nhiều nhóm thuần tập được thiết lập như một phần của quy trình
-nghiên cứu. Để đánh giá tính hợp lệ của bằng chứng do các phân tích
-này tạo ra, người ta phải xem xét câu hỏi này cho mỗi nhóm thuần tập:
-những người được xác định trong nhóm thuần tập dựa trên định nghĩa
-nhóm thuần tập và dữ liệu quan sát sẵn có phản ánh chính xác đến mức
-nào những người thực sự thuộc về kiểu hình đó?
+### Các chỉ số đánh giá đoàn hệ
 
-Để quay lại ví dụ về ước tính cấp độ quần thể (Chương 12) "Liệu thuốc
-ức chế ACE có gây phù mạch so với thuốc lợi tiểu thiazide hoặc thuốc
-giống thiazide không?", chúng ta phải xác định ba nhóm thuần tập: nhóm
-thuần tập mục tiêu gồm những người mới sử dụng thuốc ức chế ACE, nhóm
-thuần tập so sánh gồm những người mới sử dụng thuốc lợi tiểu thiazide
-và nhóm thuần tập kết cục gồm những người phát triển bệnh phù mạch.
-Chúng ta tự tin đến mức nào rằng tất cả việc sử dụng thuốc ức chế ACE
-hoặc thuốc lợi tiểu thiazide được thu thập đầy đủ, để có thể xác định
-"người dùng mới" bằng lần phơi nhiễm được quan sát đầu tiên, mà không
-lo ngại về việc sử dụng trước đó (nhưng chưa được quan sát)? Chúng ta
-có thể thoải mái suy luận rằng những người có bản ghi phơi nhiễm thuốc
-đối với thuốc ức chế ACE thực sự đã tiếp xúc với thuốc, và những người
-không có bản ghi phơi nhiễm thuốc thực sự không tiếp xúc không? Có sự
-không chắc chắn nào trong việc xác định khoảng thời gian một người
-được phân loại vào trạng thái "sử dụng thuốc ức chế ACE" không, cho dù
-là khi suy luận việc tham gia nhóm thuần tập tại thời điểm bắt đầu
-dùng thuốc hay khi kết thúc nhóm thuần tập khi ngừng dùng thuốc? Những
-người có bản ghi về tình trạng "Phù mạch" có thực sự trải qua tình
-trạng sưng nhanh dưới da, khác biệt với các loại phản ứng dị ứng da
-liễu khác không? Tỷ lệ bệnh nhân phát triển phù mạch nhận được sự chăm
-sóc y tế dẫn đến dữ liệu quan sát được sử dụng để xác định các ca lâm
-sàng này dựa trên định nghĩa nhóm thuần tập là bao nhiêu? Các sự kiện
-phù mạch có khả năng do thuốc gây ra có thể được phân biệt tốt đến mức
-nào với các sự kiện được biết là do các tác nhân khác gây ra, chẳng
-hạn như dị ứng thực phẩm hoặc nhiễm virus? Liệu thời điểm khởi phát
-bệnh có được thu thập đủ tốt để chúng ta tự tin trong việc rút ra mối
-liên hệ tạm thời giữa tình trạng phơi nhiễm và tỷ lệ mắc kết cục
-không? Trả lời những loại câu hỏi này là cốt lõi của tính hợp lệ lâm
-sàng.
+Sau khi xác định xong định nghĩa đoàn hệ cho nghiên cứu, chúng ta có thể đánh giá giá trị hợp lệ của định nghĩa đó. Một phương pháp phổ biến để đánh giá giá trị hợp lệ là đối chiếu một phần hoặc toàn bộ các cá thể trong đoàn hệ đã định nghĩa với một "tiêu chuẩn vàng (gold standard)" tham chiếu và biểu diễn kết quả dưới dạng ma trận nhầm lẫn (confusion matrix) — một bảng tiếp liên $2 \times 2$ phân tầng các cá thể theo phân loại của tiêu chuẩn vàng và theo kết quả phân loại của định nghĩa đoàn hệ. Hình 15.1 trình bày các thành phần của ma trận nhầm lẫn.
 
-Trong chương này, chúng ta sẽ thảo luận về các phương pháp xác nhận
-các định nghĩa nhóm thuần tập. Trước hết, chúng ta mô tả các thước đo
-được sử dụng để đo lường tính hợp lệ của một định nghĩa nhóm thuần
-tập. Tiếp theo, chúng ta mô tả hai phương pháp để ước tính các thước
-đo này: 1) đánh giá lâm sàng thông qua xác minh hồ sơ nguồn và 2)
-PheValuator, một phương pháp bán tự động sử dụng mô hình dự đoán chẩn
-đoán.
+![](media/image163.jpeg){width="4.028437226596675in" height="0.8531244531933508in"}
 
-### Các thước đo đánh giá nhóm thuần tập
+Hình 15.1: Ma trận nhầm lẫn (Confusion matrix).
 
-Sau khi định nghĩa nhóm thuần tập cho nghiên cứu đã được xác định,
-tính hợp lệ của định nghĩa có thể được đánh giá. Một cách tiếp cận phổ
-biến để đánh giá tính hợp lệ là so sánh một số hoặc tất cả những người
-trong một nhóm thuần tập được xác định với một 'tiêu chuẩn vàng' tham
-chiếu và thể hiện kết quả trong
+Kết quả dương tính (True) và âm tính (False) từ định nghĩa đoàn hệ được xác định bằng cách áp dụng định nghĩa đó lên một tập hợp người bệnh. Những người thỏa mãn tiêu chí đưa vào định nghĩa đoàn hệ được coi là dương tính với tình trạng sức khỏe và được gán nhãn "True". Những người không nằm trong định nghĩa đoàn hệ được coi là âm tính với tình trạng sức khỏe và được gán nhãn "False". Mặc dù việc biết được sự thật tuyệt đối về trạng thái sức khỏe của một người là rất khó khăn, nhưng có nhiều phương pháp để thiết lập một tiêu chuẩn vàng tham chiếu, hai trong số đó sẽ được trình bày ở phần sau của chương này. Dù sử dụng phương pháp nào để thiết lập tiêu chuẩn vàng, cách gán nhãn cho các cá thể cũng tương tự như cách gán nhãn của định nghĩa đoàn hệ.
 
-một ma trận nhầm lẫn, một bảng dự phòng hai nhân hai phân tầng những
-người theo phân loại tiêu chuẩn vàng của họ và trình độ chuyên môn
-trong định nghĩa nhóm thuần tập. Hình
+Bên cạnh sai số trong việc phân loại nhị phân (có/không thuộc kiểu hình), thời điểm xảy ra tình trạng sức khỏe cũng có thể không chính xác. Ví dụ, định nghĩa đoàn hệ có thể gán nhãn đúng một người là thuộc kiểu hình bệnh, nhưng lại xác định sai ngày giờ mà người đó chuyển từ trạng thái không bệnh sang trạng thái mắc bệnh. Sai số về mặt thời gian này sẽ gây ra sai lệch cho các nghiên cứu sử dụng phân tích sống còn (survival analysis), chẳng hạn như ước tính tỷ số nguy cơ (hazard ratio — HR) làm thước đo hiệu quả.
 
-16.1 hiển thị các phần tử của ma trận nhầm lẫn.
+Bước tiếp theo trong quy trình là đánh giá mức độ phù hợp giữa tiêu chuẩn vàng và định nghĩa đoàn hệ:
 
-![](media/image163.jpeg){width="4.028437226596675in"
-height="0.8531244531933508in"}
+- Những người được cả tiêu chuẩn vàng và định nghĩa đoàn hệ gán nhãn "True" được gọi là **Dương tính thật (True Positives — TP)**.
+- Những người được tiêu chuẩn vàng gán nhãn "False" nhưng định nghĩa đoàn hệ lại gán nhãn "True" được gọi là **Dương tính giả (False Positives — FP)**, tức là định nghĩa đoàn hệ đã phân loại nhầm những người không mắc bệnh thành có bệnh.
+- Những người được cả tiêu chuẩn vàng và định nghĩa đoàn hệ gán nhãn "False" được gọi là **Âm tính thật (True Negatives — TN)**.
+- Những người được tiêu chuẩn vàng gán nhãn "True" nhưng định nghĩa đoàn hệ lại gán nhãn "False" được gọi là **Âm tính giả (False Negatives — FN)**, tức là định nghĩa đoàn hệ đã bỏ sót những người thực sự thuộc kiểu hình bệnh.
 
-Hình 16.1: Ma trận nhầm lẫn.
+Sử dụng số đếm từ bốn ô trong ma trận nhầm lẫn, chúng ta có thể định lượng độ chính xác của định nghĩa đoàn hệ trong việc phân loại trạng thái kiểu hình thông qua bốn chỉ số hiệu năng tiêu chuẩn:
 
-Các kết quả đúng và sai từ định nghĩa nhóm thuần tập được xác định
-bằng cách áp dụng định nghĩa cho một nhóm người. Những người được bao
-gồm trong định nghĩa được coi là dương tính với tình trạng sức khỏe và
-được gắn nhãn "Đúng" (True). Những người không được bao gồm trong định
-nghĩa nhóm thuần tập được coi là âm tính với tình trạng sức khỏe và
-được gắn nhãn "Sai" (False). Mặc dù sự thật tuyệt đối về trạng thái
-sức khỏe của một người được xem xét trong định nghĩa nhóm thuần tập
-rất khó xác định, nhưng có nhiều phương pháp để thiết lập một tiêu
-chuẩn vàng tham chiếu, hai trong số đó sẽ được mô tả sau trong chương
-này. Bất kể phương pháp nào được sử dụng, việc gắn nhãn những người
-này cũng giống như mô tả cho định nghĩa nhóm thuần tập.
+1. **Độ nhạy (Sensitivity) của định nghĩa đoàn hệ** — tỷ lệ những người thực sự thuộc kiểu hình trong quần thể được nhận diện đúng là có kết cục sức khỏe dựa trên định nghĩa đoàn hệ:
 
-Ngoài các lỗi trong chỉ báo nhị phân về phân định kiểu hình, thời điểm
-xảy ra tình trạng sức khỏe cũng có thể không chính xác. Ví dụ, trong
-khi định nghĩa nhóm thuần tập có thể gắn nhãn chính xác một người là
-thuộc về một kiểu hình, định nghĩa có thể xác định không chính xác
-ngày và giờ khi một người không mắc bệnh trở thành người mắc bệnh. Lỗi
-này sẽ làm tăng sai lệch cho các nghiên cứu sử dụng kết quả phân tích
-sống sót, ví dụ: tỷ lệ rủi ro (hazard ratios), như một thước đo hiệu
-quả.
+   $$\text{Độ nhạy (Sensitivity)} = \frac{\text{TP}}{\text{TP} + \text{FN}}$$
 
-Bước tiếp theo trong quy trình là đánh giá sự phù hợp của tiêu chuẩn
-vàng với định nghĩa nhóm thuần tập. Những người được cả phương pháp
-tiêu chuẩn vàng và định nghĩa nhóm thuần tập gắn nhãn là "Đúng" được
-gọi là "Dương tính thật" (True Positives). Những người được phương
-pháp tiêu chuẩn vàng gắn nhãn là "Sai" và bởi định nghĩa nhóm thuần
-tập là "Đúng" được gọi là "Dương tính giả" (False Positives), tức là
-định nghĩa nhóm thuần tập đã phân loại sai những người này là mắc bệnh
-khi họ không mắc. Những người được cả phương pháp tiêu chuẩn vàng và
-định nghĩa nhóm thuần tập gắn nhãn là "Sai" được gọi là "Âm tính thật"
-(True Negatives). Những người được phương pháp tiêu chuẩn vàng gắn
-nhãn là "Đúng" và bởi định nghĩa nhóm thuần tập là "Sai" được gọi là
-"Âm tính giả" (False Negatives), tức là định nghĩa nhóm thuần tập đã
-phân loại không chính xác những người này là không mắc bệnh, khi thực
-tế họ thuộc về kiểu hình đó. Sử dụng các số đếm từ bốn ô trong ma trận
-nhầm lẫn, chúng ta có thể định lượng độ chính xác của định nghĩa nhóm
-thuần tập trong việc phân loại trạng thái kiểu hình trong một nhóm
-người. Có các thước đo hiệu suất chuẩn để đo lường hiệu suất định
-nghĩa nhóm thuần tập:
+2. **Độ đặc hiệu (Specificity) của định nghĩa đoàn hệ** — tỷ lệ những người không thuộc kiểu hình trong quần thể được nhận diện đúng là không có kết cục sức khỏe dựa trên định nghĩa đoàn hệ:
 
-1.  **Độ nhạy của định nghĩa nhóm thuần tập -- tỷ lệ những người thực sự
-thuộc về kiểu hình trong quần thể được xác định chính xác là có kết
-cục sức khỏe dựa trên định nghĩa nhóm thuần tập là bao nhiêu? Điều
-này được xác định bằng công thức sau:**
+   $$\text{Độ đặc hiệu (Specificity)} = \frac{\text{TN}}{\text{TN} + \text{FP}}$$
 
-Độ nhạy = Dương tính thật / (Dương tính thật + Âm tính giả)
+3. **Giá trị dự đoán dương (Positive Predictive Value — PPV) của định nghĩa đoàn hệ** — tỷ lệ những người được định nghĩa đoàn hệ nhận diện là có tình trạng sức khỏe thực sự thuộc kiểu hình đó:
 
-2.  **Độ đặc hiệu của định nghĩa nhóm thuần tập -- tỷ lệ những người
-không thuộc về kiểu hình trong quần thể được xác định chính xác là
-không có kết cục sức khỏe dựa trên định nghĩa nhóm thuần tập là bao
-nhiêu? Điều này được xác định bằng công thức sau:**
+   $$\text{PPV} = \frac{\text{TP}}{\text{TP} + \text{FP}}$$
 
-Độ đặc hiệu = Âm tính thật / (Âm tính thật + Dương tính giả)
+4. **Giá trị dự đoán âm (Negative Predictive Value — NPV) của định nghĩa đoàn hệ** — tỷ lệ những người được định nghĩa đoàn hệ nhận diện là không có tình trạng sức khỏe thực sự không thuộc kiểu hình đó:
 
-3.  **Giá trị dự đoán dương tính (PPV) của định nghĩa nhóm thuần tập --
-tỷ lệ những người được định nghĩa nhóm thuần tập xác định là có tình
-trạng sức khỏe thực sự thuộc về kiểu hình là bao nhiêu? Điều này
-được xác định bằng công thức sau:**
+   $$\text{NPV} = \frac{\text{TN}}{\text{TN} + \text{FN}}$$
 
-PPV = Dương tính thật / (Dương tính thật + Dương tính giả)
+Điểm số lý tưởng tuyệt đối cho các chỉ số này là 100%. Tuy nhiên, do bản chất của dữ liệu quan sát, hầu như rất hiếm khi đạt được mức điểm tuyệt đối này. Rubbo và cộng sự (2015) đã tổng quan các nghiên cứu xác thực định nghĩa đoàn hệ cho bệnh nhồi máu cơ tim cấp. Trong số 33 nghiên cứu được khảo sát, chỉ có duy nhất một định nghĩa đoàn hệ trên một tập dữ liệu đạt PPV tuyệt đối 100%. Nhìn chung, 31 trong số 33 nghiên cứu báo cáo $\text{PPV} \ge 70\%$. Tuy nhiên, nhóm tác giả cũng phát hiện ra rằng trong 33 nghiên cứu đó, chỉ có 11 nghiên cứu báo cáo độ nhạy và 5 nghiên cứu báo cáo độ đặc hiệu. Cần lưu ý rằng PPV là một hàm số phụ thuộc vào độ nhạy, độ đặc hiệu và tỷ lệ hiện mắc (prevalence). Các tập dữ liệu có tỷ lệ hiện mắc khác nhau sẽ cho ra các giá trị PPV khác nhau ngay cả khi độ nhạy và độ đặc hiệu không đổi. Nếu không biết độ nhạy và độ đặc hiệu, chúng ta không thể hiệu chỉnh sai lệch do các định nghĩa đoàn hệ không hoàn hảo gây ra. Thêm vào đó, sự phân loại sai (misclassification) tình trạng sức khỏe có thể là phân loại sai khác biệt (differential misclassification — định nghĩa đoàn hệ hoạt động khác nhau giữa nhóm mục tiêu và nhóm đối chứng) hoặc phân loại sai không khác biệt (non-differential misclassification — định nghĩa đoàn hệ hoạt động tương đương trên cả hai nhóm). Các nghiên cứu xác thực định nghĩa đoàn hệ trước đây thường không kiểm tra khả năng phân loại sai khác biệt, mặc dù hiện tượng này có thể gây ra sai lệch rất lớn trong các ước tính hiệu quả.
 
-4.  **Giá trị dự đoán âm tính (NPV) của định nghĩa nhóm thuần tập -- tỷ
-lệ những người được định nghĩa nhóm thuần tập xác định là không có
-tình trạng sức khỏe thực sự không thuộc về kiểu hình là bao nhiêu?
-Điều này được xác định bằng công thức sau:**
-
-NPV = Âm tính thật / (Âm tính thật + Âm tính giả)
-
-Điểm hoàn hảo cho các thước đo này là 100%. Do bản chất của dữ liệu
-quan sát, điểm hoàn hảo thường còn lâu mới là tiêu chuẩn. Rubbo và
-cộng sự (2015) đã xem xét các nghiên cứu xác nhận các định nghĩa nhóm
-thuần tập cho nhồi máu cơ tim. Trong số 33 nghiên cứu họ kiểm tra, chỉ
-có một định nghĩa nhóm thuần tập trong một tập dữ liệu đạt được điểm
-hoàn hảo về PPV. Nhìn chung, 31 trong số 33 nghiên cứu báo cáo PPV ≥
-70%. Tuy nhiên, họ cũng nhận thấy rằng trong số 33 nghiên cứu, chỉ có
-11 nghiên cứu báo cáo độ nhạy và 5 nghiên cứu báo cáo độ đặc hiệu. PPV
-là một hàm của độ nhạy, độ đặc hiệu và tỷ lệ phổ biến. Các tập dữ liệu
-với các giá trị khác nhau về tỷ lệ phổ biến sẽ tạo ra các giá trị khác
-nhau cho PPV khi độ nhạy và độ đặc hiệu được giữ không đổi. Nếu không
-có độ nhạy và độ đặc hiệu, việc điều chỉnh sai lệch do các định nghĩa
-nhóm thuần tập không hoàn hảo là không thể. Ngoài ra, việc phân loại
-sai tình trạng sức khỏe có thể mang tính khác biệt, nghĩa là định
-nghĩa nhóm thuần tập hoạt động khác nhau trên một nhóm người so với
-nhóm so sánh, hoặc không khác biệt, khi định nghĩa nhóm thuần tập hoạt
-động tương tự trên cả hai nhóm so sánh. Các nghiên cứu xác nhận định
-nghĩa nhóm thuần tập trước đây chưa kiểm tra khả năng phân loại sai
-khác biệt, mặc dù nó có thể dẫn đến sai lệch mạnh trong các ước tính
-hiệu quả.
-
-Khi các thước đo hiệu suất đã được thiết lập cho định nghĩa nhóm thuần
-tập, chúng có thể được sử dụng để điều chỉnh kết quả cho các nghiên
-cứu sử dụng các định nghĩa này. Về lý thuyết, việc điều chỉnh kết quả
-nghiên cứu cho các ước tính sai số đo lường này đã được thiết lập tốt.
-Tuy nhiên, trong thực tế, vì khó khăn trong việc thu thập các đặc điểm
-hiệu suất, những điều chỉnh này hiếm khi được xem xét. Các phương pháp
-được sử dụng để xác định tiêu chuẩn vàng được mô tả trong phần còn lại
-của mục này.
+Một khi các chỉ số hiệu năng của định nghĩa đoàn hệ đã được xác lập, chúng có thể được sử dụng để hiệu chỉnh kết quả nghiên cứu có dùng các định nghĩa đó. Về mặt lý thuyết, các phương pháp hiệu chỉnh kết quả nghiên cứu theo ước tính sai số đo lường đã được xây dựng rất đầy đủ. Tuy nhiên trên thực tế, do những khó khăn trong việc thu thập đầy đủ các chỉ số hiệu năng này, việc hiệu chỉnh như vậy hiếm khi được thực hiện. Các phương pháp xác lập tiêu chuẩn vàng để tính toán các chỉ số này sẽ được trình bày trong phần tiếp theo.
 
 ## Xác minh hồ sơ nguồn
 
-Một phương pháp phổ biến được sử dụng để xác nhận các định nghĩa nhóm
-thuần tập là đánh giá lâm sàng thông qua xác minh hồ sơ nguồn: một
-cuộc kiểm tra kỹ lưỡng hồ sơ của một người bởi một
+Một phương pháp phổ biến để xác thực các định nghĩa đoàn hệ là thẩm định lâm sàng thông qua xác minh hồ sơ nguồn (source record verification): quá trình rà soát kỹ lưỡng hồ sơ bệnh án của người bệnh bởi một hoặc nhiều chuyên gia lâm sàng có đủ năng lực chuyên môn để phân loại chính xác tình trạng bệnh lý hoặc đặc điểm quan tâm. Quy trình duyệt hồ sơ bệnh án (chart review) thường bao gồm các bước sau:
 
-hoặc nhiều chuyên gia lĩnh vực có đủ kiến thức để phân loại chính xác
-tình trạng hoặc đặc điểm lâm sàng quan tâm. Xem xét biểu đồ (chart
-review) thường tuân theo các bước sau:
+1. Xin phê duyệt của Hội đồng Đạo đức trong nghiên cứu y sinh học (IRB) tại cơ sở và/hoặc sự đồng thuận của người bệnh khi cần thiết để thực hiện nghiên cứu có duyệt hồ sơ bệnh án.
+2. Khởi tạo đoàn hệ bằng định nghĩa đoàn hệ cần đánh giá. Lấy mẫu ngẫu nhiên một tập con người bệnh để duyệt thủ công nếu không đủ nguồn lực để thẩm định toàn bộ đoàn hệ.
+3. Tuyển chọn một hoặc nhiều chuyên gia có đủ năng lực lâm sàng để rà soát hồ sơ người bệnh.
+4. Xây dựng hướng dẫn và tiêu chuẩn thống nhất để thẩm định xem một người bệnh là dương tính hay âm tính đối với tình trạng hoặc đặc điểm lâm sàng quan tâm.
+5. Các chuyên gia lâm sàng đọc và thẩm định toàn bộ dữ liệu sẵn có của các bệnh nhân trong mẫu để phân loại từng người xem họ có thực sự thuộc kiểu hình hay không.
+6. Lập bảng tổng hợp kết quả phân loại của định nghĩa đoàn hệ và kết quả thẩm định lâm sàng vào ma trận nhầm lẫn, từ đó tính toán các chỉ số hiệu năng có thể ước tính được từ dữ liệu thu thập.
 
-1.  Xin phép hội đồng đánh giá thể chế (IRB) địa phương và/hoặc cá nhân
-nếu cần để tiến hành nghiên cứu bao gồm xem xét biểu đồ.
+Kết quả từ việc duyệt hồ sơ bệnh án thường chỉ giới hạn ở việc đánh giá được một chỉ số hiệu năng duy nhất là giá trị dự đoán dương (PPV). Nguyên nhân là vì định nghĩa đoàn hệ đang được đánh giá chỉ trích xuất ra những người được cho là có tình trạng hoặc đặc điểm mong muốn. Do đó, mỗi người trong mẫu trích từ đoàn hệ chỉ có thể được phân loại là dương tính thật (TP) hoặc dương tính giả (FP) sau khi thẩm định lâm sàng. Nếu không biết toàn bộ những người thực sự mang kiểu hình trong toàn quần thể (bao gồm cả những người bị định nghĩa đoàn hệ bỏ sót), chúng ta không thể xác định được số ca âm tính giả (FN), và vì thế không thể điền đầy đủ các ô còn lại của ma trận nhầm lẫn để tính các chỉ số hiệu năng khác. Các phương pháp tiềm năng để xác định tất cả những người mang kiểu hình trong toàn quần thể bao gồm việc duyệt hồ sơ của toàn bộ cơ sở dữ liệu (thường bất khả thi trừ khi quy mô quần thể rất nhỏ), hoặc tận dụng các sổ bộ lâm sàng (clinical registries) toàn diện nơi mọi ca bệnh thực sự đã được ghi nhận và thẩm định sẵn, chẳng hạn như sổ bộ ung thư (xem ví dụ bên dưới). Một cách tiếp cận khác là lấy mẫu thêm những người không thỏa mãn định nghĩa đoàn hệ để tạo ra một tập con các ca dự đoán âm tính, sau đó lặp lại các bước 3–6 của quy trình duyệt hồ sơ bệnh án ở trên để kiểm tra xem những bệnh nhân này có thực sự không mắc tình trạng lâm sàng quan tâm hay không, từ đó xác định số ca âm tính thật (TN) và âm tính giả (FN). Cách này cho phép ước tính giá trị dự đoán âm (NPV), và nếu có thêm ước tính phù hợp về tỷ lệ hiện mắc của kiểu hình trong quần thể thì có thể ước tính được cả độ nhạy và độ đặc hiệu.
 
-2.  Tạo nhóm thuần tập bằng cách sử dụng định nghĩa nhóm thuần tập cần
-đánh giá. Lấy mẫu một tập hợp con những người để xem xét thủ công
-nếu không đủ nguồn lực để đánh giá toàn bộ nhóm thuần tập.
-
-3.  Xác định một hoặc nhiều người có đủ chuyên môn lâm sàng để xem xét
-hồ sơ người bệnh.
-
-4.  Xác định các hướng dẫn để đánh giá xem một người là dương tính hay
-âm tính đối với tình trạng hoặc đặc điểm lâm sàng mong muốn.
-
-5.  Các chuyên gia lâm sàng xem xét và đánh giá tất cả dữ liệu sẵn có
-cho những người trong mẫu để phân loại từng người xem họ có thuộc về
-kiểu hình hay không.
-
-6.  Lập bảng những người theo phân loại định nghĩa nhóm thuần tập và
-phân loại đánh giá lâm sàng thành một ma trận nhầm lẫn, và tính toán
-các đặc điểm hiệu suất có thể có từ dữ liệu đã thu thập.
-
-Kết quả từ việc xem xét biểu đồ thường bị giới hạn trong việc đánh giá
-một đặc điểm hiệu suất, giá trị dự đoán dương tính (PPV). Điều này là
-do định nghĩa nhóm thuần tập đang được đánh giá chỉ tạo ra những người
-được cho là có tình trạng hoặc đặc điểm mong muốn. Do đó, mỗi người
-trong mẫu của nhóm thuần tập được phân loại là dương tính thật hoặc
-dương tính giả dựa trên đánh giá lâm sàng. Nếu không biết tất cả những
-người thuộc kiểu hình trong toàn bộ quần thể (bao gồm cả những người
-không được định nghĩa nhóm thuần tập xác định), thì không thể xác định
-các âm tính giả, và do đó không thể điền vào phần còn lại của ma trận
-nhầm lẫn để tạo ra các đặc điểm hiệu suất còn lại. Các phương pháp
-tiềm năng để xác định tất cả những người thuộc kiểu hình trên toàn bộ
-quần thể bao gồm xem xét biểu đồ của toàn bộ cơ sở dữ liệu, điều này
-thường không khả thi trừ khi quần thể tổng thể nhỏ, hoặc sử dụng các
-sổ đăng ký lâm sàng toàn diện trong đó tất cả các ca thực sự đã được
-gắn cờ và đánh giá, chẳng hạn như sổ đăng ký khối u (xem ví dụ bên
-dưới). Ngoài ra, người ta có thể lấy mẫu những người không đủ điều
-kiện cho định nghĩa nhóm thuần tập để tạo ra một tập hợp con các âm
-tính được dự đoán, và sau đó lặp lại các bước 3-6 của quá trình xem
-xét biểu đồ ở trên để kiểm tra xem những bệnh nhân này có thực sự
-thiếu tình trạng hoặc đặc điểm lâm sàng quan tâm hay không, từ đó có
-thể xác định âm tính thật hoặc âm tính giả. Điều này sẽ cho phép ước
-tính giá trị dự đoán âm tính (NPV), và nếu có ước tính phù hợp về tỷ
-lệ phổ biến kiểu hình, thì độ nhạy và độ đặc hiệu có thể được ước
-tính.
-
-Có một số hạn chế đối với việc đánh giá lâm sàng thông qua xác minh hồ
-sơ nguồn. Như đã đề cập trước đó, xem xét biểu đồ có thể là một quy
-trình rất tốn thời gian và tốn kém tài nguyên, ngay cả khi chỉ để đánh
-giá một thước đo duy nhất như PPV. Hạn chế này cản trở đáng kể tính
-thực tiễn của việc đánh giá toàn bộ quần thể để điền vào một ma trận
-nhầm lẫn hoàn chỉnh. Ngoài ra, nhiều bước trong quy trình trên có khả
-năng làm sai lệch kết quả nghiên cứu. Ví dụ, nếu hồ sơ không thể truy
-cập bình đẳng trong EHR, nếu không có EHR, hoặc nếu cần sự đồng ý của
-từng bệnh nhân, thì tập hợp con đang được đánh giá có thể không thực
-sự ngẫu nhiên và có thể gây ra sai lệch lấy mẫu hoặc sai lệch lựa
-chọn. Ngoài ra, đánh giá thủ công dễ bị lỗi do con người hoặc phân
-loại sai và
-
-do đó có thể không đại diện cho một thước đo chính xác hoàn hảo.
-Thường có sự bất đồng giữa các người đánh giá lâm sàng do dữ liệu
-trong hồ sơ của người bệnh mơ hồ, chủ quan hoặc chất lượng thấp. Trong
-nhiều nghiên cứu, quy trình này liên quan đến quyết định đa số để đạt
-được sự đồng thuận, tạo ra một phân loại nhị phân cho những người
-không phản ánh sự bất đồng giữa các người đánh giá.
+Có một số hạn chế đáng kể đối với phương pháp thẩm định lâm sàng qua xác minh hồ sơ nguồn. Như đã đề cập, duyệt hồ sơ bệnh án là một quy trình rất tốn thời gian và nhân lực, ngay cả khi chỉ để ước tính một chỉ số duy nhất là PPV. Hạn chế này làm giảm đáng kể tính khả thi của việc đánh giá trên toàn quần thể để hoàn thiện ma trận nhầm lẫn. Hơn nữa, nhiều bước trong quy trình trên có nguy cơ đưa sai lệch vào kết quả nghiên cứu. Ví dụ, nếu khả năng tiếp cận hồ sơ trong EHR không đồng đều, nếu không có EHR, hoặc nếu bắt buộc phải xin sự đồng ý của từng bệnh nhân, thì tập con được đánh giá có thể không còn thực sự ngẫu nhiên và dễ dẫn đến sai lệch chọn mẫu. Ngoài ra, việc thẩm định thủ công vẫn có thể chịu ảnh hưởng của sai sót chủ quan hoặc phân loại nhầm từ phía người chấm, nên không phải lúc nào cũng đại diện cho một chuẩn tuyệt đối hoàn hảo. Sự bất đồng ý kiến giữa các chuyên gia thẩm định lâm sàng thường xuyên xảy ra do thông tin ghi chép trong hồ sơ bệnh án mơ hồ, chủ quan hoặc có chất lượng thấp. Trong nhiều nghiên cứu, quy trình xử lý bất đồng dựa trên biểu quyết theo đa số để đạt đồng thuận, tạo ra kết quả phân loại nhị phân cuối cùng nhưng lại làm ẩn đi mức độ bất đồng giữa những người đánh giá (inter-rater discordance).
 
 ### Ví dụ về xác minh hồ sơ nguồn
 
-Một ví dụ về quy trình tiến hành xác nhận định nghĩa nhóm thuần tập
-bằng cách sử dụng xem xét biểu đồ được cung cấp từ một nghiên cứu của
-Trung tâm Y tế Irving thuộc Đại học Columbia (CUIMC), nơi đã xác nhận
-một định nghĩa nhóm thuần tập cho nhiều loại ung thư như một phần của
-nghiên cứu khả thi cho Viện Ung thư Quốc gia (NCI). Các bước được sử
-dụng để tiến hành xác nhận cho ví dụ về một trong những bệnh ung thư
-này---ung thư tuyến tiền liệt---như sau:
+Một ví dụ thực tế về quy trình xác thực định nghĩa đoàn hệ bằng duyệt hồ sơ bệnh án đến từ nghiên cứu của Trung tâm Y khoa Irving thuộc Đại học Columbia (CUIMC), nhằm xác thực định nghĩa đoàn hệ cho nhiều bệnh lý ung thư trong khuôn khổ một nghiên cứu khả thi cho Viện Ung thư Quốc gia Hoa Kỳ (NCI). Các bước tiến hành xác thực cho một trong các bệnh lý ung thư đó — ung thư tuyến tiền liệt — cụ thể như sau:
 
-1.  Đã nộp đề xuất và nhận được sự đồng ý của IRB cho nghiên cứu kiểu
-hình hóa ung thư của OHDSI.
+1. Nộp đề cương nghiên cứu và xin phê duyệt của Hội đồng Đạo đức (IRB) cho nghiên cứu xác định kiểu hình ung thư của OHDSI.
+2. Xây dựng định nghĩa đoàn hệ cho ung thư tuyến tiền liệt: Sử dụng ATHENA và ATLAS để tra cứu bộ từ vựng, nhóm nghiên cứu đã tạo một định nghĩa đoàn hệ thu nhận tất cả bệnh nhân có bản ghi tình trạng bệnh là *U ác tính của tuyến tiền liệt* (Malignant Tumor of Prostate, concept ID `4163261`), đồng thời loại trừ *U tân sinh thứ phát của tuyến tiền liệt* (Secondary Neoplasm of Prostate, concept ID `4314337`) hoặc *U lympho không Hodgkin của tuyến tiền liệt* (Non-Hodgkin's Lymphoma of Prostate, concept ID `4048666`).
+3. Khởi tạo đoàn hệ bằng ATLAS và chọn ngẫu nhiên 100 bệnh nhân để duyệt hồ sơ thủ công, ánh xạ ngược từng `PERSON_ID` về mã hồ sơ bệnh án (MRN) của bệnh nhân thông qua các bảng ánh xạ nội bộ. Cỡ mẫu 100 bệnh nhân được lựa chọn nhằm đạt được độ chính xác thống kê mong muốn cho chỉ số hiệu năng PPV.
+4. Duyệt thủ công hồ sơ trong các hệ thống EHR khác nhau — cả nội trú lẫn ngoại trú — để xác định xem mỗi bệnh nhân trong mẫu ngẫu nhiên là dương tính thật hay dương tính giả.
+5. Quá trình duyệt hồ sơ thủ công và thẩm định lâm sàng được thực hiện bởi một bác sĩ (tuy nhiên, lý tưởng nhất trong các nghiên cứu xác thực nghiêm ngặt hơn là cần có nhiều người độc lập đánh giá để kiểm tra mức độ đồng thuận và độ tin cậy liên người chấm).
+6. Việc xác lập chuẩn tham chiếu dựa trên toàn bộ tài liệu lâm sàng, kết quả giải phẫu bệnh, xét nghiệm, thuốc điều trị và thủ thuật được ghi nhận trong hồ sơ bệnh án điện tử.
+7. Bệnh nhân được gán nhãn vào một trong ba nhóm: 1) có ung thư tuyến tiền liệt, 2) không có ung thư tuyến tiền liệt, hoặc 3) không thể xác định.
+8. Ước tính thận trọng (conservative estimate) của PPV được tính theo công thức: số ca ung thư tuyến tiền liệt chia cho tổng số ca được duyệt (bao gồm cả số ca không ung thư tuyến tiền liệt và số ca không thể xác định).
+9. Tiếp theo, sử dụng sổ bộ ung thư (tumor registry) làm tiêu chuẩn vàng bổ sung để xác định chuẩn tham chiếu trên toàn bộ quần thể bệnh nhân tại CUIMC, nhóm nghiên cứu đếm số bệnh nhân có tên trong sổ bộ ung thư đã được nhận diện đúng và số bệnh nhân bị bỏ sót bởi định nghĩa đoàn hệ, từ đó ước tính độ nhạy (sensitivity) dựa trên số ca dương tính thật và âm tính giả này.
+10. Từ độ nhạy, PPV và tỷ lệ hiện mắc đã ước tính, nhóm nghiên cứu tiếp tục ước tính được độ đặc hiệu (specificity) cho định nghĩa đoàn hệ này.
 
-2.  Đã phát triển một định nghĩa nhóm thuần tập cho ung thư tuyến tiền
-liệt&#58; Sử dụng ATHENA và ATLAS để khám phá từ vựng, chúng tôi đã tạo
-một định nghĩa nhóm thuần tập bao gồm tất cả bệnh nhân có bản ghi
-tình trạng Ung thư ác tính tuyến tiền liệt (ID khái niệm 4163261),
-loại trừ Tân sinh thứ phát tuyến tiền liệt (ID khái niệm 4314337)
-hoặc U lympho không Hodgkin tuyến tiền liệt (ID khái niệm 4048666).
+Như đã lưu ý ở trên, quy trình này rất tốn thời gian và công sức vì từng định nghĩa đoàn hệ phải được đánh giá riêng lẻ qua việc duyệt hồ sơ bệnh án thủ công đồng thời đối chiếu chéo với sổ bộ ung thư của CUIMC để có được đầy đủ các chỉ số hiệu năng. Riêng thủ tục xin phê duyệt IRB đã mất nhiều tuần lễ dù được xét duyệt theo quy trình rút gọn trong lúc chờ cấp quyền truy cập sổ bộ ung thư, và bản thân quá trình duyệt hồ sơ thủ công cũng mất thêm nhiều tuần tiếp theo.
 
-3.  Đã tạo nhóm thuần tập bằng ATLAS và chọn ngẫu nhiên 100 bệnh nhân để
-xem xét thủ công, ánh xạ từng PERSON_ID trở lại MRN bệnh nhân bằng
-cách sử dụng các bảng ánh xạ. 100 bệnh nhân đã được chọn để đạt được
-mức độ chính xác thống kê mong muốn cho thước đo hiệu suất PPV.
-
-4.  Đã xem xét thủ công hồ sơ trong các EHR khác nhau---cả nội trú và
-ngoại trú---để xác định xem mỗi người trong tập hợp con ngẫu nhiên
-là dương tính thật hay dương tính giả.
-
-5.  Việc xem xét thủ công và đánh giá lâm sàng được thực hiện bởi một
-bác sĩ (mặc dù lý tưởng là trong tương lai, các nghiên cứu xác nhận
-nghiêm ngặt hơn sẽ được thực hiện bởi số lượng người đánh giá cao
-hơn để đánh giá sự đồng thuận và độ tin cậy giữa các người đánh
-giá).
-
-6.  Việc xác định tiêu chuẩn tham chiếu dựa trên tài liệu lâm sàng, báo
-cáo bệnh học, phòng thí nghiệm, thuốc và thủ thuật như được ghi lại
-trong toàn bộ hồ sơ bệnh nhân điện tử sẵn có.
-
-7.  Bệnh nhân được gắn nhãn là 1) ung thư tuyến tiền liệt 2) không ung
-thư tuyến tiền liệt hoặc 3) không thể xác định.
-
-8.  Một ước tính thận trọng về PPV đã được tính toán bằng cách sử dụng&#58;
-ung thư tuyến tiền liệt / (không ung thư tuyến tiền liệt + không thể
-xác định).
-
-9.  Sau đó, sử dụng sổ đăng ký khối u như một tiêu chuẩn vàng bổ sung để
-xác định tiêu chuẩn tham chiếu trên toàn bộ quần thể CUIMC, chúng
-tôi đã đếm số người trong sổ đăng ký khối u được và không được định
-nghĩa nhóm thuần tập xác định chính xác, điều này cho phép chúng tôi
-ước tính độ nhạy bằng cách sử dụng các giá trị này làm dương tính
-thật và âm tính giả.
-
-10. Sử dụng độ nhạy, PPV và tỷ lệ phổ biến ước tính, sau đó chúng tôi có
-thể ước tính độ đặc hiệu cho định nghĩa nhóm thuần tập này. Như đã
-lưu ý trước đó, quy trình này tốn
-
-thời gian và công sức, vì mỗi định nghĩa nhóm
-thuần tập phải được đánh giá riêng lẻ thông qua xem xét biểu đồ thủ
-công cũng như tương quan với sổ đăng ký khối u CUIMC để xác định tất
-cả các đặc điểm hiệu suất. Bản thân quy trình phê duyệt IRB đã mất
-nhiều tuần mặc dù đã được xem xét nhanh trong khi chờ quyền truy cập
-vào sổ đăng ký khối u, và quy trình xem xét biểu đồ thủ công cũng mất
-thêm vài tuần nữa.
-
-Một đánh giá về các nỗ lực xác nhận cho các định nghĩa nhóm thuần tập
-nhồi máu cơ tim (MI) của Rubbo và cộng sự (2015) cho thấy có sự không
-đồng nhất đáng kể trong các định nghĩa nhóm thuần tập được sử dụng
-trong các nghiên cứu cũng như trong các phương pháp xác nhận và kết
-quả được báo cáo. Các tác giả kết luận rằng đối với nhồi máu cơ tim
-cấp tính, không có định nghĩa nhóm thuần tập tiêu chuẩn vàng nào. Họ
-lưu ý rằng quy trình này vừa tốn kém vừa tốn thời gian. Do hạn chế đó,
-hầu hết các nghiên cứu đều có kích thước mẫu nhỏ trong quá trình xác
-nhận dẫn đến sự biến thiên lớn trong các ước tính cho các đặc điểm
-hiệu suất. Họ cũng lưu ý rằng trong 33 nghiên cứu, trong khi tất cả
-các nghiên cứu đều báo cáo giá trị dự đoán dương tính, chỉ có 11
-nghiên cứu báo cáo độ nhạy và chỉ năm nghiên cứu báo cáo độ đặc hiệu.
-Như đã đề cập trước đó, nếu không có ước tính về độ nhạy và độ đặc
-hiệu, việc điều chỉnh thống kê cho sai lệch phân loại sai không thể
-được thực hiện.
+Tổng quan của Rubbo và cộng sự (2015) về các nghiên cứu xác thực định nghĩa đoàn hệ nhồi máu cơ tim (MI) cho thấy có sự không đồng nhất rất lớn giữa các định nghĩa đoàn hệ được sử dụng cũng như giữa các phương pháp xác thực và kết quả được báo cáo. Các tác giả kết luận rằng đối với nhồi máu cơ tim cấp, hiện không tồn tại một định nghĩa đoàn hệ tiêu chuẩn vàng duy nhất nào. Họ cũng nhấn mạnh rằng quy trình xác thực vừa tốn kém chi phí vừa mất nhiều thời gian. Do rào cản đó, hầu hết các nghiên cứu chỉ thực hiện xác thực trên cỡ mẫu nhỏ, dẫn đến biên độ dao động rộng trong các ước tính chỉ số hiệu năng. Trong số 33 nghiên cứu được tổng quan, dù tất cả đều báo cáo PPV nhưng chỉ có 11 nghiên cứu báo cáo độ nhạy và vỏn vẹn 5 nghiên cứu báo cáo độ đặc hiệu. Như đã trình bày, nếu thiếu ước tính về độ nhạy và độ đặc hiệu thì không thể thực hiện hiệu chỉnh thống kê cho sai lệch phân loại nhầm.
 
 ## PheValuator
 
-Cộng đồng OHDSI đã phát triển một cách tiếp cận khác để xây dựng tiêu
-chuẩn vàng bằng cách sử dụng các mô hình dự đoán chẩn đoán. (Swerdel
-và cộng sự, 2019) Ý tưởng chung là mô phỏng việc xác định kết cục sức
-khỏe tương tự như cách các bác sĩ lâm sàng thực hiện trong xác minh hồ
-sơ nguồn, nhưng theo cách tự động có thể áp dụng ở quy mô lớn. Công cụ
-này đã được phát triển dưới dạng gói R mã nguồn mở có tên là
-PheValuator.1 PheValuator sử dụng các hàm từ gói Patient Level
-Prediction.
-
-Quy trình như sau:
-
-1.  Tạo một nhóm thuần tập cực kỳ cụ thể ("xSpec"): Xác định một tập hợp
-những người có khả năng rất cao mắc kết cục quan tâm để sử dụng làm
-nhãn dương tính ồn (noisy positive labels) khi đào tạo mô hình dự
-đoán chẩn đoán.
-
-2.  Tạo một nhóm thuần tập cực kỳ nhạy ("xSens"): Xác định một tập hợp
-những người nên bao gồm bất kỳ ai có thể mắc kết cục. Nhóm thuần tập
-này sẽ được sử dụng để xác định nghịch đảo của nó: tập hợp những
-người mà chúng ta tự tin là không mắc kết cục, để sử dụng làm nhãn
-âm tính ồn (noisy negative labels) khi đào tạo mô hình dự đoán chẩn
-đoán.
-
-3.  Phù hợp một mô hình dự đoán sử dụng nhóm thuần tập xSpec và xSens&#58;
-Như đã mô tả trong Chương 13, chúng ta phù hợp một mô hình sử dụng
-một loạt các đặc điểm bệnh nhân làm yếu tố dự báo, và nhằm mục đích
-dự đoán liệu một người có thuộc về nhóm thuần tập xSpec (những người
-chúng ta tin là mắc kết cục) hay nghịch đảo của nhóm thuần tập xSens
-(những người chúng ta tin là không mắc kết cục).
-
-^1^<https://github.com/OHDSI/PheValuator>
-
-4.  Áp dụng mô hình đã phù hợp để ước tính xác suất kết cục cho một tập
-hợp những người được giữ lại (hold-out set) sẽ được sử dụng để đánh
-giá hiệu suất định nghĩa nhóm thuần tập&#58; Tập hợp các yếu tố dự báo
-từ mô hình có thể được áp dụng vào dữ liệu của một người để ước tính
-xác suất dự đoán rằng người đó thuộc về kiểu hình. Chúng ta sử dụng
-các dự đoán này như một tiêu chuẩn vàng xác suất.
-
-5.  Đánh giá các đặc điểm hiệu suất của các định nghĩa nhóm thuần tập&#58;
-Chúng ta so sánh xác suất dự đoán với phân loại nhị phân của một
-định nghĩa nhóm thuần tập (các điều kiện kiểm tra cho ma trận nhầm
-lẫn). Sử dụng các điều kiện kiểm tra và các ước tính cho các điều
-kiện thật, chúng ta có thể điền đầy đủ vào ma trận nhầm lẫn và ước
-tính toàn bộ tập hợp các đặc điểm hiệu suất, tức là độ nhạy, độ đặc
-hiệu và các giá trị dự đoán.
-
-Hạn chế chính đối với việc sử dụng cách tiếp cận này là việc ước tính
-xác suất một người mắc kết cục sức khỏe bị giới hạn bởi dữ liệu trong
-cơ sở dữ liệu. Tùy thuộc vào cơ sở dữ liệu, các thông tin quan trọng,
-chẳng hạn như ghi chú của bác sĩ lâm sàng, có thể không khả dụng.
-
-Trong mô hình dự đoán chẩn đoán, chúng ta tạo ra một mô hình phân biệt
-giữa những người mắc bệnh và những người không mắc bệnh. Như đã mô tả
-trong chương Dự đoán cấp độ bệnh nhân (Chương 13), các mô hình dự đoán
-được phát triển bằng cách sử dụng nhóm thuần tập mục tiêu và nhóm
-thuần tập kết cục. Nhóm thuần tập mục tiêu bao gồm những người có và
-không có kết cục sức khỏe; nhóm thuần tập kết cục xác định những người
-trong nhóm thuần tập mục tiêu có kết cục sức khỏe. Đối với quy trình
-PheValuator, chúng ta sử dụng một định nghĩa nhóm thuần tập cực kỳ cụ
-thể, nhóm thuần tập "xSpec", để xác định nhóm thuần tập kết cục cho mô
-hình dự đoán. Nhóm thuần tập xSpec sử dụng một định nghĩa để tìm những
-người có xác suất mắc bệnh quan tâm rất cao. Nhóm thuần tập xSpec có
-thể được định nghĩa là những người có nhiều bản ghi tình trạng cho kết
-cục sức khỏe quan tâm. Ví dụ, đối với rung nhĩ, chúng ta có thể có
-những người có 10 bản ghi trở lên với mã chẩn đoán rung nhĩ. Đối với
-nhồi máu cơ tim, một kết cục cấp tính, chúng ta có thể sử dụng 5 lần
-xuất hiện nhồi máu cơ tim và bao gồm yêu cầu có ít nhất hai lần xuất
-hiện từ cơ sở nội trú. Nhóm thuần tập mục tiêu cho mô hình dự đoán
-được xây dựng từ sự hợp nhất của những người có khả năng mắc kết cục
-sức khỏe quan tâm thấp và những người trong nhóm thuần tập xSpec. Để
-xác định những người có khả năng mắc kết cục sức khỏe quan tâm thấp,
-chúng ta lấy mẫu từ toàn bộ cơ sở dữ liệu và loại trừ những người có
-bằng chứng gợi ý thuộc về kiểu hình, thường bằng cách loại bỏ những
-người có bất kỳ bản ghi nào chứa các khái niệm được sử dụng để định
-nghĩa nhóm thuần tập xSpec. Phương pháp này có những hạn chế. Có khả
-năng những người thuộc nhóm thuần tập xSpec này có thể có các đặc điểm
-khác với những người khác mắc bệnh. Cũng có thể những người này có
-thời gian quan sát lâu hơn sau khi chẩn đoán ban đầu so với bệnh nhân
-trung bình. Chúng ta sử dụng hồi quy logistic LASSO để tạo mô hình dự
-đoán được sử dụng để tạo tiêu chuẩn vàng xác suất. (Suchard và cộng
-sự, 2013) Thuật toán này tạo ra một mô hình tiết kiệm và thường loại
-bỏ nhiều biến đồng tuyến có thể hiện diện trong tập dữ liệu. Trong
-phiên bản hiện tại của phần mềm PheValuator, trạng thái kết cục
-(có/không) được đánh giá dựa trên tất cả dữ liệu của một người (tất cả
-thời gian quan sát), và không đánh giá độ chính xác của ngày bắt đầu
-nhóm thuần tập.
-
-### Ví dụ xác nhận bởi PheValuator
-
-Chúng ta có thể sử dụng PheValuator để đánh giá các đặc điểm hiệu suất
-hoàn chỉnh cho một định nghĩa nhóm thuần tập sẽ được sử dụng trong một
-nghiên cứu cần xác định những người đã bị nhồi máu cơ tim cấp tính.
-
-Sau đây là các bước để kiểm tra các định nghĩa nhóm thuần tập cho nhồi
-máu cơ tim bằng PheValuator:
-
-#### Bước 1: Định nghĩa nhóm thuần tập xSpec
-
-Xác định những người mắc nhồi máu cơ tim với xác suất cao. Chúng tôi
-yêu cầu một bản ghi tình trạng với một khái niệm về nhồi máu cơ tim
-hoặc bất kỳ khái niệm con nào của nó, với một hoặc nhiều lần xuất hiện
-nhồi máu cơ tim được ghi lại từ một lần khám nội trú tại bệnh viện
-trong vòng 5 ngày, và 4 lần xuất hiện nhồi máu cơ tim trở lên trong hồ
-sơ bệnh nhân trong vòng 365 ngày. Hình 16.2 minh họa định nghĩa nhóm
-thuần tập này cho nhồi máu cơ tim trong ATLAS.
-
-#### Bước 2: Định nghĩa nhóm thuần tập xSens
-
-Sau đó, chúng ta phát triển một nhóm thuần tập cực kỳ nhạy (xSens).
-Nhóm thuần tập này có thể được định nghĩa cho nhồi máu cơ tim là những
-người có ít nhất một bản ghi tình trạng chứa khái niệm nhồi máu cơ tim
-tại bất kỳ thời điểm nào trong lịch sử y tế của họ. Hình 16.3 minh họa
-định nghĩa nhóm thuần tập xSens cho nhồi máu cơ tim trong ATLAS.
-
-#### Bước 3: Phù hợp mô hình dự đoán
-
-Hàm createPhenoModel phát triển mô hình dự đoán chẩn đoán để đánh giá
-xác suất mắc kết cục sức khỏe quan tâm trong nhóm thuần tập đánh giá.
-Để sử dụng hàm này, chúng ta sử dụng các nhóm thuần tập xSpec và xSens
-đã phát triển ở Bước 1 và Bước 2. Nhóm thuần tập xSpec sẽ được nhập
-làm tham số xSpecCohort trong hàm. Nhóm thuần tập xSens sẽ được nhập
-làm tham số exclCohort trong hàm để chỉ ra rằng những người trong nhóm
-thuần tập xSens nên được loại trừ khỏi nhóm thuần tập mục tiêu được sử
-dụng trong quy trình mô hình hóa. Sử dụng phương pháp loại trừ này,
-chúng ta có thể xác định những người có khả năng mắc kết cục sức khỏe
-thấp. Chúng ta có thể coi nhóm này là những người "âm tính ồn" (noisy
-negative), tức là một nhóm người có khả năng âm tính với kết cục sức
-khỏe nhưng cho phép một khả năng nhỏ bao gồm một số người dương tính
-với kết cục sức khỏe. Chúng ta cũng có thể sử dụng nhóm thuần tập
-xSens làm tham số prevCohort trong hàm. Tham số này được sử dụng trong
-quy trình để xác định tỷ lệ phổ biến xấp xỉ của kết cục sức khỏe trong
-quần thể. Thông thường, một mẫu ngẫu nhiên lớn những người từ cơ sở dữ
-liệu sẽ tạo ra một quần thể những người trong đó những người có kết
-cục quan tâm có tỷ lệ xấp xỉ với tỷ lệ phổ biến của kết cục trong cơ
-sở dữ liệu. Sử dụng phương pháp chúng tôi mô tả, chúng ta không còn có
-một mẫu ngẫu nhiên những người và cần hiệu chỉnh lại mô hình dự đoán
-dựa trên việc đặt lại tỷ lệ những người có kết cục so với những người
-không có kết cục.
-
-Tất cả các khái niệm được sử dụng để định nghĩa nhóm thuần tập xSpec
-phải được loại trừ khỏi quy trình mô hình hóa. Để làm điều này, chúng
-ta đặt tham số excludedConcepts thành danh sách các khái niệm được sử
-dụng trong định nghĩa xSpec. Ví dụ, đối với nhồi máu cơ tim, chúng ta
-đã tạo một tập hợp khái niệm trong ATLAS sử dụng khái niệm cho Nhồi
-máu cơ tim cộng với tất cả các khái niệm con của nó. Đối với ví dụ
-này, chúng ta sẽ
-
-![](media/image164.jpeg){width="5.354166666666667in"
-height="5.421874453193351in"}
-
-Hình 16.2: Một định nghĩa nhóm thuần tập cực kỳ cụ thể (xSpec) cho
-nhồi máu cơ tim.
-
-![](media/image165.png){width="5.34375in"
-height="2.59375in"}
-
-Hình 16.3: Một định nghĩa nhóm thuần tập cực kỳ nhạy (xSens) cho nhồi
-máu cơ tim.
-
-đặt tham số excludedConcepts thành 4329847, ID khái niệm cho Nhồi máu
-cơ tim, và chúng ta cũng sẽ đặt tham số addDescendantsToExclude thành
-TRUE, chỉ ra rằng bất kỳ khái niệm con nào của các khái niệm bị loại
-trừ cũng nên bị loại trừ.
-
-Có một số tham số có thể được sử dụng để chỉ định các đặc điểm của
-những người được đưa vào quy trình mô hình hóa. Chúng ta có thể đặt độ
-tuổi của những người được đưa vào quy trình mô hình hóa bằng cách đặt
-lowerAgeLimit thành giới hạn dưới của độ tuổi mong muốn trong mô hình
-và upperAgeLimit thành giới hạn trên. Chúng ta có thể muốn làm điều
-này nếu các định nghĩa nhóm thuần tập cho một nghiên cứu theo kế hoạch
-sẽ được tạo cho một nhóm tuổi nhất định. Ví dụ, nếu định nghĩa nhóm
-thuần tập được sử dụng trong một nghiên cứu là cho bệnh tiểu đường
-loại 1 ở trẻ em, bạn có thể muốn giới hạn độ tuổi được sử dụng để phát
-triển mô hình dự đoán chẩn đoán ở độ tuổi từ 5 đến 17 tuổi chẳng hạn.
-Khi làm như vậy, chúng ta sẽ tạo ra một mô hình với các đặc điểm có
-khả năng liên quan chặt chẽ hơn với những người được chọn bởi các định
-nghĩa nhóm thuần tập cần kiểm tra. Chúng ta cũng có thể chỉ định giới
-tính nào được bao gồm trong mô hình bằng cách đặt tham số gender thành
-ID khái niệm cho nam hoặc nữ. Theo mặc định, tham số được đặt để bao
-gồm cả nam và nữ. Tính năng này có thể hữu ích trong các kết cục sức
-khỏe đặc thù theo giới tính như ung thư tuyến tiền liệt. Chúng ta có
-thể đặt khung thời gian cho việc đưa người vào dựa trên lần khám đầu
-tiên trong hồ sơ của người đó bằng cách đặt các tham số startDate và
-endDate lần lượt thành giới hạn dưới và giới hạn trên của phạm vi
-ngày. Cuối cùng, tham số mainPopnCohort có thể được sử dụng để chỉ
-định một nhóm thuần tập quần thể lớn mà từ đó tất cả những người trong
-nhóm thuần tập mục tiêu và kết cục sẽ được chọn. Trong hầu hết các
-trường hợp, tham số này sẽ được đặt thành 0, chỉ ra không giới hạn
-việc chọn người cho các nhóm thuần tập mục tiêu và kết cục. Tuy nhiên,
-có những lúc tham số này hữu ích để xây dựng một mô hình tốt hơn, có
-thể trong các trường hợp tỷ lệ phổ biến của kết cục sức khỏe cực kỳ
-thấp, có lẽ là 0,01% hoặc thấp hơn. Ví dụ:
-
-**thư viện setwd(\"c:/temp\")(PheValuator)**
-
-connectionDetails \<- **createConnectionDetails**( dbms =
-\"postgresql\",
-
-máy chủ = \"localhost/ohdsi\", người dùng = \"joe\",
-
-mật khẩu = \"siêu bí mật\")
-
-phenoTest \<- createPhenoModel(connectDetails = ConnectionDetails,
-xSpecCohort = 10934,
-
-cdmDatabaseSchema = \"my_cdm_data\", cohorDatabaseSchema =
-\"my_results\", cohortDatabaseTable = \"nhóm thuần tập\",
-
-outDatabaseSchema = \"scratch.dbo\", #nên có quyền ghi
-
-trainOutFile = \"5XMI_train\",
-
-exclCohort = 1770120, #nhóm xSens
-
-prevCohort = 1770119, #nhóm thuần tập để xác định tỷ lệ phổ biến
-
-modelAnalysisId = \"20181206V1\", loại trừConcepts = c(312327,
-314666), addDescendantsToExclude = TRUE, cdmShortName = \"myCDM\",
-
-mainPopnCohort = 0, #sử dụng toàn bộ quần thể người
-
-lowerAgeLimit = 18,
-
-UpperAgeLimit = 90, giới tính = c(8507, 8532), startDate =
-\"20100101\",
-
-endDate = \"20171231\")
-
-Trong ví dụ này, chúng tôi đã sử dụng các nhóm thuần tập được định
-nghĩa trong cơ sở dữ liệu "my_results", chỉ định vị trí của bảng nhóm
-thuần tập (cohortDatabaseSchema, cohortDatabaseTable -
-"my_results.cohort") và nơi mô hình sẽ tìm các tình trạng, phơi nhiễm
-thuốc, v.v. để thông tin cho mô hình (cdmDatabaseSchema -
-"my_cdm_data"). Những người được đưa vào mô hình sẽ là những người có
-lần khám đầu tiên trong CDM từ ngày 1 tháng 1 năm 2010 đến ngày 31
-tháng 12 năm 2017. Chúng tôi cũng đặc biệt loại trừ các ID khái niệm
-312327, 314666 và các khái niệm con của chúng đã được sử dụng để tạo
-nhóm thuần tập xSpec. Độ tuổi của họ tại thời điểm khám đầu tiên sẽ từ
-18 đến 90. Với các tham số ở trên, tên của đầu ra mô hình dự đoán từ
-bước này sẽ là:
-"c:/temp/lr_results_5XMI_train_myCDM_ePPV0.75_20181206V1.rds"
-
-#### Bước 4: Tạo nhóm thuần tập đánh giá
-
-Hàm createEvalCohort sử dụng hàm applyModel của gói
-PatientLevelPrediction để tạo ra một nhóm thuần tập lớn gồm những
-người, mỗi người có một xác suất dự đoán cho kết cục sức khỏe quan
-tâm. Hàm yêu cầu chỉ định nhóm thuần tập xSpec (bằng cách đặt tham số
-xSpecCohort thành ID nhóm thuần tập xSpec). Chúng ta cũng có thể chỉ
-định các đặc điểm của những người được đưa vào nhóm thuần tập đánh giá
-như chúng ta đã làm trong bước trước.
-
-Điều này có thể bao gồm việc chỉ định giới hạn độ tuổi dưới và trên
-(bằng cách đặt, làm độ tuổi, các đối số lowerAgeLimit và
-upperAgeLimit, tương ứng), giới tính (bằng cách đặt tham số gender
-thành các ID khái niệm cho nam và/hoặc nữ), ngày bắt đầu và kết thúc
-(bằng cách đặt, làm ngày, các đối số startDate và endDate, tương ứng),
-và chỉ định một quần thể lớn để chọn những người bằng cách đặt
-mainPopnCohort thành ID nhóm thuần tập cho quần thể cần sử dụng.
-
-Ví dụ:
-
-**setwd**(\"c:/temp\")
-
-connectionDetails \<- **createConnectionDetails**( dbms =
-\"postgresql\",
-
-máy chủ = \"localhost/ohdsi\", người dùng = \"joe\",
-
-mật khẩu = \"siêu bí mật\")
-
-evalCohort \<- createEvalCohort(connectDetails = ConnectionDetails,
-xSpecCohort = 10934,
-
-cdmDatabaseSchema = \"my_cdm_data\", coorDatabaseSchema =
-\"my_results\", cohorDatabaseTable = \"cohort\", outDatabaseSchema =
-\"scratch.dbo\", testOutFile = \"5XMI_eval\", trainOutFile =
-\"5XMI_train\", modelAnalysisId = \"20181206V1\", evalAnalysisId =
-\"20181206V1\", cdmShortName = \"myCDM\", mainPopnCohort = 0,
-
-lowerAgeLimit = 18,
-
-UpperAgeLimit = 90, giới tính = c(8507, 8532), startDate =
-\"20100101\",
-
-endDate = \"20171231\")
-
-Trong ví dụ này, các tham số chỉ định rằng hàm nên sử dụng tệp mô
-hình: "c:/temp/lr_results_5XMI_train_myCDM_ePPV0.75_20181206V1.rds" để
-tạo tệp nhóm thuần tập đánh giá:
-"c:/temp/lr_results_5XMI_eval_myCDM_ePPV0.75_20181206V1.rds"
-
-Các tệp mô hình và nhóm thuần tập đánh giá được tạo trong bước này sẽ
-được sử dụng trong việc đánh giá các định nghĩa nhóm thuần tập được
-cung cấp trong bước tiếp theo.
-
-#### Bước 5: Tạo và kiểm tra các định nghĩa nhóm thuần tập
-
-Bước tiếp theo là tạo và kiểm tra các định nghĩa nhóm thuần tập cần
-đánh giá. Các đặc điểm hiệu suất mong muốn có thể phụ thuộc vào mục
-đích sử dụng nhóm thuần tập để giải quyết câu hỏi nghiên cứu quan tâm.
-Đối với một số câu hỏi nhất định, có thể cần một thuật toán rất nhạy;
-những câu hỏi khác có thể yêu cầu một thuật toán cụ thể hơn. Quy trình
-xác định các đặc điểm hiệu suất cho một định nghĩa nhóm thuần tập bằng
-cách sử dụng PheValuator được hiển thị trong Hình
-
-[16.4](#_bookmark491).
-
-Trong phần A của Hình 16.4, chúng tôi đã kiểm tra những người từ định
-nghĩa nhóm thuần tập cần kiểm tra và tìm thấy những người từ nhóm
-thuần tập đánh giá (được tạo trong bước trước) được bao gồm trong định
-nghĩa nhóm thuần tập (ID người 016, 019, 022, 023 và 025) và những
-người từ nhóm thuần tập đánh giá không được bao gồm (ID người 017,
-018, 020, 021 và 024). Đối với mỗi người được bao gồm/loại trừ này,
-chúng tôi đã xác định trước xác suất của kết cục sức khỏe bằng cách sử
-dụng mô hình dự đoán (p(O)).
-
-Chúng tôi đã ước tính các giá trị cho Dương tính thật, Âm tính thật,
-Dương tính giả và Âm tính giả như sau (Phần B của Hình 16.4):
-
-1.  Nếu định nghĩa nhóm thuần tập bao gồm một người từ nhóm thuần tập
-đánh giá, tức là định nghĩa nhóm thuần tập coi người đó là "dương
-tính". Xác suất dự đoán cho kết cục sức khỏe cho biết giá trị kỳ
-vọng của số lượng đếm do người đó đóng góp vào Dương tính thật, và
-một trừ đi xác suất cho biết giá trị kỳ vọng của số lượng đếm do
-người đó đóng góp vào Dương tính giả cho người đó. Chúng tôi đã cộng
-tất cả các giá trị kỳ vọng của số lượng đếm trên các người để có
-được tổng giá trị kỳ vọng. Ví dụ, PersonId 016 có xác suất dự đoán
-là 99% cho sự hiện diện của kết cục sức khỏe, 0,99 đã được cộng vào
-Dương tính thật (giá trị kỳ vọng của số lượng đếm được cộng 0,99) và
-1,00--0,99 = 0,01 đã được cộng vào Dương tính giả (giá trị kỳ vọng
-0,01). Điều này đã được lặp lại cho tất cả những người từ nhóm thuần
-tập đánh giá được bao gồm trong định nghĩa nhóm thuần tập (tức là
-PersonIds 019, 022, 023 và 025).
-
-2.  Tương tự, nếu định nghĩa nhóm thuần tập không bao gồm một người từ
-nhóm thuần tập đánh giá, tức là định nghĩa nhóm thuần tập coi người
-đó là "âm tính", một trừ đi xác suất dự đoán cho kiểu hình của người
-đó là giá trị kỳ vọng của số lượng đếm được đóng góp vào Âm tính
-thật và đã được cộng vào đó, và song song đó, xác suất dự đoán cho
-kiểu hình là giá trị kỳ vọng của số lượng đếm được đóng góp vào Âm
-tính giả và đã được cộng vào đó. Ví dụ, PersonId 017 có xác suất dự
-đoán là 1% cho sự hiện diện của kết cục sức khỏe (và tương ứng, 99%
-cho sự vắng mặt của kết cục sức khỏe) và 1,00 -- 0,01 = 0,99 đã được
-cộng vào Âm tính thật và 0,01 đã được cộng vào Âm tính giả. Điều này
-đã được lặp lại cho tất cả những người từ nhóm thuần tập đánh giá
-không được bao gồm trong định nghĩa nhóm thuần tập (tức là PersonIds
-018, 020, 021 và 024).
-
-Sau khi cộng các giá trị này trên toàn bộ tập hợp những người trong
-nhóm thuần tập đánh giá, chúng tôi đã điền vào bốn ô của ma trận nhầm
-lẫn với các giá trị kỳ vọng của số lượng đếm cho mỗi ô, và chúng tôi
-đã có thể tạo ra các ước tính điểm của các đặc điểm hiệu suất PA như
-độ nhạy, độ đặc hiệu và giá trị dự đoán dương tính (Hình 1C). Chúng
-tôi nhấn mạnh rằng các số đếm ô kỳ vọng này không thể được sử dụng để
-đánh giá phương sai của các ước tính, chỉ có các ước tính điểm. Trong
-ví dụ này, độ nhạy, độ đặc hiệu, PPV và NPV lần lượt là 0,99, 0,63,
-0,42 và 0,99.
-
-Việc xác định các đặc điểm hiệu suất của định nghĩa nhóm thuần tập sử
-dụng hàm testPhenotype. Hàm này sử dụng đầu ra từ hai bước trước đó
-nơi
-
-![](media/image166.jpeg){width="5.457707786526684in"
-height="6.148332239720035in"}
-
-Hình 16.4: Xác định các đặc điểm hiệu suất
-của một định nghĩa nhóm thuần tập bằng PheValuator. p(O) = Xác suất
-kết cục; TP = Dương tính thật; FN = Âm tính giả; TN = Âm tính thật; FP
-= Dương tính giả.
-
-chúng tôi đã tạo các nhóm thuần tập mô hình và đánh giá. Chúng tôi sẽ
-đặt tham số modelFileName thành tệp RDS xuất ra từ hàm
-createPhenoModel, trong ví dụ này là
-"c:/temp/lr_results_5XMI_train_myCDM_ePPV0.75_20181206V1.rds". Chúng
-tôi sẽ đặt tham số resultsFileName thành tệp RDS xuất ra từ hàm
-createEvalCohort, trong ví dụ này là
-"c:/temp/lr_results_5XMI_eval_myCDM_ePPV0.75_20181206V1.rds". Để kiểm
-tra định nghĩa nhóm thuần tập mà chúng tôi muốn sử dụng trong nghiên
-cứu của mình, chúng tôi đặt cohortPheno thành ID nhóm thuần tập cho
-định nghĩa nhóm thuần tập đó. Chúng tôi có thể đặt tham số phenText
-thành một mô tả dễ đọc cho định nghĩa nhóm thuần tập, chẳng hạn như
-"MI Occurrence, Hospital In-Patient Setting" (Nhồi máu cơ tim, cơ sở
-nội trú bệnh viện). Chúng tôi sẽ đặt tham số testText thành một mô tả
-dễ đọc cho định nghĩa xSpec, chẳng hạn như "5 X MI". Đầu ra từ bước
-này là một khung dữ liệu chứa các đặc điểm hiệu suất cho định nghĩa
-nhóm thuần tập được kiểm tra. Các cài đặt cho tham số cutPoints là một
-danh sách các giá trị sẽ được sử dụng để phát triển kết quả các đặc
-điểm hiệu suất. Các đặc điểm hiệu suất thường được tính toán bằng cách
-sử dụng "các giá trị kỳ vọng" như mô tả trong Hình 1. Để truy xuất các
-đặc điểm hiệu suất dựa trên các giá trị kỳ vọng, chúng tôi bao gồm
-"EV" trong danh sách cho tham số cutPoints. Chúng tôi cũng có thể muốn
-xem các đặc điểm hiệu suất dựa trên các xác suất dự đoán cụ thể, tức
-là các điểm cắt (cut points). Ví dụ, nếu chúng tôi muốn xem các đặc
-điểm hiệu suất của tất cả những người ở mức hoặc trên xác suất dự đoán
-là 0,5 được coi là dương tính với kết cục sức khỏe và tất cả những
-người dưới xác suất dự đoán là 0,5 được coi là âm tính, chúng tôi sẽ
-thêm "0,5" vào danh sách tham số cutPoints. Ví dụ:
-
-**setwd**(\"c:/temp\")
-
-connectionDetails \<- **createConnectionDetails**( dbms =
-\"postgresql\",
-
-server = \"localhost/ohdsi\", user = \"joe\",
-
-password = \"supersecret\")
-
-phenoResult \<- **testPhenotype**( connectionDetails =
-connectionDetails,
-
-cutPoints = **c**(0.1, 0.2, 0.3, 0.4, 0.5, \"EV\", 0.6, 0.7, 0.8,
-0.9),
-
-resultsFileName =
-\"c:/temp/lr_results_5XMI_eval_myCDM_ePPV0.75_20181206V1.rds\",
-
-modelFileName =
-\"c:/temp/lr_results_5XMI_train_myCDM_ePPV0.75_20181206V1.rds\",
-
-cohortPheno = 1769702,
-
-phenText = \"All MI by Phenotype 1 X In-patient, 1st Position\", order
-= 1,
-
-testText = \"MI xSpec Model - 5 X MI\", cohortDatabaseSchema =
-\"my_results\", cohortTable = \"cohort\",
-
-cdmShortName = \"myCDM\")
-
-Trong ví dụ này, một phạm vi rộng các ngưỡng dự đoán được cung cấp
-(cutPoints) bao gồm giá trị kỳ vọng ("EV"). Với cài đặt tham số đó,
-đầu ra từ bước này sẽ
-
-cung cấp các đặc điểm hiệu suất (tức là độ nhạy, độ đặc hiệu, v.v.)
-tại mỗi ngưỡng dự đoán cũng như các đặc điểm sử dụng các tính toán giá
-trị kỳ vọng. Việc đánh giá sử dụng thông tin dự đoán cho nhóm thuần
-tập đánh giá được phát triển trong bước trước. Các khung dữ liệu được
-tạo ra từ bước này có thể được lưu vào tệp csv để kiểm tra chi tiết.
-
-Sử dụng quy trình này, Bảng 16.1 hiển thị các đặc điểm hiệu suất cho
-bốn định nghĩa nhóm thuần tập cho nhồi máu cơ tim trên năm tập dữ
-liệu. Đối với một định nghĩa nhóm thuần tập tương tự như định nghĩa
-được Cutrona và các đồng nghiệp đánh giá, "\>=1 X HOI, In-Patient",
-chúng tôi đã tìm thấy PPV trung bình là 67% (phạm vi: 59%-74%).
-
-Bảng 16.1: Các đặc điểm hiệu suất của bốn định nghĩa nhóm thuần tập sử
-dụng mã tình trạng chẩn đoán để xác định nhồi máu cơ tim trên nhiều
-tập dữ liệu sử dụng PheValuator. Sens -- Độ nhạy; PPV -- Giá trị dự
-đoán dương tính; Spec -- Độ đặc hiệu; NPV -- Giá trị dự đoán âm tính;
-Dx Code -- Mã chẩn đoán cho nhóm thuần tập.
-
-***
-Thuật toán kiểu hình   Cơ sở dữ    Độ nhạy   PPV   Độ đặc    NPV
-liệu                         hiệu
----------------------- ----------- ------- ------- ------- -------
-\>=1 X HOI             CCAE         0.761   0.598   0.997   0.999
-
-Optum1862    0.723   0.530   0.995   0.998
-
-OptumGE66    0.643   0.534   0.973   0.982
-
-MDCD         0.676   0.468   0.990   0.996
-
-MDCR         0.665   0.553   0.977   0.985
-
-\>= 2 X HOI            CCAE         0.585   0.769   0.999   0.998
-
-Optum1862    0.495   0.693   0.998   0.996
-
-OptumGE66    0.382   0.644   0.990   0.971
-
-MDCD         0.454   0.628   0.996   0.993
-
-MDCR         0.418   0.674   0.991   0.975
-
-\>=1 X HOI, Nội trú    CCAE         0.674   0.737   0.999   0.998
-
-Optum1862    0.623   0.693   0.998   0.997
-
-OptumGE66    0.521   0.655   0.987   0.977
-
-MDCD         0.573   0.593   0.995   0.994
-
-MDCR         0.544   0.649   0.987   0.980
-
-1 X HOI, Nội trú, Vị   CCAE         0.633   0.788   0.999   0.998
-trí thứ nhất
-
-Optum1862    0.581   0.754   0.999   0.997
-
-OptumGE66    0.445   0.711   0.991   0.974
-
-MDCD         0.499   0.666   0.997   0.993
-
-MDCR         0.445   0.711   0.991   0.974
-***
-
-## Tính khái quát của bằng chứng
-
-Trong khi một nhóm thuần tập có thể được định nghĩa tốt và được đánh
-giá đầy đủ trong bối cảnh của một cơ sở dữ liệu quan sát nhất định,
-tính hợp lệ lâm sàng bị giới hạn bởi mức độ mà kết quả được coi là có
-thể khái quát hóa cho quần thể mục tiêu quan tâm. Nhiều nghiên cứu
-quan sát về cùng một chủ đề có thể mang lại các kết quả khác nhau,
-điều này có thể được gây ra không chỉ
-
-bởi thiết kế và phương pháp phân tích của chúng, mà còn bởi sự lựa
-chọn nguồn dữ liệu. Madigan và cộng sự (2013b) đã chứng minh rằng việc
-lựa chọn cơ sở dữ liệu ảnh hưởng đến kết quả của nghiên cứu quan sát.
-Họ đã điều tra một cách hệ thống sự không đồng nhất trong kết quả cho
-53 cặp thuốc-kết cục và hai thiết kế nghiên cứu (nghiên cứu nhóm thuần
-tập và chuỗi ca tự kiểm soát) trên 10 cơ sở dữ liệu quan sát. Mặc dù
-họ giữ thiết kế nghiên cứu không đổi, sự không đồng nhất đáng kể trong
-các ước tính hiệu quả đã được quan sát thấy.
-
-Trên khắp mạng lưới OHDSI, các cơ sở dữ liệu quan sát khác nhau đáng
-kể về các quần thể mà chúng đại diện (ví dụ: nhi khoa so với người cao
-tuổi, nhân viên được bảo hiểm tư nhân so với người thất nghiệp được
-bảo hiểm công cộng), các cơ sở chăm sóc nơi dữ liệu được thu thập (ví
-dụ: nội trú so với ngoại trú, chăm sóc ban đầu so với chăm sóc thứ
-cấp/chuyên khoa), các quy trình thu thập dữ liệu (ví dụ: yêu cầu thanh
-toán hành chính, EHR, sổ đăng ký lâm sàng) và hệ thống y tế quốc gia
-và khu vực mà từ đó việc chăm sóc dựa trên đó. Những khác biệt này có
-thể biểu hiện dưới dạng sự không đồng nhất được quan sát khi nghiên
-cứu bệnh tật và hiệu quả của các can thiệp y tế và cũng có thể ảnh
-hưởng đến sự tự tin mà chúng ta có vào chất lượng của từng nguồn dữ
-liệu có thể đóng góp bằng chứng trong một nghiên cứu mạng lưới. Trong
-khi tất cả các cơ sở dữ liệu trong mạng lưới OHDSI được chuẩn hóa theo
-CDM, điều quan trọng cần củng cố là việc chuẩn hóa không làm giảm sự
-không đồng nhất vốn có thực sự tồn tại giữa các quần thể, mà chỉ cung
-cấp một khuôn khổ nhất quán để điều tra và hiểu rõ hơn về sự không
-đồng nhất trên toàn mạng lưới. Mạng lưới nghiên cứu OHDSI cung cấp môi
-trường để áp dụng cùng một quy trình phân tích trên các cơ sở dữ liệu
-khác nhau trên khắp thế giới, để các nhà nghiên cứu có thể diễn giải
-kết quả trên nhiều nguồn dữ liệu trong khi giữ các khía cạnh phương
-pháp luận khác không đổi. Cách tiếp cận hợp tác của OHDSI đối với khoa
-học mở trong nghiên cứu mạng lưới, nơi các nhà nghiên cứu giữa các đối
-tác dữ liệu tham gia làm việc cùng nhau bên cạnh những người có kiến
-thức chuyên môn về lĩnh vực lâm sàng và các nhà phương pháp luận có
-chuyên môn phân tích, là một cách để đạt được mức độ hiểu biết tập thể
-về tính hợp lệ lâm sàng của dữ liệu trên toàn mạng lưới, điều này sẽ
-đóng vai trò là nền tảng để xây dựng sự tự tin vào bằng chứng được tạo
-ra bằng cách sử dụng các dữ liệu này.
+Cộng đồng OHDSI đã phát triển một hướng tiếp cận mới để xây dựng tiêu chuẩn vàng bằng cách sử dụng các mô hình dự đoán chẩn đoán (diagnostic predictive models) (Swerdel và cộng sự, 2019). Ý tưởng cốt lõi là mô phỏng quá trình xác định kết cục sức khỏe tương tự như cách bác sĩ lâm sàng xem xét hồ sơ bệnh án trong xác minh hồ sơ nguồn, nhưng được thực hiện hoàn toàn tự động để có thể triển khai trên quy mô lớn. Công cụ này được phát triển dưới dạng một gói R mã nguồn mở có tên là [PheValuator](https://github.com/OHDSI/PheValuator)[^1]. PheValuator sử dụng các hàm chức năng từ gói `PatientLevelPrediction`.
+
+[^1]: <https://github.com/OHDSI/PheValuator>
+
+Quy trình của PheValuator gồm 5 bước như sau:
+
+1. **Tạo một đoàn hệ cực kỳ đặc hiệu ("xSpec")**: Xác định một tập hợp người bệnh có khả năng rất cao thực sự mắc kết cục quan tâm để dùng làm các nhãn dương tính nhiễu (noisy positive labels) khi huấn luyện mô hình dự đoán chẩn đoán.
+2. **Tạo một đoàn hệ cực kỳ nhạy ("xSens")**: Xác định một tập hợp người bệnh bao gồm tất cả những ai có bất kỳ khả năng nào mắc kết cục đó. Đoàn hệ này được dùng để xác định phần bù (nghịch đảo) của nó: tập hợp những người mà chúng ta tin chắc là *không* mắc kết cục, dùng làm các nhãn âm tính nhiễu (noisy negative labels) khi huấn luyện mô hình dự đoán chẩn đoán.
+3. **Huấn luyện mô hình dự đoán sử dụng đoàn hệ xSpec và xSens**: Như đã mô tả trong Chương 13 (Dự đoán ở cấp độ bệnh nhân), chúng ta khớp một mô hình sử dụng hàng loạt đặc trưng của bệnh nhân làm biến dự báo nhằm dự đoán xem một người thuộc đoàn hệ xSpec (những người được tin là có kết cục) hay thuộc phần bù của đoàn hệ xSens (những người được tin là không có kết cục).
+4. **Áp dụng mô hình đã huấn luyện để ước tính xác suất mắc kết cục cho một tập dữ liệu kiểm định độc lập (hold-out set) dùng để đánh giá hiệu năng định nghĩa đoàn hệ**: Tập hợp các biến dự báo từ mô hình được áp dụng lên dữ liệu của từng người trong đoàn hệ đánh giá để ước tính xác suất dự đoán người đó thực sự mang kiểu hình. Chúng ta sử dụng các xác suất dự đoán này làm **tiêu chuẩn vàng xác suất (probabilistic gold standard)**.
+5. **Đánh giá các chỉ số hiệu năng của các định nghĩa đoàn hệ**: Chúng ta đối chiếu xác suất dự đoán từ mô hình với kết quả phân loại nhị phân của định nghĩa đoàn hệ cần kiểm tra. Kết hợp kết quả phân loại của định nghĩa đoàn hệ với các ước tính xác suất đại diện cho trạng thái thực, chúng ta có thể điền đầy đủ bốn ô của ma trận nhầm lẫn và ước tính trọn bộ các chỉ số hiệu năng bao gồm độ nhạy, độ đặc hiệu, PPV và NPV.
+
+Hạn chế chính của phương pháp này là việc ước tính xác suất một người mắc kết cục sức khỏe bị giới hạn bởi những thông tin sẵn có trong cơ sở dữ liệu. Tùy thuộc vào từng cơ sở dữ liệu, những thông tin lâm sàng quan trọng như ghi chú bệnh án dạng văn bản tự do có thể không khả dụng.
+
+Trong mô hình dự đoán chẩn đoán, chúng ta xây dựng một mô hình phân biệt giữa người có bệnh và người không có bệnh. Như đã trình bày trong Chương 13, các mô hình dự đoán được phát triển dựa trên một *đoàn hệ mục tiêu (target cohort)* và một *đoàn hệ kết cục (outcome cohort)*. Đoàn hệ mục tiêu bao gồm cả những người có và không có kết cục sức khỏe; đoàn hệ kết cục xác định những người nằm trong đoàn hệ mục tiêu thực sự có kết cục sức khỏe đó. Trong quy trình PheValuator, chúng ta sử dụng định nghĩa đoàn hệ cực kỳ đặc hiệu (**xSpec**) làm đoàn hệ kết cục cho mô hình dự đoán. Đoàn hệ xSpec thường được định nghĩa là những người có nhiều bản ghi chẩn đoán lặp lại của kết cục sức khỏe quan tâm. Ví dụ, đối với rung nhĩ, chúng ta có thể chọn những bệnh nhân có từ 10 bản ghi mã chẩn đoán rung nhĩ trở lên. Đối với nhồi máu cơ tim (MI) — một biến cố cấp tính — chúng ta có thể yêu cầu từ 5 bản ghi MI trở lên kèm điều kiện có ít nhất 2 bản ghi xuất hiện trong đợt điều trị nội trú. Đoàn hệ mục tiêu cho mô hình dự đoán được hợp thành từ tập hợp những người có khả năng rất thấp mắc kết cục quan tâm và những người thuộc đoàn hệ xSpec. Để xác định những người có khả năng rất thấp mắc kết cục quan tâm, chúng ta lấy mẫu từ toàn bộ cơ sở dữ liệu nhưng loại trừ tất cả những ai có bất kỳ dấu hiệu nào gợi ý thuộc kiểu hình bệnh (tức là loại trừ toàn bộ đoàn hệ **xSens**), đồng thời loại bỏ khỏi mô hình mọi biến dự báo chứa các khái niệm đã dùng để định nghĩa đoàn hệ xSpec. Phương pháp này cũng có một số hạn chế nhất định: những bệnh nhân trong đoàn hệ xSpec có thể mang những đặc điểm lâm sàng nặng hơn hoặc có thời gian theo dõi sau chẩn đoán ban đầu dài hơn so với bệnh nhân mắc bệnh trung bình. Chúng tôi sử dụng hồi quy logistic có điều chuẩn LASSO (Suchard và cộng sự, 2013) để huấn luyện mô hình dự đoán tạo ra tiêu chuẩn vàng xác suất. Thuật toán này tạo ra một mô hình tinh gọn và loại bỏ hiệu quả các biến đồng tuyến trong tập dữ liệu. Trong phiên bản hiện tại của phần mềm PheValuator, trạng thái kết cục (có/không) được đánh giá dựa trên toàn bộ dữ liệu lịch sử của một người bệnh (toàn bộ thời gian quan sát), chứ chưa đánh giá độ chính xác của ngày bắt đầu gia nhập đoàn hệ.
+
+### Ví dụ xác thực bằng PheValuator
+
+Chúng ta có thể sử dụng PheValuator để đánh giá trọn bộ các chỉ số hiệu năng cho các định nghĩa đoàn hệ nhồi máu cơ tim cấp (MI). Dưới đây là các bước thực hiện chi tiết:
+
+#### Bước 1: Định nghĩa đoàn hệ xSpec
+
+Xác định những người có xác suất rất cao thực sự mắc nhồi máu cơ tim cấp (MI). Chúng tôi yêu cầu bệnh nhân phải có bản ghi tình trạng bệnh lý thuộc khái niệm *Nhồi máu cơ tim* hoặc bất kỳ khái niệm hậu duệ nào của nó, kèm theo ít nhất 1 bản ghi MI được ghi nhận trong đợt điều trị nội trú tại bệnh viện trong vòng 5 ngày, và có từ 4 bản ghi MI trở lên trong hồ sơ bệnh nhân trong vòng 365 ngày. Hình 15.2 minh họa định nghĩa đoàn hệ xSpec này cho MI trong ATLAS.
+
+![](media/image164.jpeg){width="5.354166666666667in" height="5.421874453193351in"}
+
+Hình 15.2: Định nghĩa đoàn hệ cực kỳ đặc hiệu (xSpec) cho nhồi máu cơ tim.
+
+#### Bước 2: Định nghĩa đoàn hệ xSens
+
+Tiếp theo, chúng ta xây dựng một đoàn hệ cực kỳ nhạy (xSens). Đối với MI, đoàn hệ này được định nghĩa là tất cả những người có ít nhất một bản ghi tình trạng bệnh lý chứa khái niệm nhồi máu cơ tim tại bất kỳ thời điểm nào trong toàn bộ tiền sử y tế của họ. Hình 15.3 minh họa định nghĩa đoàn hệ xSens cho MI trong ATLAS.
+
+![](media/image165.png){width="5.34375in" height="2.59375in"}
+
+Hình 15.3: Định nghĩa đoàn hệ cực kỳ nhạy (xSens) cho nhồi máu cơ tim.
+
+#### Bước 3: Huấn luyện mô hình dự đoán
+
+Hàm `createPhenoModel` xây dựng mô hình dự đoán chẩn đoán nhằm đánh giá xác suất mắc kết cục sức khỏe quan tâm trong đoàn hệ đánh giá. Để sử dụng hàm này, chúng ta truyền vào hai đoàn hệ xSpec và xSens đã tạo ở Bước 1 và Bước 2:
+
+- Đoàn hệ xSpec được truyền vào tham số `xSpecCohort`.
+- Đoàn hệ xSens được truyền vào tham số `exclCohort` để chỉ định rằng toàn bộ những người trong đoàn hệ xSens phải được loại trừ khỏi tập mẫu âm tính của đoàn hệ mục tiêu trong quá trình huấn luyện mô hình. Bằng phương pháp loại trừ này, chúng ta xác định được nhóm người có khả năng rất thấp mắc kết cục sức khỏe ("nhãn âm tính nhiễu" — noisy negatives).
+- Chúng ta cũng sử dụng đoàn hệ xSens (hoặc một đoàn hệ ước tính tỷ lệ hiện mắc tương đương) cho tham số `prevCohort` nhằm xác định tỷ lệ hiện mắc xấp xỉ của kết cục sức khỏe trong quần thể, từ đó hiệu chuẩn lại (re-calibrate) mô hình dự đoán theo đúng tỷ lệ hiện mắc thực tế trong cơ sở dữ liệu.
+
+Tất cả các khái niệm đã dùng để định nghĩa đoàn hệ xSpec bắt buộc phải được loại trừ khỏi tập biến dự báo khi huấn luyện mô hình thông qua tham số `excludedConcepts`. Ví dụ, đối với MI, chúng ta truyền danh sách các mã concept ID của nhồi máu cơ tim vào `excludedConcepts` và đặt `addDescendantsToExclude = TRUE` để loại trừ cả toàn bộ các khái niệm hậu duệ của chúng.
+
+Ngoài ra, có thể tùy chỉnh các tham số giới hạn độ tuổi (`lowerAgeLimit`, `upperAgeLimit`), giới tính (`gender`), khoảng thời gian của lần khám đầu tiên (`startDate`, `endDate`) và quần thể nền (`mainPopnCohort = 0` nếu sử dụng toàn bộ quần thể). Ví dụ đoạn mã R thực thi Bước 3 như sau:
+
+```r
+setwd("c:/temp")
+library(PheValuator)
+connectionDetails <- createConnectionDetails(
+  dbms = "postgresql",
+  server = "localhost/ohdsi",
+  user = "joe",
+  password = "supersecret")
+
+phenoTest <- createPhenoModel(
+  connectionDetails = connectionDetails,
+  xSpecCohort = 10934,
+  cdmDatabaseSchema = "my_cdm_data",
+  cohortDatabaseSchema = "my_results",
+  cohortDatabaseTable = "cohort",
+  outDatabaseSchema = "scratch.dbo", # should have write access
+  trainOutFile = "5XMI_train",
+  exclCohort = 1770120, # the xSens cohort
+  prevCohort = 1770119, # the cohort for prevalence determination
+  modelAnalysisId = "20181206V1",
+  excludedConcepts = c(312327, 314666),
+  addDescendantsToExclude = TRUE,
+  cdmShortName = "myCDM",
+  mainPopnCohort = 0, # use the entire person population
+  lowerAgeLimit = 18,
+  upperAgeLimit = 90,
+  gender = c(8507, 8532),
+  startDate = "20100101",
+  endDate = "20171231")
+```
+
+Trong ví dụ này, chúng ta sử dụng các đoàn hệ được lưu trong bảng `"my_results.cohort"` và dữ liệu CDM trong lược đồ `"my_cdm_data"`. Những người được đưa vào mô hình có lần khám đầu tiên trong CDM từ ngày 01/01/2010 đến 31/12/2017, độ tuổi từ 18 đến 90, và loại trừ các mã khái niệm `312327`, `314666` cùng toàn bộ hậu duệ của chúng. Tệp kết quả mô hình dự đoán sinh ra từ bước này sẽ có tên: `"c:/temp/lr_results_5XMI_train_myCDM_ePPV0.75_20181206V1.rds"`.
+
+#### Bước 4: Tạo đoàn hệ đánh giá (Evaluation Cohort)
+
+Hàm `createEvalCohort` sử dụng hàm `applyModel` của gói `PatientLevelPrediction` để tạo ra một đoàn hệ đánh giá quy mô lớn, trong đó mỗi cá thể đều được gán một xác suất dự đoán mắc kết cục sức khỏe quan tâm. Ví dụ:
+
+```r
+setwd("c:/temp")
+connectionDetails <- createConnectionDetails(
+  dbms = "postgresql",
+  server = "localhost/ohdsi",
+  user = "joe",
+  password = "supersecret")
+
+evalCohort <- createEvalCohort(
+  connectionDetails = connectionDetails,
+  xSpecCohort = 10934,
+  cdmDatabaseSchema = "my_cdm_data",
+  cohortDatabaseSchema = "my_results",
+  cohortDatabaseTable = "cohort",
+  outDatabaseSchema = "scratch.dbo",
+  testOutFile = "5XMI_eval",
+  trainOutFile = "5XMI_train",
+  modelAnalysisId = "20181206V1",
+  evalAnalysisId = "20181206V1",
+  cdmShortName = "myCDM",
+  mainPopnCohort = 0,
+  lowerAgeLimit = 18,
+  upperAgeLimit = 90,
+  gender = c(8507, 8532),
+  startDate = "20100101",
+  endDate = "20171231")
+```
+
+Trong ví dụ này, các tham số chỉ định rằng hàm sẽ sử dụng tệp mô hình `"c:/temp/lr_results_5XMI_train_myCDM_ePPV0.75_20181206V1.rds"` để tạo ra tệp đoàn hệ đánh giá `"c:/temp/lr_results_5XMI_eval_myCDM_ePPV0.75_20181206V1.rds"`. Hai tệp này sẽ được dùng để đánh giá các định nghĩa đoàn hệ ở bước tiếp theo.
+
+#### Bước 5: Tạo và kiểm tra các định nghĩa đoàn hệ
+
+Bước tiếp theo là tạo và kiểm tra các định nghĩa đoàn hệ cần đánh giá. Các đặc tính hiệu năng mong muốn phụ thuộc vào mục đích sử dụng đoàn hệ trong câu hỏi nghiên cứu: một số câu hỏi đòi hỏi thuật toán có độ nhạy rất cao, trong khi những câu hỏi khác lại cần thuật toán có độ đặc hiệu cao. Quy trình xác định các chỉ số hiệu năng cho một định nghĩa đoàn hệ bằng PheValuator được minh họa trong Hình 15.4.
+
+![](media/image166.jpeg){width="5.457707786526684in" height="6.148332239720035in"}
+
+Hình 15.4: Xác định các chỉ số hiệu năng của một định nghĩa đoàn hệ bằng PheValuator. $p(O)$ = Xác suất mắc kết cục; TP = Dương tính thật; FN = Âm tính giả; TN = Âm tính thật; FP = Dương tính giả.
+
+Trong Phần A của Hình 15.4, chúng ta đối chiếu danh sách những người được thu nhận bởi định nghĩa đoàn hệ cần kiểm tra với đoàn hệ đánh giá (được tạo ở Bước 4), xác định những người nằm trong định nghĩa đoàn hệ (Person ID `016`, `019`, `022`, `023` và `025`) và những người không nằm trong định nghĩa đoàn hệ (Person ID `017`, `018`, `020`, `021` và `024`). Mỗi cá thể này đều đã có xác suất dự đoán mắc kết cục sức khỏe $p(O)$ từ mô hình dự đoán.
+
+Chúng ta ước tính các giá trị kỳ vọng cho Dương tính thật (TP), Âm tính thật (TN), Dương tính giả (FP) và Âm tính giả (FN) như sau (Phần B của Hình 15.4):
+
+1. **Nếu định nghĩa đoàn hệ thu nhận một người từ đoàn hệ đánh giá** (tức định nghĩa đoàn hệ phân loại người đó là "dương tính"): xác suất dự đoán $p(O)$ chính là số đếm kỳ vọng mà người đó đóng góp vào ô Dương tính thật (TP), và $1 - p(O)$ là số đếm kỳ vọng đóng góp vào ô Dương tính giả (FP). Ví dụ, `PersonId 016` có xác suất dự đoán mắc kết cục là 99% ($0.99$), nên $0.99$ được cộng vào TP và $1.00 - 0.99 = 0.01$ được cộng vào FP. Quá trình này được lặp lại và cộng dồn cho tất cả những người trong đoàn hệ đánh giá được thu nhận vào định nghĩa đoàn hệ (`PersonId 019`, `022`, `023` và `025`).
+2. **Tương tự, nếu định nghĩa đoàn hệ không thu nhận một người từ đoàn hệ đánh giá** (tức định nghĩa đoàn hệ phân loại người đó là "âm tính"): $1 - p(O)$ là số đếm kỳ vọng đóng góp vào ô Âm tính thật (TN), còn $p(O)$ là số đếm kỳ vọng đóng góp vào ô Âm tính giả (FN). Ví dụ, `PersonId 017` có xác suất dự đoán mắc kết cục là 1% ($0.01$), nên $1.00 - 0.01 = 0.99$ được cộng vào TN và $0.01$ được cộng vào FN. Quá trình này được lặp lại cho tất cả những người trong đoàn hệ đánh giá không nằm trong định nghĩa đoàn hệ (`PersonId 018`, `020`, `021` và `024`).
+
+Sau khi cộng dồn các giá trị kỳ vọng trên toàn bộ cá thể trong đoàn hệ đánh giá, chúng ta điền đầy đủ bốn ô của ma trận nhầm lẫn và tính toán ước tính điểm (point estimates) cho các chỉ số hiệu năng như độ nhạy, độ đặc hiệu, PPV và NPV (Phần C của Hình 15.4). Cần lưu ý rằng các số đếm kỳ vọng này chỉ dùng để tính ước tính điểm chứ không dùng để tính phương sai của ước tính. Trong ví dụ minh họa, độ nhạy, độ đặc hiệu, PPV và NPV lần lượt là $0.99$, $0.63$, $0.42$ và $0.99$.
+
+Để tính toán các chỉ số hiệu năng này trong R, chúng ta sử dụng hàm `testPhenotype`. Tham số `cutPoints` cho phép chỉ định danh sách các ngưỡng xác suất cắt cũng như giá trị kỳ vọng (`"EV"`) để tính toán các chỉ số hiệu năng:
+
+```r
+setwd("c:/temp")
+connectionDetails <- createConnectionDetails(
+  dbms = "postgresql",
+  server = "localhost/ohdsi",
+  user = "joe",
+  password = "supersecret")
+
+phenoResult <- testPhenotype(
+  connectionDetails = connectionDetails,
+  cutPoints = c(0.1, 0.2, 0.3, 0.4, 0.5, "EV", 0.6, 0.7, 0.8, 0.9),
+  resultsFileName =
+    "c:/temp/lr_results_5XMI_eval_myCDM_ePPV0.75_20181206V1.rds",
+  modelFileName =
+    "c:/temp/lr_results_5XMI_train_myCDM_ePPV0.75_20181206V1.rds",
+  cohortPheno = 1769702,
+  phenText = "All MI by Phenotype 1 X In-patient, 1st Position",
+  order = 1,
+  testText = "MI xSpec Model - 5 X MI",
+  cohortDatabaseSchema = "my_results",
+  cohortTable = "cohort",
+  cdmShortName = "myCDM")
+```
+
+Sử dụng quy trình này, Bảng 15.1 trình bày các chỉ số hiệu năng của bốn định nghĩa đoàn hệ nhồi máu cơ tim (MI) trên năm cơ sở dữ liệu khác nhau. Đối với định nghĩa đoàn hệ tương tự với định nghĩa từng được Cutrona và cộng sự đánh giá (`>=1 X HOI, In-Patient`), chúng tôi ghi nhận PPV trung bình đạt 67% (khoảng giá trị: 59%–74%).
+
+Bảng 15.1: Các chỉ số hiệu năng của bốn định nghĩa đoàn hệ sử dụng mã chẩn đoán tình trạng bệnh lý để xác định nhồi máu cơ tim trên nhiều cơ sở dữ liệu bằng PheValuator. Sens: Độ nhạy; PPV: Giá trị dự đoán dương; Spec: Độ đặc hiệu; NPV: Giá trị dự đoán âm; HOI: Kết cục sức khỏe quan tâm (Health Outcome of Interest).
+
+| Thuật toán kiểu hình (Phenotype Algorithm) | Cơ sở dữ liệu | Sens | PPV | Spec | NPV |
+|:---|:---|:---:|:---:|:---:|:---:|
+| `>= 1 X HOI` | CCAE | 0.761 | 0.598 | 0.997 | 0.999 |
+| | Optum1862 | 0.723 | 0.530 | 0.995 | 0.998 |
+| | OptumGE66 | 0.643 | 0.534 | 0.973 | 0.982 |
+| | MDCD | 0.676 | 0.468 | 0.990 | 0.996 |
+| | MDCR | 0.665 | 0.553 | 0.977 | 0.985 |
+| `>= 2 X HOI` | CCAE | 0.585 | 0.769 | 0.999 | 0.998 |
+| | Optum1862 | 0.495 | 0.693 | 0.998 | 0.996 |
+| | OptumGE66 | 0.382 | 0.644 | 0.990 | 0.971 |
+| | MDCD | 0.454 | 0.628 | 0.996 | 0.993 |
+| | MDCR | 0.418 | 0.674 | 0.991 | 0.975 |
+| `>= 1 X HOI, In-Patient` | CCAE | 0.674 | 0.737 | 0.999 | 0.998 |
+| | Optum1862 | 0.623 | 0.693 | 0.998 | 0.997 |
+| | OptumGE66 | 0.521 | 0.655 | 0.987 | 0.977 |
+| | MDCD | 0.573 | 0.593 | 0.995 | 0.994 |
+| | MDCR | 0.544 | 0.649 | 0.987 | 0.980 |
+| `1 X HOI, In-Patient, 1st Position` | CCAE | 0.633 | 0.788 | 0.999 | 0.998 |
+| | Optum1862 | 0.581 | 0.754 | 0.999 | 0.997 |
+| | OptumGE66 | 0.445 | 0.711 | 0.991 | 0.974 |
+| | MDCD | 0.499 | 0.666 | 0.997 | 0.993 |
+| | MDCR | 0.445 | 0.711 | 0.991 | 0.974 |
+
+## Tính khái quát hóa của bằng chứng
+
+Mặc dù một đoàn hệ có thể được định nghĩa chặt chẽ và đánh giá đầy đủ trong phạm vi một cơ sở dữ liệu quan sát nhất định, giá trị hợp lệ lâm sàng vẫn phụ thuộc vào mức độ mà các kết quả nghiên cứu có thể khái quát hóa (generalizable) cho quần thể đích mà chúng ta quan tâm. Nhiều nghiên cứu quan sát về cùng một chủ đề có thể đưa ra những kết quả khác nhau, không chỉ do sự khác biệt về thiết kế nghiên cứu và phương pháp phân tích mà còn do sự lựa chọn nguồn dữ liệu. Madigan và cộng sự (2013b) đã chứng minh rằng việc lựa chọn cơ sở dữ liệu có ảnh hưởng lớn đến kết quả của nghiên cứu quan sát. Nhóm tác giả đã khảo sát một cách hệ thống tính không đồng nhất (heterogeneity) của kết quả trên 53 cặp thuốc – kết cục với hai thiết kế nghiên cứu (nghiên cứu thuần tập và chuỗi ca bệnh tự đối chứng) qua 10 cơ sở dữ liệu quan sát. Ngay cả khi giữ nguyên thiết kế nghiên cứu, sự không đồng nhất đáng kể trong các ước tính hiệu quả vẫn xuất hiện giữa các cơ sở dữ liệu.
+
+Trên toàn mạng lưới OHDSI, các cơ sở dữ liệu quan sát rất đa dạng về quần thể đại diện (ví dụ: trẻ em so với người cao tuổi, người lao động có bảo hiểm tư nhân so với người thất nghiệp hưởng bảo hiểm công), bối cảnh chăm sóc y tế nơi dữ liệu được ghi nhận (ví dụ: nội trú so với ngoại trú, chăm sóc ban đầu so với chăm sóc chuyên sâu), quy trình thu thập dữ liệu (ví dụ: dữ liệu yêu cầu thanh toán bảo hiểm hành chính, EHR, sổ bộ lâm sàng), cũng như hệ thống y tế quốc gia và khu vực. Những khác biệt này có thể biểu hiện thành tính không đồng nhất khi nghiên cứu bệnh tật và tác động của các can thiệp y khoa, đồng thời ảnh hưởng đến mức độ tin cậy của chúng ta đối với từng nguồn dữ liệu đóng góp bằng chứng trong một nghiên cứu mạng lưới. Mặc dù tất cả các cơ sở dữ liệu trong mạng lưới OHDSI đều được chuẩn hóa sang OMOP CDM, cần nhấn mạnh rằng việc chuẩn hóa cấu trúc dữ liệu không làm mất đi tính không đồng nhất nội tại vốn có giữa các quần thể, mà cung cấp một khuôn khổ thống nhất để khảo sát và hiểu rõ hơn về tính không đồng nhất đó trên toàn mạng lưới. Mạng lưới nghiên cứu OHDSI mang lại môi trường lý tưởng để áp dụng cùng một quy trình phân tích trên nhiều cơ sở dữ liệu khắp thế giới, giúp các nhà nghiên cứu diễn giải kết quả xuyên suốt nhiều nguồn dữ liệu trong khi giữ cố định các yếu tố phương pháp luận khác. Cách tiếp cận hợp tác theo tinh thần khoa học mở của OHDSI trong nghiên cứu mạng lưới — nơi các nhà nghiên cứu tại các đơn vị sở hữu dữ liệu cùng làm việc chặt chẽ với các chuyên gia lâm sàng và các nhà phương pháp luận phân tích — chính là con đường để đạt tới sự thấu hiểu chung về giá trị hợp lệ lâm sàng của dữ liệu trên toàn mạng lưới, làm nền tảng vững chắc để xây dựng niềm tin vào các bằng chứng được tạo ra từ dữ liệu đời thực.
 
 ## Tóm tắt
 
-![](media/image4.png){width="0.4455205599300088in"
-height="0.4644783464566929in" .book-icon}
-
-- Clinical validity can be established by understanding the
-characteristics of the underlying data source, evaluating the
-performance characteristics of the cohorts within an analysis, and
-assessing the generalizability of the study to the target population
-of interest.
-
-- A cohort definition can be evaluated on the extent to which persons
-identified in the cohort based on the cohort definition and the
-available observational data accurately reflect the persons who truly
-belong to the phenotype.
-
-- Cohort definition validation requires estimating multiple performance
-char-acteristics, including sensitivity, specificity, and positive
-predictive value, to fully summarize and enable adjustment for
-measurement error.
-
-- Clinical adjudication through source record verification and
-PheValuator rep-resent two alternative approaches to estimating cohort
-definition validation.
-
-- OHDSI network studies provide a mechanism to examine data source
-hetero-
-
-geneity and expand the generalizability of findings to improve
-clinical validity of real-world evidence.
-
+::: {.callout-tip title="Tóm tắt chương"}
+- Giá trị hợp lệ lâm sàng (clinical validity) được xác lập thông qua việc thấu hiểu đặc điểm của nguồn dữ liệu nền tảng, đánh giá các chỉ số hiệu năng của các đoàn hệ trong phân tích, và xem xét tính khái quát hóa của kết quả nghiên cứu đối với quần thể đích quan tâm.
+- Một định nghĩa đoàn hệ có thể được đánh giá dựa trên mức độ mà những cá thể được nhận diện vào đoàn hệ (theo định nghĩa đoàn hệ và dữ liệu quan sát sẵn có) phản ánh chính xác những người thực sự mang kiểu hình lâm sàng đó.
+- Việc xác thực định nghĩa đoàn hệ (xác thực kiểu hình) đòi hỏi phải ước tính nhiều chỉ số hiệu năng, bao gồm độ nhạy (sensitivity), độ đặc hiệu (specificity) và giá trị dự đoán dương (PPV), nhằm tóm tắt đầy đủ và cho phép hiệu chỉnh sai số đo lường.
+- Thẩm định lâm sàng thông qua xác minh hồ sơ nguồn (source record verification) và công cụ PheValuator là hai phương pháp tiếp cận bổ trợ nhau để ước tính các chỉ số xác thực định nghĩa đoàn hệ.
+- Các nghiên cứu mạng lưới của OHDSI cung cấp cơ chế để khảo sát tính không đồng nhất giữa các nguồn dữ liệu và mở rộng tính khái quát hóa của các phát hiện, qua đó nâng cao giá trị hợp lệ lâm sàng của bằng chứng đời thực.
+:::

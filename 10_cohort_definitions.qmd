@@ -1,1222 +1,609 @@
----
-title: "Chương 10: Định nghĩa nhóm thuần tập"
----
+# Chương 10: Định nghĩa đoàn hệ (Cohort)
 
-# Định nghĩa nhóm thuần tập
+*Chủ biên chương: Kristin Kostka*
 
-*Trưởng chương: Kristin Kostka*
+Dữ liệu sức khỏe quan sát, còn được gọi là *dữ liệu thế giới thực* (*real-world data*), là dữ liệu liên quan đến tình trạng sức khỏe của bệnh nhân và/hoặc quá trình cung cấp dịch vụ chăm sóc sức khỏe thường quy được thu thập từ nhiều nguồn khác nhau. Theo đó, những người quản trị dữ liệu của OHDSI (các cộng tác viên OHDSI phụ trách duy trì dữ liệu theo mô hình CDM tại đơn vị của họ) có thể thu thập dữ liệu từ nhiều nguồn bao gồm Hồ sơ sức khỏe điện tử (EHR), dữ liệu yêu cầu thanh toán bảo hiểm y tế và hoạt động chi trả viện phí, sổ đăng ký sản phẩm và bệnh tật, dữ liệu do bệnh nhân tự ghi nhận bao gồm cả trong môi trường sử dụng tại nhà, cũng như dữ liệu thu thập từ các nguồn khác có thể cung cấp thông tin về tình trạng sức khỏe như thiết bị di động. Vì những dữ liệu này ban đầu không được thu thập cho mục đích nghiên cứu, chúng có thể không ghi nhận một cách tường minh các yếu tố dữ liệu lâm sàng mà chúng ta quan tâm.
 
-Dữ liệu sức khỏe quan sát, còn được gọi là dữ liệu thế giới thực, là
-dữ liệu liên quan đến tình trạng sức khỏe bệnh nhân và/hoặc việc cung
-cấp dịch vụ chăm sóc sức khỏe thường xuyên được thu thập từ nhiều
-nguồn khác nhau. Như vậy, những người quản lý dữ liệu OHDSI (các cộng
-tác viên OHDSI duy trì dữ liệu trong CDM cho các trang web của họ) có
-thể thu thập dữ liệu từ nhiều nguồn bao gồm Hồ sơ sức khỏe điện tử
-(EHR), các yêu cầu thanh toán bảo hiểm y tế và hoạt động thanh toán,
-sổ đăng ký sản phẩm và bệnh tật, dữ liệu do bệnh nhân tạo ra bao gồm
-cả trong cài đặt sử dụng tại nhà, và dữ liệu được thu thập từ các
-nguồn khác có thể cung cấp thông tin về tình trạng sức khỏe, chẳng hạn
-như thiết bị di động. Vì những dữ liệu này không được thu thập cho mục
-đích nghiên cứu, dữ liệu có thể không nắm bắt rõ ràng các yếu tố dữ
-liệu lâm sàng mà chúng ta quan tâm.
+Ví dụ, một cơ sở dữ liệu yêu cầu thanh toán bảo hiểm y tế được thiết kế nhằm ghi nhận tất cả các dịch vụ chăm sóc được cung cấp cho một tình trạng bệnh lý nào đó (ví dụ: phù mạch) để các chi phí liên quan có thể được hoàn trả một cách hợp lý, và thông tin về tình trạng bệnh lý thực tế chỉ được ghi nhận như một phần của mục tiêu này. Nếu muốn sử dụng dữ liệu quan sát như vậy cho mục đích nghiên cứu, chúng ta thường phải thiết lập một số quy tắc logic sử dụng *những gì được ghi nhận trong dữ liệu* để suy luận ra *những gì chúng ta thực sự quan tâm*. Nói cách khác, chúng ta thường cần tạo ra một đoàn hệ (nhóm thuần tập - *cohort*) bằng cách sử dụng một định nghĩa nhất định về cách thức một sự kiện lâm sàng biểu hiện trong dữ liệu. Do đó, nếu muốn xác định các biến cố phù mạch trong cơ sở dữ liệu bảo hiểm y tế, chúng ta có thể xây dựng logic yêu cầu mã chẩn đoán phù mạch phải được ghi nhận trong bối cảnh cấp cứu, nhằm phân biệt với các yêu cầu thanh toán chỉ mô tả hoạt động khám theo dõi cho một đợt phù mạch đã xảy ra trong quá khứ. Những cân nhắc tương tự cũng áp dụng cho dữ liệu được thu thập trong các tương tác chăm sóc sức khỏe thường quy được lưu trong EHR. Vì dữ liệu đang được sử dụng cho mục đích thứ cấp, chúng ta phải hiểu rõ mục đích thiết kế ban đầu của từng cơ sở dữ liệu. Mỗi khi thiết kế một nghiên cứu, chúng ta phải suy xét thấu đáo các sắc thái biểu hiện của đoàn hệ nghiên cứu trong nhiều bối cảnh chăm sóc sức khỏe khác nhau.
 
-Ví dụ: cơ sở dữ liệu yêu cầu thanh toán bảo hiểm y tế được thiết kế để
-nắm bắt tất cả các dịch vụ chăm sóc được cung cấp cho một tình trạng
-nào đó (ví dụ: phù mạch) để các chi phí liên quan có thể được hoàn trả
-một cách thích hợp, và thông tin về tình trạng thực tế chỉ được nắm
-bắt như một phần của mục tiêu này. Nếu chúng ta muốn sử dụng dữ liệu
-quan sát như vậy cho mục đích nghiên cứu, chúng ta thường sẽ phải viết
-một số logic sử dụng những gì được nắm bắt trong dữ liệu để suy ra
-những gì chúng ta thực sự quan tâm. Nói cách khác, chúng ta thường cần
-tạo một nhóm thuần tập bằng cách sử dụng một số định nghĩa về cách một
-sự kiện lâm sàng biểu hiện. Do đó, nếu chúng ta muốn xác định các sự
-kiện phù mạch trong cơ sở dữ liệu yêu cầu thanh toán bảo hiểm, chúng
-ta có thể xác định logic yêu cầu mã chẩn đoán phù mạch được ghi lại
-trong môi trường cấp cứu, để phân biệt với các yêu cầu chỉ mô tả việc
-chăm sóc theo dõi cho một lần xuất hiện phù mạch trong quá khứ. Những
-cân nhắc tương tự có thể áp dụng cho dữ liệu được thu thập trong các
-tương tác chăm sóc sức khỏe định kỳ được ghi lại trong EHR. Vì dữ liệu
-đang được sử dụng cho mục đích thứ cấp, chúng ta phải nhận thức được
-những gì mỗi cơ sở dữ liệu ban đầu được thiết kế để làm. Mỗi khi thiết
-kế một nghiên cứu, chúng ta phải suy nghĩ kỹ về các sắc thái của cách
-nhóm thuần tập của chúng ta tồn tại trong nhiều môi trường chăm sóc
-sức khỏe.
+Chương này giải thích ý nghĩa của việc tạo lập và chia sẻ các định nghĩa đoàn hệ, các phương pháp phát triển đoàn hệ, cũng như cách tự xây dựng đoàn hệ bằng ATLAS hoặc SQL.
 
-Chương này phục vụ việc giải thích ý nghĩa của việc tạo và chia sẻ các
-định nghĩa nhóm thuần tập, các phương pháp phát triển nhóm thuần tập
-và cách xây dựng nhóm thuần tập của riêng bạn bằng ATLAS hoặc
-SQL.
+## Đoàn hệ (Nhóm thuần tập) là gì?
 
-## Nhóm thuần tập là gì?
+Trong nghiên cứu OHDSI, chúng ta định nghĩa đoàn hệ (nhóm thuần tập - *cohort*) là một tập hợp những người thỏa mãn một hoặc nhiều tiêu chuẩn thu nhận (*inclusion criteria*) trong một khoảng thời gian nhất định. Thuật ngữ đoàn hệ thường được sử dụng thay thế cho thuật ngữ *kiểu hình* (*phenotype*). Các đoàn hệ được sử dụng xuyên suốt trong các công cụ phân tích và các nghiên cứu mạng lưới của OHDSI như những khối cấu trúc nền tảng chính để giải quyết một câu hỏi nghiên cứu. Chẳng hạn, trong một nghiên cứu nhằm dự đoán nguy cơ phù mạch ở nhóm người mới bắt đầu sử dụng thuốc ức chế men chuyển (ACEI), chúng ta định nghĩa hai đoàn hệ: đoàn hệ kết cục (phù mạch) và đoàn hệ mục tiêu (những người bắt đầu dùng thuốc ức chế men chuyển). Một khía cạnh quan trọng của các đoàn hệ trong OHDSI là chúng thường được định nghĩa độc lập với các đoàn hệ khác trong nghiên cứu, nhờ đó cho phép tái sử dụng. Ví dụ, trong trường hợp trên, đoàn hệ phù mạch sẽ xác định tất cả các biến cố phù mạch trong quần thể, bao gồm cả những biến cố nằm ngoài quần thể mục tiêu. Các công cụ phân tích của chúng ta sẽ lấy phần giao của hai đoàn hệ này khi cần thiết tại thời điểm phân tích. Ưu điểm của cách tiếp cận này là cùng một định nghĩa đoàn hệ phù mạch đó giờ đây cũng có thể được tái sử dụng trong các phân tích khác, chẳng hạn như một nghiên cứu ước tính hiệu quả so sánh thuốc ức chế men chuyển với một phơi nhiễm khác. Định nghĩa đoàn hệ có thể thay đổi từ nghiên cứu này sang nghiên cứu khác tùy thuộc vào câu hỏi nghiên cứu cụ thể.
 
-Trong nghiên cứu OHDSI, chúng ta định nghĩa một nhóm thuần tập là một
-tập hợp những người thỏa mãn một hoặc nhiều tiêu chí đưa vào trong một
-khoảng thời gian. Thuật ngữ nhóm thuần tập thường được thay thế cho
-thuật ngữ kiểu hình. Các nhóm thuần tập được sử dụng trong suốt các
-công cụ phân tích OHDSI và các nghiên cứu mạng lưới như là các khối
-xây dựng chính để thực hiện một câu hỏi nghiên cứu. Ví dụ, trong một
-nghiên cứu nhằm dự đoán nguy cơ phù mạch ở một nhóm người bắt đầu dùng
-thuốc ức chế men chuyển, chúng ta định nghĩa hai nhóm thuần tập: nhóm
-thuần tập kết cục (phù mạch) và nhóm thuần tập mục tiêu (những người
-bắt đầu dùng thuốc ức chế men chuyển). Một khía cạnh quan trọng của
-các nhóm thuần tập trong OHDSI là chúng thường được định nghĩa độc lập
-với các nhóm thuần tập khác trong nghiên cứu, do đó cho phép tái sử
-dụng. Ví dụ, trong ví dụ của chúng ta, nhóm thuần tập phù mạch sẽ xác
-định tất cả các sự kiện phù mạch trong quần thể, bao gồm cả những sự
-kiện bên ngoài quần thể mục tiêu. Các công cụ phân tích của chúng tôi
-sẽ lấy giao điểm của hai nhóm thuần tập này khi cần thiết tại thời
-điểm phân tích. Ưu điểm của điều này là định nghĩa nhóm thuần tập phù
-mạch tương tự bây giờ cũng có thể được sử dụng trong các phân tích
-khác, ví dụ như một nghiên cứu ước tính so sánh thuốc ức chế men
-chuyển với một số phơi nhiễm khác. Các định nghĩa nhóm thuần tập có
-thể thay đổi từ nghiên cứu này sang nghiên cứu khác tùy thuộc vào câu
-hỏi nghiên cứu quan tâm.
+::: {.callout-important title="Điểm quan trọng"}
+Đoàn hệ (nhóm thuần tập) là một tập hợp những người thỏa mãn một hoặc nhiều tiêu chuẩn thu nhận trong một khoảng thời gian nhất định.
+:::
 
-![A cohort is a set of persons who satisfy one or more inclusion
-criteria for a duration of
-time.](media/image6.png){width="0.45499890638670165in"
-height="0.45499890638670165in"}
+Điều quan trọng cần nhận thức là định nghĩa về đoàn hệ được sử dụng trong OHDSI có thể khác với định nghĩa được sử dụng bởi những nhà nghiên cứu khác trong ngành. Ví dụ, trong nhiều bài báo khoa học có bình duyệt, một đoàn hệ thường được hiểu tương tự như một tập hợp mã (*code set*) gồm các mã lâm sàng cụ thể (ví dụ: ICD-9/ICD-10, NDC, HCPCS, v.v.). Mặc dù các tập hợp mã là một mảnh ghép quan trọng trong việc xây dựng đoàn hệ, nhưng bản thân tập hợp mã không định nghĩa nên một đoàn hệ. Một đoàn hệ đòi hỏi quy tắc logic cụ thể về cách sử dụng tập hợp mã đó cho các tiêu chuẩn (ví dụ: đó có phải là lần xuất hiện đầu tiên của mã ICD-9/ICD-10 hay bất kỳ lần xuất hiện nào?). Một đoàn hệ được định nghĩa chặt chẽ phải quy định rõ cách một bệnh nhân gia nhập đoàn hệ và cách bệnh nhân đó kết thúc (rời khỏi) đoàn hệ.
 
-Điều quan trọng cần nhận ra là định nghĩa này về một nhóm thuần tập
-được sử dụng trong OHDSI có thể khác với định nghĩa được những người
-khác trong lĩnh vực này sử dụng. Ví dụ, trong nhiều bản thảo khoa học
-được bình duyệt, một nhóm thuần tập được đề xuất tương tự như một tập
-hợp mã của các mã lâm sàng cụ thể (ví dụ: ICD-9/ICD-10, NDC, HCPCS,
-v.v.). Mặc dù các tập hợp mã là một phần quan trọng trong việc tập hợp
-một nhóm thuần tập, nhưng một nhóm thuần tập không được định nghĩa bởi
-tập hợp mã. Một nhóm thuần tập yêu cầu logic cụ thể về cách sử dụng
-tập hợp mã cho các tiêu chí (ví dụ: đó có phải là lần xuất hiện đầu
-tiên của mã ICD-9/ICD-10 không? bất kỳ lần xuất hiện nào?). Một nhóm
-thuần tập được xác định rõ ràng quy định cách một bệnh nhân tham gia
-vào nhóm thuần tập và cách một bệnh nhân rời khỏi nhóm thuần tập.
+Có những đặc điểm riêng biệt cần lưu ý khi sử dụng định nghĩa đoàn hệ của OHDSI, bao gồm:
 
-Có những sắc thái độc đáo khi sử dụng định nghĩa về nhóm thuần tập của
-OHDSI, bao gồm:
+- Một người có thể thuộc về nhiều đoàn hệ khác nhau.
+- Một người có thể thuộc về cùng một đoàn hệ trong nhiều khoảng thời gian khác nhau.
+- Một người không thể thuộc về cùng một đoàn hệ nhiều lần tại cùng một thời điểm.
+- Một đoàn hệ có thể có không hoặc nhiều thành viên.
 
-- Một người có thể thuộc về nhiều nhóm thuần tập
+Có hai phương pháp chính để xây dựng một đoàn hệ:
 
-- Một người có thể thuộc về cùng một nhóm thuần tập trong nhiều khoảng
-thời gian khác nhau
+1. **Định nghĩa đoàn hệ dựa trên quy tắc (*Rule-based cohort definitions*)**: sử dụng các quy tắc tường minh để mô tả khi nào một bệnh nhân thuộc về đoàn hệ. Việc xác định các quy tắc này thường dựa nhiều vào kiến thức chuyên môn của người thiết kế đoàn hệ về lĩnh vực điều trị đang quan tâm nhằm xây dựng các quy tắc cho tiêu chuẩn thu nhận vào đoàn hệ.
+2. **Định nghĩa đoàn hệ theo xác suất (*Probabilistic cohort definitions*)**: sử dụng một mô hình xác suất để tính toán xác suất từ 0 đến 100% việc một bệnh nhân thuộc về đoàn hệ. Xác suất này có thể được chuyển đổi thành phân loại có-không thông qua một ngưỡng cắt nhất định, hoặc trong một số thiết kế nghiên cứu có thể được sử dụng trực tiếp. Mô hình xác suất thường được huấn luyện bằng học máy (ví dụ: hồi quy logistic) trên một tập dữ liệu mẫu để tự động xác định các đặc trưng có giá trị dự đoán của bệnh nhân.
 
-- Một người không thể thuộc về cùng một nhóm thuần tập nhiều lần trong
-cùng một khoảng thời gian
+Các phần tiếp theo sẽ thảo luận chi tiết hơn về những phương pháp này.
 
-- Một nhóm thuần tập có thể có không hoặc nhiều thành viên
+## Định nghĩa đoàn hệ dựa trên quy tắc
 
-Có hai phương pháp chính để xây dựng một nhóm thuần tập:
+Một định nghĩa đoàn hệ dựa trên quy tắc bắt đầu bằng việc nêu rõ một hoặc nhiều tiêu chuẩn thu nhận (ví dụ: "những người bị phù mạch") trong một khoảng thời gian cụ thể (ví dụ: "những người xuất hiện tình trạng này trong vòng 6 tháng qua").
 
-1.  **Các định nghĩa nhóm thuần tập dựa trên quy tắc sử dụng các quy tắc
-rõ ràng để mô tả khi nào một bệnh nhân ở trong nhóm thuần tập. Việc
-xác định các quy tắc này thường dựa nhiều vào chuyên môn của cá nhân
-thiết kế nhóm thuần tập để sử dụng kiến thức của họ về lĩnh vực trị
-liệu quan tâm nhằm xây dựng các quy tắc cho các tiêu chí đưa vào
-nhóm thuần tập.**
+Các thành phần chuẩn mà chúng ta sử dụng để thiết lập các tiêu chuẩn này là:
 
-2.  **Các định nghĩa nhóm thuần tập xác suất sử dụng một mô hình xác
-suất để tính toán xác suất từ 0 đến 100% bệnh nhân ở trong nhóm
-thuần tập. Xác suất này có thể được chuyển thành phân loại có-không
-bằng cách sử dụng một ngưỡng nào đó, hoặc trong một số thiết kế
-nghiên cứu**
+- **Miền dữ liệu (*Domain*)**: (Các) miền CDM nơi dữ liệu được lưu trữ (ví dụ: "Procedure Occurrence" - Sự kiện thủ thuật, "Drug Exposure" - Phơi nhiễm thuốc) xác định loại thông tin lâm sàng và các khái niệm hợp lệ có thể được biểu diễn bên trong bảng CDM đó. Các miền dữ liệu được thảo luận chi tiết hơn trong Mục 4.2.4.
+- **Tập khái niệm (*Concept set*)**: Một biểu thức độc lập với nguồn dữ liệu (*data-agnostic*) xác định một hoặc nhiều Khái niệm Chuẩn (*Standard Concepts*) bao hàm thực thể lâm sàng đang quan tâm. Các tập khái niệm này có khả năng tương tác liên thông giữa các nguồn dữ liệu sức khỏe quan sát khác nhau vì chúng đại diện cho các thuật ngữ chuẩn mà thực thể lâm sàng được ánh xạ tới trong Từ vựng chuẩn hóa. Các tập khái niệm được thảo luận trong Mục 10.3.
+- **Thuộc tính đặc thù theo miền (*Domain-specific attribute*)**: Các thuộc tính bổ sung liên quan đến thực thể lâm sàng đang quan tâm (ví dụ: `DAYS_SUPPLY` đối với bảng `DRUG_EXPOSURE`, hoặc `VALUE_AS_NUMBER` hay `RANGE_HIGH` đối với bảng `MEASUREMENT`).
+- **Logic thời gian (*Temporal logic*)**: Các khoảng thời gian mà trong đó mối quan hệ giữa một tiêu chuẩn thu nhận và một sự kiện được đánh giá (ví dụ: Tình trạng bệnh lý chỉ định phải xảy ra trong vòng 365 ngày trước hoặc ngay tại ngày bắt đầu phơi nhiễm).
 
-2.  *Các định nghĩa nhóm thuần tập dựa trên quy tắc 149*
+Khi xây dựng định nghĩa đoàn hệ, bạn có thể hình dung các Miền dữ liệu giống như những khối lắp ghép Lego (xem Hình 10.1) đại diện cho các thuộc tính của đoàn hệ. Nếu bạn chưa rõ về nội dung được phép lưu trữ trong từng miền, bạn luôn có thể tham khảo lại chương Mô hình Dữ liệu Chung (Chương 4) để được hỗ trợ.
 
-có thể được sử dụng như hiện trạng. Mô hình xác suất thường được huấn
-luyện bằng cách sử dụng học máy (ví dụ: hồi quy logistic) trên một số
-dữ liệu mẫu để tự động xác định các đặc điểm bệnh nhân có liên quan có
-tính dự đoán.
+![](media/image41.png){width="2.386665573053368in" height="2.7933333333333334in"}
 
-Các phần tiếp theo sẽ thảo luận chi tiết hơn
-về các phương pháp này.
+Hình 10.1: Các khối cấu trúc của định nghĩa đoàn hệ.
 
-## Định nghĩa nhóm thuần tập dựa trên quy tắc
+Khi tạo một định nghĩa đoàn hệ, bạn cần tự đặt ra những câu hỏi sau:
 
-Một định nghĩa nhóm thuần tập dựa trên quy tắc bắt đầu bằng việc nêu
-rõ một hoặc nhiều tiêu chí đưa vào (ví dụ: "những người bị phù mạch")
-trong một khoảng thời gian cụ thể (ví dụ: "những người đã phát triển
-tình trạng này trong vòng 6 tháng qua").
+- *Sự kiện ban đầu nào xác định thời điểm gia nhập đoàn hệ?*
+- *Tiêu chuẩn thu nhận nào được áp dụng cho các sự kiện ban đầu đó?*
+- *Điều gì xác định thời điểm kết thúc (rời khỏi) đoàn hệ?*
 
-Các thành phần chuẩn mà chúng tôi sử dụng để tập hợp các tiêu chí này
-là:
+**Sự kiện gia nhập đoàn hệ (*Cohort entry event*)**: Sự kiện gia nhập đoàn hệ (sự kiện ban đầu) xác định thời điểm một người bước vào đoàn hệ, được gọi là **ngày chỉ số của đoàn hệ** (*cohort index date*). Sự kiện gia nhập đoàn hệ có thể là bất kỳ sự kiện nào được ghi nhận trong CDM như phơi nhiễm thuốc, tình trạng bệnh lý, thủ thuật, xét nghiệm/đo lường và lượt khám. Các sự kiện ban đầu được xác định bởi miền CDM nơi dữ liệu được lưu trữ (ví dụ: `PROCEDURE_OCCURRENCE`, `DRUG_EXPOSURE`, v.v.), các tập khái niệm được xây dựng để nhận diện hoạt động lâm sàng (ví dụ: mã SNOMED cho bệnh lý, mã RxNorm cho thuốc) cũng như bất kỳ thuộc tính cụ thể nào khác (ví dụ: tuổi tại thời điểm xảy ra, chẩn đoán/thủ thuật đầu tiên, chỉ định ngày bắt đầu và kết thúc, chỉ định loại lượt khám hoặc tiêu chuẩn, số ngày cấp thuốc, v.v.). Tập hợp những người có sự kiện gia nhập được gọi là **đoàn hệ sự kiện ban đầu** (*initial event cohort*).
 
-- **Miền (Domain): (Các) miền CDM nơi dữ liệu được lưu trữ (ví dụ&#58;
-"Procedure Occurrence" (Sự kiện thủ thuật), "Drug Exposure" (Tiếp xúc
-thuốc)) xác định loại thông tin lâm sàng và các khái niệm cho phép có
-thể được biểu diễn bên trong bảng CDM đó. Các miền được thảo luận chi
-tiết hơn trong Mục 4.2.4.**
+**Tiêu chuẩn thu nhận (*Inclusion criteria*)**: Các tiêu chuẩn thu nhận được áp dụng lên đoàn hệ sự kiện ban đầu nhằm thu hẹp thêm tập hợp người tham gia. Mỗi tiêu chuẩn thu nhận được xác định bởi (các) miền CDM nơi dữ liệu được lưu trữ, (các) tập khái niệm đại diện cho hoạt động lâm sàng, các thuộc tính đặc thù theo miền (ví dụ: số ngày cấp thuốc, loại lượt khám, v.v.) và logic thời gian tương đối so với ngày chỉ số của đoàn hệ. Mỗi tiêu chuẩn thu nhận có thể được đánh giá riêng lẻ để xác định tác động của tiêu chuẩn đó đối với sự hao hụt (*attrition*) số lượng người từ đoàn hệ sự kiện ban đầu. **Đoàn hệ đủ điều kiện** (*qualifying cohort*) được định nghĩa là tất cả những người trong đoàn hệ sự kiện ban đầu thỏa mãn toàn bộ các tiêu chuẩn thu nhận.
 
-- **Tập khái niệm (Concept set): Một biểu thức bất khả tri về dữ liệu
-(data-agnostic) xác định một hoặc nhiều Khái niệm chuẩn bao gồm thực
-thể lâm sàng được quan tâm. Các tập khái niệm này có thể tương tác
-trên các dữ liệu sức khỏe quan sát khác nhau vì chúng đại diện cho các
-thuật ngữ chuẩn mà thực thể lâm sàng ánh xạ tới trong Từ vựng. Các tập
-khái niệm được thảo luận trong Mục 10.3.**
+**Tiêu chuẩn kết thúc đoàn hệ (*Cohort exit criteria*)**: Sự kiện kết thúc đoàn hệ biểu thị thời điểm một người không còn đủ điều kiện là thành viên của đoàn hệ nữa. Việc kết thúc đoàn hệ có thể được xác định theo nhiều cách như: kết thúc giai đoạn quan sát (*observation period*), một khoảng thời gian cố định tính từ sự kiện gia nhập ban đầu, sự kiện cuối cùng trong một chuỗi các quan sát có liên quan (ví dụ: phơi nhiễm thuốc liên tục), hoặc thông qua các sự kiện kiểm duyệt (*censoring*) khác đối với giai đoạn quan sát. Chiến lược kết thúc đoàn hệ (*cohort exit strategy*) sẽ ảnh hưởng đến việc liệu một người có thể thuộc về đoàn hệ đó nhiều lần trong các khoảng thời gian khác nhau hay không.
 
-- Thuộc tính cụ thể theo miền (Domain-specific attribute): Các thuộc
-tính bổ sung liên quan đến thực thể lâm sàng được quan tâm (Ví dụ&#58;
-DAYS_SUPPLY cho một DRUG_EXPOSURE, hoặc VALUE_AS_NUMBER hoặc
-RANGE_HIGH cho một MEASUREMENT).
+::: {.callout-important title="Điểm quan trọng"}
+Trong các công cụ của OHDSI, không có sự phân biệt giữa tiêu chuẩn thu nhận (inclusion criteria) và tiêu chuẩn loại trừ (exclusion criteria). Tất cả các tiêu chuẩn đều được thiết lập dưới dạng tiêu chuẩn thu nhận. Ví dụ, tiêu chuẩn loại trừ "Loại trừ những người có tiền sử tăng huyết áp" có thể được diễn đạt thành tiêu chuẩn thu nhận "Thu nhận những người có 0 lần xuất hiện chẩn đoán tăng huyết áp trước đó".
+:::
 
-- **Logic thời gian (Temporal logic): Các khoảng thời gian mà trong đó
-mối quan hệ giữa tiêu chí đưa vào và một sự kiện được đánh giá (Ví dụ&#58;
-Tình trạng được chỉ định phải xảy ra trong vòng 365 ngày trước hoặc
-ngay tại thời điểm bắt đầu tiếp xúc).**
+## Tập khái niệm (Concept Sets)
 
-Khi xây dựng định nghĩa nhóm thuần tập của mình, bạn có thể thấy hữu
-ích khi coi các Miền tương tự như các khối xây dựng (xem Hình 10.1)
-đại diện cho các thuộc tính của nhóm thuần tập. Nếu bạn bối rối về nội
-dung được phép trong mỗi miền, bạn luôn có thể tham khảo chương Mô
-hình dữ liệu chung (Chương 4) để được trợ giúp.
+Một tập khái niệm (*concept set*) là một biểu thức đại diện cho một danh sách các khái niệm có thể được sử dụng như một thành phần tái sử dụng được trong nhiều phân tích khác nhau. Nó có thể được xem là một phiên bản chuẩn hóa, có thể thực thi bằng máy tính, tương đương với các danh sách mã (*code lists*) thường dùng trong các nghiên cứu quan sát. Một biểu thức tập khái niệm bao gồm một danh sách các khái niệm đi kèm với các thuộc tính sau:
 
-Khi tạo một định nghĩa nhóm thuần tập, bạn cần tự hỏi mình những câu
-hỏi sau:
+- **Loại trừ (*Exclude*)**: Loại trừ khái niệm này (và bất kỳ khái niệm hậu duệ nào của nó nếu được chọn) khỏi tập khái niệm.
+- **Hậu duệ (*Descendants*)**: Không chỉ xét khái niệm này mà còn bao gồm tất cả các khái niệm hậu duệ (*descendants*) của nó.
+- **Được ánh xạ (*Mapped*)**: Cho phép tìm kiếm cả các khái niệm không chuẩn (*non-standard concepts*).
 
-- *Sự kiện ban đầu nào xác định thời điểm gia nhập nhóm thuần tập?*
-
-- *Tiêu chí đưa vào nào được áp dụng cho các sự kiện ban đầu?*
-
-- *Điều gì xác định thời điểm rời nhóm thuần tập?*
-
-**Sự kiện gia nhập nhóm thuần tập: Sự kiện gia nhập nhóm thuần tập (sự
-kiện ban đầu) xác định thời điểm mọi người tham gia vào nhóm thuần
-tập, được gọi là ngày chỉ số nhóm thuần tập. Một sự kiện gia nhập nhóm
-thuần tập có thể là bất kỳ sự kiện nào được ghi lại trong CDM như tiếp
-xúc thuốc, tình trạng, thủ thuật, đo lường và lượt khám. Các sự kiện
-ban đầu được xác định bởi miền CDM nơi dữ liệu được lưu trữ (ví dụ:
-PROCEDURE_OCCURRENCE, DRUG_EXPOSURE, v.v.), các tập khái niệm được xây
-dựng để xác định**
-
-[]{#_bookmark256
-.anchor}![](media/image41.png){width="2.386665573053368in"
-height="2.7933333333333334in"}
-
-Hình 10.1: Các khối xây dựng của định nghĩa nhóm thuần tập.
-
-hoạt động lâm sàng (ví dụ: mã SNOMED cho tình trạng, mã RxNorm cho
-thuốc) cũng như bất kỳ thuộc tính cụ thể nào khác (ví dụ: tuổi khi xảy
-ra, chẩn đoán/thủ thuật đầu tiên/v.v., chỉ định ngày bắt đầu và kết
-thúc, chỉ định loại lượt khám hoặc tiêu chí, số ngày cung cấp, v.v.).
-Tập hợp những người có sự kiện gia nhập được gọi là nhóm thuần tập sự
-kiện ban đầu.
-
-**Tiêu chí đưa vào: Tiêu chí đưa vào được áp dụng cho nhóm thuần tập
-sự kiện ban đầu để hạn chế thêm tập hợp người tham gia. Mỗi tiêu chí
-đưa vào được xác định bởi (các) miền CDM nơi dữ liệu được lưu trữ,
-(các) tập khái niệm đại diện cho hoạt động lâm sàng, các thuộc tính cụ
-thể theo miền (ví dụ: số ngày cung cấp, loại lượt khám, v.v.) và logic
-thời gian tương đối so với ngày chỉ số nhóm thuần tập. Mỗi tiêu chí
-đưa vào có thể được đánh giá để xác định tác động của tiêu chí đối với
-sự suy giảm số lượng người từ nhóm thuần tập sự kiện ban đầu. Nhóm
-thuần tập đủ điều kiện được định nghĩa là tất cả những người trong
-nhóm thuần tập sự kiện ban đầu thỏa mãn tất cả các tiêu chí đưa vào.**
-
-**Tiêu chí rời nhóm thuần tập: Sự kiện rời nhóm thuần tập biểu thị khi
-một người không còn đủ điều kiện làm thành viên nhóm thuần tập. Việc
-rời nhóm thuần tập có thể được xác định theo nhiều cách như kết thúc
-thời kỳ quan sát, một khoảng thời gian cố định tương đối so với sự
-kiện gia nhập ban đầu, sự kiện cuối cùng trong một chuỗi các quan sát
-liên quan (ví dụ: tiếp xúc thuốc kéo dài) hoặc thông qua việc kiểm
-duyệt khác về thời kỳ quan sát. Chiến lược rời nhóm thuần tập sẽ ảnh
-hưởng đến việc một người có thể thuộc về nhóm thuần tập nhiều lần
-trong các khoảng thời gian khác nhau hay không.**
-
-![In the OHDSI tools there is no distinction between inclusion and
-exclusion criteria. All criteria are formulated as inclusion criteria.
-For example, the exclusion crite-rion "Exclude people with prior
-hypertension" can be formulated as the inclusion criterion "Include
-people with 0 occurrences of prior
-hypertension".](media/image6.png){width="0.455in"
-height="0.45499890638670165in"}
-
-2.  *Các tập khái niệm 151*
-
-## Các tập khái niệm
-
-Một tập khái niệm là một biểu thức đại diện cho một danh sách các khái
-niệm có thể được sử dụng như một thành phần có thể tái sử dụng trong
-các phân tích khác nhau. Nó có thể được coi là một tương đương chuẩn
-hóa, có thể thực thi bằng máy của các danh sách mã thường được sử dụng
-trong các nghiên cứu quan sát. Một biểu thức tập khái niệm bao gồm một
-danh sách các khái niệm với các thuộc tính sau:
-
-- **Loại trừ (Exclude): Loại trừ khái niệm này (và bất kỳ hậu duệ nào
-của nó nếu được chọn) khỏi tập khái niệm.**
-
-- **Hậu duệ (Descendants): Xem xét không chỉ khái niệm này mà còn tất cả
-các hậu duệ của nó.**
-
-- **Được ánh xạ (Mapped): Cho phép tìm kiếm các khái niệm không chuẩn.**
-
-Ví dụ, một biểu thức tập khái niệm có thể chứa hai khái niệm như được
-mô tả trong Bảng
-
-10.1. Ở đây chúng tôi bao gồm khái niệm 4329847 ("Nhồi máu cơ tim") và
-tất cả các hậu duệ của nó, nhưng loại trừ khái niệm 314666 ("Nhồi máu
-cơ tim cũ") và tất cả các hậu duệ của nó.
+Ví dụ, một biểu thức tập khái niệm có thể chứa hai khái niệm như được trình bày trong Bảng 10.1. Ở đây chúng ta đưa vào khái niệm [4329847](http://athena.ohdsi.org/search-terms/terms/4329847) ("Nhồi máu cơ tim" - *Myocardial infarction*) cùng tất cả các hậu duệ của nó, nhưng loại trừ khái niệm [314666](http://athena.ohdsi.org/search-terms/terms/314666) ("Nhồi máu cơ tim cũ" - *Old myocardial infarction*) và tất cả các hậu duệ của nó.
 
 Bảng 10.1: Ví dụ về một biểu thức tập khái niệm.
 
-+---------+------------------+-------+---------+------+
-| ID khái | Tên khái niệm    | Đã    | Các     | Đã   |
-| niệm    |                  | loại  | khái    | ánh  |
-|         |                  | trừ   | niệm    | xạ   |
-|         |                  |       | con     |      |
-+=========+==================+=======+=========+======+
-| 4329847 | Nhồi máu cơ tim  | NO    | CÓ      | > NO |
-+---------+------------------+-------+---------+------+
-| 314666  | Nhồi máu cơ tim  | CÓ    | CÓ      | > NO |
-|         | cũ               |       |         |      |
-+---------+------------------+-------+---------+------+
+| ID khái niệm | Tên khái niệm | Loại trừ (Excluded) | Hậu duệ (Descendants) | Đã ánh xạ (Mapped) |
+| --- | :--- | --- | --- | --- |
+| 4329847 | Nhồi máu cơ tim (Myocardial infarction) | KHÔNG | CÓ | KHÔNG |
+| 314666 | Nhồi máu cơ tim cũ (Old myocardial infarction) | CÓ | CÓ | KHÔNG |
 
-Như được hiển thị trong Hình 10.2, điều này sẽ bao gồm "Nhồi máu cơ
-tim" và tất cả các hậu duệ của nó ngoại trừ "Nhồi máu cơ tim cũ" và
-các hậu duệ của nó. Tổng cộng, biểu thức tập khái niệm này bao hàm gần
-một trăm Khái niệm chuẩn. Những Khái niệm chuẩn này lần lượt phản ánh
-hàng trăm mã nguồn (ví dụ: mã ICD-9 và ICD-10) có thể xuất hiện trong
-các cơ sở dữ liệu khác nhau.
+Như được minh họa trong Hình 10.2, biểu thức này sẽ bao gồm "Nhồi máu cơ tim" và tất cả các hậu duệ của nó ngoại trừ "Nhồi máu cơ tim cũ" và các hậu duệ của nó. Tổng cộng, biểu thức tập khái niệm này hàm chứa gần một trăm Khái niệm Chuẩn. Những Khái niệm Chuẩn này đến lượt chúng lại phản ánh hàng trăm mã nguồn (ví dụ: mã ICD-9 và ICD-10) có thể xuất hiện trong các cơ sở dữ liệu khác nhau.
 
-![](media/image42.jpeg){width="4.947498906386702in"
-height="1.8125in"}
+![](media/image42.jpeg){width="4.947498906386702in" height="1.8125in"}
 
-Hình 10.2: Một tập khái niệm bao gồm "Nhồi máu cơ tim" (với các hậu
-duệ), nhưng loại trừ "Nhồi máu cơ tim cũ" (với các hậu duệ).
+Hình 10.2: Một tập khái niệm bao gồm "Nhồi máu cơ tim" (cùng các hậu duệ), nhưng loại trừ "Nhồi máu cơ tim cũ" (cùng các hậu duệ).
 
-## Định nghĩa nhóm thuần tập xác suất
+## Định nghĩa đoàn hệ theo xác suất
 
-Các định nghĩa nhóm thuần tập dựa trên quy tắc là một phương pháp phổ
-biến để tập hợp các định nghĩa nhóm thuần tập. Tuy nhiên, việc tập hợp
-sự đồng thuận của chuyên gia cần thiết để tạo ra một nhóm thuần tập
-nghiên cứu có thể cực kỳ tốn thời gian. Thiết kế nhóm thuần tập xác
-suất là một phương pháp thay thế, dựa trên máy tính để đẩy nhanh việc
-lựa chọn các thuộc tính nhóm thuần tập. Trong phương pháp này, học máy
-có giám sát cho phép thuật toán kiểu hình học hỏi từ một tập hợp các
-ví dụ được dán nhãn (trường hợp) về những thuộc tính nào góp phần vào
-tư cách thành viên nhóm thuần tập. Thuật toán này sau đó có thể được
-sử dụng để xác định rõ hơn các đặc điểm xác định của một kiểu hình và
-những đánh đổi nào xảy ra về độ chính xác tổng thể của nghiên cứu khi
-chọn sửa đổi các tiêu chí kiểu hình.
+Định nghĩa đoàn hệ dựa trên quy tắc là một phương pháp phổ biến để xây dựng các định nghĩa đoàn hệ. Tuy nhiên, việc đạt được sự đồng thuận cần thiết từ các chuyên gia để tạo ra một đoàn hệ nghiên cứu có thể tốn rất nhiều thời gian. Thiết kế đoàn hệ theo xác suất là một phương pháp thay thế dựa trên máy tính nhằm đẩy nhanh quá trình lựa chọn các thuộc tính của đoàn hệ. Trong cách tiếp cận này, học máy có giám sát (*supervised machine learning*) cho phép thuật toán xác định kiểu hình học từ một tập hợp các ví dụ đã được gán nhãn (các ca bệnh) để biết những thuộc tính nào đóng góp vào tư cách thành viên của đoàn hệ. Thuật toán này sau đó có thể được sử dụng để xác định rõ hơn các đặc trưng tiêu biểu của một kiểu hình cũng như những sự đánh đổi về độ chính xác tổng thể của nghiên cứu khi quyết định điều chỉnh các tiêu chuẩn kiểu hình.
 
-Một ví dụ về việc áp dụng phương pháp này trên dữ liệu trong CDM là
-gói R APHRODITE (Automated PHenotype Routine for Observational
-Definition, Identification, Training and Evaluation)1. Gói này cung
-cấp một khung xây dựng nhóm thuần tập kết hợp khả năng học hỏi từ dữ
-liệu được dán nhãn không hoàn hảo. (Banda và cộng sự,
-2017)
+Một ví dụ về việc áp dụng phương pháp này trên dữ liệu trong CDM là gói R APHRODITE (Automated PHenotype Routine for Observational Definition, Identification, Training and Evaluation)^[https://github.com/OHDSI/Aphrodite]. Gói phần mềm này cung cấp một khung xây dựng đoàn hệ kết hợp khả năng học từ dữ liệu được gán nhãn không hoàn hảo (Banda và cộng sự, 2017).
 
-## Tính hợp lệ của định nghĩa nhóm thuần tập
+## Tính giá trị của định nghĩa đoàn hệ
 
-Khi bạn đang xây dựng một nhóm thuần tập, bạn nên xem xét điều nào
-quan trọng hơn đối với bạn: tìm tất cả các bệnh nhân đủ điều kiện? hay
-chỉ lấy những người mà bạn tự tin?
+Khi xây dựng một đoàn hệ, bạn nên cân nhắc xem điều nào quan trọng hơn đối với mục tiêu của mình: *tìm tất cả các bệnh nhân đủ điều kiện?* hay *chỉ chọn những bệnh nhân mà bạn thực sự chắc chắn?*
 
-Chiến lược xây dựng nhóm thuần tập của bạn sẽ phụ thuộc vào sự nghiêm
-ngặt về lâm sàng trong cách các chuyên gia của bạn xác định căn bệnh.
-Điều này có nghĩa là, thiết kế nhóm thuần tập phù hợp sẽ phụ thuộc vào
-câu hỏi bạn đang cố gắng trả lời. Bạn có thể chọn xây dựng một định
-nghĩa nhóm thuần tập sử dụng mọi thứ bạn có thể có, sử dụng mẫu số
-chung thấp nhất để bạn có thể chia sẻ nó trên các trang web OHDSI hoặc
-là sự thỏa hiệp của cả hai. Cuối cùng, tùy thuộc vào quyết định của
-nhà nghiên cứu về ngưỡng nghiêm ngặt nào là cần thiết để nghiên cứu
-đầy đủ nhóm thuần tập được quan tâm.
+Chiến lược xây dựng đoàn hệ của bạn sẽ phụ thuộc vào mức độ chặt chẽ về mặt lâm sàng trong cách nhóm chuyên gia định nghĩa căn bệnh đó. Điều này có nghĩa là thiết kế đoàn hệ phù hợp sẽ phụ thuộc vào câu hỏi nghiên cứu mà bạn đang cố gắng trả lời. Bạn có thể chọn xây dựng một định nghĩa đoàn hệ tận dụng mọi chi tiết dữ liệu sẵn có, hoặc sử dụng mẫu số chung nhỏ nhất để có thể chia sẻ và chạy trên nhiều đơn vị trong mạng lưới OHDSI, hoặc dung hòa cả hai. Suy cho cùng, nhà nghiên cứu là người quyết định ngưỡng chặt chẽ nào là cần thiết để nghiên cứu thỏa đáng đoàn hệ đang quan tâm.
 
-Như đã đề cập ở phần đầu chương, một định nghĩa nhóm thuần tập là một
-nỗ lực để suy luận ra điều gì đó mà chúng ta muốn quan sát từ dữ liệu
-được ghi lại. Điều này đặt ra câu hỏi chúng ta đã thành công như thế
-nào trong nỗ lực đó. Nhìn chung, việc xác nhận một định nghĩa nhóm
-thuần tập dựa trên quy tắc hoặc thuật toán xác suất có thể được coi là
-một thử nghiệm của nhóm thuần tập được đề xuất so với một hình thức
-tham chiếu "tiêu chuẩn vàng" nào đó (ví dụ: xem xét biểu đồ thủ công
-các trường hợp). Điều này được thảo luận chi tiết trong Chương 16
-("Tính hợp lệ lâm sàng").
+Như đã đề cập ở đầu chương, định nghĩa đoàn hệ là một nỗ lực nhằm suy luận ra điều chúng ta muốn quan sát từ dữ liệu được ghi nhận. Điều này đặt ra câu hỏi: chúng ta đã thành công đến mức nào trong nỗ lực đó? Nhìn chung, việc thẩm định (*validation*) một định nghĩa đoàn hệ dựa trên quy tắc hoặc thuật toán xác suất có thể được xem là một phép kiểm nghiệm đoàn hệ đề xuất so với một dạng tham chiếu "tiêu chuẩn vàng" nào đó (ví dụ: rà soát hồ sơ bệnh án thủ công của các ca bệnh). Chủ đề này được thảo luận chi tiết trong Chương 16 ("Tính giá trị lâm sàng").
 
-### Thư viện kiểu hình tiêu chuẩn vàng OHDSI
+### Thư viện Kiểu hình Tiêu chuẩn Vàng của OHDSI
 
-Để hỗ trợ cộng đồng trong việc kiểm kê và đánh giá tổng thể các định
-nghĩa và thuật toán nhóm thuần tập hiện có, Nhóm làm việc Thư viện
-kiểu hình tiêu chuẩn vàng OHDSI (GSPL) đã được thành lập. Mục đích của
-nhóm làm việc GSPL là phát triển một thư viện kiểu hình được cộng đồng
-hỗ trợ từ các phương pháp dựa trên quy tắc và xác suất. GSPL cho phép
-các thành viên của cộng đồng OHDSI tìm kiếm, đánh giá và sử dụng các
-định nghĩa nhóm thuần tập đã được cộng đồng xác nhận cho nghiên cứu và
-các hoạt động khác. Những định nghĩa "tiêu chuẩn vàng" này sẽ nằm
-trong một
+Để hỗ trợ cộng đồng trong việc thống kê và đánh giá tổng thể các định nghĩa cũng như thuật toán đoàn hệ hiện có, Nhóm công tác Thư viện Kiểu hình Tiêu chuẩn Vàng của OHDSI (Gold Standard Phenotype Library - GSPL) đã được thành lập. Mục đích của nhóm công tác GSPL là phát triển một thư viện kiểu hình được cộng đồng bảo trợ từ cả phương pháp dựa trên quy tắc và phương pháp xác suất. GSPL cho phép các thành viên của cộng đồng OHDSI tìm kiếm, đánh giá và sử dụng các định nghĩa đoàn hệ đã được cộng đồng thẩm định cho hoạt động nghiên cứu và các mục đích khác. Những định nghĩa "tiêu chuẩn vàng" này được lưu trữ trong một thư viện mà các mục trong đó đều phải tuân thủ những tiêu chuẩn thiết kế và đánh giá cụ thể. Để biết thêm thông tin về GSPL, hãy tham khảo trang web của nhóm công tác OHDSI^[https://www.ohdsi.org/web/wiki/doku.php?id=projects:workgroups:gold-library-wg]. Các nghiên cứu trong nhóm công tác này bao gồm APHRODITE (Banda và cộng sự, 2017) và công cụ PheValuator (Swerdel và cộng sự, 2019) đã được thảo luận ở phần trước, cũng như công trình chia sẻ [Thư viện Kiểu hình](https://phekb.org/phenotypes) thuộc mạng lưới Hồ sơ Y tế Điện tử và Hệ gen học ([eMERGE](https://emerge.mc.vanderbilt.edu/)) trên toàn mạng lưới OHDSI (Hripcsak và cộng sự, 2019). Nếu bạn quan tâm đến việc biên tập và chuẩn hóa kiểu hình, hãy cân nhắc đóng góp cho nhóm công tác này.
 
-^1^<https://github.com/OHDSI/Aphrodite>
+## Xác định đoàn hệ cho bệnh tăng huyết áp
 
-*10.6. Xác định nhóm thuần tập cho bệnh tăng huyết áp 153*
+Chúng ta bắt đầu thực hành kỹ năng xây dựng đoàn hệ bằng cách thiết lập một định nghĩa đoàn hệ sử dụng phương pháp dựa trên quy tắc. Trong ví dụ này, chúng ta muốn tìm *những bệnh nhân bắt đầu điều trị đơn trị liệu bằng thuốc ức chế men chuyển (ACEI) như phác đồ điều trị bước một cho bệnh tăng huyết áp*.
 
-thư viện, các mục trong đó được giữ theo các tiêu chuẩn thiết kế và
-đánh giá cụ thể. Để biết thêm thông tin liên quan đến GSPL, hãy tham
-khảo trang nhóm làm việc OHDSI.2 Nghiên cứu trong nhóm làm việc này
-bao gồm APHRODITE (Banda và cộng sự, 2017) và công cụ PheValuator
-(Swerdel và cộng sự, 2019), được thảo luận trong phần trước, cũng như
-công việc được thực hiện để chia sẻ Thư viện kiểu hình eMERGE về Hồ sơ
-y tế điện tử và Genomics trên mạng lưới OHDSI (Hripcsak và cộng sự,
-2019). Nếu bạn quan tâm đến việc quản lý kiểu hình, hãy cân nhắc đóng
-góp cho nhóm làm việc này.
+Với bối cảnh đó, bây giờ chúng ta sẽ tiến hành xây dựng đoàn hệ của mình. Khi thực hiện bài tập này, chúng ta sẽ tiếp cận việc xây dựng đoàn hệ tương tự như một sơ đồ hao hụt mẫu (*attrition chart*) tiêu chuẩn. Hình 10.3 thể hiện khung logic về cách chúng ta muốn xây dựng đoàn hệ này.
 
-## Xác định nhóm thuần tập cho bệnh tăng huyết áp
+![](media/image43.jpeg){width="5.473333333333334in" height="3.5033333333333334in"}
 
-Chúng tôi bắt đầu thực hành các kỹ năng nhóm thuần tập bằng cách tập
-hợp một định nghĩa nhóm thuần tập sử dụng phương pháp dựa trên quy
-tắc. Trong ví dụ này, chúng tôi muốn tìm những bệnh nhân bắt đầu điều
-trị đơn trị liệu bằng thuốc ức chế ACE như phương pháp điều trị đầu
-tay cho bệnh tăng huyết áp
+Hình 10.3: Sơ đồ logic của đoàn hệ dự kiến.
 
-Với bối cảnh này, bây giờ chúng ta sẽ xây dựng nhóm thuần tập của
-mình. Khi thực hiện bài tập này, chúng ta sẽ tiếp cận việc xây dựng
-nhóm thuần tập tương tự như biểu đồ suy giảm tiêu chuẩn. Hình
+Bạn có thể xây dựng đoàn hệ trên giao diện người dùng của ATLAS hoặc viết truy vấn trực tiếp vào cơ sở dữ liệu CDM của mình. Chúng ta sẽ thảo luận ngắn gọn về cả hai cách trong chương này.
 
-10.3 cho thấy khung logic về cách chúng ta muốn xây dựng nhóm thuần
-tập này.
+## Triển khai đoàn hệ bằng ATLAS
 
-![](media/image43.jpeg){width="5.473333333333334in"
-height="3.5033333333333334in"}
+Để bắt đầu trong ATLAS, hãy nhấp vào mô-đun ![](media/image44.jpeg){width="1.301920384951881in" height="0.18747594050743657in" .book-icon}. Khi mô-đun tải xong, hãy nhấp vào "New cohort" (Đoàn hệ mới). Màn hình tiếp theo bạn thấy sẽ là một định nghĩa đoàn hệ trống. Hình 10.4 minh họa những gì sẽ hiển thị trên màn hình của bạn.
 
-Hình 10.3: Sơ đồ logic của nhóm thuần tập dự kiến
+![](media/image45.png){width="5.345833333333333in" height="3.054165573053368in"}
 
-Bạn có thể xây dựng một nhóm thuần tập trong giao diện người dùng của
-ATLAS hoặc bạn có thể viết truy vấn trực tiếp vào CDM của mình. Chúng
-tôi sẽ thảo luận ngắn gọn về cả hai trong chương này.[]{#_bookmark267
-.anchor}
+Hình 10.4: Định nghĩa đoàn hệ mới.
 
-^2^[https://www.ohdsi.org/web/wiki/doku.php?id=projects:workgroups:gold-library-wg](https://www.ohdsi.org/web/wiki/doku.php?id=projects%3Aworkgroups%3Agold-library-wg)
+Trước khi làm bất cứ việc gì khác, bạn nên đổi tên đoàn hệ từ "New Cohort Definition" thành tên gọi riêng biệt cho đoàn hệ này. Bạn có thể chọn một cái tên như "New users of ACE inhibitors as first-line monotherapy for hypertension" (Người mới sử dụng thuốc ức chế men chuyển làm đơn trị liệu bước một cho bệnh tăng huyết áp).
 
-## Triển khai nhóm thuần tập bằng ATLAS
+::: {.callout-important title="Điểm quan trọng"}
+ATLAS không cho phép hai đoàn hệ có tên trùng khớp hoàn toàn. ATLAS sẽ hiển thị thông báo lỗi dạng bật lên (pop-up) nếu bạn chọn một tên đã được sử dụng bởi một đoàn hệ khác trong ATLAS.
+:::
 
-Để bắt đầu trong ATLAS, hãy nhấp vào mô-đun. Khi mô-đun tải xong, hãy
-nhấp vào "New cohort" (Nhóm thuần tập mới). Màn hình tiếp theo bạn sẽ
-thấy là một định nghĩa nhóm thuần tập trống. Hình 10.4 cho thấy những
-gì bạn sẽ thấy trên màn hình của
-mình.![](media/image44.jpeg){width="1.301920384951881in"
-height="0.18747594050743657in" .book-icon}
+Sau khi đã chọn tên, bạn có thể lưu đoàn hệ bằng cách nhấp vào ![](media/image46.png){width="0.18747594050743657in" height="0.18747594050743657in" .book-icon}.
 
-![](media/image45.png){width="5.345833333333333in"
-height="3.054165573053368in"}
+### Tiêu chuẩn sự kiện ban đầu
 
-Hình 10.4: Định nghĩa nhóm thuần tập mới
+Bây giờ chúng ta có thể tiếp tục xác định sự kiện gia nhập đoàn hệ ban đầu. Bạn hãy nhấp vào "Add initial event" (Thêm sự kiện ban đầu). Lúc này bạn phải chọn miền dữ liệu mà mình muốn xây dựng tiêu chuẩn xoay quanh đó. Bạn có thể tự hỏi: "Làm thế nào để biết miền nào là sự kiện gia nhập đoàn hệ ban đầu?" Hãy cùng tìm hiểu điều đó.
 
-Trước khi làm bất cứ điều gì khác, bạn nên đổi tên nhóm thuần tập từ
-"New Cohort Definition" thành tên duy nhất của riêng bạn cho nhóm
-thuần tập này. Bạn có thể chọn một cái tên như "Người dùng mới thuốc
-ức chế ACE như đơn trị liệu đầu tay cho bệnh tăng huyết áp".
+![](media/image47.jpeg){width="5.325in" height="3.2624989063867016in"}
 
-![ATLAS will not allow two cohorts to have the same exact names. ATLAS
-will give you a pop-up error message if you choose a name already used
-by another ATLAS
-cohort.](media/image6.png){width="0.455in"
-height="0.45499890638670165in"}
+Hình 10.5: Thêm sự kiện ban đầu.
 
-Sau khi đã chọn tên, bạn có thể lưu nhóm thuần tập bằng cách nhấp vào
-.![](media/image46.png){width="0.18747594050743657in"
-height="0.18747594050743657in" .book-icon}
+Như chúng ta thấy trong Hình 10.5, ATLAS cung cấp các mô tả bên dưới mỗi tiêu chuẩn để hỗ trợ bạn. Nếu chúng ta xây dựng tiêu chuẩn dựa trên `CONDITION_OCCURRENCE`, câu hỏi của chúng ta sẽ là tìm kiếm những bệnh nhân có một chẩn đoán cụ thể. Nếu chúng ta xây dựng tiêu chuẩn dựa trên `DRUG_EXPOSURE`, câu hỏi của chúng ta sẽ là tìm kiếm những bệnh nhân sử dụng một loại thuốc hoặc nhóm thuốc cụ thể. Vì chúng ta muốn tìm những bệnh nhân bắt đầu điều trị đơn trị liệu bằng thuốc ức chế men chuyển như phác đồ bước một cho bệnh tăng huyết áp, chúng ta cần chọn tiêu chuẩn `DRUG_EXPOSURE`. Bạn có thể thắc mắc: "Nhưng chúng ta cũng quan tâm đến tăng huyết áp như một chẩn đoán mà?". Bạn hoàn toàn đúng. Tăng huyết áp là một tiêu chuẩn khác mà chúng ta sẽ xây dựng. Tuy nhiên, ngày bắt đầu đoàn hệ được xác định bởi thời điểm bắt đầu điều trị bằng thuốc ức chế men chuyển, do đó đây chính là sự kiện ban đầu. Chẩn đoán tăng huyết áp là thứ mà chúng ta gọi là *tiêu chuẩn đủ điều kiện bổ sung* (*additional qualifying criteria*). Chúng ta sẽ quay lại phần này sau khi thiết lập xong sự kiện ban đầu. Hãy nhấp vào "Add Drug Exposure" (Thêm phơi nhiễm thuốc).
 
-### Tiêu chí sự kiện ban đầu
+Màn hình sẽ cập nhật với tiêu chuẩn bạn đã chọn nhưng công việc vẫn chưa hoàn tất. Như thấy trong Hình 10.6, ATLAS chưa biết chúng ta đang tìm loại thuốc nào. Chúng ta cần chỉ định cho ATLAS biết tập khái niệm nào gắn với nhóm thuốc ức chế men chuyển.
 
-Bây giờ chúng ta có thể tiếp tục xác định sự kiện nhóm thuần tập ban
-đầu. Bạn sẽ nhấp vào "Add initial event" (Thêm sự kiện ban đầu). Bây
-giờ bạn phải chọn miền mà bạn đang xây dựng tiêu chí xung quanh. Bạn
-có thể tự hỏi, "làm thế nào để tôi biết miền nào là sự kiện nhóm thuần
-tập ban đầu?" Hãy cùng tìm hiểu điều đó.
+![](media/image48.png){width="5.291666666666667in" height="1.45in"}
 
-Như chúng ta thấy trong Hình 10.5, ATLAS cung cấp các mô tả bên dưới
-mỗi tiêu chí để giúp bạn. Nếu chúng ta đang xây dựng tiêu chí dựa trên
-CONDITION_OCCURRENCE, câu hỏi của chúng ta sẽ là tìm kiếm bệnh nhân có
-chẩn đoán cụ thể. Nếu chúng ta đang xây dựng một DRUG_EXPOSURE
-
-![](media/image47.jpeg){width="5.325in"
-height="3.2624989063867016in"}
-
-Hình 10.5: Thêm sự kiện ban đầu
-
-dựa trên tiêu chí, câu hỏi của chúng ta sẽ là tìm kiếm bệnh nhân có
-một loại thuốc hoặc nhóm thuốc cụ thể. Vì chúng ta muốn tìm những bệnh
-nhân bắt đầu điều trị đơn trị liệu bằng thuốc ức chế ACE như phương
-pháp điều trị đầu tay cho bệnh tăng huyết áp, chúng ta muốn chọn tiêu
-chí DRUG_EXPOSURE. Bạn có thể nói, "nhưng chúng ta cũng quan tâm đến
-tăng huyết áp như một chẩn đoán". Bạn nói đúng. Tăng huyết áp là một
-tiêu chí khác mà chúng ta sẽ xây dựng. Tuy nhiên, ngày bắt đầu nhóm
-thuần tập được xác định bởi việc bắt đầu điều trị bằng thuốc ức chế
-ACE, do đó đây là sự kiện ban đầu. Chẩn đoán tăng huyết áp là cái mà
-chúng ta gọi là tiêu chí đủ điều kiện bổ sung. Chúng ta sẽ quay lại
-vấn đề này sau khi xây dựng tiêu chí này. Chúng ta sẽ nhấp vào "Add
-Drug Exposure" (Thêm tiếp xúc thuốc).
-
-Màn hình sẽ cập nhật với tiêu chí đã chọn của bạn nhưng bạn vẫn chưa
-hoàn thành. Như chúng ta thấy trong Hình 10.6, ATLAS không biết chúng
-ta đang tìm loại thuốc nào. Chúng ta cần nói cho ATLAS biết tập khái
-niệm nào được liên kết với thuốc ức chế ACE.
-
-![](media/image48.png){width="5.291666666666667in"
-height="1.45in"}
-
-Hình 10.6: Xác định tiếp xúc thuốc
+Hình 10.6: Xác định phơi nhiễm thuốc.
 
 ### Xác định tập khái niệm
 
-Bạn sẽ cần nhấp vào để mở hộp thoại cho phép bạn truy xuất một tập
-khái niệm để xác định thuốc ức chế
-ACE.![](media/image49.png){width="0.1458147419072616in"
-height="0.18747594050743657in" .book-icon}
+Bạn sẽ cần nhấp vào ![](media/image49.png){width="0.1458147419072616in" height="0.18747594050743657in" .book-icon} để mở hộp thoại cho phép truy xuất một tập khái niệm nhằm định nghĩa nhóm thuốc ức chế men chuyển.
 
-#### Kịch bản 1: Bạn chưa xây dựng tập khái niệm
+#### Tình huống 1: Bạn chưa xây dựng tập khái niệm
 
-Nếu bạn chưa tập hợp các tập khái niệm của mình để áp dụng cho các
-tiêu chí, bạn sẽ cần làm như vậy trước khi tiếp tục. Bạn có thể xây
-dựng một tập khái niệm trong định nghĩa nhóm thuần tập bằng cách điều
-hướng đến tab "Concept set" và nhấp vào "New Concept Set". Bạn sẽ cần
-đổi tên tập khái niệm từ "Unnamed Concept Set" thành một cái tên mà
-bạn chọn. Từ đó, bạn có thể sử dụng mô-đun để tìm kiếm các khái niệm
-lâm sàng đại diện cho thuốc ức chế ACE (Hình
-10.7).![](media/image50.jpeg){width="0.635336832895888in"
-height="0.18747594050743657in" .book-icon}
+Nếu bạn chưa thiết lập các tập khái niệm để áp dụng cho tiêu chuẩn của mình, bạn sẽ cần thực hiện việc này trước khi tiếp tục. Bạn có thể xây dựng một tập khái niệm ngay trong định nghĩa đoàn hệ bằng cách chuyển sang thẻ "Concept Sets" và nhấp vào "New Concept Set". Bạn cần đổi tên tập khái niệm từ "Unnamed Concept Set" thành một tên gọi do bạn chọn. Từ đó, bạn có thể sử dụng mô-đun ![](media/image50.jpeg){width="0.635336832895888in" height="0.18747594050743657in" .book-icon} để tìm kiếm các khái niệm lâm sàng đại diện cho thuốc ức chế men chuyển (Hình 10.7).
 
-![](media/image51.jpeg){width="5.321666666666666in"
-height="2.4541666666666666in"}
+![](media/image51.jpeg){width="5.321666666666666in" height="2.4541666666666666in"}
 
-Hình 10.7: Tìm kiếm từ vựng - Thuốc ức chế ACE
+Hình 10.7: Tìm kiếm trong Từ vựng - Thuốc ức chế men chuyển (ACE Inhibitors).
 
-Khi bạn đã tìm thấy các thuật ngữ mà bạn muốn sử dụng để xác định sự
-tiếp xúc thuốc này, bạn có thể chọn khái niệm bằng cách nhấp vào. Bạn
-có thể quay lại định nghĩa nhóm thuần tập của mình bằng cách sử dụng
-mũi tên trái ở trên cùng bên trái của Hình 10.7. Bạn có thể tham khảo
-lại Chương 5 (Từ vựng chuẩn
-hóa![](media/image52.png){width="0.15622922134733158in"
-height="0.12498359580052494in" .book-icon}
+Khi đã tìm thấy các thuật ngữ muốn sử dụng để định nghĩa phơi nhiễm thuốc này, bạn có thể chọn khái niệm bằng cách nhấp vào ![](media/image52.png){width="0.15622922134733158in" height="0.12498359580052494in" .book-icon}. Bạn có thể quay lại định nghĩa đoàn hệ của mình bằng cách sử dụng mũi tên hướng sang trái ở góc trên bên trái của Hình 10.7. Bạn cũng có thể tham khảo lại Chương 5 (Từ vựng Chuẩn hóa) về cách điều hướng trong bộ từ vựng để tìm các khái niệm lâm sàng quan tâm.
 
-) về cách điều hướng các từ vựng để tìm các khái niệm lâm sàng quan
-tâm.
+Hình 10.8 hiển thị biểu thức tập khái niệm của chúng ta. Chúng ta đã chọn tất cả các hoạt chất thuốc ức chế men chuyển mà mình quan tâm và bao gồm tất cả các hậu duệ của chúng, nhờ đó bao quát toàn bộ các chế phẩm thuốc có chứa bất kỳ hoạt chất nào trong số này. Chúng ta có thể nhấp vào "Included Concepts" để xem toàn bộ 21.536 khái niệm được hàm chứa bởi biểu thức này, hoặc nhấp vào "Included Source Codes" để khám phá tất cả các mã nguồn trong những hệ thống mã hóa khác nhau được bao hàm.
 
-Hình 10.8 cho thấy biểu thức tập khái niệm của chúng tôi. Chúng tôi đã
-chọn tất cả các thành phần thuốc ức chế ACE mà chúng tôi quan tâm và
-bao gồm tất cả các hậu duệ của chúng, do đó bao gồm tất cả các loại
-thuốc có chứa bất kỳ thành phần nào trong số này. Chúng ta có thể nhấp
-vào "Included concepts" để xem tất cả 21.536 khái niệm được bao hàm
-bởi biểu thức này, hoặc chúng ta có thể nhấp vào "Included Source
-Codes" để khám phá tất cả các mã nguồn trong các hệ thống mã hóa khác
-nhau được bao hàm.
+![](media/image53.png){width="5.263541119860018in" height="4.036457786526684in"}
 
-#### Kịch bản 2: Bạn đã xây dựng tập khái niệm
+Hình 10.8: Một tập khái niệm chứa các thuốc ức chế men chuyển.
 
-Nếu bạn đã tạo một tập khái niệm và lưu nó trong ATLAS, bạn có thể
-nhấp để "Import Concept Set" (Nhập tập khái niệm). Một hộp thoại sẽ mở
-ra nhắc bạn tìm khái niệm của mình trong
+#### Tình huống 2: Bạn đã xây dựng sẵn tập khái niệm
 
-![](media/image53.png){width="5.263541119860018in"
-height="4.036457786526684in"}
+Nếu bạn đã tạo một tập khái niệm và lưu trong ATLAS, bạn có thể nhấp vào "Import Concept Set" (Nhập tập khái niệm). Một hộp thoại sẽ mở ra nhắc bạn tìm tập khái niệm của mình trong kho lưu trữ tập khái niệm của ATLAS như minh họa trong Hình 10.9. Trong hình ví dụ, người dùng đang truy xuất các tập khái niệm được lưu trữ trong ATLAS. Người dùng đã nhập tên của tập khái niệm "ace inhibitors" vào ô tìm kiếm bên phải. Thao tác này giúp rút ngắn danh sách chỉ còn các tập khái niệm có tên trùng khớp. Từ đó, người dùng có thể nhấp vào dòng tương ứng để chọn tập khái niệm đó (Lưu ý: hộp thoại sẽ tự động đóng lại sau khi bạn chọn một tập khái niệm). Bạn sẽ biết thao tác này thành công khi ô "Any Drug" được cập nhật thành tên của tập khái niệm mà bạn đã chọn.
 
-Hình 10.8: Một tập khái niệm chứa các loại thuốc ức chế ACE.
+![](media/image54.jpeg){width="5.312916666666666in" height="1.990207786526684in"}
 
-kho lưu trữ tập khái niệm của ATLAS của bạn như được hiển thị trong
-Hình 10.9. Trong hình ví dụ, người dùng đang truy xuất các tập khái
-niệm được lưu trữ trong ATLAS. Người dùng đã nhập tên được đặt cho tập
-khái niệm này "ace inhibitors" vào ô tìm kiếm bên phải. Điều này đã
-rút ngắn danh sách tập khái niệm chỉ còn các khái niệm có tên khớp. Từ
-đó, người dùng có thể nhấp vào hàng của tập khái niệm để chọn nó. (Lưu
-ý: hộp thoại sẽ biến mất sau khi bạn đã chọn một tập khái niệm.) Bạn
-sẽ biết hành động này thành công khi hộp Any Drug được cập nhật với
-tên của tập khái niệm bạn đã chọn.
+Hình 10.9: Nhập một tập khái niệm từ kho lưu trữ ATLAS.
 
-![](media/image54.jpeg){width="5.312916666666666in"
-height="1.990207786526684in"}
+### Các tiêu chuẩn bổ sung cho sự kiện ban đầu
 
-Hình 10.9: Nhập tập khái niệm từ kho lưu trữ ATLAS
+Sau khi đã gắn tập khái niệm, công việc của bạn vẫn chưa xong. Câu hỏi nghiên cứu của bạn đang tìm kiếm những người mới sử dụng hoặc lần đầu tiên trong bệnh sử một người phơi nhiễm với thuốc ức chế men chuyển. Điều này tương ứng với *lần phơi nhiễm đầu tiên* (*first exposure*) với thuốc ức chế men chuyển trong hồ sơ của bệnh nhân. Để chỉ định điều này, bạn cần nhấp vào "+ Add attribute" (Thêm thuộc tính) và chọn "Add First Exposure Criteria" (Thêm tiêu chuẩn phơi nhiễm đầu tiên). Lưu ý rằng bạn cũng có thể chỉ định các thuộc tính khác cho tiêu chuẩn đang xây dựng, chẳng hạn như tuổi tại thời điểm xảy ra sự kiện, ngày xảy ra, giới tính hoặc các thuộc tính khác liên quan đến thuốc. Các tiêu chuẩn có sẵn để lựa chọn sẽ khác nhau tùy theo từng miền dữ liệu.
 
-### Tiêu chí sự kiện ban đầu bổ sung
+Sau khi chọn, cửa sổ sẽ tự động đóng lại và thuộc tính bổ sung này sẽ xuất hiện trong cùng một khung với tiêu chuẩn ban đầu (xem Hình 10.10).
 
-Bây giờ bạn đã đính kèm một tập khái niệm, bạn vẫn chưa hoàn thành.
-Câu hỏi của bạn đang tìm kiếm những người dùng mới hoặc lần đầu tiên
-trong lịch sử của ai đó họ tiếp xúc với thuốc ức chế ACE. Điều này
-chuyển thành lần tiếp xúc đầu tiên với thuốc ức chế ACE trong hồ sơ
-của bệnh nhân. Để chỉ định điều này, bạn cần nhấp vào "+Add attribute"
-(Thêm thuộc tính). Bạn sẽ muốn chọn "Add first exposure criteria"
-(Thêm tiêu chí tiếp xúc đầu tiên). Lưu ý, bạn có thể chỉ định các
-thuộc tính khác của tiêu chí mà bạn xây dựng. Bạn có thể chỉ định
-thuộc tính tuổi khi xảy ra, ngày xảy ra, giới tính hoặc các thuộc tính
-khác liên quan đến thuốc. Các tiêu chí có sẵn để lựa chọn sẽ trông
-khác nhau đối với mỗi miền.
+::: {.callout-important title="Điểm quan trọng"}
+Thiết kế hiện tại của ATLAS có thể gây nhầm lẫn cho một số người dùng. Dù có hình dạng như vậy, biểu tượng ![](media/image55.png){.book-icon} không mang ý nghĩa là "Không" (No). Đây là một nút thao tác cho phép người dùng xóa tiêu chuẩn đó. Nếu bạn nhấp vào ![](media/image55.png){.book-icon}, tiêu chuẩn này sẽ bị xóa mất. Do đó, bạn cần giữ nguyên tiêu chuẩn cùng với biểu tượng ![](media/image55.png){.book-icon} để tiêu chuẩn đó tiếp tục có hiệu lực.
+:::
 
-Từ đó, cửa sổ sẽ tự động đóng lại. Sau khi được chọn, thuộc tính bổ
-sung này sẽ xuất hiện trong cùng hộp với tiêu chí ban đầu (xem Hình
-10.10).
+Bây giờ bạn đã xây dựng xong một sự kiện đủ điều kiện ban đầu. Để đảm bảo rằng bạn đang thực sự nắm bắt được lần phơi nhiễm thuốc đầu tiên được quan sát, bạn sẽ cần thêm một cửa sổ nhìn lại (*look-back window* / *washout period*) nhằm chắc chắn rằng bạn có đủ dữ liệu bệnh sử của bệnh nhân để biết sự kiện nào xảy ra trước. Có khả năng một bệnh nhân có thời gian quan sát ngắn đã từng sử dụng thuốc ở một nơi khác mà dữ liệu của chúng ta không ghi nhận được. Chúng ta không thể kiểm soát hoàn toàn điều này, nhưng có thể bắt buộc một khoảng thời gian tối thiểu mà bệnh nhân phải hiện diện trong dữ liệu trước ngày chỉ số. Bạn có thể thực hiện điều này bằng cách điều chỉnh các menu thả xuống về thời gian quan sát liên tục (*continuous observation*), hoặc nhấp trực tiếp vào ô và nhập giá trị vào các trường này. Chúng ta sẽ yêu cầu 365 ngày quan sát liên tục trước sự kiện ban đầu. Bạn hãy cập nhật giai đoạn quan sát thành: *with continuous observation of at least 365 days before* (với thời gian quan sát liên tục ít nhất 365 ngày trước đó), như hiển thị trong Hình 10.10. Độ dài của cửa sổ nhìn lại này tùy thuộc vào quyết định của nhóm nghiên cứu và có thể thay đổi ở các đoàn hệ khác nhau. Quy định này tạo ra, ở mức tốt nhất có thể, một khoảng thời gian theo dõi tối thiểu đối với bệnh nhân để đảm bảo chúng ta đang ghi nhận đúng bản ghi đầu tiên. Tiêu chuẩn này chỉ xét đến bệnh sử trước đó và không liên quan đến thời gian sau sự kiện chỉ số. Do đó, chúng ta yêu cầu 0 ngày sau sự kiện chỉ số. Sự kiện đủ điều kiện của chúng ta là lần sử dụng thuốc ức chế men chuyển đầu tiên từ trước đến nay; vì vậy, chúng ta giới hạn các sự kiện ban đầu ở "earliest event" (sự kiện sớm nhất) cho mỗi người.
 
-![](media/image6.png)
+![](media/image56.png){width="5.341875546806649in" height="1.6865616797900262in"}
 
-Bây giờ bạn đã xây dựng một sự kiện đủ điều kiện ban đầu. Để đảm bảo
-bạn đang nắm bắt được lần tiếp xúc thuốc được quan sát đầu tiên, bạn
-sẽ muốn thêm một cửa sổ nhìn lại để biết rằng bạn đang xem xét đủ lịch
-sử của bệnh nhân để biết điều gì đến trước. Có thể một bệnh nhân có
-thời gian quan sát ngắn đã nhận được sự tiếp xúc ở nơi khác mà
+Hình 10.10: Thiết lập thời gian quan sát liên tục bắt buộc trước ngày chỉ số.
 
-chúng ta không thấy. Chúng ta không thể kiểm soát điều này nhưng chúng
-ta có thể bắt buộc một khoảng thời gian tối thiểu bệnh nhân phải có
-trong dữ liệu trước ngày chỉ số. Bạn có thể thực hiện việc này bằng
-cách điều chỉnh các menu thả xuống quan sát liên tục. Bạn cũng có thể
-nhấp vào hộp và nhập giá trị vào các cửa sổ này. Chúng tôi sẽ yêu cầu
-365 ngày quan sát liên tục trước sự kiện ban đầu. Bạn sẽ cập nhật thời
-kỳ quan sát của mình thành: với quan sát liên tục 365 ngày trước đó,
-như được hiển thị trong Hình 10.10. Cửa sổ nhìn lại này tùy thuộc vào
-quyết định của nhóm nghiên cứu của bạn. Bạn có thể chọn khác đi trong
-các nhóm thuần tập khác. Điều này tạo ra, tốt nhất có thể, một khoảng
-thời gian tối thiểu chúng ta thấy bệnh nhân để đảm bảo chúng ta đang
-nắm bắt hồ sơ đầu tiên. Tiêu chí này nói về lịch sử trước đó và không
-liên quan đến thời gian sau sự kiện chỉ số. Do đó, chúng tôi yêu cầu 0
-ngày sau sự kiện chỉ số. Sự kiện đủ điều kiện của chúng tôi là lần sử
-dụng thuốc ức chế ACE đầu tiên từ trước đến nay. Do đó, chúng tôi giới
-hạn các sự kiện ban đầu ở "sự kiện sớm nhất" mỗi người.
+Để giải thích rõ hơn về cách các quy tắc logic này kết hợp với nhau, bạn có thể hình dung việc tổng hợp các trục thời gian của từng bệnh nhân.
 
-![](media/image56.png){width="5.341875546806649in"
-height="1.6865616797900262in"}
+![](media/image57.png){width="5.302082239720035in" height="5.317707786526684in"}
 
-Hình 10.10: Thiết lập quan sát liên tục bắt buộc trước ngày chỉ số.
+Hình 10.11: Giải thích tính đủ điều kiện của bệnh nhân theo từng tiêu chuẩn được áp dụng.
 
-Để giải thích thêm về cách logic này kết hợp với nhau, bạn có thể nghĩ
-về việc tập hợp các mốc thời gian của bệnh nhân.
+Trong Hình 10.11, mỗi dòng đại diện cho một bệnh nhân duy nhất có khả năng đủ điều kiện gia nhập đoàn hệ. Các ngôi sao tô đậm biểu thị thời điểm bệnh nhân thỏa mãn các tiêu chuẩn được chỉ định. Khi các tiêu chuẩn bổ sung được áp dụng, bạn có thể thấy một số ngôi sao chuyển sang màu nhạt hơn. Điều này có nghĩa là những bệnh nhân đó có các bản ghi khác thỏa mãn tiêu chuẩn nhưng đã có một bản ghi khác xuất hiện trước đó. Khi đi đến tiêu chuẩn cuối cùng, chúng ta có được góc nhìn tích lũy về những bệnh nhân sử dụng thuốc ức chế men chuyển lần đầu tiên và có đủ 365 ngày quan sát trước lần xuất hiện đầu tiên đó. Về mặt logic, việc giới hạn ở sự kiện sớm nhất lúc này là dư thừa, nhưng nó vẫn hữu ích để duy trì tính tường minh của logic trong mọi lựa chọn thiết kế mà chúng ta thực hiện. Khi tự xây dựng các đoàn hệ của riêng mình, bạn có thể tham gia chuyên mục Researchers trên [Diễn đàn OHDSI](http://forums.ohdsi.org) để tham khảo thêm ý kiến chuyên môn về cách thiết lập logic đoàn hệ.
 
-Trong Hình 10.11, mỗi dòng đại diện cho một bệnh nhân duy nhất có thể
-đủ điều kiện tham gia nhóm thuần tập. Các ngôi sao được tô đầy đại
-diện cho thời điểm bệnh nhân thỏa mãn các tiêu chí được chỉ định. Khi
-tiêu chí bổ sung được áp dụng, bạn có thể thấy một số ngôi sao có màu
-nhạt hơn. Điều này có nghĩa là những bệnh nhân này có các hồ sơ khác
-thỏa mãn tiêu chí nhưng có một hồ sơ khác xuất hiện trước đó. Đến khi
-chúng ta đạt đến tiêu chí cuối cùng, chúng ta đang nhìn vào cái nhìn
-tích lũy của những bệnh nhân có thuốc ức chế ACE lần đầu tiên và có
-365 ngày trước khi xảy ra lần đầu. Về mặt logic, việc giới hạn ở sự
-kiện ban đầu là dư thừa mặc dù nó hữu ích để duy trì logic rõ ràng của
-chúng ta trong mọi lựa chọn mà chúng ta thực hiện. Khi bạn đang tự xây
-dựng nhóm thuần tập của mình, bạn có thể chọn tham gia phần Nhà nghiên
-cứu của Diễn đàn OHDSI để nhận ý kiến thứ hai về cách xây dựng logic
-nhóm thuần tập của bạn.
+### Tiêu chuẩn thu nhận (Inclusion Criteria)
 
-### Tiêu chí đưa vào
+Sau khi đã chỉ định sự kiện gia nhập đoàn hệ, bạn có thể chuyển đến một trong hai vị trí để thêm các sự kiện đủ điều kiện bổ sung: "Restrict initial events" (Hạn chế các sự kiện ban đầu) hoặc "New inclusion criteria" (Tiêu chuẩn thu nhận mới). Sự khác biệt cơ bản giữa hai tùy chọn này nằm ở lượng thông tin trung gian mà bạn muốn ATLAS trả về. Nếu bạn thêm các tiêu chuẩn đủ điều kiện bổ sung vào khung Sự kiện gia nhập đoàn hệ bằng cách chọn "Restrict initial events", khi chạy tạo số lượng trong ATLAS, bạn sẽ chỉ nhận được số lượng người đáp ứng TẤT CẢ các tiêu chuẩn này. Ngược lại, nếu bạn chọn thêm tiêu chuẩn vào mục "New inclusion criteria", bạn sẽ nhận được một biểu đồ hao hụt mẫu (*attrition chart*) cho biết có bao nhiêu bệnh nhân bị loại qua từng bước áp dụng tiêu chuẩn thu nhận bổ sung. Chúng tôi đặc biệt khuyến khích sử dụng phần Inclusion Criteria để bạn có thể hiểu rõ tác động của từng quy tắc lên kết quả chung của định nghĩa đoàn hệ. Bạn có thể phát hiện ra một tiêu chuẩn thu nhận nào đó làm giảm nghiêm trọng số lượng người còn lại trong đoàn hệ, và từ đó cân nhắc nới lỏng tiêu chuẩn này để có được quy mô đoàn hệ lớn hơn. Quyết định cuối cùng sẽ phụ thuộc vào sự đồng thuận của nhóm chuyên gia thiết kế đoàn hệ.
 
-Sau khi chúng ta đã chỉ định một sự kiện gia nhập nhóm thuần tập, bạn
-có thể tiến hành một trong hai nơi để thêm các sự kiện đủ điều kiện bổ
-sung của mình: "Restrict initial events" (Hạn chế các sự kiện ban đầu)
-và "New inclusion criteria" (Tiêu chí đưa vào mới). Sự khác biệt cơ
-bản giữa hai tùy chọn này là thông tin trung gian nào bạn muốn ATLAS
-cung cấp lại cho bạn. Nếu bạn thêm tiêu chí đủ điều kiện bổ sung vào
-hộp Sự kiện gia nhập nhóm thuần tập bằng cách chọn "Restrict initial
-events", khi bạn chọn tạo số lượng trong ATLAS, bạn sẽ chỉ nhận lại
-được số lượng người đáp ứng TẤT CẢ các
+Bây giờ, bạn hãy nhấp vào "New inclusion criteria" để thêm một nhánh logic tiếp theo quy định tư cách thành viên của đoàn hệ này. Cách thức hoạt động trong phần này hoàn toàn giống với cách chúng ta đã xây dựng tiêu chuẩn đoàn hệ ở trên: bạn có thể chỉ định tiêu chuẩn và thêm các thuộc tính cụ thể. Tiêu chuẩn bổ sung đầu tiên của chúng ta là lọc đoàn hệ để chỉ giữ lại những bệnh nhân: *Có ít nhất 1 lần xuất hiện chẩn đoán rối loạn tăng huyết áp trong khoảng từ 365 ngày trước đến 0 ngày sau ngày chỉ số (lần đầu tiên bắt đầu dùng thuốc ức chế men chuyển)*. Bạn hãy nhấp vào "New inclusion criteria" để thêm tiêu chuẩn mới. Bạn nên đặt tên cho tiêu chuẩn và nếu muốn, hãy viết một mô tả ngắn gọn về những gì bạn đang tìm kiếm. Ghi chú này giúp bạn ghi nhớ những gì mình đã xây dựng và hoàn toàn không ảnh hưởng đến tính toàn vẹn của thuật toán đoàn hệ.
 
-![](media/image57.png){width="5.302082239720035in"
-height="5.317707786526684in"}
+Sau khi đã ghi chú cho tiêu chuẩn mới này, hãy nhấp vào nút "+ Add criteria to group" (Thêm tiêu chuẩn vào nhóm) để thiết lập điều kiện thực tế cho quy tắc này. Nút này hoạt động tương tự như "Add Initial Event", ngoại trừ việc chúng ta không còn chỉ định sự kiện ban đầu nữa. Chúng ta có thể thêm nhiều tiêu chuẩn vào đây — đó là lý do nút này có tên là "add criteria to group". Một ví dụ điển hình là khi bạn có nhiều cách khác nhau để xác định một căn bệnh (ví dụ: logic cho `CONDITION_OCCURRENCE`, logic sử dụng `DRUG_EXPOSURE` làm chỉ báo đại diện cho bệnh lý đó, hoặc logic sử dụng `MEASUREMENT` làm chỉ báo đại diện). Đây là các miền dữ liệu riêng biệt đòi hỏi các tiêu chuẩn khác nhau nhưng có thể được gom chung vào một nhóm tiêu chuẩn nhằm tìm kiếm cùng một tình trạng bệnh lý. Trong trường hợp của chúng ta, vì muốn tìm chẩn đoán tăng huyết áp nên chúng ta chọn "Add Condition Occurrence" (Thêm sự kiện bệnh lý). Chúng ta sẽ thực hiện các bước tương tự như với sự kiện ban đầu bằng cách đính kèm tập khái niệm tương ứng vào bản ghi này. Chúng ta cũng chỉ định sự kiện bắt đầu trong khoảng từ 365 ngày trước đến 0 ngày sau ngày chỉ số (thời điểm sử dụng thuốc ức chế men chuyển lần đầu tiên). Bây giờ hãy đối chiếu logic của bạn với Hình 10.12.
 
-Hình 10.11: Giải thích tính đủ điều kiện của bệnh nhân theo tiêu chí
-áp dụng
+![](media/image58.png){width="5.335311679790026in" height="2.323124453193351in"}
 
-tiêu chí này. Nếu bạn chọn thêm tiêu chí vào "New inclusion criteria",
-bạn sẽ nhận được một biểu đồ suy giảm để cho bạn thấy bao nhiêu bệnh
-nhân bị mất do áp dụng các tiêu chí đưa vào bổ sung. Rất khuyến khích
-sử dụng phần Tiêu chí đưa vào để bạn có thể hiểu tác động của từng quy
-tắc đối với sự thành công tổng thể của định nghĩa nhóm thuần tập. Bạn
-có thể thấy một tiêu chí đưa vào nhất định hạn chế nghiêm trọng số
-lượng người kết thúc trong nhóm thuần tập. Bạn có thể chọn nới lỏng
-tiêu chí này để có một nhóm thuần tập lớn hơn. Điều này cuối cùng sẽ
-tùy thuộc vào quyết định của sự đồng thuận của chuyên gia tập hợp nhóm
-thuần tập này.
+Hình 10.12: Tiêu chuẩn thu nhận bổ sung 1.
 
-Bây giờ bạn sẽ muốn nhấp vào "New inclusion criteria" để thêm một phần
-logic tiếp theo về tư cách thành viên cho nhóm thuần tập này. Chức
-năng trong phần này giống hệt với cách chúng ta đã thảo luận về việc
-xây dựng tiêu chí nhóm thuần tập ở trên. Bạn có thể chỉ định tiêu chí
-và thêm các thuộc tính cụ thể. Tiêu chí bổ sung đầu tiên của chúng tôi
-là tập hợp con nhóm thuần tập chỉ cho các bệnh nhân: Với ít nhất 1 lần
-xảy ra rối loạn tăng huyết áp trong khoảng từ 365 đến 0 ngày sau ngày
-chỉ số (lần bắt đầu đầu tiên của thuốc ức chế ACE). Bạn sẽ nhấp vào
-"New inclusion criteria" để thêm một tiêu chí mới. Bạn nên đặt tên cho
-tiêu chí của mình và, nếu muốn, hãy đưa ra một mô tả nhỏ về những gì
-bạn đang tìm kiếm. Điều này phục vụ cho mục đích riêng của bạn để nhớ
-lại những gì bạn đã xây dựng -- nó sẽ không ảnh hưởng đến tính toàn
-vẹn của nhóm thuần tập mà bạn đang xác định.
+Tiếp theo, bạn sẽ cần thêm một tiêu chuẩn khác để tìm những bệnh nhân: *có chính xác 0 lần xuất hiện thuốc điều trị tăng huyết áp trong TẤT CẢ các ngày trước đó cho đến 1 ngày trước ngày bắt đầu chỉ số (không phơi nhiễm với bất kỳ thuốc hạ áp nào trước khi dùng thuốc ức chế men chuyển)*. Quy trình này bắt đầu tương tự như trước bằng cách nhấp vào nút "New inclusion criteria", thêm ghi chú cho tiêu chuẩn rồi nhấp vào "+ Add criteria to group". Vì đây là dữ liệu thuộc bảng `DRUG_EXPOSURE`, bạn hãy nhấp vào "Add Drug Exposure", đính kèm tập khái niệm cho tất cả các thuốc điều trị tăng huyết áp, và chỉ định khoảng thời gian từ TẤT CẢ các ngày trước đó (*all days before*) đến 1 ngày trước (*1 days before*) ngày chỉ số. Hãy đảm bảo xác nhận rằng bạn đã chọn *exactly 0* (chính xác 0) lần xuất hiện. Bây giờ hãy đối chiếu logic của bạn với Hình 10.13.
 
-Sau khi bạn đã chú thích tiêu chí mới này, bạn sẽ nhấp vào nút "+Add
-criteria to group" (Thêm tiêu chí vào nhóm) để xây dựng tiêu chí thực
-tế của bạn cho quy tắc này. Nút này hoạt động tương tự như "Add
-Initial Event" ngoại trừ việc chúng ta không còn chỉ định một sự kiện
-ban đầu nữa. Chúng ta có thể thêm nhiều tiêu chí vào đây -- đó là lý
-do tại sao nó chỉ định "add criteria to group". Một ví dụ là nếu bạn
-có nhiều cách để tìm một căn bệnh (ví dụ: logic cho
-CONDITION_OCCURRENCE, logic sử dụng DRUG_EXPOSURE làm đại diện cho
-tình trạng này, logic sử dụng MEASUREMENT làm đại diện cho tình trạng
-này). Đây sẽ là các miền riêng biệt và yêu cầu các tiêu chí khác nhau
-nhưng có thể được nhóm thành một tiêu chí tìm kiếm tình trạng này.
-Trong trường hợp này, chúng ta muốn tìm chẩn đoán tăng huyết áp nên
-chúng ta "Add condition occurrence" (Thêm sự kiện tình trạng). Chúng
-ta sẽ thực hiện các bước tương tự như chúng ta đã làm với sự kiện ban
-đầu bằng cách đính kèm một tập khái niệm vào hồ sơ này. Chúng ta cũng
-muốn chỉ định sự kiện bắt đầu trong khoảng từ 365 ngày trước đến 0
-ngày sau ngày chỉ số (sự kiện lần đầu tiên sử dụng thuốc ức chế ACE).
-Bây giờ hãy kiểm tra logic của bạn với Hình 10.12.
+![](media/image59.jpeg){width="5.348437226596675in" height="2.349374453193351in"}
 
-Sau đó, bạn sẽ muốn thêm một tiêu chí khác để tìm kiếm bệnh nhân: với
-chính xác 0 lần xảy ra thuốc tăng huyết áp TẤT CẢ các ngày trước và 1
-ngày trước ngày bắt đầu chỉ số (không tiếp xúc với thuốc tăng huyết áp
-trước khi dùng thuốc ức chế ACE). Quá trình này bắt đầu như chúng ta
-đã làm trước đó bằng cách nhấp vào nút "New inclusion criteria", thêm
-chú thích của bạn vào tiêu chí này và sau đó nhấp vào "+Add criteria
-to group". Đây là DRUG_EXPOSURE nên bạn sẽ nhấp vào "Add Drug
-Exposure", đính kèm một tập khái niệm cho thuốc tăng huyết áp, và sẽ
-chỉ định TẤT CẢ các ngày trước và 0 ngày sau (hoặc "1 ngày trước" là
-tương đương như thấy trong hình) ngày chỉ số. Đảm bảo xác nhận bạn đã
-chọn chính xác 0 lần xảy ra. Bây giờ hãy kiểm tra logic của bạn với
-Hình 10.13.
+Hình 10.13: Tiêu chuẩn thu nhận bổ sung 2.
 
-Bạn có thể bối rối tại sao "không có lần xảy ra nào" được mã hóa là
-"chính xác 0 lần xảy ra". Đây là một sắc thái của cách ATLAS tiêu thụ
-kiến thức. ATLAS chỉ tiêu thụ các tiêu chí đưa vào. Bạn phải sử dụng
-các toán tử logic để chỉ ra khi bạn muốn sự vắng mặt của một thuộc
-tính cụ thể như: "Chính xác 0". Theo thời gian, bạn sẽ trở nên quen
-thuộc hơn với
+Bạn có thể thắc mắc tại sao điều kiện "không có lần xuất hiện nào" lại được mã hóa là "chính xác 0 lần xuất hiện". Đây là một đặc thù trong cách ATLAS xử lý tri thức: ATLAS chỉ tiếp nhận các tiêu chuẩn dưới dạng tiêu chuẩn thu nhận. Do đó, bạn phải sử dụng các toán tử logic để biểu thị sự vắng mặt của một thuộc tính cụ thể, chẳng hạn như "Exactly 0" (Chính xác bằng 0). Theo thời gian, bạn sẽ quen thuộc hơn với các toán tử logic có sẵn trong bộ tiêu chuẩn của ATLAS.
 
-![](media/image58.png){width="5.335311679790026in"
-height="2.323124453193351in"}
+Cuối cùng, bạn sẽ cần thêm một tiêu chuẩn nữa để tìm những bệnh nhân: *có chính xác 1 kỷ nguyên thuốc (drug era) điều trị tăng huyết áp trong khoảng từ 0 ngày trước đến 7 ngày sau ngày bắt đầu chỉ số VÀ chỉ được bắt đầu duy nhất một loại thuốc hạ áp (chính là thuốc ức chế men chuyển)*. Quy trình này cũng bắt đầu bằng cách nhấp vào nút "New inclusion criteria", thêm ghi chú cho tiêu chuẩn rồi nhấp vào "+ Add criteria to group". Vì tiêu chuẩn này dựa trên `DRUG_ERA`, bạn sẽ nhấp vào "Add Drug Era", đính kèm tập khái niệm cho các thuốc điều trị tăng huyết áp, và chỉ định khoảng thời gian từ 0 ngày trước đến 7 ngày sau ngày chỉ số. Hãy đối chiếu logic của bạn với Hình 10.14.
 
-Hình 10.12: Tiêu chí đưa vào bổ sung 1
+![](media/image60.jpeg){width="5.341875546806649in" height="2.1918744531933507in"}
 
-![](media/image59.jpeg){width="5.348437226596675in"
-height="2.349374453193351in"}
+Hình 10.14: Tiêu chuẩn thu nhận bổ sung 3.
 
-Hình 10.13: Tiêu chí đưa vào bổ sung 2
+### Tiêu chuẩn kết thúc đoàn hệ (Cohort Exit Criteria)
 
-các toán tử logic có sẵn trong tiêu chí ATLAS.
+Đến đây bạn đã thêm đầy đủ các tiêu chuẩn thu nhận đủ điều kiện. Bây giờ bạn phải chỉ định tiêu chuẩn kết thúc đoàn hệ. Bạn cần tự hỏi: "Khi nào một người không còn đủ điều kiện để tiếp tục nằm trong đoàn hệ này nữa?" Trong đoàn hệ này, chúng ta đang theo dõi những người mới sử dụng một phơi nhiễm thuốc và muốn xem xét khoảng thời gian quan sát liên tục gắn liền với đợt phơi nhiễm thuốc đó. Vì vậy, tiêu chuẩn kết thúc được quy định là theo dõi trong toàn bộ thời gian phơi nhiễm thuốc liên tục. Nếu có sự gián đoạn tiếp theo trong quá trình dùng thuốc, bệnh nhân sẽ rời khỏi đoàn hệ tại thời điểm đó. Chúng ta làm như vậy vì không thể xác định điều gì đã xảy ra với bệnh nhân trong khoảng thời gian ngừng thuốc. Chúng ta cũng có thể thiết lập một tiêu chuẩn về cửa sổ duy trì thuốc (*persistence window*) nhằm cho phép một khoảng trống tối đa giữa các lần cấp phát thuốc. Trong trường hợp này, các chuyên gia phụ trách nghiên cứu đã kết luận rằng khoảng cách tối đa 30 ngày giữa các bản ghi phơi nhiễm là có thể chấp nhận được khi suy luận về một kỷ nguyên phơi nhiễm thuốc liên tục.
 
-Cuối cùng, bạn sẽ muốn thêm một tiêu chí khác để tìm kiếm bệnh nhân:
-với chính xác 1 lần xảy ra thuốc tăng huyết áp trong khoảng từ 0 ngày
-trước đến 7 ngày sau ngày bắt đầu chỉ số VÀ chỉ có thể bắt đầu một
-loại thuốc tăng huyết áp (một thuốc ức chế ACE). Quá trình này bắt đầu
-như chúng ta đã làm trước đó bằng cách nhấp vào nút "New inclusion
-criteria", thêm chú thích của bạn vào tiêu chí này và sau đó nhấp vào
-"+Add criteria to group". Đây là DRUG_ERA nên bạn sẽ nhấp vào "Add
-Drug Era", đính kèm một tập khái niệm cho thuốc tăng huyết áp, và sẽ
-chỉ định 0 ngày trước và 7 ngày sau ngày chỉ số. Bây giờ hãy kiểm tra
-logic của bạn với Hình 10.14.
+**Tại sao lại cho phép có khoảng trống giữa các lần dùng thuốc?** Trong một số tập dữ liệu, chúng ta chỉ quan sát được từng phần của các tương tác lâm sàng. Đặc biệt, các bản ghi phơi nhiễm thuốc có thể đại diện cho một lần cấp phát đơn thuốc đủ dùng trong một khoảng thời gian nhất định. Do đó, chúng ta cho phép một khoảng thời gian trễ nhất định giữa các bản ghi phơi nhiễm thuốc vì về mặt logic, bệnh nhân vẫn có thể còn thuốc từ lần cấp phát trước do lượng thuốc cấp phát kéo dài hơn một ngày.
 
-![](media/image60.jpeg){width="5.341875546806649in"
-height="2.1918744531933507in"}
+Chúng ta có thể cấu hình điều này bằng cách chọn sự kiện sẽ duy trì đến "end of a continuous drug exposure" (kết thúc một đợt phơi nhiễm thuốc liên tục). Sau đó, chúng ta thiết lập cửa sổ duy trì để "allow for a maximum of 30 days" (cho phép khoảng trống tối đa 30 ngày) và đính kèm tập khái niệm "ACE inhibitors". Hãy đối chiếu logic của bạn với Hình 10.15.
 
-Hình 10.14: Tiêu chí đưa vào bổ sung 3
+![](media/image61.jpeg){width="5.291666666666667in" height="2.5375in"}
 
-### Tiêu chí rời nhóm thuần tập
+Hình 10.15: Tiêu chuẩn kết thúc đoàn hệ.
 
-Bây giờ bạn đã thêm tất cả các tiêu chí đưa vào đủ điều kiện của mình.
-Bây giờ bạn phải chỉ định tiêu chí rời nhóm thuần tập của mình. Bạn sẽ
-tự hỏi, "khi nào mọi người không còn đủ điều kiện để được đưa vào nhóm
-thuần tập này nữa?" Trong nhóm thuần tập này, chúng ta đang theo dõi
-những người dùng mới của một sự tiếp xúc thuốc. Chúng ta muốn xem xét
-thời kỳ quan sát liên tục vì nó liên quan đến sự tiếp xúc thuốc. Như
-vậy, tiêu chí rời nhóm được chỉ định để theo dõi toàn bộ sự tiếp xúc
-thuốc liên tục. Nếu có một sự gián đoạn tiếp theo trong sự tiếp xúc
-thuốc, bệnh nhân sẽ rời khỏi nhóm thuần tập tại thời điểm này. Chúng
-tôi làm điều này vì chúng tôi không thể xác định điều gì đã xảy ra với
-người đó trong thời gian gián đoạn tiếp xúc thuốc. Chúng tôi cũng có
-thể đặt một tiêu chí trên cửa sổ bền bỉ để chỉ định một khoảng trống
-cho phép giữa các lần tiếp xúc thuốc. Trong trường hợp này, các chuyên
-gia của chúng tôi dẫn đầu nghiên cứu này đã kết luận rằng tối đa 30
-ngày giữa các hồ sơ tiếp xúc là có thể chấp nhận được khi suy luận về
-kỷ nguyên tiếp xúc bền bỉ.
+Trong trường hợp của đoàn hệ này, không có sự kiện kiểm duyệt (*censoring events*) nào khác. Tuy nhiên, bạn có thể xây dựng những đoàn hệ khác đòi hỏi phải chỉ định tiêu chuẩn này theo cách tương tự như khi thêm các thuộc tính khác vào định nghĩa đoàn hệ. Vậy là bạn đã hoàn thành việc tạo lập đoàn hệ của mình. Hãy đảm bảo nhấn nút ![](media/image46.png){width="0.18747594050743657in" height="0.18747594050743657in" .book-icon}. Xin chúc mừng! Xây dựng đoàn hệ là bước nền tảng quan trọng nhất để trả lời một câu hỏi nghiên cứu trong bộ công cụ OHDSI. Bây giờ bạn có thể sử dụng thẻ "Export" để chia sẻ định nghĩa đoàn hệ của mình với các cộng tác viên khác dưới dạng mã SQL hoặc tệp JSON để nạp vào ATLAS.
 
-**Tại sao các khoảng trống lại được cho phép? Trong một số tập dữ
-liệu, chúng ta chỉ thấy các phần của các tương tác lâm sàng. Tiếp xúc
-thuốc, cụ thể, có thể đại diện cho việc cấp phát một đơn thuốc có thể
-bao phủ một khoảng thời gian nhất định. Do đó, chúng ta cho phép một
-khoảng thời gian nhất định giữa các lần tiếp xúc thuốc vì chúng ta
-biết bệnh nhân về mặt logic vẫn có thể có quyền truy cập vào lần tiếp
-xúc thuốc ban đầu vì đơn vị cấp phát vượt quá một ngày.**
+## Triển khai đoàn hệ bằng SQL
 
-Chúng ta có thể cấu hình điều này bằng cách chọn Sự kiện sẽ bền bỉ
-"end of a continuous drug exposure" (kết thúc của một tiếp xúc thuốc
-liên tục). Sau đó, chúng ta sẽ thêm cửa sổ bền bỉ của mình để "allow
-for a maximum of 30 days" (cho phép tối đa 30 ngày)
+Trong phần này, chúng tôi mô tả cách tạo lập cùng đoàn hệ trên nhưng sử dụng SQL và R. Như đã thảo luận ở Chương 9, OHDSI cung cấp hai gói R là `SqlRender` và `DatabaseConnector`, kết hợp cùng nhau cho phép viết mã SQL có thể tự động biên dịch và thực thi trên nhiều hệ quản trị cơ sở dữ liệu khác nhau.
 
-và đính kèm tập khái niệm cho "ACE inhibitors". Bây giờ hãy kiểm tra
-logic của bạn với Hình 10.15.
-
-![](media/image61.jpeg){width="5.291666666666667in"
-height="2.5375in"}
-
-Hình 10.15: Tiêu chí rời nhóm thuần tập
-
-Trong trường hợp của nhóm thuần tập này, không có sự kiện kiểm duyệt
-nào khác. Tuy nhiên, bạn có thể xây dựng các nhóm thuần tập khác mà
-bạn cần chỉ định tiêu chí này. Bạn sẽ tiến hành tương tự như cách
-chúng ta đã thêm các thuộc tính khác vào định nghĩa nhóm thuần tập
-này. Bây giờ bạn đã hoàn thành thành công việc tạo nhóm thuần tập của
-mình. Đảm bảo nhấn nút. Xin chúc mừng! Xây dựng một nhóm thuần tập là
-khối xây dựng quan trọng nhất để trả lời một câu hỏi trong các công cụ
-OHDSI. Bây giờ bạn có thể sử dụng tab "Export" để chia sẻ định nghĩa
-nhóm thuần tập của mình với các cộng tác viên khác dưới dạng mã SQL
-hoặc tệp JSON để tải vào
-ATLAS.![](media/image46.png){width="0.18747594050743657in"
-height="0.18747594050743657in" .book-icon}
-
-## Triển khai nhóm thuần tập bằng SQL
-
-Ở đây chúng tôi mô tả cách tạo cùng một nhóm thuần tập, nhưng sử dụng
-SQL và R. Như đã thảo luận trong Chương 9, OHDSI cung cấp hai gói R,
-được gọi là SqlRender và DatabaseConnector, cùng cho phép viết mã SQL
-có thể được tự động dịch và thực thi trên nhiều nền tảng cơ sở dữ liệu
-khác nhau.
-
-Để rõ ràng, chúng tôi sẽ chia SQL thành nhiều phần, mỗi phần tạo ra
-một bảng tạm được sử dụng trong phần tiếp theo. Đây có thể không phải
-là cách hiệu quả nhất về mặt tính toán để thực hiện, nhưng nó dễ đọc
-hơn một câu lệnh rất dài duy nhất.
+Để dễ theo dõi, chúng tôi sẽ chia đoạn mã SQL thành nhiều khối nhỏ, mỗi khối tạo ra một bảng tạm (*temp table*) được sử dụng ở bước kế tiếp. Đây có thể không phải là cách tối ưu nhất về mặt hiệu năng tính toán, nhưng giúp người đọc dễ hiểu hơn nhiều so với một câu lệnh truy vấn đơn lẻ quá dài.
 
 ### Kết nối với cơ sở dữ liệu
 
-Đầu tiên chúng ta cần cho R biết cách kết nối với máy chủ. Chúng tôi
-sử dụng gói DatabaseConnector, cung cấp một hàm gọi là
-createConnectionDetails. Nhập
+Trước tiên, chúng ta cần chỉ định cho R cách kết nối với máy chủ cơ sở dữ liệu. Chúng ta sử dụng gói [DatabaseConnector](https://ohdsi.github.io/DatabaseConnector/), trong đó cung cấp hàm `createConnectionDetails`. Hãy gõ `?createConnectionDetails` để xem các thiết lập cụ thể cần thiết cho từng hệ quản trị cơ sở dữ liệu (DBMS) khác nhau. Ví dụ, chúng ta có thể kết nối tới cơ sở dữ liệu PostgreSQL bằng đoạn mã sau:
 
-?createConnectionDetails cho các cài đặt cụ thể cần thiết cho các cơ
-sở dữ liệu khác nhau
+```r
+library(CohortMethod)
+connDetails <- createConnectionDetails(dbms = "postgresql",
+                                       server = "localhost/ohdsi",
+                                       user = "joe",
+                                       password = "supersecret")
 
-hệ thống quản lý (DBMS). Ví dụ, người ta có thể kết nối với cơ sở dữ
-liệu PostgreSQL bằng mã này:
+cdmDbSchema <- "my_cdm_data"
+cohortDbSchema <- "scratch"
+cohortTable <- "my_cohorts"
+```
 
-**library**(CohortMethod)
-
-connDetails \<- **createConnectionDetails**(dbms = \"postgresql\",
-
-server = \"localhost/ohdsi\", user = \"joe\",
-
-password = \"supersecret\")
-
-cdmDbSchema \<- \"my_cdm_data\" cohortDbSchema \<- \"scratch\"
-cohortTable \<- \"my_cohorts\"
-
-Ba dòng cuối cùng xác định các biến cdmDbSchema, cohortDbSchema và
-cohortTable. Chúng tôi sẽ sử dụng chúng sau để cho R biết dữ liệu ở
-định dạng CDM nằm ở đâu và các nhóm thuần tập quan tâm phải được tạo ở
-đâu. Lưu ý rằng đối với Microsoft SQL Server, các lược đồ cơ sở dữ
-liệu cần chỉ định cả cơ sở dữ liệu và lược đồ, vì vậy ví dụ
-cdmDbSchema
-
-\<- \"my_cdm_data.dbo\".
+Ba dòng cuối xác định các biến `cdmDbSchema`, `cohortDbSchema` và `cohortTable`. Chúng ta sẽ sử dụng các biến này ở phần sau để cho R biết dữ liệu định dạng CDM nằm ở đâu và các đoàn hệ quan tâm cần được tạo tại vị trí nào. Lưu ý rằng đối với Microsoft SQL Server, tên lược đồ cơ sở dữ liệu (*database schema*) cần bao gồm cả tên cơ sở dữ liệu và tên lược đồ, ví dụ: `cdmDbSchema <- "my_cdm_data.dbo"`.
 
 ### Chỉ định các khái niệm
 
-Để dễ đọc, chúng tôi sẽ xác định các ID khái niệm chúng ta cần trong R
-và chuyển chúng sang SQL:
+Để mã lệnh dễ đọc, chúng ta sẽ định nghĩa các mã ID khái niệm cần thiết trong R rồi truyền chúng vào câu lệnh SQL:
 
-aceI \<- **c**(1308216, 1310756, 1331235, 1334456, 1335471, 1340128,
-1341927,
+```r
+aceI <- c(1308216, 1310756, 1331235, 1334456, 1335471, 1340128, 1341927,
+          1342439, 1363749, 1373225)
 
-1342439, 1363749, 1373225)
+hypertension <- 316866
 
-hypertension \<- 316866
-
-allHtDrugs \<- **c**(904542, 907013, 932745, 942350, 956874, 970250,
-974166,
-
-978555, 991382, 1305447, 1307046, 1307863, 1308216,
-
-1308842, 1309068, 1309799, 1310756, 1313200, 1314002,
-
-1314577, 1317640, 1317967, 1318137, 1318853, 1319880,
-
-1319998, 1322081, 1326012, 1327978, 1328165, 1331235,
-
-1332418, 1334456, 1335471, 1338005, 1340128, 1341238,
-
-1341927, 1342439, 1344965, 1345858, 1346686, 1346823,
-
-1347384, 1350489, 1351557, 1353766, 1353776, 1363053,
-
-1363749, 1367500, 1373225, 1373928, 1386957, 1395058,
-
-1398937, 40226742, 40235485)
+allHtDrugs <- c(904542, 907013, 932745, 942350, 956874, 970250, 974166,
+                  978555, 991382, 1305447, 1307046, 1307863, 1308216,
+                  1308842, 1309068, 1309799, 1310756, 1313200, 1314002,
+                  1314577, 1317640, 1317967, 1318137, 1318853, 1319880,
+                  1319998, 1322081, 1326012, 1327978, 1328165, 1331235,
+                  1332418, 1334456, 1335471, 1338005, 1340128, 1341238,
+                  1341927, 1342439, 1344965, 1345858, 1346686, 1346823,
+                  1347384, 1350489, 1351557, 1353766, 1353776, 1363053,
+                  1363749, 1367500, 1373225, 1373928, 1386957, 1395058,
+                  1398937, 40226742, 40235485)
+```
 
 ### Tìm lần sử dụng đầu tiên
 
-Trước tiên chúng ta sẽ tìm lần sử dụng thuốc ức chế ACE đầu tiên cho
-mỗi bệnh nhân:
+Trước hết, chúng ta sẽ tìm lần đầu tiên sử dụng thuốc ức chế men chuyển của mỗi bệnh nhân:
 
-conn \<- **connect**(connectionDetails)
+```r
+conn <- connect(connectionDetails)
 
-sql \<- \"SELECT person_id AS subject_id,
-MIN(drug_exposure_start_date) AS cohort_start_date
-
+sql <- "SELECT person_id AS subject_id,
+  MIN(drug_exposure_start_date) AS cohort_start_date
 INTO #first_use
+FROM @cdm_db_schema.drug_exposure
+INNER JOIN @cdm_db_schema.concept_ancestor
+  ON descendant_concept_id = drug_concept_id
+WHERE ancestor_concept_id IN (@ace_i)
+GROUP BY person_id;"
 
-FROM \@cdm_db_schema.drug_exposure
+renderTranslateExecuteSql(conn,
+                          sql,
+                          cdm_db_schema = cdmDbSchema,
+                          ace_i = aceI)
+```
 
-INNER JOIN \@cdm_db_schema.concept_ancestor ON descendant_concept_id =
-drug_concept_id
-
-WHERE ancestor_concept_id IN (@ace_i) GROUP BY person_id;\"
-
-**renderTranslateExecuteSql**(conn,
-
-sql,
-
-cdm_db_schema = cdmDbSchema, ace_i = aceI)
-
-Lưu ý rằng chúng tôi tham gia bảng DRUG_EXPOSURE vào bảng
-CONCEPT_ANCESTOR để tìm tất cả các loại thuốc có chứa thuốc ức chế
-ACE.
+Lưu ý rằng chúng ta kết nối (*join*) bảng `DRUG_EXPOSURE` với bảng `CONCEPT_ANCESTOR` để tìm tất cả các chế phẩm thuốc có chứa hoạt chất ức chế men chuyển.
 
 ### Yêu cầu 365 ngày quan sát trước đó
 
-Tiếp theo, chúng ta yêu cầu 365 ngày quan sát liên tục trước đó bằng
-cách tham gia vào bảng OBSERVATION_PERIOD:
+Tiếp theo, chúng ta yêu cầu bệnh nhân phải có 365 ngày quan sát liên tục trước ngày chỉ số bằng cách kết nối với bảng `OBSERVATION_PERIOD`:
 
-### Yêu cầu tăng huyết áp trước đó
+```r
+sql <- "SELECT subject_id,
+  cohort_start_date
+INTO #has_prior_obs
+FROM #first_use
+INNER JOIN @cdm_db_schema.observation_period
+  ON subject_id = person_id
+    AND observation_period_start_date <= cohort_start_date
+    AND observation_period_end_date >= cohort_start_date
+WHERE DATEADD(DAY, 365, observation_period_start_date) < cohort_start_date;"
 
-Chúng ta yêu cầu một chẩn đoán tăng huyết áp trong 365 ngày trước đó:
+renderTranslateExecuteSql(conn, sql, cdm_db_schema = cdmDbSchema)
+```
 
-sql \<- \"SELECT DISTINCT subject_id, cohort_start_date
+### Yêu cầu có chẩn đoán tăng huyết áp trước đó
 
+Chúng ta yêu cầu phải có chẩn đoán tăng huyết áp trong vòng 365 ngày trước đó:
+
+```r
+sql <- "SELECT DISTINCT subject_id,
+  cohort_start_date
 INTO #has_ht
-
 FROM #has_prior_obs
+INNER JOIN @cdm_db_schema.condition_occurrence
+  ON subject_id = person_id
+    AND condition_start_date <= cohort_start_date
+    AND condition_start_date >= DATEADD(DAY, -365, cohort_start_date)
+INNER JOIN @cdm_db_schema.concept_ancestor
+  ON descendant_concept_id = condition_concept_id
+WHERE ancestor_concept_id = @hypertension;"
 
-INNER JOIN \@cdm_db_schema.condition_occurrence ON subject_id =
-person_id
+renderTranslateExecuteSql(conn,
+                          sql,
+                          cdm_db_schema = cdmDbSchema,
+                          hypertension = hypertension)
+```
 
-AND condition_start_date \<= cohort_start_date
+Lưu ý rằng chúng ta sử dụng `SELECT DISTINCT`, bởi vì nếu một người có nhiều lần chẩn đoán tăng huyết áp trong bệnh sử, truy vấn sẽ tạo ra các dòng gia nhập đoàn hệ bị trùng lặp.
 
-AND condition_start_date \>= DATEADD(DAY, -365, cohort_start_date)
-INNER JOIN \@cdm_db_schema.concept_ancestor
+### Không có điều trị trước đó
 
-ON descendant_concept_id = condition_concept_id WHERE
-ancestor_concept_id = \@hypertension;\"
+Chúng ta yêu cầu bệnh nhân không có bất kỳ phơi nhiễm nào trước đó với mọi thuốc điều trị tăng huyết áp:
 
-**renderTranslateExecuteSql**(conn,
-
-sql,
-
-cdm_db_schema = cdmDbSchema, hypertension = hypertension)
-
-Lưu ý rằng chúng tôi SELECT DISTINCT, vì nếu không, nếu một người có
-nhiều chẩn đoán tăng huyết áp trong quá khứ, chúng tôi sẽ tạo ra các
-mục nhóm thuần tập trùng lặp.
-
-### Không điều trị trước đó
-
-Chúng ta yêu cầu không có sự tiếp xúc trước đó với bất kỳ phương pháp
-điều trị tăng huyết áp nào:
-
-sql \<- \"SELECT subject_id, cohort_start_date
-
-INTO #no_prior_ht_drugs FROM #has_ht
-
-LEFT JOIN ( SELECT \*
-
-FROM \@cdm_db_schema.drug_exposure
-
-INNER JOIN \@cdm_db_schema.concept_ancestor ON descendant_concept_id =
-drug_concept_id
-
-WHERE ancestor_concept_id IN (@all_ht_drugs)
-
+```r
+sql <- "SELECT subject_id,
+  cohort_start_date
+INTO #no_prior_ht_drugs
+FROM #has_ht
+LEFT JOIN (
+  SELECT *
+  FROM @cdm_db_schema.drug_exposure
+  INNER JOIN @cdm_db_schema.concept_ancestor
+    ON descendant_concept_id = drug_concept_id
+  WHERE ancestor_concept_id IN (@all_ht_drugs)
 ) ht_drugs
+  ON subject_id = person_id
+    AND drug_exposure_start_date < cohort_start_date
+WHERE person_id IS NULL;"
 
-ON subject_id = person_id
+renderTranslateExecuteSql(conn,
+                          sql,
+                          cdm_db_schema = cdmDbSchema,
+                          all_ht_drugs = allHtDrugs)
+```
 
-AND drug_exposure_start_date \< cohort_start_date WHERE person_id IS
-NULL;\"
-
-**renderTranslateExecuteSql**(conn,
-
-sql,
-
-cdm_db_schema = cdmDbSchema, all_ht_drugs = allHtDrugs)
-
-Lưu ý rằng chúng tôi sử dụng left join và chỉ cho phép các hàng mà
-person_id, đến từ bảng DRUG_EXPOSURE là NULL, nghĩa là không tìm thấy
-hồ sơ khớp.
+Lưu ý rằng chúng ta sử dụng phép nối trái (`LEFT JOIN`) và chỉ giữ lại những dòng mà `person_id` (đến từ bảng `DRUG_EXPOSURE`) có giá trị `NULL`, nghĩa là không tìm thấy bản ghi dùng thuốc hạ áp nào trước ngày bắt đầu đoàn hệ.
 
 ### Đơn trị liệu
 
-Chúng ta yêu cầu chỉ có một lần tiếp xúc với điều trị tăng huyết áp
-trong bảy ngày đầu tiên của việc gia nhập nhóm thuần tập:
+Chúng ta yêu cầu chỉ có duy nhất một phơi nhiễm với thuốc điều trị tăng huyết áp trong 7 ngày đầu tiên kể từ khi gia nhập đoàn hệ:
 
-sql \<- \"SELECT subject_id, cohort_start_date
-
+```r
+sql <- "SELECT subject_id,
+  cohort_start_date
 INTO #monotherapy
-
 FROM #no_prior_ht_drugs
+INNER JOIN @cdm_db_schema.drug_exposure
+  ON subject_id = person_id
+    AND drug_exposure_start_date >= cohort_start_date
+    AND drug_exposure_start_date <= DATEADD(DAY, 7, cohort_start_date)
+INNER JOIN @cdm_db_schema.concept_ancestor
+  ON descendant_concept_id = drug_concept_id
+WHERE ancestor_concept_id IN (@all_ht_drugs)
+GROUP BY subject_id,
+  cohort_start_date
+HAVING COUNT(*) = 1;"
 
-INNER JOIN \@cdm_db_schema.drug_exposure ON subject_id = person_id
+renderTranslateExecuteSql(conn,
+                          sql,
+                          cdm_db_schema = cdmDbSchema,
+                          all_ht_drugs = allHtDrugs)
+```
 
-AND drug_exposure_start_date \>= cohort_start_date
+### Kết thúc đoàn hệ (Cohort Exit)
 
-AND drug_exposure_start_date \<= DATEADD(DAY, 7, cohort_start_date)
-INNER JOIN \@cdm_db_schema.concept_ancestor
+Đến đây chúng ta đã xác định đầy đủ đoàn hệ ngoại trừ ngày kết thúc đoàn hệ (`cohort_end_date`). Đoàn hệ được định nghĩa là kết thúc khi đợt phơi nhiễm thuốc chấm dứt, cho phép khoảng trống tối đa 30 ngày giữa các lần cấp phát thuốc kế tiếp nhau. Điều này có nghĩa là chúng ta không chỉ xét lần phơi nhiễm thuốc đầu tiên mà còn phải xét cả các lần phơi nhiễm tiếp theo với thuốc ức chế men chuyển. Câu lệnh SQL để gộp các lần phơi nhiễm liên tiếp thành các kỷ nguyên thuốc (*drug eras*) có thể rất phức tạp. May mắn thay, một đoạn mã chuẩn đã được xây dựng để tạo các kỷ nguyên một cách hiệu quả (đoạn mã này do Chris Knoll viết và thường được cộng đồng OHDSI gọi vui là "phép thuật" - *the magic*). Trước tiên, chúng ta tạo một bảng tạm chứa tất cả các đợt phơi nhiễm muốn gộp:
 
-ON descendant_concept_id = drug_concept_id WHERE ancestor_concept_id
-IN (@all_ht_drugs) GROUP BY subject_id,
+```r
+sql <- "
+  SELECT person_id,
+    CAST(1 AS INT) AS concept_id,
+    drug_exposure_start_date AS exposure_start_date,
+    drug_exposure_end_date AS exposure_end_date
+  INTO #exposure
+  FROM @cdm_db_schema.drug_exposure
+  INNER JOIN @cdm_db_schema.concept_ancestor
+    ON descendant_concept_id = drug_concept_id
+  WHERE ancestor_concept_id IN (@ace_i);"
+renderTranslateExecuteSql(conn,
+                          sql,
+                          cdm_db_schema = cdmDbSchema,
+                          ace_i = aceI)
+```
 
-cohort_start_date HAVING COUNT(\*) = 1;\"
+Sau đó, chúng ta chạy đoạn mã chuẩn để gộp các đợt phơi nhiễm liên tiếp:
 
-**renderTranslateExecuteSql**(conn,
-
-sql,
-
-cdm_db_schema = cdmDbSchema, all_ht_drugs = allHtDrugs)
-
-### Rời nhóm thuần tập
-
-Bây giờ chúng ta đã chỉ định đầy đủ nhóm thuần tập của mình ngoại trừ
-ngày kết thúc nhóm thuần tập. Nhóm thuần tập được định nghĩa là kết
-thúc khi sự tiếp xúc dừng lại, cho phép tối đa 30 ngày khoảng trống
-giữa các lần tiếp xúc tiếp theo. Điều này có nghĩa là chúng ta cần
-không chỉ xem xét lần tiếp xúc thuốc đầu tiên, mà còn cả các lần tiếp
-xúc thuốc tiếp theo với thuốc ức chế ACE. SQL để kết hợp các lần tiếp
-xúc tiếp theo thành các kỷ nguyên có thể rất phức tạp. May mắn thay,
-mã chuẩn đã được xác định có thể tạo ra các kỷ nguyên một cách hiệu
-quả. (Mã này được viết bởi Chris Knoll, và thường được gọi trong OHDSI
-là 'phép thuật'). Trước tiên, chúng ta tạo một bảng tạm chứa tất cả
-các lần tiếp xúc mà chúng ta muốn hợp nhất:
-
-sql \<- \"
-
-SELECT person_id,
-
-CAST(1 AS INT) AS concept_id, drug_exposure_start_date AS
-exposure_start_date, drug_exposure_end_date AS exposure_end_date
-
-INTO #exposure
-
-FROM \@cdm_db_schema.drug_exposure
-
-INNER JOIN \@cdm_db_schema.concept_ancestor ON descendant_concept_id =
-drug_concept_id
-
-WHERE ancestor_concept_id IN (@ace_i);\"
-**renderTranslateExecuteSql**(conn,
-
-sql,
-
-cdm_db_schema = cdmDbSchema, ace_i = aceI)
-
-Sau đó, chúng ta chạy mã chuẩn để hợp nhất các lần tiếp xúc tuần tự:
-
-sql \<- \"
-
-SELECT ends.person_id AS subject_id, ends.concept_id AS
-cohort_definition_id,
-
-MIN(exposure_start_date) AS cohort_start_date,
-
-kết thúc.era_end_date AS nhóm_end_date VÀO #exposure_era
-
+```r
+sql <- "
+SELECT ends.person_id AS subject_id,
+  ends.concept_id AS cohort_definition_id,
+  MIN(exposure_start_date) AS cohort_start_date,
+  ends.era_end_date AS cohort_end_date
+INTO #exposure_era
 FROM (
+  SELECT exposure.person_id,
+    exposure.concept_id,
+    exposure.exposure_start_date,
+    MIN(events.end_date) AS era_end_date
+  FROM #exposure exposure
+  JOIN (
+--cteEndDates
+    SELECT person_id,
+      concept_id,
+      DATEADD(DAY, - 1 * @max_gap, event_date) AS end_date
+    FROM (
+      SELECT person_id,
+        concept_id,
+        event_date,
+        event_type,
+        MAX(start_ordinal) OVER (
+          PARTITION BY person_id ,concept_id ORDER BY event_date,
+              event_type ROWS UNBOUNDED PRECEDING
+          ) AS start_ordinal,
+        ROW_NUMBER() OVER (
+          PARTITION BY person_id, concept_id ORDER BY event_date,
+            event_type
+          ) AS overall_ord
+      FROM (
+-- select the start dates, assigning a row number to each
+        SELECT person_id,
+          concept_id,
+          exposure_start_date AS event_date,
+          0 AS event_type,
+          ROW_NUMBER() OVER (
+            PARTITION BY person_id, concept_id ORDER BY exposure_start_date
+            ) AS start_ordinal
+        FROM #exposure exposure
 
-CHỌN Exposure.person_id, Exposure.concept_id,
-Exposure.exposure_start_date, MIN(events.end_date) AS era_end_date
+        UNION ALL
+-- add the end dates with NULL as the row number, padding the end dates by
+-- @max_gap to allow a grace period for overlapping ranges.
 
-TỪ #tiếp xúc tiếp xúc THAM GIA (
+        SELECT person_id,
+          concept_id,
+          DATEADD(day, @max_gap, exposure_end_date),
+          1 AS event_type,
+          NULL
+        FROM #exposure exposure
+        ) rawdata
+    ) events
+  WHERE 2 * events.start_ordinal - events.overall_ord = 0
+  ) events
+  ON exposure.person_id = events.person_id
+      AND exposure.concept_id = events.concept_id
+      AND events.end_date >= exposure.exposure_end_date
+  GROUP BY exposure.person_id,
+      exposure.concept_id,
+      exposure.exposure_start_date
+  ) ends
+GROUP BY ends.person_id,
+  concept_id,
+  ends.era_end_date;"
 
-\--cteEndDates
+renderTranslateExecuteSql(conn,
+                          sql,
+                          cdm_db_schema = cdmDbSchema,
+                          max_gap = 30)
+```
 
-CHỌN người_id, khái niệm_id,
+Đoạn mã này gộp tất cả các lần phơi nhiễm kế tiếp nhau, cho phép một khoảng trống giữa các lần phơi nhiễm theo tham số `max_gap`. Các kỷ nguyên phơi nhiễm thuốc thu được sẽ được ghi vào bảng tạm có tên `#exposure_era`.
 
-DATEADD(DAY, - 1 \* \@max_gap, event_date) NHƯ ngày kết thúc TỪ (
+Tiếp theo, chúng ta chỉ cần nối các kỷ nguyên phơi nhiễm thuốc ức chế men chuyển này với đoàn hệ ban đầu để lấy ngày kết thúc kỷ nguyên làm ngày kết thúc đoàn hệ:
 
-CHỌN người_id, concept_id, sự kiện_ngày, sự kiện_type,
-
-MAX(bắt đầu_thứ tự) QUÁ (
-
-THAM GIA THEO user_id, concept_id ĐẶT HÀNG THEO sự kiện_ngày, sự
-kiện_loại HÀNG KHÔNG GIỚI HẠN TRƯỚC
-
-) NHƯ thứ tự bắt đầu, ROW_NUMBER() QUÁ (
-
-THAM GIA THEO user_id, concept_id ĐẶT HÀNG THEO sự kiện_ngày, sự
-kiện_type
-
-) NHƯ tổng thể_ord TỪ (
-
-\-- chọn ngày bắt đầu, gán số thứ tự cho mỗi SELECT person_id,
-
-concept_id,
-
-tiếp xúc_bắt đầu_ngày AS sự kiện_ngày,
-
-0.  NHƯ loại sự kiện, ROW_NUMBER() QUÁ (
-
-THAM GIA THEO user_id, concept_id ĐẶT HÀNG THEO Exposure_start_date
-
-) NHƯ start_order TỪ #exposure tiếp xúc
-
-UNION ALL
-
-\-- thêm ngày kết thúc với NULL làm số thứ tự, đệm ngày kết thúc bằng
-
-\-- \@max_gap để cho phép khoảng thời gian ân hạn cho các phạm vi
-chồng lấp.
-
-CHỌN người_id, khái niệm_id,
-
-DATEADD(ngày, \@max_gap, Exposure_end_date),
-
-1.  NHƯ loại sự kiện, NULL
-
-TỪ #tiếp xúc
-
-) rawdata
-
-) events
-
-WHERE 2 \* events.start_ordinal - events.overall_ord = 0
-
-) events
-
-ON exposure.person_id = events.person_id
-
-AND exposure.concept_id = events.concept_id
-
-AND events.end_date \>= exposure.exposure_end_date GROUP BY
-exposure.person_id,
-
-exposure.concept_id, exposure.exposure_start_date
-
-) ends
-
-GROUP BY ends.person_id, concept_id, ends.era_end_date;\"
-
-**renderTranslateExecuteSql**(conn,
-
-sql,
-
-cdm_db_schema = cdmDbSchema, max_gap = 30)
-
-Mã này hợp nhất tất cả các lần tiếp xúc tiếp theo, cho phép một khoảng
-trống giữa các lần tiếp xúc như được xác định bởi đối số max_gap. Các
-kỷ nguyên tiếp xúc thuốc kết quả được ghi vào một bảng tạm gọi là
-#exposure_era.
-
-Tiếp theo, chúng ta chỉ cần tham gia các kỷ nguyên tiếp xúc thuốc ức
-chế ACE này vào nhóm thuần tập ban đầu của chúng ta để sử dụng ngày
-kết thúc kỷ nguyên làm ngày kết thúc nhóm thuần tập của chúng ta:
-
-sql \<- \"SELECT ee.subject_id,
-
-CAST(1 AS INT) AS cohort_definition_id, ee.cohort_start_date,
-ee.cohort_end_date
-
-INTO \@cohort_db_schema.@cohort_table FROM #monotherapy mt
-
+```r
+sql <- "SELECT ee.subject_id,
+  CAST(1 AS INT) AS cohort_definition_id,
+  ee.cohort_start_date,
+  ee.cohort_end_date
+INTO @cohort_db_schema.@cohort_table
+FROM #monotherapy mt
 INNER JOIN #exposure_era ee
+  ON mt.subject_id = ee.subject_id
+    AND mt.cohort_start_date = ee.cohort_start_date;"
 
-ON mt.subject_id = ee.subject_id
+renderTranslateExecuteSql(conn,
+                          sql,
+                          cohort_db_schema = cohortDbSchema,
+                          cohort_table = cohortTable)
+```
 
-AND mt.cohort_start_date = ee.cohort_start_date;\"
+Tại đây, chúng ta lưu trữ đoàn hệ cuối cùng vào lược đồ và bảng đã định nghĩa trước đó. Chúng ta gán cho nó mã `cohort_definition_id` bằng 1 để phân biệt với các đoàn hệ khác có thể được lưu cùng trong bảng này.
 
-**renderTranslateExecuteSql**(conn,
+### Dọn dẹp (Cleanup)
 
-sql,
+Cuối cùng, một thực hành tốt luôn được khuyến nghị là xóa bỏ các bảng tạm đã tạo và ngắt kết nối khỏi máy chủ cơ sở dữ liệu:
 
-cohort_db_schema = cohortDbSchema, cohort_table = cohortTable)
+```r
+sql <- "TRUNCATE TABLE #first_use;
+DROP TABLE #first_use;
 
-Ở đây chúng ta lưu trữ nhóm thuần tập cuối cùng trong lược đồ và bảng
-chúng ta đã xác định trước đó. Chúng ta gán cho nó một ID định nghĩa
-nhóm thuần tập là 1, để phân biệt nó với các nhóm thuần tập khác mà
-chúng ta có thể muốn lưu trữ trong cùng một bảng.
-
-*10.9. Tóm tắt 171*
-
-### 10.8.9 Dọn dẹp
-
-Cuối cùng, luôn luôn khuyến khích dọn dẹp bất kỳ bảng tạm nào đã được
-tạo và ngắt kết nối khỏi máy chủ cơ sở dữ liệu:
-
-sql \<- \"TRUNCATE TABLE #first_use; DROP TABLE #first_use;
-
-TRUNCATE TABLE #has_prior_obs; DROP TABLE #has_prior_obs;
+TRUNCATE TABLE #has_prior_obs;
+DROP TABLE #has_prior_obs;
 
 TRUNCATE TABLE #has_ht;
-
 DROP TABLE #has_ht;
 
-TRUNCATE TABLE #no_prior_ht_drugs; DROP TABLE #no_prior_ht_drugs;
+TRUNCATE TABLE #no_prior_ht_drugs;
+DROP TABLE #no_prior_ht_drugs;
 
-TRUNCATE TABLE #monotherapy; DROP TABLE #monotherapy;
+TRUNCATE TABLE #monotherapy;
+DROP TABLE #monotherapy;
 
-TRUNCATE TABLE #exposure; DROP TABLE #exposure;
+TRUNCATE TABLE #exposure;
+DROP TABLE #exposure;
 
-TRUNCATE TABLE #exposure_era; DROP TABLE #exposure_era;\"
+TRUNCATE TABLE #exposure_era;
+DROP TABLE #exposure_era;"
 
-**renderTranslateExecuteSql**(conn, sql)
+renderTranslateExecuteSql(conn, sql)
 
-**disconnect**(conn)
+disconnect(conn)
+```
 
 ## Tóm tắt
 
-![](media/image4.png){width="0.4455205599300088in"
-height="0.4644783464566929in" .book-icon}
-
-- A cohort is set of persons who satisfy one or more inclusion criteria
-for a duration of time.
-
-- A cohort definition is the description of logic used for identifying a
-particular cohort.
-
-- Cohorts are used (and re-used) throughout the OHDSI analytics tools to
-define for example the exposures and outcomes of interest.
-
-- There are two major approaches to building a cohort&#58; rule-based and
-proba-bilistic.
-
-- Rule-based cohort definitions can be created in ATLAS, or using SQL
+::: {.callout-tip title="Tóm tắt chương"}
+- Đoàn hệ (nhóm thuần tập) là một tập hợp những người thỏa mãn một hoặc nhiều tiêu chuẩn thu nhận trong một khoảng thời gian nhất định.
+- Định nghĩa đoàn hệ là bản mô tả các quy tắc logic được sử dụng để xác định một đoàn hệ cụ thể.
+- Các đoàn hệ được sử dụng (và tái sử dụng) xuyên suốt trong các công cụ phân tích của OHDSI để định nghĩa, chẳng hạn như các phơi nhiễm và kết cục cần quan tâm.
+- Có hai cách tiếp cận chính để xây dựng một đoàn hệ: dựa trên quy tắc (*rule-based*) và theo xác suất (*probabilistic*).
+- Các định nghĩa đoàn hệ dựa trên quy tắc có thể được tạo lập trong ATLAS hoặc viết trực tiếp bằng SQL.
+:::
 
 ## Bài tập
 
 #### Điều kiện tiên quyết
 
-Đối với bài tập đầu tiên, cần có quyền truy cập vào một phiên bản
-ATLAS. Bạn có thể sử dụng phiên bản tại http://atlas-demo.ohdsi.org,
-hoặc bất kỳ phiên bản nào khác mà bạn có quyền truy cập.
+Đối với bài tập đầu tiên, bạn cần có quyền truy cập vào một phiên bản ATLAS. Bạn có thể sử dụng phiên bản thử nghiệm tại [http://atlas-demo.ohdsi.org](http://atlas-demo.ohdsi.org), hoặc bất kỳ hệ thống ATLAS nào khác mà bạn có quyền truy cập.
 
-**Bài tập 10.1. Sử dụng ATLAS để tạo một định nghĩa nhóm thuần tập
-tuân theo các tiêu chí sau:**
+**Bài tập 10.1.** Sử dụng ATLAS để tạo một định nghĩa đoàn hệ tuân theo các tiêu chuẩn sau:
 
-- Người dùng mới thuốc diclofenac
-
+- Người mới sử dụng thuốc diclofenac
 - Từ 16 tuổi trở lên
-
-- Với ít nhất 365 ngày quan sát liên tục trước khi tiếp xúc
-
-- Không có sự tiếp xúc trước đó với bất kỳ NSAID (Thuốc chống viêm không
-steroid) nào
-
+- Có ít nhất 365 ngày quan sát liên tục trước khi phơi nhiễm
+- Không có phơi nhiễm trước đó với bất kỳ thuốc kháng viêm không steroid (NSAID) nào
 - Không có chẩn đoán ung thư trước đó
-
-- Với việc rời nhóm thuần tập được xác định là ngừng tiếp xúc (cho phép
-khoảng trống 30 ngày)
+- Tiêu chuẩn kết thúc đoàn hệ được xác định là ngừng phơi nhiễm thuốc (cho phép khoảng trống 30 ngày)
 
 #### Điều kiện tiên quyết
 
-Đối với bài tập thứ hai, chúng tôi giả định R, R-Studio và Java đã
-được cài đặt như mô tả trong Mục 8.4.5. Cũng cần có các gói SqlRender,
-DatabaseConnector và Eunomia, có thể được cài đặt bằng cách sử dụng:
+Đối với bài tập thứ hai, chúng tôi giả định rằng R, RStudio và Java đã được cài đặt như mô tả trong Mục 8.4.5. Bạn cũng cần cài đặt các gói [SqlRender](https://ohdsi.github.io/SqlRender/), [DatabaseConnector](https://ohdsi.github.io/DatabaseConnector/) và [Eunomia](https://ohdsi.github.io/Eunomia/) bằng câu lệnh:
 
-**install.packages**(**c**(\"SqlRender\", \"DatabaseConnector\",
-\"remotes\")) remotes**::install_github**(\"ohdsi/Eunomia\", ref =
-\"v1.0.0\")
+```r
+install.packages(c("SqlRender", "DatabaseConnector", "remotes"))
+remotes::install_github("ohdsi/Eunomia", ref = "v1.0.0")
+```
 
-Gói Eunomia cung cấp một tập dữ liệu mô phỏng trong CDM sẽ chạy bên
-trong phiên R cục bộ của bạn. Chi tiết kết nối có thể được lấy bằng
-cách sử dụng:
+Gói `Eunomia` cung cấp một tập dữ liệu mô phỏng theo chuẩn CDM chạy ngay bên trong phiên làm việc R cục bộ của bạn. Thông tin kết nối có thể được lấy bằng câu lệnh:
 
-connectionDetails \<- Eunomia**::getEunomiaConnectionDetails**()
+```r
+connectionDetails <- Eunomia::getEunomiaConnectionDetails()
+```
 
-Lược đồ cơ sở dữ liệu CDM là "main".
+Lược đồ cơ sở dữ liệu CDM là `"main"`.
 
-**Bài tập 10.2. Sử dụng SQL và R để tạo một nhóm thuần tập cho nhồi
-máu cơ tim cấp tính (AMI) trong bảng COHORT hiện có, tuân theo các
-tiêu chí sau:**
+**Bài tập 10.2.** Sử dụng SQL và R để tạo một đoàn hệ cho bệnh nhồi máu cơ tim cấp (AMI) vào bảng `COHORT` hiện có, tuân theo các tiêu chuẩn sau:
 
-- Một lần xảy ra chẩn đoán nhồi máu cơ tim (khái niệm 4329847 "Nhồi máu
-cơ tim" và tất cả các hậu duệ của nó, loại trừ khái niệm 314666 "Nhồi
-máu cơ tim cũ" và bất kỳ hậu duệ nào của nó).
+- Có sự xuất hiện của chẩn đoán nhồi máu cơ tim (khái niệm 4329847 "Myocardial infarction" và tất cả các hậu duệ của nó, ngoại trừ khái niệm 314666 "Old myocardial infarction" và bất kỳ hậu duệ nào của nó).
+- Diễn ra trong một lượt khám nội trú hoặc cấp cứu (các khái niệm 9201, 9203 và 262 lần lượt tương ứng với "Inpatient visit", "Emergency Room Visit" và "Emergency Room and Inpatient Visit").
 
-- Trong một lượt khám nội trú hoặc ER (các khái niệm 9201, 9203 và 262
-cho "Lượt khám nội trú", "Lượt khám phòng cấp cứu" và "Lượt khám phòng
-cấp cứu và nội trú", tương ứng).
-
-Các câu trả lời gợi ý có thể được tìm thấy trong Phụ lục E.6.
-
+Đáp án gợi ý có thể được tìm thấy trong Phụ lục E.6.

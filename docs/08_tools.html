@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="vi" xml:lang="vi"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.554">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Sách OHDSI (The Book of OHDSI) - Chương 8: Công cụ phân tích OHDSI</title>
+<title>Sách OHDSI (The Book of OHDSI) - Chương 8: Hệ sinh thái công cụ phân tích OHDSI</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -91,17 +91,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-no-results-text": "Không tìm thấy kết quả",
+    "search-matching-documents-text": "kết quả phù hợp",
+    "search-copy-link-title": "Sao chép liên kết tìm kiếm",
+    "search-hide-matches-text": "Ẩn các kết quả khác",
+    "search-more-match-text": "kết quả khác trong chương này",
+    "search-more-matches-text": "kết quả khác trong chương này",
+    "search-clear-button-title": "Xóa",
+    "search-text-placeholder": "Tìm kiếm trong sách...",
+    "search-detached-cancel-button-title": "Hủy",
+    "search-submit-button-title": "Tìm",
+    "search-label": "Tìm kiếm"
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
@@ -116,11 +116,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Ẩn / hiện thanh điều hướng" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07_use_cases.html">Phần III — Phân tích Dữ liệu</a></li><li class="breadcrumb-item"><a href="./08_tools.html"><span class="chapter-title">Chương 8: Công cụ phân tích OHDSI</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07_use_cases.html">Phần III — Phân tích Dữ liệu</a></li><li class="breadcrumb-item"><a href="./08_tools.html"><span class="chapter-title">Chương 8: Hệ sinh thái công cụ phân tích OHDSI</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Ẩn / hiện thanh điều hướng" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -136,21 +136,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Sách OHDSI (The Book of OHDSI)</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+    <a href="https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Chuyển chế độ Sáng / Tối"><i class="bi"></i></a>
 </div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+        <div id="quarto-search" class="" title="Tìm kiếm"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Lời tựa &amp; Giới thiệu</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lời tựa &amp; Giới thiệu</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -169,7 +170,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_where_to_begin.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 2: Nơi bắt đầu</span></a>
+  <a href="./02_where_to_begin.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 2: Bắt đầu từ đâu</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -182,7 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
- <span class="menu-text">Phần II — Chuẩn hóa Dữ liệu</span></a>
+ <span class="menu-text">Phần II — Biểu diễn Dữ liệu Thống nhất</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -195,12 +196,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_vocabularies.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 5: Từ vựng Chuẩn hóa</span></a>
+  <a href="./05_vocabularies.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 5: Bộ Từ vựng Chuẩn hóa</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_etl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 6: Trích xuất - Chuyển đổi - Nạp (ETL)</span></a>
+  <a href="./06_etl.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 6: Trích xuất – Chuyển đổi – Nạp dữ liệu (ETL)</span></a>
   </div>
 </li>
       </ul>
@@ -216,12 +217,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07_use_cases.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 7: Các trường hợp sử dụng phân tích</span></a>
+  <a href="./07_use_cases.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 7: Các bài toán ứng dụng phân tích dữ liệu</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./08_tools.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Chương 8: Công cụ phân tích OHDSI</span></a>
+  <a href="./08_tools.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Chương 8: Hệ sinh thái công cụ phân tích OHDSI</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -231,22 +232,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./10_cohort_definitions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 10: Định nghĩa nhóm thuần tập</span></a>
+  <a href="./10_cohort_definitions.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 10: Định nghĩa đoàn hệ (Cohort)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./11_characterization.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 11: Đặc điểm hóa</span></a>
+  <a href="./11_characterization.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 11: Mô tả đặc trưng lâm sàng (Characterization)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./12_population_level_estimation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 12: Ước tính cấp độ quần thể</span></a>
+  <a href="./12_population_level_estimation.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 12: Ước lượng hiệu quả ở cấp độ quần thể</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./13_patient_level_prediction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 13: Dự đoán cấp độ bệnh nhân</span></a>
+  <a href="./13_patient_level_prediction.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 13: Dự báo ở cấp độ bệnh nhân</span></a>
   </div>
 </li>
       </ul>
@@ -267,17 +268,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./15_clinical_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 15: Tính hợp lệ lâm sàng</span></a>
+  <a href="./15_clinical_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 15: Giá trị hợp lệ lâm sàng</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./16_software_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 16: Tính hợp lệ của phần mềm</span></a>
+  <a href="./16_software_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 16: Giá trị hợp lệ của phần mềm</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./17_method_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 17: Tính hợp lệ của phương pháp</span></a>
+  <a href="./17_method_validity.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 17: Giá trị hợp lệ của phương pháp</span></a>
   </div>
 </li>
       </ul>
@@ -285,7 +286,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
- <span class="menu-text">Phần V — Các nghiên cứu OHDSI</span></a>
+ <span class="menu-text">Phần V — Nghiên cứu trong Mạng lưới OHDSI</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -293,12 +294,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./18_study_steps.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 18: Các bước nghiên cứu</span></a>
+  <a href="./18_study_steps.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 18: Quy trình thực hiện một nghiên cứu</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./19_network_studies.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 19: Nghiên cứu mạng lưới OHDSI</span></a>
+  <a href="./19_network_studies.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Chương 19: Nghiên cứu mạng lưới đa trung tâm OHDSI</span></a>
   </div>
 </li>
       </ul>
@@ -314,32 +315,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./20_glossary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Bảng thuật ngữ</span></a>
+  <a href="./20_glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bảng thuật ngữ chuẩn hóa (Glossary)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./21_cohort_definitions_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục A: Định nghĩa nhóm thuần tập</span></a>
+  <a href="./21_cohort_definitions_appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục A: Chi tiết định nghĩa đoàn hệ</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./22_negative_controls.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục B: Các đối chứng âm tính</span></a>
+  <a href="./22_negative_controls.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục B: Danh mục kết cục chứng âm (Negative Controls)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./23_protocol_template.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục C: Mẫu giao thức</span></a>
+  <a href="./23_protocol_template.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục C: Mẫu đề cương nghiên cứu (Protocol Template)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./24_hints.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục D: Gợi ý trả lời</span></a>
+  <a href="./24_hints.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Phụ lục D: Đáp án và gợi ý bài tập</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./25_references_and_index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Thư mục tài liệu tham khảo &amp; Chỉ mục</span></a>
+  <a href="./25_references_and_index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Tài liệu tham khảo &amp; Chỉ mục</span></a>
   </div>
 </li>
       </ul>
@@ -350,51 +353,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
-    <h2 id="toc-title">Nội dung chính</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">Nội dung trong chương</h2>
    
   <ul>
-  <li><a href="#công-cụ-phân-tích-ohdsi" id="toc-công-cụ-phân-tích-ohdsi" class="nav-link active" data-scroll-target="#công-cụ-phân-tích-ohdsi">Công cụ phân tích OHDSI</a>
-  <ul>
-  <li><a href="#thực-hiện-phân-tích" id="toc-thực-hiện-phân-tích" class="nav-link" data-scroll-target="#thực-hiện-phân-tích">Thực hiện phân tích</a></li>
+  <li><a href="#triển-khai-phân-tích" id="toc-triển-khai-phân-tích" class="nav-link active" data-scroll-target="#triển-khai-phân-tích">Triển khai phân tích</a></li>
   <li><a href="#chiến-lược-phân-tích" id="toc-chiến-lược-phân-tích" class="nav-link" data-scroll-target="#chiến-lược-phân-tích">Chiến lược phân tích</a></li>
   <li><a href="#atlas" id="toc-atlas" class="nav-link" data-scroll-target="#atlas">ATLAS</a>
   <ul class="collapse">
   <li><a href="#bảo-mật" id="toc-bảo-mật" class="nav-link" data-scroll-target="#bảo-mật">Bảo mật</a></li>
-  <li><a href="#tài-liệu" id="toc-tài-liệu" class="nav-link" data-scroll-target="#tài-liệu">Tài liệu</a></li>
+  <li><a href="#tài-liệu-hướng-dẫn" id="toc-tài-liệu-hướng-dẫn" class="nav-link" data-scroll-target="#tài-liệu-hướng-dẫn">Tài liệu hướng dẫn</a></li>
   <li><a href="#cách-cài-đặt" id="toc-cách-cài-đặt" class="nav-link" data-scroll-target="#cách-cài-đặt">Cách cài đặt</a></li>
   </ul></li>
-  <li><a href="#thư-viện-phương-pháp-methods-library" id="toc-thư-viện-phương-pháp-methods-library" class="nav-link" data-scroll-target="#thư-viện-phương-pháp-methods-library">Thư viện phương pháp (Methods Library)</a>
+  <li><a href="#thư-viện-phương-pháp-methods-library" id="toc-thư-viện-phương-pháp-methods-library" class="nav-link" data-scroll-target="#thư-viện-phương-pháp-methods-library">Thư viện Phương pháp (Methods Library)</a>
   <ul class="collapse">
   <li><a href="#hỗ-trợ-phân-tích-quy-mô-lớn" id="toc-hỗ-trợ-phân-tích-quy-mô-lớn" class="nav-link" data-scroll-target="#hỗ-trợ-phân-tích-quy-mô-lớn">Hỗ trợ phân tích quy mô lớn</a></li>
   <li><a href="#hỗ-trợ-dữ-liệu-lớn" id="toc-hỗ-trợ-dữ-liệu-lớn" class="nav-link" data-scroll-target="#hỗ-trợ-dữ-liệu-lớn">Hỗ trợ dữ liệu lớn</a></li>
-  <li><a href="#tài-liệu-1" id="toc-tài-liệu-1" class="nav-link" data-scroll-target="#tài-liệu-1">Tài liệu</a></li>
+  <li><a href="#tài-liệu-hướng-dẫn-1" id="toc-tài-liệu-hướng-dẫn-1" class="nav-link" data-scroll-target="#tài-liệu-hướng-dẫn-1">Tài liệu hướng dẫn</a></li>
   <li><a href="#yêu-cầu-hệ-thống" id="toc-yêu-cầu-hệ-thống" class="nav-link" data-scroll-target="#yêu-cầu-hệ-thống">Yêu cầu hệ thống</a></li>
-  <li><a href="#cách-cài-đặt-1" id="toc-cách-cài-đặt-1" class="nav-link" data-scroll-target="#cách-cài-đặt-1">Cách cài đặt</a>
-  <ul class="collapse">
-  <li><a href="#cài-đặt-r" id="toc-cài-đặt-r" class="nav-link" data-scroll-target="#cài-đặt-r">Cài đặt R</a></li>
-  <li><a href="#cài-đặt-rtools" id="toc-cài-đặt-rtools" class="nav-link" data-scroll-target="#cài-đặt-rtools">Cài đặt Rtools</a></li>
-  <li><a href="#cài-đặt-rstudio" id="toc-cài-đặt-rstudio" class="nav-link" data-scroll-target="#cài-đặt-rstudio">Cài đặt RStudio</a></li>
-  <li><a href="#cài-đặt-java" id="toc-cài-đặt-java" class="nav-link" data-scroll-target="#cài-đặt-java">Cài đặt Java</a></li>
-  <li><a href="#xác-minh-cài-đặt" id="toc-xác-minh-cài-đặt" class="nav-link" data-scroll-target="#xác-minh-cài-đặt">Xác minh cài đặt</a></li>
+  <li><a href="#cách-cài-đặt-1" id="toc-cách-cài-đặt-1" class="nav-link" data-scroll-target="#cách-cài-đặt-1">Cách cài đặt</a></li>
   </ul></li>
-  </ul></li>
-  <li><a href="#chiến-lược-triển-khai" id="toc-chiến-lược-triển-khai" class="nav-link" data-scroll-target="#chiến-lược-triển-khai">Chiến lược triển khai</a>
+  <li><a href="#chiến-lược-triển-khai-hệ-thống" id="toc-chiến-lược-triển-khai-hệ-thống" class="nav-link" data-scroll-target="#chiến-lược-triển-khai-hệ-thống">Chiến lược triển khai hệ thống</a>
   <ul class="collapse">
   <li><a href="#broadsea" id="toc-broadsea" class="nav-link" data-scroll-target="#broadsea">Broadsea</a></li>
   <li><a href="#amazon-aws" id="toc-amazon-aws" class="nav-link" data-scroll-target="#amazon-aws">Amazon AWS</a></li>
   </ul></li>
   <li><a href="#tóm-tắt" id="toc-tóm-tắt" class="nav-link" data-scroll-target="#tóm-tắt">Tóm tắt</a></li>
-  </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi/edit/main/08_tools.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi/edit/main/08_tools.qmd" class="toc-action"><i class="bi bi-github"></i>Chỉnh sửa trang này</a></li><li><a href="https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi/issues/new" class="toc-action"><i class="bi empty"></i>Báo lỗi nội dung / dịch thuật</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07_use_cases.html">Phần III — Phân tích Dữ liệu</a></li><li class="breadcrumb-item"><a href="./08_tools.html"><span class="chapter-title">Chương 8: Công cụ phân tích OHDSI</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07_use_cases.html">Phần III — Phân tích Dữ liệu</a></li><li class="breadcrumb-item"><a href="./08_tools.html"><span class="chapter-title">Chương 8: Hệ sinh thái công cụ phân tích OHDSI</span></a></li></ol></nav>
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">Chương 8: Công cụ phân tích OHDSI</span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<h1 class="title"><span class="chapter-title">Chương 8: Hệ sinh thái công cụ phân tích OHDSI</span></h1>
 </div>
 
 
@@ -411,226 +404,248 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="công-cụ-phân-tích-ohdsi" class="level1">
-<h1>Công cụ phân tích OHDSI</h1>
-<p><em>Trưởng nhóm chương: Martijn Schuemie &amp; Frank DeFalco</em></p>
-<p>OHDSI cung cấp nhiều loại công cụ mã nguồn mở để hỗ trợ các trường hợp sử dụng phân tích dữ liệu khác nhau trên dữ liệu quan sát cấp độ bệnh nhân. Điểm chung của các công cụ này là tất cả đều có thể tương tác với một hoặc nhiều cơ sở dữ liệu sử dụng Mô hình dữ liệu chung (CDM). Hơn nữa, các công cụ này chuẩn hóa các phân tích cho nhiều trường hợp sử dụng khác nhau; Thay vì phải bắt đầu từ con số không, một phân tích có thể được thực hiện bằng cách điền vào các mẫu chuẩn. Điều này giúp việc thực hiện phân tích trở nên dễ dàng hơn, đồng thời cải thiện khả năng tái lập và tính minh bạch. Ví dụ, có vẻ như có vô số cách để tính tỷ lệ mắc bệnh, nhưng những cách này có thể được chỉ định trong các công cụ OHDSI chỉ với một vài lựa chọn, và bất kỳ ai đưa ra những lựa chọn tương tự sẽ tính toán tỷ lệ mắc bệnh theo cùng một cách.</p>
-<p>Trong chương này, trước tiên chúng tôi mô tả nhiều cách khác nhau mà chúng ta có thể chọn để thực hiện một phân tích và các chiến lược mà phân tích đó có thể sử dụng. Sau đó, chúng tôi xem xét các công cụ OHDSI khác nhau và cách chúng phù hợp với các trường hợp sử dụng khác nhau.</p>
-<section id="thực-hiện-phân-tích" class="level2">
-<h2 class="anchored" data-anchor-id="thực-hiện-phân-tích">Thực hiện phân tích</h2>
-<p>Hình 8.1 cho thấy các cách khác nhau mà chúng ta có thể chọn để thực hiện một nghiên cứu trên cơ sở dữ liệu sử dụng CDM.</p>
-<p>Có ba phương pháp chính để thực hiện một nghiên cứu. Phương pháp đầu tiên là viết mã tùy chỉnh không sử dụng bất kỳ công cụ nào mà OHDSI cung cấp. Người ta có thể viết một phân tích mới (de novo) bằng R, SAS hoặc bất kỳ ngôn ngữ nào khác. Điều này mang lại sự linh hoạt tối đa và thực tế có thể là lựa chọn duy nhất nếu phân tích cụ thể đó không được hỗ trợ bởi bất kỳ công cụ nào của chúng tôi. Tuy nhiên, con đường này đòi hỏi nhiều kỹ năng kỹ thuật, thời gian và công sức, và khi phân tích trở nên phức tạp hơn, việc tránh lỗi trong mã sẽ trở nên khó khăn hơn.</p>
-<p>Phương pháp thứ hai liên quan đến việc phát triển phân tích bằng R và sử dụng các gói trong Thư viện phương pháp OHDSI (Methods Library). Tối thiểu, người ta có thể sử dụng các gói SqlRender và DatabaseConnector được mô tả chi tiết hơn trong Chương 9 cho phép cùng một</p>
+<p><em>Chủ biên chương: Martijn Schuemie &amp; Frank DeFalco</em></p>
+<p>OHDSI cung cấp một hệ sinh thái đa dạng các công cụ mã nguồn mở nhằm hỗ trợ nhiều bài toán ứng dụng phân tích dữ liệu khác nhau trên dữ liệu quan sát ở cấp độ bệnh nhân. Điểm chung của các công cụ này là tất cả đều có thể tương tác với một hoặc nhiều cơ sở dữ liệu sử dụng Mô hình dữ liệu chung (CDM). Hơn nữa, các công cụ này chuẩn hóa quy trình phân tích cho nhiều bài toán ứng dụng khác nhau; thay vì phải bắt đầu từ con số không, một phân tích có thể được triển khai bằng cách điền vào các biểu mẫu chuẩn. Điều này giúp việc thực hiện phân tích trở nên dễ dàng hơn, đồng thời nâng cao tính tái lập (reproducibility) và tính minh bạch (transparency). Ví dụ, dù trên lý thuyết có vô số cách để tính tỷ suất mới mắc (incidence rate), nhưng trong các công cụ của OHDSI, phép tính này có thể được xác định chỉ qua một vài tùy chọn thiết lập, và bất kỳ nhà nghiên cứu nào đưa ra cùng những lựa chọn đó đều sẽ tính toán tỷ suất mới mắc theo đúng một cách thống nhất.</p>
+<p>Trong chương này, trước hết chúng tôi mô tả các phương thức khác nhau để triển khai một phân tích và các chiến lược mà phân tích đó có thể áp dụng. Tiếp theo, chúng tôi điểm qua các công cụ phân tích của OHDSI và cách chúng đáp ứng từng bài toán ứng dụng cụ thể.</p>
+<section id="triển-khai-phân-tích" class="level2">
+<h2 class="anchored" data-anchor-id="triển-khai-phân-tích">Triển khai phân tích</h2>
+<p>Hình 8.1 minh họa các phương thức khác nhau mà chúng ta có thể lựa chọn để triển khai một nghiên cứu trên cơ sở dữ liệu chuẩn hóa theo CDM.</p>
 <p><img src="media/image27.jpeg" style="width:4.885in;height:1.76in"></p>
-<p>Hình 8.1: Các cách khác nhau để thực hiện một phân tích trên dữ liệu trong CDM.</p>
-<p>mã được thực thi trên nhiều nền tảng cơ sở dữ liệu khác nhau, chẳng hạn như PostgreSQL, SQL Server và Oracle. Các gói khác như CohortMethod và PatientLevelPrediction cung cấp các hàm R cho phân tích nâng cao trên CDM có thể được gọi trong mã của người dùng. Cách này vẫn đòi hỏi nhiều chuyên môn kỹ thuật, nhưng bằng cách tái sử dụng các thành phần đã được xác thực của Thư viện phương pháp, chúng ta có thể làm việc hiệu quả hơn và ít xảy ra lỗi hơn so với việc sử dụng mã hoàn toàn tùy chỉnh.</p>
-<p>Phương pháp thứ ba dựa trên nền tảng phân tích tương tác ATLAS của chúng tôi, một công cụ dựa trên web cho phép những người không lập trình thực hiện nhiều loại phân tích một cách hiệu quả. ATLAS sử dụng các Thư viện phương pháp nhưng cung cấp một giao diện đồ họa đơn giản để thiết kế các phân tích và trong nhiều trường hợp, tạo ra mã R cần thiết để chạy phân tích. Tuy nhiên, ATLAS không hỗ trợ tất cả các tùy chọn có sẵn trong Thư viện phương pháp. Mặc dù dự kiến rằng phần lớn các nghiên cứu có thể được thực hiện thông qua ATLAS, một số nghiên cứu có thể yêu cầu sự linh hoạt được cung cấp bởi phương pháp thứ hai.</p>
-<p>ATLAS và Thư viện phương pháp không độc lập với nhau. Một số phân tích phức tạp hơn có thể được gọi trong ATLAS được thực hiện thông qua các lệnh gọi đến các gói trong Thư viện phương pháp. Tương tự, các nhóm thuần tập được sử dụng trong Thư viện phương pháp thường được thiết kế trong ATLAS.</p>
+<p><em>Hình 8.1: Các phương thức khác nhau để triển khai một phân tích trên dữ liệu trong CDM.</em></p>
+<p>Có ba hướng tiếp cận chính để triển khai một nghiên cứu. Hướng tiếp cận đầu tiên là tự viết mã lệnh tùy chỉnh (custom code) mà không sử dụng bất kỳ công cụ nào do OHDSI cung cấp. Nhà nghiên cứu có thể viết mới hoàn toàn (de novo) một chương trình phân tích bằng R, SAS hoặc bất kỳ ngôn ngữ lập trình nào khác. Cách làm này mang lại sự linh hoạt tối đa và thực tế có thể là lựa chọn duy nhất nếu phân tích chuyên biệt đó chưa được hỗ trợ bởi bất kỳ công cụ hiện có nào của OHDSI. Tuy nhiên, hướng đi này đòi hỏi kỹ năng kỹ thuật cao, tốn nhiều thời gian và công sức; đồng thời khi mức độ phức tạp của phân tích tăng lên, việc tránh sai sót trong mã lệnh sẽ ngày càng trở nên khó khăn hơn.</p>
+<p>Hướng tiếp cận thứ hai là phát triển phân tích bằng ngôn ngữ R và sử dụng các gói phần mềm trong <a href="https://ohdsi.github.io/MethodsLibrary/">Thư viện Phương pháp OHDSI (OHDSI Methods Library)</a>. Ở mức tối thiểu, nhà nghiên cứu có thể sử dụng hai gói <a href="https://ohdsi.github.io/SqlRender/">SqlRender</a> và <a href="https://ohdsi.github.io/DatabaseConnector/">DatabaseConnector</a> (được trình bày chi tiết hơn trong Chương 9) để cho phép cùng một đoạn mã có thể thực thi trên nhiều hệ quản trị cơ sở dữ liệu khác nhau như PostgreSQL, SQL Server và Oracle. Các gói khác như <a href="https://ohdsi.github.io/CohortMethod/">CohortMethod</a> và <a href="https://ohdsi.github.io/PatientLevelPrediction/">PatientLevelPrediction</a> cung cấp các hàm R phục vụ phân tích chuyên sâu trên CDM mà người dùng có thể gọi trực tiếp trong mã lệnh của mình. Hướng tiếp cận này vẫn đòi hỏi chuyên môn kỹ thuật đáng kể, nhưng nhờ tái sử dụng các thành phần đã được kiểm định của Thư viện Phương pháp, chúng ta có thể làm việc hiệu quả hơn và ít gặp lỗi hơn nhiều so với việc viết mã tùy chỉnh hoàn toàn.</p>
+<p>Hướng tiếp cận thứ ba dựa trên nền tảng phân tích tương tác <a href="https://github.com/OHDSI/Atlas/wiki">ATLAS</a> — một công cụ trên nền tảng web cho phép những người không chuyên về lập trình vẫn có thể thực hiện hiệu quả nhiều loại phân tích khác nhau. ATLAS vận hành dựa trên Thư viện Phương pháp nhưng cung cấp giao diện đồ họa trực quan, đơn giản để thiết kế phân tích và trong nhiều trường hợp có thể tự động sinh mã R cần thiết để chạy phân tích đó. Tuy nhiên, ATLAS không hỗ trợ toàn bộ các tùy chọn nâng cao hiện có trong Thư viện Phương pháp. Mặc dù phần lớn các nghiên cứu dự kiến đều có thể thực hiện thông qua ATLAS, một số nghiên cứu chuyên biệt vẫn có thể cần đến sự linh hoạt của hướng tiếp cận thứ hai.</p>
+<p>ATLAS và Thư viện Phương pháp không tách rời nhau. Một số phân tích phức tạp được khởi tạo trong ATLAS thực chất được thực thi thông qua các lệnh gọi đến các gói trong Thư viện Phương pháp. Ngược lại, các đoàn hệ (nhóm thuần tập) sử dụng trong Thư viện Phương pháp thường được thiết kế trên ATLAS.</p>
 </section>
 <section id="chiến-lược-phân-tích" class="level2">
 <h2 class="anchored" data-anchor-id="chiến-lược-phân-tích">Chiến lược phân tích</h2>
-<p>Ngoài chiến lược được sử dụng để thực hiện phân tích của chúng ta trên CDM, ví dụ thông qua mã hóa tùy chỉnh hoặc sử dụng mã phân tích tiêu chuẩn trong Thư viện phương pháp, còn có nhiều chiến lược khác để sử dụng các kỹ thuật phân tích đó nhằm tạo ra bằng chứng. Hình</p>
-<ol start="2" type="1">
-<li>làm nổi bật ba chiến lược được sử dụng trong OHDSI.</li>
-</ol>
-<p>Chiến lược đầu tiên coi mỗi phân tích là một nghiên cứu cá nhân duy nhất. Phân tích phải được chỉ định trước trong một giao thức, được triển khai dưới dạng mã, thực thi trên dữ liệu, sau đó kết quả có thể được tổng hợp và diễn giải. Đối với mỗi câu hỏi, tất cả các bước phải được lặp lại. Một ví dụ về phân tích như vậy là nghiên cứu của OHDSI về nguy cơ phù mạch liên quan đến levetiracetam so với phenytoin. (Duke và cộng sự, 2017) Ở đây, một giao thức</p>
+<p>Bên cạnh phương thức kỹ thuật dùng để triển khai phân tích trên CDM (ví dụ: viết mã tùy chỉnh hoặc sử dụng mã phân tích chuẩn hóa trong Thư viện Phương pháp), còn có nhiều chiến lược khác nhau trong việc vận dụng các kỹ thuật phân tích đó để tạo ra bằng chứng khoa học. Hình 8.2 làm nổi bật ba chiến lược đang được áp dụng trong cộng đồng OHDSI.</p>
 <p><img src="media/image28.jpeg" style="width:4.885in;height:2.055in"></p>
-<p>Hình 8.2: Các chiến lược tạo bằng chứng cho các câu hỏi (lâm sàng).</p>
-<p>đã được viết trước, mã phân tích sử dụng Thư viện phương pháp OHDSI đã được phát triển và thực thi trên mạng lưới OHDSI, và kết quả đã được tổng hợp và phổ biến trong một ấn phẩm tạp chí.</p>
-<p>Chiến lược thứ hai phát triển một ứng dụng cho phép người dùng trả lời một nhóm câu hỏi cụ thể trong thời gian thực hoặc gần thời gian thực. Sau khi ứng dụng đã được phát triển, người dùng có thể tương tác xác định các truy vấn, gửi chúng và xem kết quả. Một ví dụ về chiến lược này là công cụ định nghĩa và tạo nhóm thuần tập trong ATLAS. Công cụ này cho phép người dùng chỉ định các định nghĩa nhóm thuần tập với độ phức tạp khác nhau và thực thi định nghĩa đó trên cơ sở dữ liệu để xem có bao nhiêu người đáp ứng các tiêu chí bao gồm và loại trừ khác nhau.</p>
-<p>Chiến lược thứ ba tương tự tập trung vào một nhóm câu hỏi, nhưng sau đó cố gắng tạo ra một cách đầy đủ tất cả các bằng chứng cho các câu hỏi trong nhóm đó. Người dùng sau đó có thể khám phá bằng chứng khi cần thông qua nhiều giao diện khác nhau. Một ví dụ là nghiên cứu của OHDSI về tác động của các phương pháp điều trị trầm cảm. (Schuemie và cộng sự, 2018b) Trong nghiên cứu này, tất cả các phương pháp điều trị trầm cảm được so sánh cho một tập hợp lớn các kết quả quan tâm trên bốn cơ sở dữ liệu quan sát lớn. Bộ kết quả đầy đủ, bao gồm 17.718 tỷ lệ nguy cơ được hiệu chuẩn theo kinh nghiệm cùng với các chẩn đoán nghiên cứu mở rộng, có sẵn trong một ứng dụng web tương tác.1</p>
+<p><em>Hình 8.2: Các chiến lược tạo bằng chứng cho các câu hỏi (lâm sàng).</em></p>
+<p>Chiến lược đầu tiên xem mỗi phân tích là một nghiên cứu đơn lẻ độc lập (single study). Phân tích phải được xác định trước trong một đề cương nghiên cứu (protocol), được lập trình thành mã lệnh, thực thi trên dữ liệu, sau đó kết quả mới được tổng hợp và diễn giải. Với mỗi câu hỏi nghiên cứu mới, toàn bộ các bước này đều phải lặp lại từ đầu. Một ví dụ điển hình cho chiến lược này là nghiên cứu của OHDSI về nguy cơ phù mạch liên quan đến levetiracetam so với phenytoin (Duke và cộng sự, 2017). Trong nghiên cứu đó, đề cương đã được soạn thảo trước, mã lệnh phân tích sử dụng Thư viện Phương pháp OHDSI được phát triển và thực thi trên toàn mạng lưới OHDSI, sau đó kết quả được tổng hợp và công bố trên một tạp chí khoa học.</p>
+<p>Chiến lược thứ hai là xây dựng một ứng dụng cho phép người dùng trả lời một lớp câu hỏi cụ thể theo thời gian thực hoặc gần thời gian thực (real-time queries). Khi ứng dụng đã được phát triển xong, người dùng có thể tương tác để định nghĩa truy vấn, gửi yêu cầu thực thi và xem ngay kết quả. Một ví dụ của chiến lược này là công cụ định nghĩa và khởi tạo đoàn hệ (cohort definition and generation tool) trong ATLAS. Công cụ này cho phép người dùng thiết lập các định nghĩa đoàn hệ với mức độ phức tạp khác nhau và thực thi định nghĩa đó trực tiếp trên cơ sở dữ liệu để biết có bao nhiêu người thỏa mãn các tiêu chí nhận vào và loại ra.</p>
+<p>Chiến lược thứ ba cũng tập trung vào một lớp các câu hỏi nghiên cứu, nhưng hướng tới việc tạo ra một cách toàn diện và vét cạn toàn bộ bằng chứng cho tất cả các câu hỏi thuộc lớp đó (large-scale analytics). Sau đó, người dùng có thể tra cứu và khám phá kho bằng chứng này khi cần thông qua nhiều giao diện khác nhau. Một ví dụ tiêu biểu là nghiên cứu của OHDSI về hiệu quả của các phương pháp điều trị trầm cảm (Schuemie và cộng sự, 2018b). Trong nghiên cứu này, tất cả các phác đồ điều trị trầm cảm được đem ra so sánh trên một tập hợp lớn các kết cục quan tâm qua bốn cơ sở dữ liệu quan sát quy mô lớn. Toàn bộ tập kết quả — bao gồm 17.718 tỷ số nguy cơ (hazard ratios) đã được hiệu chuẩn thực nghiệm cùng các chỉ số chẩn đoán thẩm định nghiên cứu chi tiết — đều được công khai trên một ứng dụng web tương tác.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 </section>
 <section id="atlas" class="level2">
 <h2 class="anchored" data-anchor-id="atlas">ATLAS</h2>
-<p>ATLAS là một công cụ dựa trên web, miễn phí và công khai, được cộng đồng OHDSI phát triển nhằm tạo điều kiện thuận lợi cho việc thiết kế và thực hiện các phân tích trên dữ liệu quan sát cấp độ bệnh nhân, được chuẩn hóa theo định dạng CDM. ATLAS được triển khai như một ứng dụng web kết hợp với OHDSI WebAPI và thường được lưu trữ trên Apache Tomcat. Việc thực hiện các phân tích thời gian thực đòi hỏi quyền truy cập vào dữ liệu cấp độ bệnh nhân trong CDM và do đó thường được cài đặt phía sau tường lửa của tổ chức. Tuy nhiên, cũng có một ATLAS công khai2, và</p>
-<p><sup>1</sup><a href="http://data.ohdsi.org/SystematicEvidence/" class="uri">http://data.ohdsi.org/SystematicEvidence/</a> <sup>2</sup><a href="http://www.ohdsi.org/web/atlas" class="uri">http://www.ohdsi.org/web/atlas</a></p>
-<p>mặc dù phiên bản ATLAS này chỉ có quyền truy cập vào một vài tập dữ liệu mô phỏng nhỏ, nó vẫn có thể được sử dụng cho nhiều mục đích bao gồm thử nghiệm và đào tạo. Thậm chí có thể xác định đầy đủ một nghiên cứu dự đoán hoặc ước tính tác động bằng cách sử dụng phiên bản ATLAS công khai và tự động tạo mã R để thực hiện nghiên cứu đó. Mã đó sau đó có thể được chạy trong bất kỳ môi trường nào có sẵn CDM mà không cần phải cài đặt ATLAS và WebAPI.</p>
+<p>ATLAS là một công cụ mã nguồn mở, miễn phí hoạt động trên nền tảng web do cộng đồng OHDSI phát triển nhằm hỗ trợ việc thiết kế và thực thi các phân tích trên dữ liệu quan sát cấp độ bệnh nhân đã được chuẩn hóa theo định dạng CDM. ATLAS được triển khai dưới dạng ứng dụng web kết hợp với OHDSI WebAPI và thường được vận hành trên máy chủ Apache Tomcat. Việc thực hiện các phân tích theo thời gian thực đòi hỏi quyền truy cập trực tiếp vào dữ liệu cấp độ bệnh nhân trong CDM, do đó hệ thống này thường được cài đặt bên trong tường lửa của từng tổ chức. Tuy nhiên, OHDSI cũng cung cấp một phiên bản ATLAS công khai<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>; mặc dù phiên bản công khai này chỉ kết nối với một vài tập dữ liệu mô phỏng quy mô nhỏ, nó vẫn rất hữu ích cho nhiều mục đích như dùng thử và đào tạo. Thậm chí, nhà nghiên cứu có thể thiết kế hoàn chỉnh một nghiên cứu ước lượng hiệu quả hoặc dự báo trên phiên bản ATLAS công khai, rồi xuất tự động mã lệnh R để thực thi nghiên cứu đó. Đoạn mã R này sau đó có thể được đem chạy ở bất kỳ môi trường nào có sẵn cơ sở dữ liệu CDM mà không cần phải cài đặt ATLAS và WebAPI tại chỗ.</p>
 <p><img src="media/image29.jpeg" style="width:5.30896in;height:3.23354in"></p>
-<p>Hình 8.3: Giao diện người dùng ATLAS.</p>
-<p>Ảnh chụp màn hình của ATLAS được cung cấp trong Hình 8.3. Ở bên trái là thanh điều hướng hiển thị các chức năng khác nhau được cung cấp bởi ATLAS:</p>
-<p><strong>Nguồn dữ liệu (Data Sources) cung cấp khả năng xem xét các báo cáo mô tả, chuẩn hóa cho từng nguồn dữ liệu mà bạn đã cấu hình trong nền tảng Atlas của mình. Tính năng này sử dụng chiến lược phân tích quy mô lớn: tất cả các mô tả đã được tính toán trước. Nguồn dữ liệu được thảo luận trong Chương 11.</strong></p>
-<p><strong>Tìm kiếm từ vựng (Vocabulary Search) Atlas cung cấp khả năng tìm kiếm và khám phá từ vựng chuẩn hóa OMOP để hiểu những khái niệm nào tồn tại trong các từ vựng đó và cách áp dụng các khái niệm đó trong phân tích chuẩn hóa của bạn đối với các nguồn dữ liệu của bạn. Tính năng này được thảo luận trong Chương 5.</strong></p>
-<p><strong>Bộ khái niệm (Concept Sets) cung cấp khả năng tạo các tập hợp các biểu thức logic có thể được sử dụng để xác định một tập hợp các khái niệm sẽ được sử dụng trong suốt các phân tích chuẩn hóa của bạn. Bộ khái niệm cung cấp sự tinh vi hơn so với một danh sách đơn giản các mã hoặc giá trị. Một bộ khái niệm bao gồm nhiều khái niệm từ từ vựng chuẩn hóa kết hợp với các chỉ số logic cho phép người dùng chỉ định rằng họ quan tâm đến việc bao gồm hoặc loại trừ các khái niệm liên quan trong hệ thống phân cấp từ vựng. Tìm kiếm từ vựng, xác định tập hợp các khái niệm và chỉ định</strong></p>
-<p>logic được sử dụng để giải quyết một bộ khái niệm cung cấp một cơ chế mạnh mẽ để định nghĩa ngôn ngữ y tế thường khó hiểu được sử dụng trong các kế hoạch phân tích. Các bộ khái niệm này có thể được lưu trong ATLAS và sau đó được sử dụng trong suốt quá trình phân tích của bạn như một phần của các định nghĩa nhóm thuần tập hoặc các đặc tả phân tích.</p>
-<p><strong>Định nghĩa nhóm thuần tập (Cohort Definitions) là khả năng xây dựng một tập hợp những người đáp ứng một hoặc nhiều tiêu chí trong một khoảng thời gian và các nhóm thuần tập này sau đó có thể đóng vai trò là cơ sở đầu vào cho tất cả các phân tích tiếp theo của bạn. Tính năng này được thảo luận trong Chương 10.</strong></p>
-<p><strong>Đặc điểm (Characterizations) là một khả năng phân tích cho phép bạn xem xét một hoặc nhiều nhóm thuần tập mà bạn đã định nghĩa và tóm tắt các đặc điểm về các quần thể bệnh nhân đó. Tính năng này sử dụng chiến lược truy vấn thời gian thực và được thảo luận trong Chương 11.</strong></p>
-<p><strong>Lộ trình nhóm thuần tập (Cohort Pathways) là một công cụ phân tích cho phép bạn xem xét trình tự các sự kiện lâm sàng xảy ra trong một hoặc nhiều quần thể. Tính năng này sử dụng chiến lược truy vấn thời gian thực và được thảo luận trong Chương 11.</strong></p>
-<p><strong>Tỷ lệ mắc bệnh (Incidence Rates) là một công cụ cho phép bạn ước tính tỷ lệ mắc các kết quả trong các quần thể mục tiêu quan tâm. Tính năng này sử dụng chiến lược truy vấn thời gian thực và được thảo luận trong Chương 11.</strong></p>
-<p><strong>Hồ sơ (Profiles) là một công cụ cho phép bạn khám phá dữ liệu quan sát dọc của từng bệnh nhân để tóm tắt những gì đang xảy ra trong một cá nhân cụ thể. Tính năng này sử dụng chiến lược truy vấn thời gian thực.</strong></p>
-<p><strong>Ước tính cấp độ quần thể (Population Level Estimation) là khả năng cho phép bạn xác định một nghiên cứu ước tính tác động cấp độ quần thể sử dụng thiết kế nhóm thuần tập so sánh, nhờ đó các so sánh giữa một hoặc nhiều nhóm thuần tập mục tiêu và đối chứng có thể được khám phá cho một loạt các kết quả. Tính năng này có thể được coi là thực hiện chiến lược truy vấn thời gian thực, vì không cần mã hóa và được thảo luận trong Chương 12.</strong></p>
-<p><strong>Dự đoán cấp độ bệnh nhân (Patient Level Prediction) là khả năng cho phép bạn áp dụng các thuật toán học máy để thực hiện các phân tích dự đoán cấp độ bệnh nhân, nhờ đó bạn có thể dự đoán một kết quả trong bất kỳ phơi nhiễm mục tiêu nào. Tính năng này có thể được coi là thực hiện chiến lược truy vấn thời gian thực, vì không cần mã hóa và được thảo luận trong Chương 13.</strong></p>
-<p><strong>Công việc (Jobs) Chọn mục menu Công việc để khám phá trạng thái của các tiến trình đang chạy thông qua WebAPI. Các công việc thường là các tiến trình chạy dài như tạo một nhóm thuần tập hoặc tính toán các báo cáo đặc điểm nhóm thuần tập.</strong></p>
-<p><strong>Cấu hình (Configuration) Chọn mục menu Cấu hình để xem xét các nguồn dữ liệu đã được cấu hình trong phần cấu hình nguồn.</strong></p>
-<p><strong>Phản hồi (Feedback) Liên kết Phản hồi sẽ đưa bạn đến nhật ký sự cố cho Atlas để bạn có thể ghi lại một sự cố mới hoặc tìm kiếm thông qua các sự cố hiện có. Nếu bạn có ý tưởng cho các tính năng mới hoặc cải tiến, đây cũng là nơi để lưu ý những điều này cho cộng đồng phát triển.</strong></p>
+<p><em>Hình 8.3: Giao diện người dùng ATLAS.</em></p>
+<p>Ảnh chụp màn hình giao diện của ATLAS được trình bày trong Hình 8.3. Phía bên trái là thanh điều hướng hiển thị các chức năng khác nhau do ATLAS cung cấp:</p>
+<ul>
+<li><p><strong>Nguồn dữ liệu (Data Sources):</strong> Cung cấp khả năng xem xét các báo cáo mô tả chuẩn hóa cho từng nguồn dữ liệu đã được cấu hình trong nền tảng ATLAS của bạn. Tính năng này sử dụng chiến lược phân tích quy mô lớn: toàn bộ các thống kê mô tả đều đã được tính toán trước (pre-computed). Chức năng Nguồn dữ liệu được thảo luận chi tiết trong Chương 11.</p></li>
+<li><p><strong>Tìm kiếm từ vựng (Vocabulary Search):</strong> Cho phép tìm kiếm và khám phá bộ từ vựng chuẩn hóa OMOP nhằm nắm bắt các khái niệm (concepts) hiện có trong từ vựng và cách áp dụng chúng vào phân tích chuẩn hóa trên các nguồn dữ liệu của bạn. Tính năng này được thảo luận trong Chương 5.</p></li>
+<li><p><strong>Tập khái niệm (Concept Sets):</strong> Cung cấp khả năng tạo lập các tập hợp biểu thức logic dùng để xác định một nhóm các khái niệm sử dụng xuyên suốt trong các phân tích chuẩn hóa. Tập khái niệm mang lại sự chặt chẽ và linh hoạt cao hơn nhiều so với một danh sách mã code đơn thuần. Một tập khái niệm bao gồm nhiều khái niệm trích từ bộ từ vựng chuẩn hóa kết hợp với các cờ chỉ báo logic, cho phép người dùng chỉ định việc đưa vào hoặc loại trừ các khái niệm liên quan trong cây phân cấp từ vựng (vocabulary hierarchy). Quá trình tìm kiếm từ vựng, xác định nhóm khái niệm và thiết lập quy tắc logic để phân giải tập khái niệm tạo nên một cơ chế mạnh mẽ giúp định nghĩa rõ ràng các thuật ngữ y khoa vốn thường phức tạp trong kế hoạch phân tích. Các tập khái niệm này có thể được lưu trữ trong ATLAS và tái sử dụng xuyên suốt quá trình phân tích như một phần của định nghĩa đoàn hệ hoặc đặc tả phân tích.</p></li>
+<li><p><strong>Định nghĩa đoàn hệ / nhóm thuần tập (Cohort Definitions):</strong> Cung cấp khả năng xây dựng một tập hợp các cá thể thỏa mãn một hoặc nhiều tiêu chí trong một khoảng thời gian xác định; các đoàn hệ này sau đó đóng vai trò là dữ liệu đầu vào nền tảng cho toàn bộ các phân tích tiếp theo. Tính năng này được thảo luận trong Chương 10.</p></li>
+<li><p><strong>Mô tả đặc trưng lâm sàng (Characterizations):</strong> Là chức năng phân tích cho phép bạn khảo sát một hoặc nhiều đoàn hệ đã định nghĩa và tổng hợp các đặc điểm của những quần thể bệnh nhân đó. Tính năng này sử dụng chiến lược truy vấn thời gian thực và được thảo luận trong Chương 11.</p></li>
+<li><p><strong>Lộ trình đoàn hệ (Cohort Pathways):</strong> Là công cụ phân tích cho phép bạn khảo sát trình tự diễn tiến của các biến cố lâm sàng xảy ra trong một hoặc nhiều quần thể. Tính năng này sử dụng chiến lược truy vấn thời gian thực và được thảo luận trong Chương 11.</p></li>
+<li><p><strong>Tỷ suất mới mắc (Incidence Rates):</strong> Là công cụ cho phép bạn ước tính tỷ suất mới mắc của các kết cục trong các quần thể mục tiêu đang quan tâm. Tính năng này sử dụng chiến lược truy vấn thời gian thực và được thảo luận trong Chương 11.</p></li>
+<li><p><strong>Hồ sơ cá thể (Profiles):</strong> Là công cụ cho phép bạn khám phá dữ liệu quan sát theo thời gian (dữ liệu dọc) của từng bệnh nhân cụ thể nhằm tóm tắt diễn tiến lâm sàng của cá nhân đó. Tính năng này sử dụng chiến lược truy vấn thời gian thực.</p></li>
+<li><p><strong>Ước lượng hiệu quả ở cấp độ quần thể (Population Level Estimation):</strong> Cho phép bạn thiết lập một nghiên cứu ước lượng hiệu quả ở cấp độ quần thể theo thiết kế đoàn hệ so sánh (comparative cohort design), qua đó thực hiện các phép so sánh giữa một hoặc nhiều đoàn hệ mục tiêu (target cohorts) và đoàn hệ đối chứng (comparator cohorts) trên một loạt kết cục. Tính năng này có thể được xem là triển khai chiến lược truy vấn thời gian thực vì không đòi hỏi người dùng viết mã lệnh, và được thảo luận trong Chương 12.</p></li>
+<li><p><strong>Dự báo ở cấp độ bệnh nhân (Patient Level Prediction):</strong> Cho phép bạn áp dụng các thuật toán học máy (machine learning) để thực hiện các phân tích dự báo ở cấp độ bệnh nhân, giúp dự báo xác suất xảy ra một kết cục trong bất kỳ nhóm phơi nhiễm mục tiêu nào. Tính năng này cũng có thể được xem là triển khai chiến lược truy vấn thời gian thực vì không yêu cầu lập trình, và được thảo luận trong Chương 13.</p></li>
+<li><p><strong>Tác vụ (Jobs):</strong> Chọn mục menu Jobs để theo dõi trạng thái của các tiến trình đang chạy thông qua WebAPI. Các tác vụ này thường là những tiến trình xử lý mất nhiều thời gian như khởi tạo đoàn hệ hoặc tính toán báo cáo mô tả đặc trưng đoàn hệ.</p></li>
+<li><p><strong>Cấu hình (Configuration):</strong> Chọn mục menu Configuration để xem xét các nguồn dữ liệu đã được thiết lập trong phần cấu hình nguồn.</p></li>
+<li><p><strong>Phản hồi (Feedback):</strong> Liên kết Feedback sẽ đưa bạn đến trang theo dõi vấn đề (issue log) của ATLAS để báo cáo lỗi mới hoặc tra cứu các vấn đề đã được ghi nhận. Nếu bạn có ý tưởng về tính năng mới hoặc cải tiến công cụ, đây cũng là nơi để đóng góp ý kiến cho cộng đồng phát triển.</p></li>
+</ul>
 <section id="bảo-mật" class="level3">
 <h3 class="anchored" data-anchor-id="bảo-mật">Bảo mật</h3>
-<p>ATLAS và WebAPI cung cấp một mô hình bảo mật chi tiết để kiểm soát quyền truy cập vào các tính năng hoặc nguồn dữ liệu trong toàn bộ nền tảng. Hệ thống bảo mật được xây dựng tận dụng thư viện Apache Shiro. Thông tin bổ sung về hệ thống bảo mật có thể được tìm thấy trong</p>
-<p>wiki bảo mật WebAPI trực tuyến.3</p>
+<p>ATLAS và WebAPI cung cấp một mô hình bảo mật phân quyền chi tiết nhằm kiểm soát quyền truy cập vào từng tính năng hoặc từng nguồn dữ liệu trong toàn bộ nền tảng. Hệ thống bảo mật này được xây dựng dựa trên thư viện Apache Shiro. Thông tin bổ sung về hệ thống bảo mật có thể được tìm thấy trên trang wiki bảo mật trực tuyến của WebAPI.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
 </section>
-<section id="tài-liệu" class="level3">
-<h3 class="anchored" data-anchor-id="tài-liệu">Tài liệu</h3>
-<p>Tài liệu cho ATLAS có thể được tìm thấy trực tuyến trong wiki kho lưu trữ ATLAS GitHub.4 Wiki này bao gồm thông tin về các tính năng ứng dụng khác nhau cũng như các liên kết đến các video hướng dẫn trực tuyến.</p>
+<section id="tài-liệu-hướng-dẫn" class="level3">
+<h3 class="anchored" data-anchor-id="tài-liệu-hướng-dẫn">Tài liệu hướng dẫn</h3>
+<p>Tài liệu hướng dẫn sử dụng ATLAS có thể được tra cứu trực tuyến tại trang wiki thuộc kho lưu trữ GitHub của ATLAS.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> Trang wiki này bao gồm thông tin chi tiết về các tính năng của ứng dụng cũng như liên kết đến các video hướng dẫn trực tuyến.</p>
 </section>
 <section id="cách-cài-đặt" class="level3">
 <h3 class="anchored" data-anchor-id="cách-cài-đặt">Cách cài đặt</h3>
-<p>Việc cài đặt ATLAS được thực hiện kết hợp với OHDSI WebAPI. Hướng dẫn cài đặt cho từng thành phần có sẵn trực tuyến trong Hướng dẫn thiết lập kho lưu trữ ATLAS GitHub5 và Hướng dẫn cài đặt kho lưu trữ WebAPI GitHub.6</p>
+<p>Việc cài đặt ATLAS được thực hiện kết hợp với OHDSI WebAPI. Hướng dẫn cài đặt chi tiết cho từng thành phần đều có sẵn trực tuyến tại Hướng dẫn thiết lập trên kho lưu trữ GitHub của ATLAS<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> và Hướng dẫn cài đặt trên kho lưu trữ GitHub của WebAPI.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
 </section>
 </section>
 <section id="thư-viện-phương-pháp-methods-library" class="level2">
-<h2 class="anchored" data-anchor-id="thư-viện-phương-pháp-methods-library">Thư viện phương pháp (Methods Library)</h2>
-<p>Thư viện phương pháp OHDSI là tập hợp các gói R mã nguồn mở được hiển thị trong Hình 8.4.</p>
-<p>Các gói này cung cấp các hàm R mà cùng nhau có thể được sử dụng để thực hiện một nghiên cứu quan sát hoàn chỉnh, bắt đầu từ dữ liệu trong CDM và dẫn đến các ước tính và các thống kê hỗ trợ, số liệu và bảng biểu. Các gói tương tác trực tiếp với dữ liệu quan sát trong CDM và có thể được sử dụng đơn giản để cung cấp khả năng tương thích đa nền tảng cho các phân tích tùy chỉnh hoàn toàn như được mô tả trong Chương 9, hoặc có thể cung cấp các phân tích chuẩn hóa nâng cao cho đặc điểm quần thể (Chương 11), ước tính tác động cấp độ quần thể (Chương 12) và dự đoán cấp độ bệnh nhân (Chương 13). Thư viện phương pháp hỗ trợ các phương pháp thực hành tốt nhất cho việc sử dụng dữ liệu quan sát và thiết kế nghiên cứu quan sát như đã học từ các nghiên cứu trước đây và đang diễn ra, chẳng hạn như tính minh bạch, khả năng tái lập, cũng như đo lường các đặc điểm vận hành của các phương pháp trong một bối cảnh cụ thể và hiệu chuẩn thực nghiệm các ước tính do các phương pháp đó tạo ra.</p>
-<p>Thư viện phương pháp đã được sử dụng trong nhiều nghiên cứu lâm sàng đã công bố (Boland và cộng sự, 2017; Duke và cộng sự, 2017; Ramcharran và cộng sự, 2017; Weinstein và cộng sự, 2017; Wang và cộng sự, 2017; Ryan và cộng sự, 2017, 2018; Vashisht và cộng sự, 2018; Yuan và cộng sự, 2018; Johnston và cộng sự, 2019), cũng như các nghiên cứu phương pháp luận. (Schuemie và cộng sự, 2014, 2016; Reps và cộng sự, 2018; Tian và cộng sự, 2018; Schuemie và cộng sự, 2018a,b; Reps và cộng sự, 2019) Tính hợp lệ của việc triển khai các phương pháp trong Thư viện phương pháp được mô tả trong Chương 17.</p>
+<h2 class="anchored" data-anchor-id="thư-viện-phương-pháp-methods-library">Thư viện Phương pháp (Methods Library)</h2>
+<p><a href="https://ohdsi.github.io/MethodsLibrary/">Thư viện Phương pháp OHDSI (OHDSI Methods Library)</a> là một bộ sưu tập các gói R mã nguồn mở được minh họa trong Hình 8.4.</p>
+<p><img src="media/image30.jpeg" style="width:5.11in;height:5.49062in"></p>
+<p><em>Hình 8.4: Các gói phần mềm trong Thư viện Phương pháp OHDSI.</em></p>
+<p>Các gói phần mềm này cung cấp các hàm R có thể kết hợp cùng nhau để thực hiện trọn vẹn một nghiên cứu quan sát hoàn chỉnh, bắt đầu từ dữ liệu thô trong CDM cho đến khi tạo ra các ước lượng thống kê cùng các chỉ số hỗ trợ, biểu đồ và bảng biểu. Các gói này tương tác trực tiếp với dữ liệu quan sát trong CDM, và có thể được sử dụng đơn giản để mang lại khả năng tương thích đa nền tảng cho các phân tích tùy chỉnh hoàn toàn (như mô tả trong Chương 9), hoặc cung cấp các quy trình phân tích chuẩn hóa chuyên sâu cho bài toán mô tả đặc trưng quần thể (Chương 11), ước lượng hiệu quả ở cấp độ quần thể (Chương 12) và dự báo ở cấp độ bệnh nhân (Chương 13). Thư viện Phương pháp hỗ trợ các thực hành tốt nhất (best practices) trong việc khai thác dữ liệu quan sát và thiết kế nghiên cứu quan sát được đúc kết từ các công trình nghiên cứu trước đây và hiện tại — chẳng hạn như đảm bảo tính minh bạch, tính tái lập, cũng như đo lường các đặc tính vận hành (operating characteristics) của phương pháp phân tích trong một bối cảnh cụ thể và thực hiện hiệu chuẩn thực nghiệm (empirical calibration) các ước lượng do phương pháp đó tạo ra.</p>
+<p>Thư viện Phương pháp đã được ứng dụng trong nhiều nghiên cứu lâm sàng đã công bố (Boland và cộng sự, 2017; Duke và cộng sự, 2017; Ramcharran và cộng sự, 2017; Weinstein và cộng sự, 2017; Wang và cộng sự, 2017; Ryan và cộng sự, 2017, 2018; Vashisht và cộng sự, 2018; Yuan và cộng sự, 2018; Johnston và cộng sự, 2019), cũng như trong các nghiên cứu về phương pháp luận (Schuemie và cộng sự, 2014, 2016; Reps và cộng sự, 2018; Tian và cộng sự, 2018; Schuemie và cộng sự, 2018a,b; Reps và cộng sự, 2019). Giá trị hợp lệ về mặt phần mềm của các phương pháp được triển khai trong Thư viện Phương pháp được trình bày tại Chương 17.</p>
 <section id="hỗ-trợ-phân-tích-quy-mô-lớn" class="level3">
 <h3 class="anchored" data-anchor-id="hỗ-trợ-phân-tích-quy-mô-lớn">Hỗ trợ phân tích quy mô lớn</h3>
-<p>Một tính năng chính được kết hợp trong tất cả các gói là khả năng chạy hiệu quả nhiều phân tích. Ví dụ, khi thực hiện ước tính cấp độ quần thể, gói CohortMethod</p>
-<p><sup>3</sup><a href="https://github.com/OHDSI/WebAPI/wiki/Security-Configuration" class="uri">https://github.com/OHDSI/WebAPI/wiki/Security-Configuration</a> <sup>4</sup><a href="https://github.com/OHDSI/ATLAS/wiki" class="uri">https://github.com/OHDSI/ATLAS/wiki</a> <sup>5</sup><a href="https://github.com/OHDSI/Atlas/wiki/Atlas-Setup-Guide" class="uri">https://github.com/OHDSI/Atlas/wiki/Atlas-Setup-Guide</a> <sup>6</sup><a href="https://github.com/OHDSI/WebAPI/wiki/WebAPI-Installation-Guide" class="uri">https://github.com/OHDSI/WebAPI/wiki/WebAPI-Installation-Guide</a></p>
-<p><img src="media/image30.jpeg" style="width:5.11in;height:5.49062in"></p>
-<p>Hình 8.4: Các gói trong Thư viện phương pháp OHDSI.</p>
-<p>cho phép tính toán các ước tính quy mô tác động cho nhiều phơi nhiễm và kết quả, sử dụng các cài đặt phân tích khác nhau và gói này sẽ tự động chọn cách tối ưu để tính toán tất cả các tập dữ liệu trung gian và cuối cùng cần thiết. Các bước có thể được tái sử dụng, chẳng hạn như trích xuất các biến đồng hành hoặc khớp một mô hình xu hướng được sử dụng cho một cặp mục tiêu-đối chứng nhưng nhiều kết quả, sẽ chỉ được thực thi một lần. Nếu có thể, các tính toán sẽ diễn ra song song để tối đa hóa việc sử dụng các tài nguyên tính toán.</p>
-<p>Hiệu quả tính toán này cho phép phân tích quy mô lớn, trả lời nhiều câu hỏi cùng một lúc và cũng rất cần thiết để bao gồm các giả thuyết kiểm soát (ví dụ: kiểm soát âm tính) để đo lường các đặc điểm vận hành của các phương pháp của chúng ta và thực hiện hiệu chuẩn thực nghiệm như được mô tả trong Chương 18.</p>
+<p>Một tính năng cốt lõi được tích hợp xuyên suốt trong tất cả các gói là khả năng vận hành hiệu quả hàng loạt phân tích cùng lúc. Ví dụ, khi thực hiện ước lượng hiệu quả ở cấp độ quần thể, gói <code>CohortMethod</code> cho phép tính toán các ước lượng độ lớn hiệu quả (effect-size estimates) cho nhiều cặp phơi nhiễm và kết cục với các thiết lập phân tích khác nhau; gói phần mềm sẽ tự động lựa chọn lộ trình tối ưu để tính toán toàn bộ các tập dữ liệu trung gian và tập dữ liệu đích cần thiết. Những bước có thể tái sử dụng — chẳng hạn như trích xuất các biến đồng hành (covariates) hoặc ước lượng một mô hình điểm xu hướng (propensity model) dùng chung cho một cặp đoàn hệ mục tiêu – đối chứng nhưng đánh giá trên nhiều kết cục khác nhau — sẽ chỉ cần thực thi duy nhất một lần. Ở những khâu khả thi, các phép tính sẽ được thực hiện song song để tận dụng tối đa tài nguyên tính toán của hệ thống.</p>
+<p>Hiệu năng tính toán vượt trội này mở đường cho việc thực hiện các phân tích quy mô lớn nhằm trả lời nhiều câu hỏi nghiên cứu cùng lúc, đồng thời đóng vai trò thiết yếu khi cần đưa vào các giả thuyết kiểm soát (control hypotheses, ví dụ: các nhóm chứng âm) để đo lường đặc tính vận hành của phương pháp nghiên cứu và tiến hành hiệu chuẩn thực nghiệm như được trình bày trong Chương 18.</p>
 </section>
 <section id="hỗ-trợ-dữ-liệu-lớn" class="level3">
 <h3 class="anchored" data-anchor-id="hỗ-trợ-dữ-liệu-lớn">Hỗ trợ dữ liệu lớn</h3>
-<p>Thư viện phương pháp cũng được thiết kế để chạy trên các cơ sở dữ liệu rất lớn và có thể thực hiện các tính toán liên quan đến lượng dữ liệu lớn. Điều này đạt được theo ba cách:</p>
+<p>Thư viện Phương pháp cũng được thiết kế để vận hành trên các cơ sở dữ liệu quy mô rất lớn và thực hiện các phép tính liên quan đến khối lượng dữ liệu khổng lồ. Khả năng này đạt được thông qua ba cơ chế:</p>
 <ol type="1">
-<li><p>Hầu hết việc thao tác dữ liệu được thực hiện trên máy chủ cơ sở dữ liệu. Một phân tích thường chỉ yêu cầu một phần nhỏ toàn bộ dữ liệu trong cơ sở dữ liệu và Thư viện phương pháp, thông qua các gói SqlRender và DatabaseConnector, cho phép các thao tác nâng cao được thực hiện trên máy chủ để tiền xử lý và trích xuất dữ liệu liên quan.</p></li>
-<li><p>Các đối tượng dữ liệu cục bộ lớn được lưu trữ theo cách tiết kiệm bộ nhớ. Đối với dữ liệu được tải xuống máy cục bộ, Thư viện phương pháp sử dụng gói ff để lưu trữ và làm việc với các đối tượng dữ liệu lớn. Điều này cho phép chúng ta làm việc với dữ liệu lớn hơn nhiều so với bộ nhớ hiện có.</p></li>
-<li><p>Tính toán hiệu năng cao được áp dụng khi cần thiết. Ví dụ, gói Cyclops triển khai một công cụ hồi quy hiệu quả cao được sử dụng trong toàn bộ Thư viện phương pháp để thực hiện các hồi quy quy mô lớn (số lượng biến lớn, số lượng quan sát lớn) mà nếu không thì không thể thực hiện được.</p></li>
+<li><p>Phần lớn các thao tác xử lý dữ liệu được thực hiện trực tiếp trên máy chủ cơ sở dữ liệu. Một phân tích thông thường chỉ cần đến một phần nhỏ trong toàn bộ cơ sở dữ liệu, và Thư viện Phương pháp — thông qua hai gói <code>SqlRender</code> và <code>DatabaseConnector</code> — cho phép thực hiện các phép biến đổi nâng cao ngay trên máy chủ để tiền xử lý và chỉ trích xuất những dữ liệu thực sự liên quan.</p></li>
+<li><p>Các đối tượng dữ liệu cục bộ có kích thước lớn được lưu trữ theo cơ chế tiết kiệm bộ nhớ. Đối với phần dữ liệu được tải về máy trạm cục bộ, Thư viện Phương pháp sử dụng gói <a href="https://cran.r-project.org/web/packages/ff">ff</a> để lưu trữ trên ổ đĩa và thao tác với các đối tượng dữ liệu lớn. Nhờ đó, chúng ta có thể làm việc với khối lượng dữ liệu lớn hơn rất nhiều so với dung lượng bộ nhớ RAM hiện có.</p></li>
+<li><p>Áp dụng tính toán hiệu năng cao (high-performance computing) ở những khâu cần thiết. Ví dụ, gói <a href="https://ohdsi.github.io/Cyclops/">Cyclops</a> triển khai một bộ máy tính toán hồi quy hiệu suất cao được sử dụng xuyên suốt trong Thư viện Phương pháp để giải các bài toán hồi quy quy mô lớn (số lượng biến số lớn, số lượng quan sát lớn) mà các công cụ thông thường không thể ước lượng nổi.</p></li>
 </ol>
 </section>
-<section id="tài-liệu-1" class="level3">
-<h3 class="anchored" data-anchor-id="tài-liệu-1">Tài liệu</h3>
-<p>R cung cấp một cách tiêu chuẩn để lập tài liệu cho các gói. Mỗi gói có một hướng dẫn sử dụng gói ghi lại mọi hàm và tập dữ liệu có trong gói. Tất cả các hướng dẫn sử dụng gói đều có sẵn trực tuyến thông qua trang web Thư viện phương pháp7, thông qua các kho lưu trữ GitHub của gói và đối với những gói có sẵn thông qua CRAN, chúng có thể được tìm thấy trong CRAN. Hơn nữa, từ trong R, hướng dẫn sử dụng gói có thể được tham khảo bằng cách sử dụng dấu chấm hỏi. Ví dụ, sau khi tải gói DatabaseConnector, gõ lệnh</p>
-<p>?connect sẽ hiển thị tài liệu về hàm “connect”.</p>
-<p>Ngoài hướng dẫn sử dụng gói, nhiều gói còn cung cấp các đoạn tài liệu (vignettes). Các đoạn tài liệu này là tài liệu dạng dài mô tả cách sử dụng một gói để thực hiện các tác vụ nhất định. Ví dụ, một đoạn tài liệu8 mô tả cách thực hiện nhiều phân tích một cách hiệu quả bằng cách sử dụng</p>
-<p><sup>7</sup><a href="https://ohdsi.github.io/MethodsLibrary" class="uri">https://ohdsi.github.io/MethodsLibrary</a> <sup>8</sup><a href="https://ohdsi.github.io/CohortMethod/articles/MultipleAnalyses.html" class="uri">https://ohdsi.github.io/CohortMethod/articles/MultipleAnalyses.html</a></p>
-<p>gói CohortMethod. Các đoạn tài liệu cũng có thể được tìm thấy thông qua trang web Thư viện phương pháp, thông qua các kho lưu trữ GitHub của gói và đối với những gói có sẵn thông qua CRAN, chúng có thể được tìm thấy trong CRAN.</p>
+<section id="tài-liệu-hướng-dẫn-1" class="level3">
+<h3 class="anchored" data-anchor-id="tài-liệu-hướng-dẫn-1">Tài liệu hướng dẫn</h3>
+<p>Ngôn ngữ R cung cấp một chuẩn mực thống nhất để biên soạn tài liệu cho các gói phần mềm. Mỗi gói đều có một <em>cẩm nang hướng dẫn gói (package manual)</em> ghi lại chi tiết mọi hàm và tập dữ liệu có trong gói đó. Toàn bộ cẩm nang hướng dẫn đều được công bố trực tuyến trên trang web của Thư viện Phương pháp<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>, trên các kho lưu trữ GitHub tương ứng của từng gói, và trên hệ thống CRAN đối với những gói đã được phát hành qua CRAN. Hơn nữa, ngay trong môi trường R, người dùng có thể tra cứu tài liệu hướng dẫn bằng cách sử dụng dấu chấm hỏi (<code>?</code>). Ví dụ, sau khi nạp gói <code>DatabaseConnector</code>, việc gõ lệnh <code>?connect</code> sẽ hiển thị tài liệu hướng dẫn chi tiết về hàm <code>"connect"</code>.</p>
+<p>Bên cạnh cẩm nang tra cứu hàm, nhiều gói phần mềm còn cung cấp các <em>chuyên đề hướng dẫn thực hành (vignettes)</em>. Đây là những tài liệu chuyên sâu mô tả quy trình sử dụng một gói phần mềm để giải quyết các tác vụ hoàn chỉnh. Ví dụ, có một chuyên đề hướng dẫn<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> trình bày chi tiết cách thực hiện đồng thời nhiều phân tích một cách hiệu quả bằng gói <code>CohortMethod</code>. Các chuyên đề hướng dẫn này cũng có thể được tìm thấy trên trang web của Thư viện Phương pháp, trên kho lưu trữ GitHub của từng gói, và trên CRAN đối với các gói có mặt trên CRAN.</p>
 </section>
 <section id="yêu-cầu-hệ-thống" class="level3">
 <h3 class="anchored" data-anchor-id="yêu-cầu-hệ-thống">Yêu cầu hệ thống</h3>
-<p>Hai môi trường tính toán có liên quan khi thảo luận về các yêu cầu hệ thống: Máy chủ cơ sở dữ liệu và máy trạm phân tích.</p>
-<p>Máy chủ cơ sở dữ liệu phải lưu trữ dữ liệu chăm sóc sức khỏe quan sát ở định dạng CDM. Thư viện phương pháp hỗ trợ nhiều hệ quản trị cơ sở dữ liệu bao gồm các hệ thống cơ sở dữ liệu truyền thống (PostgreSQL, Microsoft SQL Server và Oracle), kho dữ liệu song song (Microsoft APS, IBM Netezza và Amazon Redshift), cũng như các nền tảng Dữ liệu lớn (Hadoop thông qua Impala và Google BigQuery).</p>
-<p>Máy trạm phân tích là nơi Thư viện phương pháp được cài đặt và chạy. Đây có thể là một máy cục bộ, chẳng hạn như máy tính xách tay của ai đó, hoặc một máy chủ từ xa chạy RStudio Server. Trong mọi trường hợp, các yêu cầu là R phải được cài đặt, tốt nhất là cùng với RStudio. Thư viện phương pháp cũng yêu cầu phải cài đặt Java. Máy trạm phân tích cũng phải có khả năng kết nối với máy chủ cơ sở dữ liệu, cụ thể là bất kỳ tường lửa nào giữa chúng phải mở các cổng truy cập máy chủ cơ sở dữ liệu cho máy trạm. Một số phân tích có thể đòi hỏi nhiều tài nguyên tính toán, vì vậy việc có nhiều lõi xử lý và bộ nhớ dồi dào có thể giúp tăng tốc các phân tích. Chúng tôi khuyên bạn nên có ít nhất bốn lõi và 16 gigabyte bộ nhớ.</p>
+<p>Có hai môi trường tính toán cần được xem xét khi thảo luận về yêu cầu hệ thống: máy chủ cơ sở dữ liệu (database server) và máy trạm phân tích (analytics workstation).</p>
+<p>Máy chủ cơ sở dữ liệu là nơi lưu trữ dữ liệu chăm sóc sức khỏe quan sát theo định dạng chuẩn CDM. Thư viện Phương pháp hỗ trợ một danh mục rộng rãi các hệ quản trị cơ sở dữ liệu, bao gồm các hệ cơ sở dữ liệu quan hệ truyền thống (PostgreSQL, Microsoft SQL Server và Oracle), các hệ thống kho dữ liệu xử lý song song (Microsoft APS, IBM Netezza và Amazon Redshift), cũng như các nền tảng Dữ liệu lớn (Hadoop thông qua Impala và Google BigQuery).</p>
+<p>Máy trạm phân tích là nơi cài đặt và vận hành Thư viện Phương pháp. Đây có thể là một máy tính cá nhân cục bộ (chẳng hạn máy tính xách tay của nhà nghiên cứu), hoặc một máy chủ từ xa chạy RStudio Server. Trong mọi trường hợp, yêu cầu bắt buộc là máy trạm phải được cài đặt R, và tốt nhất là đi kèm với RStudio. Thư viện Phương pháp cũng yêu cầu máy trạm phải cài đặt môi trường Java. Ngoài ra, máy trạm phân tích cần có khả năng kết nối mạng tới máy chủ cơ sở dữ liệu — cụ thể là bất kỳ tường lửa nào nằm giữa hai hệ thống đều phải mở cổng truy cập máy chủ cơ sở dữ liệu cho máy trạm. Một số tác vụ phân tích có thể tiêu tốn nhiều tài nguyên tính toán, do đó việc trang bị bộ vi xử lý đa nhân và dung lượng bộ nhớ RAM dồi dào sẽ giúp tăng tốc đáng kể quá trình chạy phân tích. Chúng tôi khuyến nghị cấu hình tối thiểu gồm 4 nhân xử lý (cores) và 16 GB bộ nhớ RAM.</p>
 </section>
 <section id="cách-cài-đặt-1" class="level3">
 <h3 class="anchored" data-anchor-id="cách-cài-đặt-1">Cách cài đặt</h3>
-<p>Dưới đây là các bước cài đặt môi trường cần thiết để chạy các gói R của OHDSI. Cần cài đặt bốn thứ:</p>
+<p>Dưới đây là các bước thiết lập môi trường cần thiết để vận hành các gói R của OHDSI. Có bốn thành phần phần mềm cần được cài đặt:</p>
 <ol type="1">
-<li><p><strong>R là một môi trường tính toán thống kê. Nó đi kèm với một giao diện người dùng cơ bản chủ yếu là giao diện dòng lệnh.</strong></p></li>
-<li><p><strong>Rtools là một tập hợp các chương trình cần thiết trên Windows để xây dựng các gói R từ mã nguồn.</strong></p></li>
-<li><p><strong>RStudio là một IDE (Môi trường phát triển tích hợp) giúp sử dụng R dễ dàng hơn. Nó bao gồm trình soạn thảo mã, các công cụ gỡ lỗi và trực quan hóa. Vui lòng sử dụng nó để có trải nghiệm R tốt hơn.</strong></p></li>
-<li><p><strong>Java là một môi trường tính toán cần thiết để chạy một số thành phần trong các gói R của OHDSI, ví dụ như những thành phần cần thiết để kết nối với cơ sở dữ liệu.</strong></p></li>
+<li><strong>R</strong> là môi trường tính toán thống kê. Phần mềm này đi kèm với một giao diện người dùng cơ bản, chủ yếu hoạt động theo cơ chế dòng lệnh.</li>
+<li><strong>Rtools</strong> là bộ công cụ cần thiết trên hệ điều hành Windows để biên dịch và xây dựng các gói R từ mã nguồn (source packages).</li>
+<li><strong>RStudio</strong> là một môi trường phát triển tích hợp (IDE) giúp việc sử dụng R trở nên thuận tiện và trực quan hơn. RStudio bao gồm trình soạn thảo mã nguồn, công cụ gỡ lỗi và hiển thị biểu đồ trực quan. Bạn nên sử dụng RStudio để có trải nghiệm làm việc tốt nhất với R.</li>
+<li><strong>Java</strong> là môi trường thực thi cần thiết để chạy một số thành phần bên trong các gói R của OHDSI, chẳng hạn như các trình điều khiển dùng để kết nối với cơ sở dữ liệu.</li>
 </ol>
-<p>Dưới đây chúng tôi mô tả cách cài đặt từng thành phần này trong môi trường Windows.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="media/image6.png" style="width:0.455in;height:0.455in" class="figure-img"></p>
-<figcaption>In Windows, both R and Java come in 32-bit and 64-bits architectures. If you install R in both architectures, you <strong>must</strong> also install Java in both architectures. It is recommended to only install the 64-bit version of R.</figcaption>
-</figure>
+<p>Dưới đây, chúng tôi hướng dẫn chi tiết cách cài đặt từng thành phần này trên môi trường hệ điều hành Windows.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Điểm quan trọng">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Điểm quan trọng
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Trên hệ điều hành Windows, cả R và Java đều có hai phiên bản kiến trúc 32-bit và 64-bit. Nếu bạn cài đặt R ở cả hai kiến trúc, bạn <strong>bắt buộc</strong> phải cài đặt Java ở cả hai kiến trúc tương ứng. Chúng tôi khuyến nghị bạn chỉ nên cài đặt phiên bản R 64-bit.</p>
+</div>
 </div>
 <section id="cài-đặt-r" class="level4">
 <h4 class="anchored" data-anchor-id="cài-đặt-r">Cài đặt R</h4>
 <ol type="1">
-<li>Truy cập https://cran.r-project.org/, nhấp vào “Download R for Windows”, sau đó chọn “base”, sau đó nhấp vào liên kết Tải xuống được chỉ ra trong Hình 8.5.</li>
+<li>Truy cập <a href="https://cran.r-project.org/">https://cran.r-project.org/</a>, nhấp vào liên kết “Download R for Windows”, sau đó chọn “base”, rồi nhấp vào liên kết tải xuống như minh họa trong Hình 8.5.</li>
 </ol>
 <p><img src="media/image31.jpeg" style="width:5.29437in;height:1.17354in"></p>
-<p>Hình 8.5: Tải xuống R từ CRAN.</p>
+<p><em>Hình 8.5: Tải xuống R từ CRAN.</em></p>
 <ol start="2" type="1">
-<li>Sau khi quá trình tải xuống hoàn tất, hãy chạy trình cài đặt. Sử dụng các tùy chọn mặc định ở mọi nơi, với hai ngoại lệ: Thứ nhất, tốt hơn là không nên cài đặt vào thư mục tệp chương trình (program files). Thay vào đó, chỉ cần tạo R thành một thư mục con của ổ C của bạn như được hiển thị trong Hình 8.6. Thứ hai, để tránh các vấn đề do kiến trúc khác biệt giữa R và Java, hãy vô hiệu hóa kiến trúc 32-bit như được hiển thị trong Hình 8.7.</li>
+<li>Sau khi tải xuống hoàn tất, hãy khởi chạy trình cài đặt. Giữ nguyên các tùy chọn mặc định ở tất cả các bước, ngoại trừ hai điểm lưu ý sau: Thứ nhất, không nên cài đặt R vào thư mục <code>Program Files</code>; thay vào đó, hãy cài đặt R vào một thư mục con trực tiếp trên ổ đĩa C như minh họa trong Hình 8.6. Thứ hai, để tránh xung đột do khác biệt kiến trúc giữa R và Java, hãy bỏ chọn phiên bản kiến trúc 32-bit như minh họa trong Hình 8.7.</li>
 </ol>
 <p><img src="media/image32.png" style="width:4.275in;height:3.31667in"></p>
-<p>Hình 8.6: Cài đặt thư mục đích cho R. Sau khi hoàn tất, bạn sẽ có thể chọn R từ Menu Bắt đầu (Start Menu) của mình.</p>
+<p><em>Hình 8.6: Thiết lập thư mục đích khi cài đặt R.</em></p>
 <p><img src="media/image33.png" style="width:4.275in;height:3.31667in"></p>
-<p>Hình 8.7: Vô hiệu hóa phiên bản 32-bit của R.</p>
+<p><em>Hình 8.7: Bỏ chọn cài đặt phiên bản 32-bit của R.</em></p>
+<p>Sau khi hoàn tất, bạn sẽ có thể mở R từ trình đơn Start Menu của Windows.</p>
 </section>
 <section id="cài-đặt-rtools" class="level4">
 <h4 class="anchored" data-anchor-id="cài-đặt-rtools">Cài đặt Rtools</h4>
 <ol type="1">
-<li><p>Truy cập https://cran.r-project.org/, nhấp vào “Download R for Windows”, sau đó chọn “Rtools” và chọn phiên bản Rtools mới nhất để tải xuống.</p></li>
-<li><p>Sau khi tải xuống hoàn tất, hãy chạy trình cài đặt. Chọn các tùy chọn mặc định ở mọi nơi.</p></li>
+<li><p>Truy cập <a href="https://cran.r-project.org/">https://cran.r-project.org/</a>, nhấp vào “Download R for Windows”, tiếp tục chọn “Rtools” và chọn phiên bản Rtools mới nhất để tải xuống.</p></li>
+<li><p>Sau khi tải xuống hoàn tất, hãy chạy trình cài đặt và giữ nguyên các tùy chọn mặc định ở mọi bước.</p></li>
 </ol>
 </section>
 <section id="cài-đặt-rstudio" class="level4">
 <h4 class="anchored" data-anchor-id="cài-đặt-rstudio">Cài đặt RStudio</h4>
 <ol type="1">
-<li>Truy cập https://www.rstudio.com/, chọn “Download RStudio” (hoặc nút “Download” bên dưới “RStudio”), chọn phiên bản miễn phí và tải xuống trình cài đặt cho Windows như được hiển thị trong Hình 8.8.</li>
+<li>Truy cập <a href="https://www.rstudio.com/">https://www.rstudio.com/</a>, chọn “Download RStudio” (hoặc nút “Download” bên dưới mục “RStudio”), chọn phiên bản miễn phí (Free) và tải xuống bộ cài đặt dành cho Windows như hiển thị trong Hình 8.8.</li>
 </ol>
 <p><img src="media/image34.jpeg" style="width:5.15167in;height:1.34333in"></p>
-<p>Hình 8.8: Tải xuống RStudio.</p>
+<p><em>Hình 8.8: Tải xuống RStudio.</em></p>
 <ol start="2" type="1">
-<li>Sau khi tải xuống, hãy khởi động trình cài đặt và sử dụng các tùy chọn mặc định ở mọi nơi.</li>
+<li>Sau khi tải xuống, hãy khởi chạy trình cài đặt và giữ nguyên các tùy chọn mặc định.</li>
 </ol>
 </section>
 <section id="cài-đặt-java" class="level4">
 <h4 class="anchored" data-anchor-id="cài-đặt-java">Cài đặt Java</h4>
 <ol type="1">
-<li>Truy cập https://java.com/en/download/manual.jsp và chọn trình cài đặt Windows 64-bit như được hiển thị trong Hình 8.9. Nếu bạn cũng đã cài đặt phiên bản R 32-bit, bạn cũng phải cài đặt phiên bản Java khác (32-bit).</li>
+<li>Truy cập <a href="https://java.com/en/download/manual.jsp">https://java.com/en/download/manual.jsp</a> và chọn bộ cài đặt Windows 64-bit (<code>Windows Offline (64-bit)</code>) như minh họa trong Hình 8.9. Lưu ý: nếu bạn đã cài đặt cả phiên bản R 32-bit, bạn <em>bắt buộc</em> phải cài đặt thêm phiên bản Java 32-bit tương ứng.</li>
 </ol>
 <p><img src="media/image35.jpeg" style="width:4.44833in;height:1.26833in"></p>
-<p>Hình 8.9: Tải xuống Java.</p>
+<p><em>Hình 8.9: Tải xuống Java.</em></p>
 <ol start="2" type="1">
-<li>Sau khi tải xuống, chỉ cần chạy trình cài đặt.</li>
+<li>Sau khi tải xuống, hãy chạy trình cài đặt theo hướng dẫn mặc định.</li>
 </ol>
 </section>
-<section id="xác-minh-cài-đặt" class="level4">
-<h4 class="anchored" data-anchor-id="xác-minh-cài-đặt">Xác minh cài đặt</h4>
-<p>Bây giờ bạn đã sẵn sàng, nhưng chúng ta nên kiểm tra lại. Khởi động RStudio và gõ</p>
-<p><strong>install.packages</strong>("SqlRender") <strong>library</strong>(SqlRender)</p>
-<p><strong>translate</strong>("SELECT TOP 10 * FROM person;", "postgresql")</p>
-<p>## [1] "CHỌN * TỪ GIỚI HẠN người 10;"</p>
-<p>Hàm này sử dụng Java, vì vậy nếu mọi thứ diễn ra tốt đẹp, chúng ta biết rằng cả R và Java đã được cài đặt chính xác!</p>
-<p>Một thử nghiệm khác là xem liệu các gói nguồn có thể được xây dựng hay không. Chạy mã R sau để cài đặt gói CohortMethod từ kho lưu trữ GitHub của OHDSI:</p>
-<p><strong>install.packages</strong>("drat") drat<strong>::addRepo</strong>("OHDSI") <strong>install.packages</strong>("CohortMethod")</p>
+<section id="kiểm-tra-xác-nhận-cài-đặt" class="level4">
+<h4 class="anchored" data-anchor-id="kiểm-tra-xác-nhận-cài-đặt">Kiểm tra xác nhận cài đặt</h4>
+<p>Bây giờ môi trường làm việc của bạn đã sẵn sàng, nhưng chúng ta nên thực hiện một bước kiểm tra để chắc chắn mọi thứ hoạt động tốt. Hãy khởi động RStudio và nhập các lệnh sau:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"SqlRender"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SqlRender)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">translate</span>(<span class="st">"SELECT TOP 10 * FROM person;"</span>, <span class="st">"postgresql"</span>)</span></code><button title="Sao chép mã" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>## [1] "SELECT * FROM person LIMIT 10;"</code></pre>
+<p>Hàm này có sử dụng Java ở tầng dưới, vì vậy nếu kết quả trả về đúng như trên thì chúng ta biết chắc rằng cả R và Java đều đã được cài đặt thành công!</p>
+<p>Một bài kiểm tra khác là xác nhận xem hệ thống có thể biên dịch các gói phần mềm từ mã nguồn hay không. Hãy chạy đoạn mã R dưới đây để cài đặt gói <code>CohortMethod</code> từ kho lưu trữ của OHDSI:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"drat"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>drat<span class="sc">::</span><span class="fu">addRepo</span>(<span class="st">"OHDSI"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"CohortMethod"</span>)</span></code><button title="Sao chép mã" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 </section>
-<section id="chiến-lược-triển-khai" class="level2">
-<h2 class="anchored" data-anchor-id="chiến-lược-triển-khai">Chiến lược triển khai</h2>
-<p>Việc triển khai toàn bộ ngăn xếp công cụ OHDSI, bao gồm ATLAS và Thư viện phương pháp, trong một tổ chức là một nhiệm vụ khó khăn. Có nhiều thành phần với các phụ thuộc cần được xem xét và các cấu hình cần thiết lập. Vì lý do này, hai sáng kiến đã phát triển các chiến lược triển khai tích hợp cho phép toàn bộ ngăn xếp được cài đặt như một gói, sử dụng một số hình thức ảo hóa: Broadsea và Amazon Web Services (AWS).</p>
-<ol start="5" type="1">
-<li><em>Chiến lược triển khai 119</em></li>
-</ol>
+<section id="chiến-lược-triển-khai-hệ-thống" class="level2">
+<h2 class="anchored" data-anchor-id="chiến-lược-triển-khai-hệ-thống">Chiến lược triển khai hệ thống</h2>
+<p>Việc triển khai toàn bộ hệ sinh thái công cụ OHDSI — bao gồm ATLAS và Thư viện Phương pháp — trong hạ tầng công nghệ thông tin của một tổ chức có thể là một thách thức lớn. Hệ thống có nhiều thành phần đi kèm các gói phụ thuộc (dependencies) cần được tính đến và nhiều thông số cấu hình cần thiết lập chính xác. Vì lý do đó, hai sáng kiến đã được phát triển nhằm cung cấp các giải pháp triển khai tích hợp, cho phép cài đặt toàn bộ hệ thống công cụ như một gói duy nhất thông qua công nghệ ảo hóa: Broadsea và Amazon Web Services (AWS).</p>
 <section id="broadsea" class="level3">
 <h3 class="anchored" data-anchor-id="broadsea">Broadsea</h3>
-<p>Broadsea9 sử dụng công nghệ container Docker.10 Các công cụ OHDSI được đóng gói cùng với các phụ thuộc thành một tệp nhị phân di động duy nhất gọi là Docker Image. Hình ảnh này sau đó có thể được chạy trên một dịch vụ công cụ Docker, tạo ra một máy ảo với tất cả phần mềm đã được cài đặt và sẵn sàng chạy. Các công cụ Docker có sẵn cho hầu hết các hệ điều hành, bao gồm Microsoft Windows, MacOS và Linux. Hình ảnh Docker Broadsea chứa các công cụ OHDSI chính, bao gồm Thư viện phương pháp và ATLAS.</p>
+<p>Broadsea<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> ứng dụng công nghệ container của Docker.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> Toàn bộ các công cụ OHDSI cùng các thư viện phụ thuộc được đóng gói thành một tệp ảnh nhị phân di động duy nhất gọi là Docker Image. Tệp ảnh này sau đó có thể được khởi chạy trên dịch vụ Docker Engine, tạo ra một môi trường ảo hóa với đầy đủ phần mềm đã được cài đặt sẵn và sẵn sàng vận hành. Docker Engine hiện hỗ trợ hầu hết các hệ điều hành phổ biến, bao gồm Microsoft Windows, macOS và Linux. Tệp ảnh Docker của Broadsea tích hợp sẵn các công cụ cốt lõi của OHDSI, bao gồm cả Thư viện Phương pháp và nền tảng ATLAS.</p>
 </section>
 <section id="amazon-aws" class="level3">
 <h3 class="anchored" data-anchor-id="amazon-aws">Amazon AWS</h3>
-<p>Amazon đã chuẩn bị hai môi trường có thể được khởi tạo trong môi trường điện toán đám mây AWS chỉ với một cú nhấp chuột: OHDSI-in-a-Box11 và OHDSIonAWS.12</p>
-<p>OHDSI-in-a-Box được tạo riêng làm môi trường học tập và được sử dụng trong hầu hết các hướng dẫn do cộng đồng OHDSI cung cấp. Nó bao gồm nhiều công cụ OHDSI, các tập dữ liệu mẫu, RStudio và các phần mềm hỗ trợ khác trong một máy ảo Windows chi phí thấp duy nhất. Một cơ sở dữ liệu PostgreSQL được sử dụng để lưu trữ CDM và cũng để lưu trữ các kết quả trung gian từ ATLAS. Các công cụ ánh xạ dữ liệu OMOP CDM và ETL cũng được bao gồm trong OHDSI-in-a-Box. Kiến trúc cho OHDSI-in-a-Box được mô tả trong Hình 8.10.</p>
+<p>Amazon đã xây dựng sẵn hai môi trường mẫu có thể được khởi tạo nhanh chóng trên hạ tầng điện toán đám mây AWS chỉ với một cú nhấp chuột: OHDSI-in-a-Box<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a> và OHDSIonAWS.<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a></p>
+<p>OHDSI-in-a-Box được thiết kế chuyên biệt làm môi trường học tập và thực hành, đồng thời được sử dụng trong hầu hết các khóa tập huấn do cộng đồng OHDSI tổ chức. Môi trường này tích hợp sẵn nhiều công cụ OHDSI, các tập dữ liệu mẫu, RStudio cùng các phần mềm bổ trợ khác bên trong một máy ảo Windows chi phí thấp duy nhất. Hệ quản trị cơ sở dữ liệu PostgreSQL được sử dụng để lưu trữ dữ liệu CDM cũng như các kết quả trung gian từ ATLAS. Các công cụ ánh xạ dữ liệu và xây dựng quy trình ETL sang OMOP CDM cũng được cài đặt sẵn trong OHDSI-in-a-Box. Kiến trúc của OHDSI-in-a-Box được minh họa trong Hình 8.10.</p>
 <p><img src="media/image36.jpeg" style="width:5.32573in;height:1.37958in"></p>
-<p>Hình 8.10: Kiến trúc Amazon Web Services cho OHDSI-in-a-Box.</p>
-<p>OHDSIonAWS là một kiến trúc tham chiếu cho các môi trường OHDSI cấp doanh nghiệp, đa người dùng, có thể mở rộng và chịu lỗi, có thể được các tổ chức sử dụng để thực hiện phân tích dữ liệu của họ. Nó bao gồm một số tập dữ liệu mẫu và cũng có thể tự động tải dữ liệu chăm sóc sức khỏe thực tế của tổ chức bạn. Dữ liệu được đặt trong nền tảng cơ sở dữ liệu Amazon Redshift, được các công cụ OHDSI hỗ trợ. Các kết quả trung gian của ATLAS được lưu trữ trong cơ sở dữ liệu PostgreSQL. Ở giao diện người dùng, người dùng có quyền truy cập vào ATLAS và RStudio thông qua giao diện web (tận dụng RStudio Server). Trong RStudio, Thư viện phương pháp OHDSI đã được cài đặt và có thể được sử dụng để kết nối với các cơ sở dữ liệu. Tự động hóa để triển khai OHDSIonAWS là mã nguồn mở và có thể được tùy chỉnh để bao gồm</p>
-<p><sup>9</sup><a href="https://github.com/OHDSI/Broadsea" class="uri">https://github.com/OHDSI/Broadsea</a> <sup>10</sup><a href="https://www.docker.com/" class="uri">https://www.docker.com/</a> <sup>11</sup><a href="https://github.com/OHDSI/OHDSI-in-a-Box" class="uri">https://github.com/OHDSI/OHDSI-in-a-Box</a> <sup>12</sup><a href="https://github.com/OHDSI/OHDSIonAWS" class="uri">https://github.com/OHDSI/OHDSIonAWS</a></p>
-<p>các công cụ quản lý và các phương pháp thực hành tốt nhất của tổ chức bạn. Kiến trúc cho OHDSIonAWS được mô tả trong Hình 8.11.</p>
+<p><em>Hình 8.10: Kiến trúc Amazon Web Services cho OHDSI-in-a-Box.</em></p>
+<p>OHDSIonAWS là một kiến trúc tham chiếu hướng tới các môi trường OHDSI cấp doanh nghiệp — hỗ trợ đa người dùng, có khả năng mở rộng linh hoạt (scalable) và chịu lỗi cao (fault tolerant) — giúp các tổ chức triển khai hoạt động phân tích dữ liệu quy mô lớn của mình. Hệ thống này bao gồm một số tập dữ liệu mẫu và cũng có thể tự động nạp dữ liệu chăm sóc sức khỏe thực tế của tổ chức bạn. Dữ liệu được lưu trữ trên nền tảng kho dữ liệu đám mây Amazon Redshift vốn được các công cụ OHDSI hỗ trợ đầy đủ. Các kết quả trung gian của ATLAS được lưu trữ trong một cơ sở dữ liệu PostgreSQL. Ở tầng giao diện người dùng (front end), các nhà nghiên cứu có thể truy cập vào ATLAS và RStudio thông qua trình duyệt web (sử dụng RStudio Server). Bên trong RStudio, Thư viện Phương pháp OHDSI đã được cài đặt sẵn và có thể dùng để kết nối trực tiếp tới các cơ sở dữ liệu. Toàn bộ mã lệnh tự động hóa việc triển khai OHDSIonAWS đều là mã nguồn mở và có thể tùy biến để tích hợp các công cụ quản trị cũng như quy chuẩn bảo mật của từng tổ chức. Kiến trúc của OHDSIonAWS được mô tả trong Hình 8.11.</p>
 <p><img src="media/image37.jpeg" style="width:5.21875in;height:2.53646in"></p>
-<p>Hình 8.11: Kiến trúc Amazon Web Services cho OHDSIonAWS.</p>
+<p><em>Hình 8.11: Kiến trúc Amazon Web Services cho OHDSIonAWS.</em></p>
 </section>
 </section>
 <section id="tóm-tắt" class="level2">
 <h2 class="anchored" data-anchor-id="tóm-tắt">Tóm tắt</h2>
-<p><img src="media/image4.png" class="book-icon" style="width:0.44552in;height:0.46448in"></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Tóm tắt chương">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tóm tắt chương
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><p>We can perform analyses against data in the CDM by</p></li>
-<li><p>writing custom code</p></li>
-<li><p>writing code that uses the R packages in the OHDSI Methods Library</p></li>
-<li><p>using the interactive analysis platform ATLAS</p></li>
-<li><p>OHDSI tools use different analysis strategies</p></li>
-<li><p>Single studies</p></li>
-<li><p>Real-time queries</p></li>
-<li><p>Large-scale analytics</p></li>
-<li><p>The majority of OHDSI analytics tool are embedded in</p></li>
-<li><p>The interactive analysis platform ATLAS</p></li>
-<li><p>The OHDSI Methods Library R packages</p></li>
-<li><p>Several strategies exist facilitating the deployment of the OHDSI tools.</p></li>
+<li>Chúng ta có thể thực hiện các phân tích trên dữ liệu chuẩn hóa theo CDM bằng cách:
+<ul>
+<li>Viết mã lệnh tùy chỉnh (custom code)</li>
+<li>Viết mã lệnh sử dụng các gói R trong Thư viện Phương pháp OHDSI (OHDSI Methods Library)</li>
+<li>Sử dụng nền tảng phân tích tương tác ATLAS</li>
+</ul></li>
+<li>Các công cụ của OHDSI áp dụng nhiều chiến lược phân tích khác nhau:
+<ul>
+<li>Nghiên cứu đơn lẻ (Single studies)</li>
+<li>Truy vấn thời gian thực (Real-time queries)</li>
+<li>Phân tích quy mô lớn (Large-scale analytics)</li>
+</ul></li>
+<li>Phần lớn các công cụ phân tích của OHDSI được tích hợp trong:
+<ul>
+<li>Nền tảng phân tích tương tác ATLAS</li>
+<li>Các gói R thuộc Thư viện Phương pháp OHDSI</li>
+</ul></li>
+<li>Có nhiều giải pháp kiến trúc giúp đơn giản hóa việc triển khai đồng bộ hệ sinh thái công cụ OHDSI.</li>
 </ul>
-<p><span id="_bookmark224" class="anchor"></span>Chương 9</p>
+</div>
+</div>
 
-
-<!-- -->
 
 </section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><a href="http://data.ohdsi.org/SystematicEvidence/" class="uri">http://data.ohdsi.org/SystematicEvidence/</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="http://www.ohdsi.org/web/atlas" class="uri">http://www.ohdsi.org/web/atlas</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://github.com/OHDSI/WebAPI/wiki/Security-Configuration" class="uri">https://github.com/OHDSI/WebAPI/wiki/Security-Configuration</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://github.com/OHDSI/ATLAS/wiki" class="uri">https://github.com/OHDSI/ATLAS/wiki</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><a href="https://github.com/OHDSI/Atlas/wiki/Atlas-Setup-Guide" class="uri">https://github.com/OHDSI/Atlas/wiki/Atlas-Setup-Guide</a><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><a href="https://github.com/OHDSI/WebAPI/wiki/WebAPI-Installation-Guide" class="uri">https://github.com/OHDSI/WebAPI/wiki/WebAPI-Installation-Guide</a><a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p><a href="https://ohdsi.github.io/MethodsLibrary" class="uri">https://ohdsi.github.io/MethodsLibrary</a><a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p><a href="https://ohdsi.github.io/CohortMethod/articles/MultipleAnalyses.html" class="uri">https://ohdsi.github.io/CohortMethod/articles/MultipleAnalyses.html</a><a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p><a href="https://github.com/OHDSI/Broadsea" class="uri">https://github.com/OHDSI/Broadsea</a><a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p><a href="https://www.docker.com/" class="uri">https://www.docker.com/</a><a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p><a href="https://github.com/OHDSI/OHDSI-in-a-Box" class="uri">https://github.com/OHDSI/OHDSI-in-a-Box</a><a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p><a href="https://github.com/OHDSI/OHDSIonAWS" class="uri">https://github.com/OHDSI/OHDSIonAWS</a><a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->
@@ -832,12 +847,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Đã sao chép!");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Đã sao chép!");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
@@ -857,57 +872,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -1247,8 +1211,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./07_use_cases.html" class="pagination-link" aria-label="Chương 7: Các trường hợp sử dụng phân tích">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Chương 7: Các trường hợp sử dụng phân tích</span></span>
+      <a href="./07_use_cases.html" class="pagination-link" aria-label="Chương 7: Các bài toán ứng dụng phân tích dữ liệu">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Chương 7: Các bài toán ứng dụng phân tích dữ liệu</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -1256,639 +1220,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         <span class="nav-page-text"><span class="chapter-title">Chương 9: SQL và R</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
-</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Chương 8: Công cụ phân tích OHDSI"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu"># Công cụ phân tích OHDSI</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>*Trưởng nhóm chương: Martijn Schuemie &amp; Frank DeFalco*</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>OHDSI cung cấp nhiều loại công cụ mã nguồn mở để hỗ trợ các trường hợp</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>sử dụng phân tích dữ liệu khác nhau trên dữ liệu quan sát cấp độ bệnh</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>nhân. Điểm chung của các công cụ này là tất cả đều có thể tương tác</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>với một hoặc nhiều cơ sở dữ liệu sử dụng Mô hình dữ liệu chung (CDM).</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Hơn nữa, các công cụ này chuẩn hóa các phân tích cho nhiều trường hợp</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>sử dụng khác nhau; Thay vì phải bắt đầu từ con số không, một phân tích</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>có thể được thực hiện bằng cách điền vào các mẫu chuẩn. Điều này giúp</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>việc thực hiện phân tích trở nên dễ dàng hơn, đồng thời cải thiện khả</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>năng tái lập và tính minh bạch. Ví dụ, có vẻ như có vô số cách để tính</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>tỷ lệ mắc bệnh, nhưng những cách này có thể được chỉ định trong các</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>công cụ OHDSI chỉ với một vài lựa chọn, và bất kỳ ai đưa ra những lựa</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>chọn tương tự sẽ tính toán tỷ lệ mắc bệnh theo cùng một cách.</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>Trong chương này, trước tiên chúng tôi mô tả nhiều cách khác nhau mà</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>chúng ta có thể chọn để thực hiện một phân tích và các chiến lược mà</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>phân tích đó có thể sử dụng. Sau đó, chúng tôi xem xét các công cụ</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>OHDSI khác nhau và cách chúng phù hợp với các trường hợp sử dụng khác</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>nhau.</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Thực hiện phân tích</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>Hình 8.1 cho thấy các cách khác nhau mà chúng ta có thể chọn để thực</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>hiện một nghiên cứu trên cơ sở dữ liệu sử dụng CDM.</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>Có ba phương pháp chính để thực hiện một nghiên cứu. Phương pháp đầu</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>tiên là viết mã tùy chỉnh không sử dụng bất kỳ công cụ nào mà OHDSI</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>cung cấp. Người ta có thể viết một phân tích mới (de novo) bằng R, SAS</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>hoặc bất kỳ ngôn ngữ nào khác. Điều này mang lại sự linh hoạt tối đa</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>và thực tế có thể là lựa chọn duy nhất nếu phân tích cụ thể đó không</span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>được hỗ trợ bởi bất kỳ công cụ nào của chúng tôi. Tuy nhiên, con đường</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>này đòi hỏi nhiều kỹ năng kỹ thuật, thời gian và công sức, và khi phân</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>tích trở nên phức tạp hơn, việc tránh lỗi trong mã sẽ trở nên khó khăn</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>hơn.</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>Phương pháp thứ hai liên quan đến việc phát triển phân tích bằng R và</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>sử dụng các gói trong Thư viện phương pháp OHDSI (Methods Library).</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>Tối thiểu, người ta có thể sử dụng các gói SqlRender và</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>DatabaseConnector được mô tả chi tiết hơn trong Chương 9 cho phép cùng</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>một</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="al">![](media/image27.jpeg)</span>{width="4.885in"</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>height="1.76in"}</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>Hình 8.1: Các cách khác nhau để thực hiện một phân tích trên dữ liệu</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>trong CDM.</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>mã được thực thi trên nhiều nền tảng cơ sở dữ liệu khác nhau, chẳng</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>hạn như PostgreSQL, SQL Server và Oracle. Các gói khác như</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>CohortMethod và PatientLevelPrediction cung cấp các hàm R cho phân</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>tích nâng cao trên CDM có thể được gọi trong mã của người dùng. Cách</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>này vẫn đòi hỏi nhiều chuyên môn kỹ thuật, nhưng bằng cách tái sử dụng</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>các thành phần đã được xác thực của Thư viện phương pháp, chúng ta có</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>thể làm việc hiệu quả hơn và ít xảy ra lỗi hơn so với việc sử dụng mã</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>hoàn toàn tùy chỉnh.</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>Phương pháp thứ ba dựa trên nền tảng phân tích tương tác ATLAS của</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>chúng tôi, một công cụ dựa trên web cho phép những người không lập</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>trình thực hiện nhiều loại phân tích một cách hiệu quả. ATLAS sử dụng</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>các Thư viện phương pháp nhưng cung cấp một giao diện đồ họa đơn giản</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>để thiết kế các phân tích và trong nhiều trường hợp, tạo ra mã R cần</span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>thiết để chạy phân tích. Tuy nhiên, ATLAS không hỗ trợ tất cả các tùy</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>chọn có sẵn trong Thư viện phương pháp. Mặc dù dự kiến rằng phần lớn</span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>các nghiên cứu có thể được thực hiện thông qua ATLAS, một số nghiên</span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>cứu có thể yêu cầu sự linh hoạt được cung cấp bởi phương pháp thứ hai.</span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>ATLAS và Thư viện phương pháp không độc lập với nhau. Một số phân tích</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>phức tạp hơn có thể được gọi trong ATLAS được thực hiện thông qua các</span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>lệnh gọi đến các gói trong Thư viện phương pháp. Tương tự, các nhóm</span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>thuần tập được sử dụng trong Thư viện phương pháp thường được thiết kế</span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>trong ATLAS.</span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="fu">## Chiến lược phân tích</span></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>Ngoài chiến lược được sử dụng để thực hiện phân tích của chúng ta trên</span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>CDM, ví dụ thông qua mã hóa tùy chỉnh hoặc sử dụng mã phân tích tiêu</span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>chuẩn trong Thư viện phương pháp, còn có nhiều chiến lược khác để sử</span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>dụng các kỹ thuật phân tích đó nhằm tạo ra bằng chứng. Hình</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>làm nổi bật ba chiến lược được sử dụng trong OHDSI.</span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>Chiến lược đầu tiên coi mỗi phân tích là một nghiên cứu cá nhân duy</span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>nhất. Phân tích phải được chỉ định trước trong một giao thức, được</span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>triển khai dưới dạng mã, thực thi trên dữ liệu, sau đó kết quả có thể</span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>được tổng hợp và diễn giải. Đối với mỗi câu hỏi, tất cả các bước phải</span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>được lặp lại. Một ví dụ về phân tích như vậy là nghiên cứu của OHDSI</span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>về nguy cơ phù mạch liên quan đến levetiracetam so với phenytoin.</span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>(Duke và cộng sự, 2017) Ở đây, một giao thức</span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="al">![](media/image28.jpeg)</span>{width="4.885in"</span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>height="2.055in"}</span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>Hình 8.2: Các chiến lược tạo bằng chứng cho các câu hỏi (lâm sàng).</span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>đã được viết trước, mã phân tích sử dụng Thư viện phương pháp OHDSI đã</span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>được phát triển và thực thi trên mạng lưới OHDSI, và kết quả đã được</span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>tổng hợp và phổ biến trong một ấn phẩm tạp chí.</span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>Chiến lược thứ hai phát triển một ứng dụng cho phép người dùng trả lời</span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>một nhóm câu hỏi cụ thể trong thời gian thực hoặc gần thời gian thực.</span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>Sau khi ứng dụng đã được phát triển, người dùng có thể tương tác xác</span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>định các truy vấn, gửi chúng và xem kết quả. Một ví dụ về chiến lược</span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>này là công cụ định nghĩa và tạo nhóm thuần tập trong ATLAS. Công cụ</span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>này cho phép người dùng chỉ định các định nghĩa nhóm thuần tập với độ</span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>phức tạp khác nhau và thực thi định nghĩa đó trên cơ sở dữ liệu để xem</span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>có bao nhiêu người đáp ứng các tiêu chí bao gồm và loại trừ khác nhau.</span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>Chiến lược thứ ba tương tự tập trung vào một nhóm câu hỏi, nhưng sau</span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>đó cố gắng tạo ra một cách đầy đủ tất cả các bằng chứng cho các câu</span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>hỏi trong nhóm đó. Người dùng sau đó có thể khám phá bằng chứng khi</span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>cần thông qua nhiều giao diện khác nhau. Một ví dụ là nghiên cứu của</span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>OHDSI về tác động của các phương pháp điều trị trầm cảm. (Schuemie và</span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>cộng sự, 2018b) Trong nghiên cứu này, tất cả các phương pháp điều trị</span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>trầm cảm được so sánh cho một tập hợp lớn các kết quả quan tâm trên</span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>bốn cơ sở dữ liệu quan sát lớn. Bộ kết quả đầy đủ, bao gồm 17.718 tỷ</span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>lệ nguy cơ được hiệu chuẩn theo kinh nghiệm cùng với các chẩn đoán</span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>nghiên cứu mở rộng, có sẵn trong một ứng dụng web tương</span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>tác.1</span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a><span class="fu">## ATLAS</span></span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>ATLAS là một công cụ dựa trên web, miễn phí và công khai, được cộng</span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>đồng OHDSI phát triển nhằm tạo điều kiện thuận lợi cho việc thiết kế</span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>và thực hiện các phân tích trên dữ liệu quan sát cấp độ bệnh nhân,</span>
-<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>được chuẩn hóa theo định dạng CDM. ATLAS được triển khai như một ứng</span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>dụng web kết hợp với OHDSI WebAPI và thường được lưu trữ trên Apache</span>
-<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>Tomcat. Việc thực hiện các phân tích thời gian thực đòi hỏi quyền truy</span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>cập vào dữ liệu cấp độ bệnh nhân trong CDM và do đó thường được cài</span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>đặt phía sau tường lửa của tổ chức. Tuy nhiên, cũng có một ATLAS công</span>
-<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>khai2, và</span>
-<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>^1^<span class="ot">&lt;http://data.ohdsi.org/SystematicEvidence/&gt;</span></span>
-<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>^2^<span class="ot">&lt;http://www.ohdsi.org/web/atlas&gt;</span></span>
-<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>mặc dù phiên bản ATLAS này chỉ có quyền truy</span>
-<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>cập vào một vài tập dữ liệu mô phỏng nhỏ, nó vẫn có thể được sử dụng</span>
-<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>cho nhiều mục đích bao gồm thử nghiệm và đào tạo. Thậm chí có thể xác</span>
-<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>định đầy đủ một nghiên cứu dự đoán hoặc ước tính tác động bằng cách sử</span>
-<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>dụng phiên bản ATLAS công khai và tự động tạo mã R để thực hiện nghiên</span>
-<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>cứu đó. Mã đó sau đó có thể được chạy trong bất kỳ môi trường nào có</span>
-<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>sẵn CDM mà không cần phải cài đặt ATLAS và WebAPI.</span>
-<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a><span class="al">![](media/image29.jpeg)</span>{width="5.308957786526684in"</span>
-<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>height="3.2335411198600177in"}</span>
-<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>Hình 8.3: Giao diện người dùng ATLAS.</span>
-<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>Ảnh chụp màn hình của ATLAS được cung cấp trong Hình 8.3. Ở bên trái</span>
-<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>là thanh điều hướng hiển thị các chức năng khác nhau được cung cấp bởi</span>
-<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>ATLAS:</span>
-<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>**Nguồn dữ liệu (Data Sources) cung cấp khả năng xem xét các báo cáo</span>
-<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>mô tả, chuẩn hóa cho từng nguồn dữ liệu mà bạn đã cấu hình trong nền</span>
-<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a>tảng Atlas của mình. Tính năng này sử dụng chiến lược phân tích quy mô</span>
-<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>lớn: tất cả các mô tả đã được tính toán trước. Nguồn dữ liệu được thảo</span>
-<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a>luận trong Chương 11.**</span>
-<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a>**Tìm kiếm từ vựng (Vocabulary Search) Atlas cung cấp khả năng tìm</span>
-<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>kiếm và khám phá từ vựng chuẩn hóa OMOP để hiểu những khái niệm nào</span>
-<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a>tồn tại trong các từ vựng đó và cách áp dụng các khái niệm đó trong</span>
-<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>phân tích chuẩn hóa của bạn đối với các nguồn dữ liệu của bạn. Tính</span>
-<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a>năng này được thảo luận trong Chương 5.**</span>
-<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>**Bộ khái niệm (Concept Sets) cung cấp khả năng tạo các tập hợp các</span>
-<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>biểu thức logic có thể được sử dụng để xác định một tập hợp các khái</span>
-<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>niệm sẽ được sử dụng trong suốt các phân tích chuẩn hóa của bạn. Bộ</span>
-<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>khái niệm cung cấp sự tinh vi hơn so với một danh sách đơn giản các mã</span>
-<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>hoặc giá trị. Một bộ khái niệm bao gồm nhiều khái niệm từ từ vựng</span>
-<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>chuẩn hóa kết hợp với các chỉ số logic cho phép người dùng chỉ định</span>
-<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a>rằng họ quan tâm đến việc bao gồm hoặc loại trừ các khái niệm liên</span>
-<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>quan trong hệ thống phân cấp từ vựng. Tìm kiếm từ vựng, xác định tập</span>
-<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>hợp các khái niệm và chỉ định**</span>
-<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a>logic được sử dụng để giải quyết một bộ khái niệm cung cấp một cơ chế</span>
-<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a>mạnh mẽ để định nghĩa ngôn ngữ y tế thường khó hiểu được sử dụng trong</span>
-<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>các kế hoạch phân tích. Các bộ khái niệm này có thể được lưu trong</span>
-<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>ATLAS và sau đó được sử dụng trong suốt quá trình phân tích của bạn</span>
-<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>như một phần của các định nghĩa nhóm thuần tập hoặc các đặc tả phân</span>
-<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a>tích.</span>
-<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a>**Định nghĩa nhóm thuần tập (Cohort Definitions) là khả năng xây dựng</span>
-<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>một tập hợp những người đáp ứng một hoặc nhiều tiêu chí trong một</span>
-<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a>khoảng thời gian và các nhóm thuần tập này sau đó có thể đóng vai trò</span>
-<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a>là cơ sở đầu vào cho tất cả các phân tích tiếp theo của bạn. Tính năng</span>
-<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a>này được thảo luận trong Chương 10.**</span>
-<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>**Đặc điểm (Characterizations) là một khả năng phân tích cho phép bạn</span>
-<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>xem xét một hoặc nhiều nhóm thuần tập mà bạn đã định nghĩa và tóm tắt</span>
-<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>các đặc điểm về các quần thể bệnh nhân đó. Tính năng này sử dụng chiến</span>
-<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a>lược truy vấn thời gian thực và được thảo luận trong Chương 11.**</span>
-<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>**Lộ trình nhóm thuần tập (Cohort Pathways) là một công cụ phân tích</span>
-<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>cho phép bạn xem xét trình tự các sự kiện lâm sàng xảy ra trong một</span>
-<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a>hoặc nhiều quần thể. Tính năng này sử dụng chiến lược truy vấn thời</span>
-<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>gian thực và được thảo luận trong Chương 11.**</span>
-<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>**Tỷ lệ mắc bệnh (Incidence Rates) là một công cụ cho phép bạn ước</span>
-<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a>tính tỷ lệ mắc các kết quả trong các quần thể mục tiêu quan tâm. Tính</span>
-<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a>năng này sử dụng chiến lược truy vấn thời gian thực và được thảo luận</span>
-<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>trong Chương 11.**</span>
-<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>**Hồ sơ (Profiles) là một công cụ cho phép bạn khám phá dữ liệu quan</span>
-<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>sát dọc của từng bệnh nhân để tóm tắt những gì đang xảy ra trong một</span>
-<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>cá nhân cụ thể. Tính năng này sử dụng chiến lược truy vấn thời gian</span>
-<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>thực.**</span>
-<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a>**Ước tính cấp độ quần thể (Population Level Estimation) là khả năng</span>
-<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a>cho phép bạn xác định một nghiên cứu ước tính tác động cấp độ quần thể</span>
-<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a>sử dụng thiết kế nhóm thuần tập so sánh, nhờ đó các so sánh giữa một</span>
-<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>hoặc nhiều nhóm thuần tập mục tiêu và đối chứng có thể được khám phá</span>
-<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a>cho một loạt các kết quả. Tính năng này có thể được coi là thực hiện</span>
-<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>chiến lược truy vấn thời gian thực, vì không cần mã hóa và được thảo</span>
-<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>luận trong Chương 12.**</span>
-<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a>**Dự đoán cấp độ bệnh nhân (Patient Level Prediction) là khả năng cho</span>
-<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a>phép bạn áp dụng các thuật toán học máy để thực hiện các phân tích dự</span>
-<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a>đoán cấp độ bệnh nhân, nhờ đó bạn có thể dự đoán một kết quả trong bất</span>
-<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a>kỳ phơi nhiễm mục tiêu nào. Tính năng này có thể được coi là thực hiện</span>
-<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a>chiến lược truy vấn thời gian thực, vì không cần mã hóa và được thảo</span>
-<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a>luận trong Chương 13.**</span>
-<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>**Công việc (Jobs) Chọn mục menu Công việc để khám phá trạng thái của</span>
-<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a>các tiến trình đang chạy thông qua WebAPI. Các công việc thường là các</span>
-<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a>tiến trình chạy dài như tạo một nhóm thuần tập hoặc tính toán các báo</span>
-<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a>cáo đặc điểm nhóm thuần tập.**</span>
-<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>**Cấu hình (Configuration) Chọn mục menu Cấu hình để xem xét các nguồn</span>
-<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>dữ liệu đã được cấu hình trong phần cấu hình nguồn.**</span>
-<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a>**Phản hồi (Feedback) Liên kết Phản hồi sẽ đưa bạn đến nhật ký sự cố</span>
-<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a>cho Atlas để bạn có thể ghi lại một sự cố mới hoặc tìm kiếm thông qua</span>
-<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a>các sự cố hiện có. Nếu bạn có ý tưởng cho các tính năng mới hoặc cải</span>
-<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a>tiến, đây cũng là nơi để lưu ý những điều này cho cộng đồng phát</span>
-<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>triển.**</span>
-<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a><span class="fu">### Bảo mật</span></span>
-<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a>ATLAS và WebAPI cung cấp một mô hình bảo mật chi tiết để kiểm soát</span>
-<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a>quyền truy cập vào các tính năng hoặc nguồn dữ liệu trong toàn bộ nền</span>
-<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a>tảng. Hệ thống bảo mật được xây dựng tận dụng thư viện Apache Shiro.</span>
-<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a>Thông tin bổ sung về hệ thống bảo mật có thể được tìm thấy trong</span>
-<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a>wiki bảo mật WebAPI trực tuyến.3</span>
-<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tài liệu</span></span>
-<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a>Tài liệu cho ATLAS có thể được tìm thấy trực tuyến trong wiki kho lưu</span>
-<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a>trữ ATLAS GitHub.4 Wiki này bao gồm thông tin về các tính năng ứng</span>
-<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a>dụng khác nhau cũng như các liên kết đến các video hướng dẫn trực</span>
-<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a>tuyến.</span>
-<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cách cài đặt</span></span>
-<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a>Việc cài đặt ATLAS được thực hiện kết hợp với OHDSI WebAPI. Hướng dẫn</span>
-<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a>cài đặt cho từng thành phần có sẵn trực tuyến trong Hướng dẫn thiết</span>
-<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>lập kho lưu trữ ATLAS GitHub5 và Hướng dẫn cài đặt kho lưu trữ WebAPI</span>
-<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a>GitHub.6</span>
-<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a><span class="fu">## Thư viện phương pháp (Methods Library)</span></span>
-<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a>Thư viện phương pháp OHDSI là tập hợp các gói R mã nguồn mở được hiển</span>
-<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a>thị trong Hình 8.4.</span>
-<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a>Các gói này cung cấp các hàm R mà cùng nhau có thể được sử dụng để</span>
-<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a>thực hiện một nghiên cứu quan sát hoàn chỉnh, bắt đầu từ dữ liệu trong</span>
-<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a>CDM và dẫn đến các ước tính và các thống kê hỗ trợ, số liệu và bảng</span>
-<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a>biểu. Các gói tương tác trực tiếp với dữ liệu quan sát trong CDM và có</span>
-<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a>thể được sử dụng đơn giản để cung cấp khả năng tương thích đa nền tảng</span>
-<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a>cho các phân tích tùy chỉnh hoàn toàn như được mô tả trong Chương 9,</span>
-<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a>hoặc có thể cung cấp các phân tích chuẩn hóa nâng cao cho đặc điểm</span>
-<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a>quần thể (Chương 11), ước tính tác động cấp độ quần thể (Chương 12) và</span>
-<span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a>dự đoán cấp độ bệnh nhân (Chương 13). Thư viện phương pháp hỗ trợ các</span>
-<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a>phương pháp thực hành tốt nhất cho việc sử dụng dữ liệu quan sát và</span>
-<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a>thiết kế nghiên cứu quan sát như đã học từ các nghiên cứu trước đây và</span>
-<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a>đang diễn ra, chẳng hạn như tính minh bạch, khả năng tái lập, cũng như</span>
-<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a>đo lường các đặc điểm vận hành của các phương pháp trong một bối cảnh</span>
-<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a>cụ thể và hiệu chuẩn thực nghiệm các ước tính do các phương pháp đó</span>
-<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a>tạo ra.</span>
-<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a>Thư viện phương pháp đã được sử dụng trong nhiều nghiên cứu lâm sàng</span>
-<span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a>đã công bố (Boland và cộng sự, 2017; Duke và cộng sự, 2017; Ramcharran</span>
-<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a>và cộng sự, 2017; Weinstein và cộng sự, 2017; Wang và cộng sự, 2017;</span>
-<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a>Ryan và cộng sự, 2017, 2018; Vashisht và cộng sự, 2018; Yuan và cộng</span>
-<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a>sự, 2018; Johnston và cộng sự, 2019), cũng như các nghiên cứu phương</span>
-<span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a>pháp luận. (Schuemie và cộng sự, 2014, 2016; Reps và cộng sự, 2018;</span>
-<span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a>Tian và cộng sự, 2018; Schuemie và cộng sự, 2018a,b; Reps và cộng sự,</span>
-<span id="cb1-294"><a href="#cb1-294" aria-hidden="true" tabindex="-1"></a>2019) Tính hợp lệ của việc triển khai các phương pháp trong Thư viện</span>
-<span id="cb1-295"><a href="#cb1-295" aria-hidden="true" tabindex="-1"></a>phương pháp được mô tả trong Chương 17.</span>
-<span id="cb1-296"><a href="#cb1-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-297"><a href="#cb1-297" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hỗ trợ phân tích quy mô lớn</span></span>
-<span id="cb1-298"><a href="#cb1-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-299"><a href="#cb1-299" aria-hidden="true" tabindex="-1"></a>Một tính năng chính được kết hợp trong tất cả các gói là khả năng chạy</span>
-<span id="cb1-300"><a href="#cb1-300" aria-hidden="true" tabindex="-1"></a>hiệu quả nhiều phân tích. Ví dụ, khi thực hiện ước tính cấp độ quần</span>
-<span id="cb1-301"><a href="#cb1-301" aria-hidden="true" tabindex="-1"></a>thể, gói CohortMethod</span>
-<span id="cb1-302"><a href="#cb1-302" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-303"><a href="#cb1-303" aria-hidden="true" tabindex="-1"></a>^3^<span class="ot">&lt;https://github.com/OHDSI/WebAPI/wiki/Security-Configuration&gt;</span></span>
-<span id="cb1-304"><a href="#cb1-304" aria-hidden="true" tabindex="-1"></a>^4^<span class="ot">&lt;https://github.com/OHDSI/ATLAS/wiki&gt;</span></span>
-<span id="cb1-305"><a href="#cb1-305" aria-hidden="true" tabindex="-1"></a>^5^<span class="ot">&lt;https://github.com/OHDSI/Atlas/wiki/Atlas-Setup-Guide&gt;</span></span>
-<span id="cb1-306"><a href="#cb1-306" aria-hidden="true" tabindex="-1"></a>^6^<span class="ot">&lt;https://github.com/OHDSI/WebAPI/wiki/WebAPI-Installation-Guide&gt;</span></span>
-<span id="cb1-307"><a href="#cb1-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-308"><a href="#cb1-308" aria-hidden="true" tabindex="-1"></a><span class="al">![](media/image30.jpeg)</span>{width="5.109998906386702in"</span>
-<span id="cb1-309"><a href="#cb1-309" aria-hidden="true" tabindex="-1"></a>height="5.490624453193351in"}</span>
-<span id="cb1-310"><a href="#cb1-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-311"><a href="#cb1-311" aria-hidden="true" tabindex="-1"></a>Hình 8.4: Các gói trong Thư viện phương pháp OHDSI.</span>
-<span id="cb1-312"><a href="#cb1-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-313"><a href="#cb1-313" aria-hidden="true" tabindex="-1"></a>cho phép tính toán các ước tính quy mô tác</span>
-<span id="cb1-314"><a href="#cb1-314" aria-hidden="true" tabindex="-1"></a>động cho nhiều phơi nhiễm và kết quả, sử dụng các cài đặt phân tích</span>
-<span id="cb1-315"><a href="#cb1-315" aria-hidden="true" tabindex="-1"></a>khác nhau và gói này sẽ tự động chọn cách tối ưu để tính toán tất cả</span>
-<span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a>các tập dữ liệu trung gian và cuối cùng cần thiết. Các bước có thể</span>
-<span id="cb1-317"><a href="#cb1-317" aria-hidden="true" tabindex="-1"></a>được tái sử dụng, chẳng hạn như trích xuất các biến đồng hành hoặc</span>
-<span id="cb1-318"><a href="#cb1-318" aria-hidden="true" tabindex="-1"></a>khớp một mô hình xu hướng được sử dụng cho một cặp mục tiêu-đối chứng</span>
-<span id="cb1-319"><a href="#cb1-319" aria-hidden="true" tabindex="-1"></a>nhưng nhiều kết quả, sẽ chỉ được thực thi một lần. Nếu có thể, các</span>
-<span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a>tính toán sẽ diễn ra song song để tối đa hóa việc sử dụng các tài</span>
-<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a>nguyên tính toán.</span>
-<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a>Hiệu quả tính toán này cho phép phân tích quy mô lớn, trả lời nhiều</span>
-<span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a>câu hỏi cùng một lúc và cũng rất cần thiết để bao gồm các giả thuyết</span>
-<span id="cb1-325"><a href="#cb1-325" aria-hidden="true" tabindex="-1"></a>kiểm soát (ví dụ: kiểm soát âm tính) để đo lường các đặc điểm vận hành</span>
-<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a>của các phương pháp của chúng ta và thực hiện hiệu chuẩn thực nghiệm</span>
-<span id="cb1-327"><a href="#cb1-327" aria-hidden="true" tabindex="-1"></a>như được mô tả trong Chương 18.</span>
-<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-329"><a href="#cb1-329" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hỗ trợ dữ liệu lớn</span></span>
-<span id="cb1-330"><a href="#cb1-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-331"><a href="#cb1-331" aria-hidden="true" tabindex="-1"></a>Thư viện phương pháp cũng được thiết kế để chạy trên các cơ sở dữ liệu</span>
-<span id="cb1-332"><a href="#cb1-332" aria-hidden="true" tabindex="-1"></a>rất lớn và có thể thực hiện các tính toán liên quan đến lượng dữ liệu</span>
-<span id="cb1-333"><a href="#cb1-333" aria-hidden="true" tabindex="-1"></a>lớn. Điều này đạt được theo ba cách:</span>
-<span id="cb1-334"><a href="#cb1-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-335"><a href="#cb1-335" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Hầu hết việc thao tác dữ liệu được thực hiện trên máy chủ cơ sở dữ</span>
-<span id="cb1-336"><a href="#cb1-336" aria-hidden="true" tabindex="-1"></a>liệu. Một phân tích thường chỉ yêu cầu một phần nhỏ toàn bộ dữ liệu</span>
-<span id="cb1-337"><a href="#cb1-337" aria-hidden="true" tabindex="-1"></a>trong cơ sở dữ liệu và Thư viện phương pháp, thông qua các gói</span>
-<span id="cb1-338"><a href="#cb1-338" aria-hidden="true" tabindex="-1"></a>SqlRender và DatabaseConnector, cho phép các thao tác nâng cao được</span>
-<span id="cb1-339"><a href="#cb1-339" aria-hidden="true" tabindex="-1"></a>thực hiện trên máy chủ để tiền xử lý và trích xuất dữ liệu liên</span>
-<span id="cb1-340"><a href="#cb1-340" aria-hidden="true" tabindex="-1"></a>quan.</span>
-<span id="cb1-341"><a href="#cb1-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-342"><a href="#cb1-342" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Các đối tượng dữ liệu cục bộ lớn được lưu trữ theo cách tiết kiệm bộ</span>
-<span id="cb1-343"><a href="#cb1-343" aria-hidden="true" tabindex="-1"></a>nhớ. Đối với dữ liệu được tải xuống máy cục bộ, Thư viện phương pháp</span>
-<span id="cb1-344"><a href="#cb1-344" aria-hidden="true" tabindex="-1"></a>sử dụng gói ff để lưu trữ và làm việc với các đối tượng dữ liệu lớn.</span>
-<span id="cb1-345"><a href="#cb1-345" aria-hidden="true" tabindex="-1"></a>Điều này cho phép chúng ta làm việc với dữ liệu lớn hơn nhiều so với</span>
-<span id="cb1-346"><a href="#cb1-346" aria-hidden="true" tabindex="-1"></a>bộ nhớ hiện có.</span>
-<span id="cb1-347"><a href="#cb1-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-348"><a href="#cb1-348" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Tính toán hiệu năng cao được áp dụng khi cần thiết. Ví dụ, gói</span>
-<span id="cb1-349"><a href="#cb1-349" aria-hidden="true" tabindex="-1"></a>Cyclops triển khai một công cụ hồi quy hiệu quả cao được sử dụng</span>
-<span id="cb1-350"><a href="#cb1-350" aria-hidden="true" tabindex="-1"></a>trong toàn bộ Thư viện phương pháp để thực hiện các hồi quy quy mô</span>
-<span id="cb1-351"><a href="#cb1-351" aria-hidden="true" tabindex="-1"></a>lớn (số lượng biến lớn, số lượng quan sát lớn) mà nếu không thì</span>
-<span id="cb1-352"><a href="#cb1-352" aria-hidden="true" tabindex="-1"></a>không thể thực hiện được.</span>
-<span id="cb1-353"><a href="#cb1-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-354"><a href="#cb1-354" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tài liệu</span></span>
-<span id="cb1-355"><a href="#cb1-355" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-356"><a href="#cb1-356" aria-hidden="true" tabindex="-1"></a>R cung cấp một cách tiêu chuẩn để lập tài liệu cho các gói. Mỗi gói có</span>
-<span id="cb1-357"><a href="#cb1-357" aria-hidden="true" tabindex="-1"></a>một hướng dẫn sử dụng gói ghi lại mọi hàm và tập dữ liệu có trong gói.</span>
-<span id="cb1-358"><a href="#cb1-358" aria-hidden="true" tabindex="-1"></a>Tất cả các hướng dẫn sử dụng gói đều có sẵn trực tuyến thông qua trang</span>
-<span id="cb1-359"><a href="#cb1-359" aria-hidden="true" tabindex="-1"></a>web Thư viện phương pháp7, thông qua các kho lưu trữ GitHub của gói và</span>
-<span id="cb1-360"><a href="#cb1-360" aria-hidden="true" tabindex="-1"></a>đối với những gói có sẵn thông qua CRAN, chúng có thể được tìm thấy</span>
-<span id="cb1-361"><a href="#cb1-361" aria-hidden="true" tabindex="-1"></a>trong CRAN. Hơn nữa, từ trong R, hướng dẫn sử dụng gói có thể được</span>
-<span id="cb1-362"><a href="#cb1-362" aria-hidden="true" tabindex="-1"></a>tham khảo bằng cách sử dụng dấu chấm hỏi. Ví dụ, sau khi tải gói</span>
-<span id="cb1-363"><a href="#cb1-363" aria-hidden="true" tabindex="-1"></a>DatabaseConnector, gõ lệnh</span>
-<span id="cb1-364"><a href="#cb1-364" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-365"><a href="#cb1-365" aria-hidden="true" tabindex="-1"></a>?connect sẽ hiển thị tài liệu về hàm "connect".</span>
-<span id="cb1-366"><a href="#cb1-366" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-367"><a href="#cb1-367" aria-hidden="true" tabindex="-1"></a>Ngoài hướng dẫn sử dụng gói, nhiều gói còn cung cấp các đoạn tài liệu</span>
-<span id="cb1-368"><a href="#cb1-368" aria-hidden="true" tabindex="-1"></a>(vignettes). Các đoạn tài liệu này là tài liệu dạng dài mô tả cách sử</span>
-<span id="cb1-369"><a href="#cb1-369" aria-hidden="true" tabindex="-1"></a>dụng một gói để thực hiện các tác vụ nhất định. Ví dụ, một đoạn tài</span>
-<span id="cb1-370"><a href="#cb1-370" aria-hidden="true" tabindex="-1"></a>liệu8 mô tả cách thực hiện nhiều phân tích một cách hiệu quả bằng cách</span>
-<span id="cb1-371"><a href="#cb1-371" aria-hidden="true" tabindex="-1"></a>sử dụng</span>
-<span id="cb1-372"><a href="#cb1-372" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-373"><a href="#cb1-373" aria-hidden="true" tabindex="-1"></a>^7^<span class="ot">&lt;https://ohdsi.github.io/MethodsLibrary&gt;</span></span>
-<span id="cb1-374"><a href="#cb1-374" aria-hidden="true" tabindex="-1"></a>^8^<span class="ot">&lt;https://ohdsi.github.io/CohortMethod/articles/MultipleAnalyses.html&gt;</span></span>
-<span id="cb1-375"><a href="#cb1-375" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-376"><a href="#cb1-376" aria-hidden="true" tabindex="-1"></a>gói CohortMethod. Các đoạn tài liệu cũng có thể được tìm thấy thông</span>
-<span id="cb1-377"><a href="#cb1-377" aria-hidden="true" tabindex="-1"></a>qua trang web Thư viện phương pháp, thông qua các kho lưu trữ GitHub</span>
-<span id="cb1-378"><a href="#cb1-378" aria-hidden="true" tabindex="-1"></a>của gói và đối với những gói có sẵn thông qua CRAN, chúng có thể được</span>
-<span id="cb1-379"><a href="#cb1-379" aria-hidden="true" tabindex="-1"></a>tìm thấy trong CRAN.</span>
-<span id="cb1-380"><a href="#cb1-380" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-381"><a href="#cb1-381" aria-hidden="true" tabindex="-1"></a><span class="fu">### Yêu cầu hệ thống</span></span>
-<span id="cb1-382"><a href="#cb1-382" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-383"><a href="#cb1-383" aria-hidden="true" tabindex="-1"></a>Hai môi trường tính toán có liên quan khi thảo luận về các yêu cầu hệ</span>
-<span id="cb1-384"><a href="#cb1-384" aria-hidden="true" tabindex="-1"></a>thống: Máy chủ cơ sở dữ liệu và máy trạm phân tích.</span>
-<span id="cb1-385"><a href="#cb1-385" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-386"><a href="#cb1-386" aria-hidden="true" tabindex="-1"></a>Máy chủ cơ sở dữ liệu phải lưu trữ dữ liệu chăm sóc sức khỏe quan sát</span>
-<span id="cb1-387"><a href="#cb1-387" aria-hidden="true" tabindex="-1"></a>ở định dạng CDM. Thư viện phương pháp hỗ trợ nhiều hệ quản trị cơ sở</span>
-<span id="cb1-388"><a href="#cb1-388" aria-hidden="true" tabindex="-1"></a>dữ liệu bao gồm các hệ thống cơ sở dữ liệu truyền thống (PostgreSQL,</span>
-<span id="cb1-389"><a href="#cb1-389" aria-hidden="true" tabindex="-1"></a>Microsoft SQL Server và Oracle), kho dữ liệu song song (Microsoft APS,</span>
-<span id="cb1-390"><a href="#cb1-390" aria-hidden="true" tabindex="-1"></a>IBM Netezza và Amazon Redshift), cũng như các nền tảng Dữ liệu lớn</span>
-<span id="cb1-391"><a href="#cb1-391" aria-hidden="true" tabindex="-1"></a>(Hadoop thông qua Impala và Google BigQuery).</span>
-<span id="cb1-392"><a href="#cb1-392" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-393"><a href="#cb1-393" aria-hidden="true" tabindex="-1"></a>Máy trạm phân tích là nơi Thư viện phương pháp được cài đặt và chạy.</span>
-<span id="cb1-394"><a href="#cb1-394" aria-hidden="true" tabindex="-1"></a>Đây có thể là một máy cục bộ, chẳng hạn như máy tính xách tay của ai</span>
-<span id="cb1-395"><a href="#cb1-395" aria-hidden="true" tabindex="-1"></a>đó, hoặc một máy chủ từ xa chạy RStudio Server. Trong mọi trường hợp,</span>
-<span id="cb1-396"><a href="#cb1-396" aria-hidden="true" tabindex="-1"></a>các yêu cầu là R phải được cài đặt, tốt nhất là cùng với RStudio. Thư</span>
-<span id="cb1-397"><a href="#cb1-397" aria-hidden="true" tabindex="-1"></a>viện phương pháp cũng yêu cầu phải cài đặt Java. Máy trạm phân tích</span>
-<span id="cb1-398"><a href="#cb1-398" aria-hidden="true" tabindex="-1"></a>cũng phải có khả năng kết nối với máy chủ cơ sở dữ liệu, cụ thể là bất</span>
-<span id="cb1-399"><a href="#cb1-399" aria-hidden="true" tabindex="-1"></a>kỳ tường lửa nào giữa chúng phải mở các cổng truy cập máy chủ cơ sở dữ</span>
-<span id="cb1-400"><a href="#cb1-400" aria-hidden="true" tabindex="-1"></a>liệu cho máy trạm. Một số phân tích có thể đòi hỏi nhiều tài nguyên</span>
-<span id="cb1-401"><a href="#cb1-401" aria-hidden="true" tabindex="-1"></a>tính toán, vì vậy việc có nhiều lõi xử lý và bộ nhớ dồi dào có thể</span>
-<span id="cb1-402"><a href="#cb1-402" aria-hidden="true" tabindex="-1"></a>giúp tăng tốc các phân tích. Chúng tôi khuyên bạn nên có ít nhất bốn</span>
-<span id="cb1-403"><a href="#cb1-403" aria-hidden="true" tabindex="-1"></a>lõi và 16 gigabyte bộ nhớ.</span>
-<span id="cb1-404"><a href="#cb1-404" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-405"><a href="#cb1-405" aria-hidden="true" tabindex="-1"></a><span class="fu">### Cách cài đặt</span></span>
-<span id="cb1-406"><a href="#cb1-406" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-407"><a href="#cb1-407" aria-hidden="true" tabindex="-1"></a>Dưới đây là các bước cài đặt môi trường cần thiết để chạy các gói R</span>
-<span id="cb1-408"><a href="#cb1-408" aria-hidden="true" tabindex="-1"></a>của OHDSI. Cần cài đặt bốn thứ:</span>
-<span id="cb1-409"><a href="#cb1-409" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-410"><a href="#cb1-410" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**R là một môi trường tính toán thống kê. Nó đi kèm với một giao</span>
-<span id="cb1-411"><a href="#cb1-411" aria-hidden="true" tabindex="-1"></a>diện người dùng cơ bản chủ yếu là giao diện dòng lệnh.**</span>
-<span id="cb1-412"><a href="#cb1-412" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-413"><a href="#cb1-413" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Rtools là một tập hợp các chương trình cần thiết trên Windows để</span>
-<span id="cb1-414"><a href="#cb1-414" aria-hidden="true" tabindex="-1"></a>xây dựng các gói R từ mã nguồn.**</span>
-<span id="cb1-415"><a href="#cb1-415" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-416"><a href="#cb1-416" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**RStudio là một IDE (Môi trường phát triển tích hợp) giúp sử dụng R</span>
-<span id="cb1-417"><a href="#cb1-417" aria-hidden="true" tabindex="-1"></a>dễ dàng hơn. Nó bao gồm trình soạn thảo mã, các công cụ gỡ lỗi và</span>
-<span id="cb1-418"><a href="#cb1-418" aria-hidden="true" tabindex="-1"></a>trực quan hóa. Vui lòng sử dụng nó để có trải nghiệm R tốt hơn.**</span>
-<span id="cb1-419"><a href="#cb1-419" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-420"><a href="#cb1-420" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>**Java là một môi trường tính toán cần thiết để chạy một số thành</span>
-<span id="cb1-421"><a href="#cb1-421" aria-hidden="true" tabindex="-1"></a>phần trong các gói R của OHDSI, ví dụ như những thành phần cần thiết</span>
-<span id="cb1-422"><a href="#cb1-422" aria-hidden="true" tabindex="-1"></a>để kết nối với cơ sở dữ liệu.**</span>
-<span id="cb1-423"><a href="#cb1-423" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-424"><a href="#cb1-424" aria-hidden="true" tabindex="-1"></a>Dưới đây chúng tôi mô tả cách cài đặt từng thành phần này trong môi</span>
-<span id="cb1-425"><a href="#cb1-425" aria-hidden="true" tabindex="-1"></a>trường Windows.</span>
-<span id="cb1-426"><a href="#cb1-426" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-427"><a href="#cb1-427" aria-hidden="true" tabindex="-1"></a>![In Windows, both R and Java come in 32-bit and 64-bits architectures.</span>
-<span id="cb1-428"><a href="#cb1-428" aria-hidden="true" tabindex="-1"></a>If you install R in both architectures, you **must** also install Java</span>
-<span id="cb1-429"><a href="#cb1-429" aria-hidden="true" tabindex="-1"></a>in both architectures. It is recommended to only install the 64-bit</span>
-<span id="cb1-430"><a href="#cb1-430" aria-hidden="true" tabindex="-1"></a>version of</span>
-<span id="cb1-431"><a href="#cb1-431" aria-hidden="true" tabindex="-1"></a>R.](media/image6.png){width="0.45499890638670165in"</span>
-<span id="cb1-432"><a href="#cb1-432" aria-hidden="true" tabindex="-1"></a>height="0.45499890638670165in"}</span>
-<span id="cb1-433"><a href="#cb1-433" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-434"><a href="#cb1-434" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Cài đặt R</span></span>
-<span id="cb1-435"><a href="#cb1-435" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-436"><a href="#cb1-436" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Truy cập https://cran.r-project.org/, nhấp vào "Download R for</span>
-<span id="cb1-437"><a href="#cb1-437" aria-hidden="true" tabindex="-1"></a>Windows", sau đó chọn "base", sau đó nhấp vào liên kết Tải xuống</span>
-<span id="cb1-438"><a href="#cb1-438" aria-hidden="true" tabindex="-1"></a>được chỉ ra trong Hình 8.5.</span>
-<span id="cb1-439"><a href="#cb1-439" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-440"><a href="#cb1-440" aria-hidden="true" tabindex="-1"></a><span class="al">![](media/image31.jpeg)</span>{width="5.294374453193351in"</span>
-<span id="cb1-441"><a href="#cb1-441" aria-hidden="true" tabindex="-1"></a>height="1.1735411198600174in"}</span>
-<span id="cb1-442"><a href="#cb1-442" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-443"><a href="#cb1-443" aria-hidden="true" tabindex="-1"></a>Hình 8.5: Tải xuống R từ CRAN.</span>
-<span id="cb1-444"><a href="#cb1-444" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-445"><a href="#cb1-445" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Sau khi quá trình tải xuống hoàn tất, hãy chạy trình cài đặt. Sử</span>
-<span id="cb1-446"><a href="#cb1-446" aria-hidden="true" tabindex="-1"></a>dụng các tùy chọn mặc định ở mọi nơi, với hai ngoại lệ: Thứ nhất,</span>
-<span id="cb1-447"><a href="#cb1-447" aria-hidden="true" tabindex="-1"></a>tốt hơn là không nên cài đặt vào thư mục tệp chương trình (program</span>
-<span id="cb1-448"><a href="#cb1-448" aria-hidden="true" tabindex="-1"></a>files). Thay vào đó, chỉ cần tạo R thành một thư mục con của ổ C của</span>
-<span id="cb1-449"><a href="#cb1-449" aria-hidden="true" tabindex="-1"></a>bạn như được hiển thị trong Hình 8.6. Thứ hai, để tránh các vấn đề</span>
-<span id="cb1-450"><a href="#cb1-450" aria-hidden="true" tabindex="-1"></a>do kiến trúc khác biệt giữa R và Java, hãy vô hiệu hóa kiến trúc</span>
-<span id="cb1-451"><a href="#cb1-451" aria-hidden="true" tabindex="-1"></a>32-bit như được hiển thị trong Hình 8.7.</span>
-<span id="cb1-452"><a href="#cb1-452" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-453"><a href="#cb1-453" aria-hidden="true" tabindex="-1"></a><span class="al">![](media/image32.png)</span>{width="4.275in"</span>
-<span id="cb1-454"><a href="#cb1-454" aria-hidden="true" tabindex="-1"></a>height="3.316666666666667in"}</span>
-<span id="cb1-455"><a href="#cb1-455" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-456"><a href="#cb1-456" aria-hidden="true" tabindex="-1"></a>Hình 8.6: Cài đặt thư mục đích cho R. Sau khi hoàn tất, bạn sẽ có thể</span>
-<span id="cb1-457"><a href="#cb1-457" aria-hidden="true" tabindex="-1"></a>chọn R từ Menu Bắt đầu (Start Menu) của mình.</span>
-<span id="cb1-458"><a href="#cb1-458" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-459"><a href="#cb1-459" aria-hidden="true" tabindex="-1"></a><span class="al">![](media/image33.png)</span>{width="4.274998906386702in"</span>
-<span id="cb1-460"><a href="#cb1-460" aria-hidden="true" tabindex="-1"></a>height="3.316666666666667in"}</span>
-<span id="cb1-461"><a href="#cb1-461" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-462"><a href="#cb1-462" aria-hidden="true" tabindex="-1"></a>Hình 8.7: Vô hiệu hóa phiên bản 32-bit của R.</span>
-<span id="cb1-463"><a href="#cb1-463" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-464"><a href="#cb1-464" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Cài đặt Rtools</span></span>
-<span id="cb1-465"><a href="#cb1-465" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-466"><a href="#cb1-466" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Truy cập https://cran.r-project.org/, nhấp vào "Download R for</span>
-<span id="cb1-467"><a href="#cb1-467" aria-hidden="true" tabindex="-1"></a>Windows", sau đó chọn "Rtools" và chọn phiên bản Rtools mới nhất để</span>
-<span id="cb1-468"><a href="#cb1-468" aria-hidden="true" tabindex="-1"></a>tải xuống.</span>
-<span id="cb1-469"><a href="#cb1-469" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-470"><a href="#cb1-470" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Sau khi tải xuống hoàn tất, hãy chạy trình cài đặt. Chọn các tùy</span>
-<span id="cb1-471"><a href="#cb1-471" aria-hidden="true" tabindex="-1"></a>chọn mặc định ở mọi nơi.</span>
-<span id="cb1-472"><a href="#cb1-472" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-473"><a href="#cb1-473" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Cài đặt RStudio</span></span>
-<span id="cb1-474"><a href="#cb1-474" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-475"><a href="#cb1-475" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Truy cập https://www.rstudio.com/, chọn "Download RStudio" (hoặc nút</span>
-<span id="cb1-476"><a href="#cb1-476" aria-hidden="true" tabindex="-1"></a>"Download" bên dưới "RStudio"), chọn phiên bản miễn phí và tải xuống</span>
-<span id="cb1-477"><a href="#cb1-477" aria-hidden="true" tabindex="-1"></a>trình cài đặt cho Windows như được hiển thị trong Hình 8.8.</span>
-<span id="cb1-478"><a href="#cb1-478" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-479"><a href="#cb1-479" aria-hidden="true" tabindex="-1"></a><span class="al">![](media/image34.jpeg)</span>{width="5.151666666666666in"</span>
-<span id="cb1-480"><a href="#cb1-480" aria-hidden="true" tabindex="-1"></a>height="1.3433333333333333in"}</span>
-<span id="cb1-481"><a href="#cb1-481" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-482"><a href="#cb1-482" aria-hidden="true" tabindex="-1"></a>Hình 8.8: Tải xuống RStudio.</span>
-<span id="cb1-483"><a href="#cb1-483" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-484"><a href="#cb1-484" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Sau khi tải xuống, hãy khởi động trình cài đặt và sử dụng các tùy</span>
-<span id="cb1-485"><a href="#cb1-485" aria-hidden="true" tabindex="-1"></a>chọn mặc định ở mọi nơi.</span>
-<span id="cb1-486"><a href="#cb1-486" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-487"><a href="#cb1-487" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Cài đặt Java</span></span>
-<span id="cb1-488"><a href="#cb1-488" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-489"><a href="#cb1-489" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Truy cập https://java.com/en/download/manual.jsp và chọn trình cài</span>
-<span id="cb1-490"><a href="#cb1-490" aria-hidden="true" tabindex="-1"></a>đặt Windows 64-bit như được hiển thị trong Hình 8.9. Nếu bạn cũng đã</span>
-<span id="cb1-491"><a href="#cb1-491" aria-hidden="true" tabindex="-1"></a>cài đặt phiên bản R 32-bit, bạn cũng phải cài đặt phiên bản Java</span>
-<span id="cb1-492"><a href="#cb1-492" aria-hidden="true" tabindex="-1"></a>khác (32-bit).</span>
-<span id="cb1-493"><a href="#cb1-493" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-494"><a href="#cb1-494" aria-hidden="true" tabindex="-1"></a><span class="al">![](media/image35.jpeg)</span>{width="4.448332239720035in"</span>
-<span id="cb1-495"><a href="#cb1-495" aria-hidden="true" tabindex="-1"></a>height="1.2683333333333333in"}</span>
-<span id="cb1-496"><a href="#cb1-496" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-497"><a href="#cb1-497" aria-hidden="true" tabindex="-1"></a>Hình 8.9: Tải xuống Java.</span>
-<span id="cb1-498"><a href="#cb1-498" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-499"><a href="#cb1-499" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Sau khi tải xuống, chỉ cần chạy trình cài đặt.</span>
-<span id="cb1-500"><a href="#cb1-500" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-501"><a href="#cb1-501" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Xác minh cài đặt</span></span>
-<span id="cb1-502"><a href="#cb1-502" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-503"><a href="#cb1-503" aria-hidden="true" tabindex="-1"></a>Bây giờ bạn đã sẵn sàng, nhưng chúng ta nên kiểm tra lại. Khởi động</span>
-<span id="cb1-504"><a href="#cb1-504" aria-hidden="true" tabindex="-1"></a>RStudio và gõ</span>
-<span id="cb1-505"><a href="#cb1-505" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-506"><a href="#cb1-506" aria-hidden="true" tabindex="-1"></a>**install.packages**(\"SqlRender\") **library**(SqlRender)</span>
-<span id="cb1-507"><a href="#cb1-507" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-508"><a href="#cb1-508" aria-hidden="true" tabindex="-1"></a>**translate**(\"SELECT TOP 10 <span class="sc">\*</span> FROM person;\", \"postgresql\")</span>
-<span id="cb1-509"><a href="#cb1-509" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-510"><a href="#cb1-510" aria-hidden="true" tabindex="-1"></a><span class="sc">\#</span># <span class="sc">\[</span>1<span class="sc">\]</span> \"CHỌN <span class="sc">\*</span> TỪ GIỚI HẠN người 10;\"</span>
-<span id="cb1-511"><a href="#cb1-511" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-512"><a href="#cb1-512" aria-hidden="true" tabindex="-1"></a>Hàm này sử dụng Java, vì vậy nếu mọi thứ diễn ra tốt đẹp, chúng ta</span>
-<span id="cb1-513"><a href="#cb1-513" aria-hidden="true" tabindex="-1"></a>biết rằng cả R và Java đã được cài đặt chính xác!</span>
-<span id="cb1-514"><a href="#cb1-514" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-515"><a href="#cb1-515" aria-hidden="true" tabindex="-1"></a>Một thử nghiệm khác là xem liệu các gói nguồn có thể được xây dựng hay</span>
-<span id="cb1-516"><a href="#cb1-516" aria-hidden="true" tabindex="-1"></a>không. Chạy mã R sau để cài đặt gói CohortMethod từ kho lưu trữ GitHub</span>
-<span id="cb1-517"><a href="#cb1-517" aria-hidden="true" tabindex="-1"></a>của OHDSI:</span>
-<span id="cb1-518"><a href="#cb1-518" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-519"><a href="#cb1-519" aria-hidden="true" tabindex="-1"></a>**install.packages**(\"drat\") drat**::addRepo**(\"OHDSI\")</span>
-<span id="cb1-520"><a href="#cb1-520" aria-hidden="true" tabindex="-1"></a>**install.packages**(\"CohortMethod\")</span>
-<span id="cb1-521"><a href="#cb1-521" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-522"><a href="#cb1-522" aria-hidden="true" tabindex="-1"></a><span class="fu">## Chiến lược triển khai</span></span>
-<span id="cb1-523"><a href="#cb1-523" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-524"><a href="#cb1-524" aria-hidden="true" tabindex="-1"></a>Việc triển khai toàn bộ ngăn xếp công cụ OHDSI, bao gồm ATLAS và Thư</span>
-<span id="cb1-525"><a href="#cb1-525" aria-hidden="true" tabindex="-1"></a>viện phương pháp, trong một tổ chức là một nhiệm vụ khó khăn. Có nhiều</span>
-<span id="cb1-526"><a href="#cb1-526" aria-hidden="true" tabindex="-1"></a>thành phần với các phụ thuộc cần được xem xét và các cấu hình cần</span>
-<span id="cb1-527"><a href="#cb1-527" aria-hidden="true" tabindex="-1"></a>thiết lập. Vì lý do này, hai sáng kiến đã phát triển các chiến lược</span>
-<span id="cb1-528"><a href="#cb1-528" aria-hidden="true" tabindex="-1"></a>triển khai tích hợp cho phép toàn bộ ngăn xếp được cài đặt như một</span>
-<span id="cb1-529"><a href="#cb1-529" aria-hidden="true" tabindex="-1"></a>gói, sử dụng một số hình thức ảo hóa: Broadsea và Amazon Web Services</span>
-<span id="cb1-530"><a href="#cb1-530" aria-hidden="true" tabindex="-1"></a>(AWS).</span>
-<span id="cb1-531"><a href="#cb1-531" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-532"><a href="#cb1-532" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>*Chiến lược triển khai 119*</span>
-<span id="cb1-533"><a href="#cb1-533" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-534"><a href="#cb1-534" aria-hidden="true" tabindex="-1"></a><span class="fu">### Broadsea</span></span>
-<span id="cb1-535"><a href="#cb1-535" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-536"><a href="#cb1-536" aria-hidden="true" tabindex="-1"></a>Broadsea9 sử dụng công nghệ container Docker.10 Các công cụ OHDSI được</span>
-<span id="cb1-537"><a href="#cb1-537" aria-hidden="true" tabindex="-1"></a>đóng gói cùng với các phụ thuộc thành một tệp nhị phân di động duy</span>
-<span id="cb1-538"><a href="#cb1-538" aria-hidden="true" tabindex="-1"></a>nhất gọi là Docker Image. Hình ảnh này sau đó có thể được chạy trên</span>
-<span id="cb1-539"><a href="#cb1-539" aria-hidden="true" tabindex="-1"></a>một dịch vụ công cụ Docker, tạo ra một máy ảo với tất cả phần mềm đã</span>
-<span id="cb1-540"><a href="#cb1-540" aria-hidden="true" tabindex="-1"></a>được cài đặt và sẵn sàng chạy. Các công cụ Docker có sẵn cho hầu hết</span>
-<span id="cb1-541"><a href="#cb1-541" aria-hidden="true" tabindex="-1"></a>các hệ điều hành, bao gồm Microsoft Windows, MacOS và Linux. Hình ảnh</span>
-<span id="cb1-542"><a href="#cb1-542" aria-hidden="true" tabindex="-1"></a>Docker Broadsea chứa các công cụ OHDSI chính, bao gồm Thư viện phương</span>
-<span id="cb1-543"><a href="#cb1-543" aria-hidden="true" tabindex="-1"></a>pháp và ATLAS.</span>
-<span id="cb1-544"><a href="#cb1-544" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-545"><a href="#cb1-545" aria-hidden="true" tabindex="-1"></a><span class="fu">### Amazon AWS</span></span>
-<span id="cb1-546"><a href="#cb1-546" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-547"><a href="#cb1-547" aria-hidden="true" tabindex="-1"></a>Amazon đã chuẩn bị hai môi trường có thể được khởi tạo trong môi</span>
-<span id="cb1-548"><a href="#cb1-548" aria-hidden="true" tabindex="-1"></a>trường điện toán đám mây AWS chỉ với một cú nhấp chuột:</span>
-<span id="cb1-549"><a href="#cb1-549" aria-hidden="true" tabindex="-1"></a>OHDSI-in-a-Box11 và OHDSIonAWS.12</span>
-<span id="cb1-550"><a href="#cb1-550" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-551"><a href="#cb1-551" aria-hidden="true" tabindex="-1"></a>OHDSI-in-a-Box được tạo riêng làm môi trường học tập và được sử dụng</span>
-<span id="cb1-552"><a href="#cb1-552" aria-hidden="true" tabindex="-1"></a>trong hầu hết các hướng dẫn do cộng đồng OHDSI cung cấp. Nó bao gồm</span>
-<span id="cb1-553"><a href="#cb1-553" aria-hidden="true" tabindex="-1"></a>nhiều công cụ OHDSI, các tập dữ liệu mẫu, RStudio và các phần mềm hỗ</span>
-<span id="cb1-554"><a href="#cb1-554" aria-hidden="true" tabindex="-1"></a>trợ khác trong một máy ảo Windows chi phí thấp duy nhất. Một cơ sở dữ</span>
-<span id="cb1-555"><a href="#cb1-555" aria-hidden="true" tabindex="-1"></a>liệu PostgreSQL được sử dụng để lưu trữ CDM và cũng để lưu trữ các kết</span>
-<span id="cb1-556"><a href="#cb1-556" aria-hidden="true" tabindex="-1"></a>quả trung gian từ ATLAS. Các công cụ ánh xạ dữ liệu OMOP CDM và ETL</span>
-<span id="cb1-557"><a href="#cb1-557" aria-hidden="true" tabindex="-1"></a>cũng được bao gồm trong OHDSI-in-a-Box. Kiến trúc cho OHDSI-in-a-Box</span>
-<span id="cb1-558"><a href="#cb1-558" aria-hidden="true" tabindex="-1"></a>được mô tả trong Hình 8.10.</span>
-<span id="cb1-559"><a href="#cb1-559" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-560"><a href="#cb1-560" aria-hidden="true" tabindex="-1"></a><span class="al">![](media/image36.jpeg)</span>{width="5.325728346456693in"</span>
-<span id="cb1-561"><a href="#cb1-561" aria-hidden="true" tabindex="-1"></a>height="1.379582239720035in"}</span>
-<span id="cb1-562"><a href="#cb1-562" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-563"><a href="#cb1-563" aria-hidden="true" tabindex="-1"></a>Hình 8.10: Kiến trúc Amazon Web Services cho OHDSI-in-a-Box.</span>
-<span id="cb1-564"><a href="#cb1-564" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-565"><a href="#cb1-565" aria-hidden="true" tabindex="-1"></a>OHDSIonAWS là một kiến trúc tham chiếu cho các môi trường OHDSI cấp</span>
-<span id="cb1-566"><a href="#cb1-566" aria-hidden="true" tabindex="-1"></a>doanh nghiệp, đa người dùng, có thể mở rộng và chịu lỗi, có thể được</span>
-<span id="cb1-567"><a href="#cb1-567" aria-hidden="true" tabindex="-1"></a>các tổ chức sử dụng để thực hiện phân tích dữ liệu của họ. Nó bao gồm</span>
-<span id="cb1-568"><a href="#cb1-568" aria-hidden="true" tabindex="-1"></a>một số tập dữ liệu mẫu và cũng có thể tự động tải dữ liệu chăm sóc sức</span>
-<span id="cb1-569"><a href="#cb1-569" aria-hidden="true" tabindex="-1"></a>khỏe thực tế của tổ chức bạn. Dữ liệu được đặt trong nền tảng cơ sở dữ</span>
-<span id="cb1-570"><a href="#cb1-570" aria-hidden="true" tabindex="-1"></a>liệu Amazon Redshift, được các công cụ OHDSI hỗ trợ. Các kết quả trung</span>
-<span id="cb1-571"><a href="#cb1-571" aria-hidden="true" tabindex="-1"></a>gian của ATLAS được lưu trữ trong cơ sở dữ liệu PostgreSQL. Ở giao</span>
-<span id="cb1-572"><a href="#cb1-572" aria-hidden="true" tabindex="-1"></a>diện người dùng, người dùng có quyền truy cập vào ATLAS và RStudio</span>
-<span id="cb1-573"><a href="#cb1-573" aria-hidden="true" tabindex="-1"></a>thông qua giao diện web (tận dụng RStudio Server). Trong RStudio, Thư</span>
-<span id="cb1-574"><a href="#cb1-574" aria-hidden="true" tabindex="-1"></a>viện phương pháp OHDSI đã được cài đặt và có thể được sử dụng để kết</span>
-<span id="cb1-575"><a href="#cb1-575" aria-hidden="true" tabindex="-1"></a>nối với các cơ sở dữ liệu. Tự động hóa để triển khai OHDSIonAWS là mã</span>
-<span id="cb1-576"><a href="#cb1-576" aria-hidden="true" tabindex="-1"></a>nguồn mở và có thể được tùy chỉnh để bao gồm</span>
-<span id="cb1-577"><a href="#cb1-577" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-578"><a href="#cb1-578" aria-hidden="true" tabindex="-1"></a>^9^<span class="ot">&lt;https://github.com/OHDSI/Broadsea&gt;</span> ^10^<span class="ot">&lt;https://www.docker.com/&gt;</span></span>
-<span id="cb1-579"><a href="#cb1-579" aria-hidden="true" tabindex="-1"></a>^11^<span class="ot">&lt;https://github.com/OHDSI/OHDSI-in-a-Box&gt;</span></span>
-<span id="cb1-580"><a href="#cb1-580" aria-hidden="true" tabindex="-1"></a>^12^<span class="ot">&lt;https://github.com/OHDSI/OHDSIonAWS&gt;</span></span>
-<span id="cb1-581"><a href="#cb1-581" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-582"><a href="#cb1-582" aria-hidden="true" tabindex="-1"></a>các công cụ quản lý và các phương pháp thực hành tốt nhất của tổ chức</span>
-<span id="cb1-583"><a href="#cb1-583" aria-hidden="true" tabindex="-1"></a>bạn. Kiến trúc cho OHDSIonAWS được mô tả trong Hình 8.11.</span>
-<span id="cb1-584"><a href="#cb1-584" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-585"><a href="#cb1-585" aria-hidden="true" tabindex="-1"></a><span class="al">![](media/image37.jpeg)</span>{width="5.218748906386701in"</span>
-<span id="cb1-586"><a href="#cb1-586" aria-hidden="true" tabindex="-1"></a>height="2.536457786526684in"}</span>
-<span id="cb1-587"><a href="#cb1-587" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-588"><a href="#cb1-588" aria-hidden="true" tabindex="-1"></a>Hình 8.11: Kiến trúc Amazon Web Services cho OHDSIonAWS.</span>
-<span id="cb1-589"><a href="#cb1-589" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-590"><a href="#cb1-590" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tóm tắt</span></span>
-<span id="cb1-591"><a href="#cb1-591" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-592"><a href="#cb1-592" aria-hidden="true" tabindex="-1"></a><span class="al">![](media/image4.png)</span>{width="0.4455205599300088in"</span>
-<span id="cb1-593"><a href="#cb1-593" aria-hidden="true" tabindex="-1"></a>height="0.4644783464566929in" .book-icon}</span>
-<span id="cb1-594"><a href="#cb1-594" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-595"><a href="#cb1-595" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>We can perform analyses against data in the CDM by</span>
-<span id="cb1-596"><a href="#cb1-596" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-597"><a href="#cb1-597" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>writing custom code</span>
-<span id="cb1-598"><a href="#cb1-598" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-599"><a href="#cb1-599" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>writing code that uses the R packages in the OHDSI Methods Library</span>
-<span id="cb1-600"><a href="#cb1-600" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-601"><a href="#cb1-601" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>using the interactive analysis platform ATLAS</span>
-<span id="cb1-602"><a href="#cb1-602" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-603"><a href="#cb1-603" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>OHDSI tools use different analysis strategies</span>
-<span id="cb1-604"><a href="#cb1-604" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-605"><a href="#cb1-605" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Single studies</span>
-<span id="cb1-606"><a href="#cb1-606" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-607"><a href="#cb1-607" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Real-time queries</span>
-<span id="cb1-608"><a href="#cb1-608" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-609"><a href="#cb1-609" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Large-scale analytics</span>
-<span id="cb1-610"><a href="#cb1-610" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-611"><a href="#cb1-611" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The majority of OHDSI analytics tool are embedded in</span>
-<span id="cb1-612"><a href="#cb1-612" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-613"><a href="#cb1-613" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The interactive analysis platform ATLAS</span>
-<span id="cb1-614"><a href="#cb1-614" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-615"><a href="#cb1-615" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The OHDSI Methods Library R packages</span>
-<span id="cb1-616"><a href="#cb1-616" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-617"><a href="#cb1-617" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Several strategies exist facilitating the deployment of the OHDSI</span>
-<span id="cb1-618"><a href="#cb1-618" aria-hidden="true" tabindex="-1"></a>tools.</span>
-<span id="cb1-619"><a href="#cb1-619" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-620"><a href="#cb1-620" aria-hidden="true" tabindex="-1"></a>[]{#_bookmark224 .anchor}Chương 9</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Sách OHDSI (The Book of OHDSI - Bản tiếng Việt)</p>
+<p>Sách OHDSI — Ấn bản Tiếng Việt (The Book of OHDSI)</p>
 </div>   
     <div class="nav-footer-center">
-<p>🚧 Đang trong quá trình phát triển — OHDSI Vietnam Chapter</p>
-<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi/edit/main/08_tools.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Thanh-Phuc/the-book-of-ohdsi-vi/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<p>Cộng đồng OHDSI Việt Nam (OHDSI Vietnam Chapter) · Giấy phép CC0 1.0</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi/edit/main/08_tools.qmd" class="toc-action"><i class="bi bi-github"></i>Chỉnh sửa trang này</a></li><li><a href="https://github.com/OHDSI-VIETNAM/the-book-of-ohdsi-vi/issues/new" class="toc-action"><i class="bi empty"></i>Báo lỗi nội dung / dịch thuật</a></li></ul></div></div>
     <div class="nav-footer-right">
-<p>Quarto Book</p>
+<p>Xây dựng với Quarto</p>
 </div>
   </div>
 </footer>
